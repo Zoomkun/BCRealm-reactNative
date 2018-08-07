@@ -52,7 +52,7 @@ export default class MinePage extends Component {
         },
         tabBarIcon: ({ tintColor }) => (
             <Image
-                source={require('../../../images/mine.png')}
+                source={require('../../../images/cert0.png')}
                 style={[styles.icon, { tintColor: tintColor }]}// {tintColor: tintColor} 选中的图片和文字颜色
             />
         ),

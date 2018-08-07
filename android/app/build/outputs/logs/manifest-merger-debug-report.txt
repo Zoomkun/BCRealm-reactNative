@@ -2,7 +2,7 @@
 manifest
 ADDED from D:\RN\work\BCRealm-reactNative\android\app\src\main\AndroidManifest.xml:1:1-32:12
 	package
-		ADDED from D:\RN\work\BCRealm-reactNative\android\app\src\main\AndroidManifest.xml:2:5-32
+		ADDED from D:\RN\work\BCRealm-reactNative\android\app\src\main\AndroidManifest.xml:2:5-26
 		INJECTED from D:\RN\work\BCRealm-reactNative\android\app\src\main\AndroidManifest.xml
 		INJECTED from D:\RN\work\BCRealm-reactNative\android\app\src\main\AndroidManifest.xml
 	android:versionName
@@ -62,7 +62,7 @@ MERGED from [org.webkit:android-jsc:r174650] D:\RN\work\BCRealm-reactNative\andr
 		ADDED from D:\RN\work\BCRealm-reactNative\android\app\src\main\AndroidManifest.xml:18:7-38
 	android:name
 		ADDED from D:\RN\work\BCRealm-reactNative\android\app\src\main\AndroidManifest.xml:14:7-38
-activity#com.testnavigator.MainActivity
+activity#com.bcrealm.MainActivity
 ADDED from D:\RN\work\BCRealm-reactNative\android\app\src\main\AndroidManifest.xml:19:7-28:18
 	android:label
 		ADDED from D:\RN\work\BCRealm-reactNative\android\app\src\main\AndroidManifest.xml:21:9-41

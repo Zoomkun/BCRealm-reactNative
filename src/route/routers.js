@@ -1,6 +1,6 @@
 
 import {StackNavigator} from "react-navigation";
-import MainPage from '../page/Mine/MinePage';
+import MainPage from '../page/Mine/mainPage';
 
 
 const routers = StackNavigator({

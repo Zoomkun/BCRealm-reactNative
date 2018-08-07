@@ -2,9 +2,5 @@
     {
         "merged": "D:\\RN\\work\\BCRealm-reactNative\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_launcher.png",
         "source": "D:\\RN\\work\\BCRealm-reactNative\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
-    },
-    {
-        "merged": "F:\\dev\\BCRealmApp\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_launcher.png",
-        "source": "F:\\dev\\BCRealmApp\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     }
 ]
