@@ -14,7 +14,7 @@ export default class CommunityPage extends Component {
         tabBarLabel: '社区',
         tabBarIcon: ({ tintColor }) => (
             <Image
-                source={require('../../images/cert0.png')}
+                source={require('../../images/community.png')}
                 style={[styles.icon,{tintColor: tintColor} ]}
             />
         ),

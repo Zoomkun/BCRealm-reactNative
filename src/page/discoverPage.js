@@ -16,7 +16,7 @@ export default class GamePage extends Component {
         tabBarIcon: ({ tintColor }) => (
             <Image
                 source={
-                    require('../../images/cert0.png')
+                    require('../../images/detection.png')
                 }
                 style={[styles.icon,{tintColor: tintColor}]}// {tintColor: tintColor} 选中的图片和文字颜色
             />
