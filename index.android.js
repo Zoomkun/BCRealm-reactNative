@@ -11,4 +11,4 @@ import {
 } from 'react-native';
 import routers from './src/route/routers';
 
-AppRegistry.registerComponent('testNavigator', () => routers);
+AppRegistry.registerComponent('BCRealm', () => routers);
