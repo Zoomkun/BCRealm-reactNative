@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'C:/Users/pc/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react';
 import {
     AppRegistry,
     StyleSheet,
@@ -7,7 +7,7 @@ import {
     Image,
     Button
 } from 'react-native';
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions } from 'C:/Users/pc/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react-navigation'
 export default class CommunityPage extends Component {
     static navigationOptions = {
         title: '社区',
