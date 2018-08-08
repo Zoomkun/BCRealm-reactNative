@@ -21,7 +21,7 @@ import {
 } from 'native-base';
 
 import { Grid, Row, Col } from "react-native-easy-grid";
-import Styles from '../../css/common'
+import CommonStyles from '../../css/commonStyle'
 import styles from "./styles";
 
 const menus = [
@@ -47,7 +47,9 @@ export default class MinePage extends Component {
 
     //test code
     static navigationOptions = ({ navigation }) => ({
-        headerTitle: (<View start={{ alignItems: 'centet', flex: 1, justifyContent: 'center' }}><Text style={styles.title}>我</Text></View>),
+        headerTitle: (<Text style={CommonStyles.title}>我</Text>),
+        headerRight:(<Text style={styles.headerRight}>右边</Text>),
+        headerLeft:(<Text style={styles.headerLeft}>左边</Text>),
         tabBarLabel: '我',
         headerStyle: {
             "backgroundColor": "#FE6F06",
@@ -55,7 +57,7 @@ export default class MinePage extends Component {
         tabBarIcon: ({ tintColor }) => (
             <Image
                 source={require('../../../images/mine.png')}
-                style={[styles.icon, { tintColor: tintColor }]}// {tintColor: tintColor} 选中的图片和文字颜色
+                style={[CommonStyles.icon, { tintColor: tintColor }]}// {tintColor: tintColor} 选中的图片和文字颜色
             />
         ),
         headerTintColor: '#fff',
@@ -69,7 +71,7 @@ export default class MinePage extends Component {
         var e = me[0];
         const { navigate } = this.props.navigation;
         return (
-            <Container >
+            <Container style={CommonStyles.container}>
                 <Content>
                     <List>
                         <ListItem itemDivider style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} button onPress={() => { navigate(e.uri) }}>
@@ -81,7 +83,7 @@ export default class MinePage extends Component {
                             <Right>
                                 <Image
                                     source={require('../../../images/goIn.png')}
-                                    style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
+                                    style={CommonStyles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
                                 />
                             </Right>
                         </ListItem>
