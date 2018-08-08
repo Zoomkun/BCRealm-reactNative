@@ -1,4 +1,4 @@
-import React, {Component} from 'C:/Users/pc/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react';
+import React, { Component } from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -18,16 +18,16 @@ export default class GamePage extends Component {
                 source={
                     require('../../images/detection.png')
                 }
-                style={[styles.icon,{tintColor: tintColor}]}// {tintColor: tintColor} 选中的图片和文字颜色
+                style={[styles.icon, { tintColor: tintColor }]}// {tintColor: tintColor} 选中的图片和文字颜色
             />
         ),
         headerTitleStyle: {
-            alignSelf:'center'
+            alignSelf: 'center'
         },
     };
 
     render() {
-        return(
+        return (
             <View>
                 <Text>发现</Text>
             </View>
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    icon:{
-        width:20,
-        height:20
+    icon: {
+        width: 20,
+        height: 20
     }
 });

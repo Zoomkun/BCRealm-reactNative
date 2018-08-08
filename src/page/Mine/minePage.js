@@ -44,6 +44,7 @@ var me = [
 ];
 export default class MinePage extends Component {
 
+    //test code
     static navigationOptions = ({ navigation }) => ({
         headerTitle: (<View><Left style={{ backgroundColor: 'pink' }} /><Text style={styles.title}>我</Text><Right /></View>),
         tabBarLabel: '我',

@@ -1,4 +1,4 @@
-import React, {Component} from 'C:/Users/pc/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react';
+import React, { Component } from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -7,7 +7,7 @@ import {
     Image,
     Button
 } from 'react-native';
-import { NavigationActions } from 'C:/Users/pc/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react-navigation'
+import { NavigationActions } from 'react-navigation'
 export default class CommunityPage extends Component {
     static navigationOptions = {
         title: '社区',
@@ -15,16 +15,16 @@ export default class CommunityPage extends Component {
         tabBarIcon: ({ tintColor }) => (
             <Image
                 source={require('../../images/community.png')}
-                style={[styles.icon,{tintColor: tintColor} ]}
+                style={[styles.icon, { tintColor: tintColor }]}
             />
         ),
     };
     goToDetail() {
-        const {dispatch} = this.props.navigation;
+        const { dispatch } = this.props.navigation;
         const resetAction = NavigationActions.reset({
             index: 0,//指定显示数组内的路由
             actions: [
-                NavigationActions.navigate({ routeName: 'Detail',params:{user: 'xiongtm'}}),
+                NavigationActions.navigate({ routeName: 'Detail', params: { user: 'xiongtm' } }),
                 //NavigationActions.navigate({ routeName: 'others',params:{user: 'xiongtm'}}),
             ]
         });
@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    icon:{
-        width:20,
-        height:20
+    icon: {
+        width: 20,
+        height: 20
     }
 });
