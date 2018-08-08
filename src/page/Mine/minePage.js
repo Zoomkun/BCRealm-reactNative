@@ -33,7 +33,6 @@ const menus = [
 const m = [
     { text: "清除缓存", arrows: require('../../../images/goIn.png'), uri: 'Setting', },
     { text: "关于区世界", arrows: require('../../../images/goIn.png'), uri: 'Setting', },
-    
 ];
 var me = [
     {
@@ -45,6 +44,7 @@ var me = [
 ];
 export default class MinePage extends Component {
 
+    //test code
     static navigationOptions = ({ navigation }) => ({
         headerTitle: (<View><Left style={{ backgroundColor: 'pink' }} /><Text style={styles.title}>我</Text><Right /></View>),
         tabBarLabel: '我',
