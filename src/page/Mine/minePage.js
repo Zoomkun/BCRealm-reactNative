@@ -25,28 +25,29 @@ import Styles from '../../css/common'
 import styles from "./styles";
 
 const menus = [
-    { icon: require('../../../images/wallet.png'), text: "钱包", arrows: require('../../../images/goIn.png'), uri: 'Friends', Certification: '', },
-    { icon: require('../../../images/currency.png'), text: "货币", arrows: require('../../../images/goIn.png'), uri: 'Setting', Certification: '', },
-    { icon: require('../../../images/news.png'), text: "私信", arrows: require('../../../images/goIn.png'), uri: 'Setting', Certification: '', },
-    { icon: require('../../../images/authenticate.png'), text: "实名认证", arrows: require('../../../images/goIn.png'), uri: 'AboutUs', Certification: "未认证", },
+    { icon: require('../../../images/wallet.png'), text: "钱包", arrows: require('../../../images/goIn.png'), uri: 'PersonalInfo', line: true },
+    { icon: require('../../../images/currency.png'), text: "货币", arrows: require('../../../images/goIn.png'), uri: 'PersonalInfo', line: true },
+    { icon: require('../../../images/news.png'), text: "私信", arrows: require('../../../images/goIn.png'), uri: 'PersonalInfo', line: true },
+    { icon: require('../../../images/authenticate.png'), text: "实名认证", arrows: require('../../../images/goIn.png'), uri: 'PersonalInfo', Certification: "未认证", },
 ];
 const m = [
-    { text: "清除缓存", arrows: require('../../../images/goIn.png'), uri: 'Setting', },
+    { text: "清除缓存", arrows: require('../../../images/goIn.png'), uri: 'Setting', line: true },
     { text: "关于区世界", arrows: require('../../../images/goIn.png'), uri: 'Setting', },
 ];
-var me = [
+const me = [
     {
         name: "JayChou",
         id: "0118",
         posters: { thumbnail: "http://img5.imgtn.bdimg.com/it/u=2716432665,3069906192&fm=11&gp=0.jpg" },
         icon: '../../../images/goIn.png',
+        uri: 'PersonalInfo',
     }
 ];
 export default class MinePage extends Component {
 
     //test code
     static navigationOptions = ({ navigation }) => ({
-        headerTitle: (<View><Left style={{ backgroundColor: 'pink' }} /><Text style={styles.title}>我</Text><Right /></View>),
+        headerTitle: (<View start={{ alignItems: 'centet', flex: 1, justifyContent: 'center' }}><Text style={styles.title}>我</Text></View>),
         tabBarLabel: '我',
         headerStyle: {
             "backgroundColor": "#FE6F06",
@@ -71,7 +72,7 @@ export default class MinePage extends Component {
             <Container >
                 <Content>
                     <List>
-                        <ListItem itemDivider style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }}>
+                        <ListItem itemDivider style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} button onPress={() => { navigate(e.uri) }}>
                             <Thumbnail source={{ uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }} />
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text>{e.name}</Text>
@@ -88,44 +89,54 @@ export default class MinePage extends Component {
                         {
                             menus.map((item, index) => (
                                 //<ListItem key={index} button onPress={() => { this.props.navigation.navigate(item.uri) }}>
-                                <ListItem key={index} >
-                                    <Image
-                                        source={item.icon}
-                                        style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
-                                    />
-                                    <Body style={{ justifyContent: 'flex-start', }}>
-                                        <Text >{item.text}</Text>
-                                    </Body>
-                                    <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
-                                        {item.Certification != null &&
-                                            <Text style={{ alignItems: 'center', marginRight: 10 }}>{item.Certification}</Text>
-                                        }
-                                        {item.arrows &&
-                                            <Image
-                                                source={item.arrows}
-                                                style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
-                                            />
-                                        }</Right>
-                                </ListItem>
+                                <View key={index}>
+                                    <ListItem itemDivider style={styles.listItemStyle}>
+                                        <Image
+                                            source={item.icon}
+                                            style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
+                                        />
+                                        <Body style={{ justifyContent: 'flex-start', }}>
+                                            <Text >{item.text}</Text>
+                                        </Body>
+                                        <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
+                                            {item.Certification &&
+                                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{item.Certification}</Text>
+                                            }
+                                            {item.arrows &&
+                                                <Image
+                                                    source={item.arrows}
+                                                    style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
+                                                />
+                                            }</Right>
+                                    </ListItem>
+                                    {item.line &&
+                                        <View style={{ backgroundColor: '#F3F3F3', height: 2 }} />
+                                    }
+                                </View>
                             ))
                         }
                         <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
                         {
                             m.map((item, index) => (
                                 //<ListItem key={index} button onPress={() => { this.props.navigation.navigate(item.uri) }}>
-                                <ListItem key={index} >
+                                <View key={index}>
+                                    <ListItem itemDivider style={styles.listItemStyle}>
 
-                                    <Body style={{ justifyContent: 'flex-start', }}>
-                                        <Text >{item.text}</Text>
-                                    </Body>
-                                    <Right>
-                                        {item.arrows != null &&
-                                            <Image
-                                                source={item.arrows}
-                                                style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
-                                            />
-                                        }</Right>
-                                </ListItem>
+                                        <Body style={{ justifyContent: 'flex-start', }}>
+                                            <Text >{item.text}</Text>
+                                        </Body>
+                                        <Right>
+                                            {item.arrows != null &&
+                                                <Image
+                                                    source={item.arrows}
+                                                    style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
+                                                />
+                                            }</Right>
+                                    </ListItem>
+                                    {item.line &&
+                                        <View style={{ backgroundColor: '#F3F3F3', height: 2 }} />
+                                    }
+                                </View>
                             ))
                         }
                     </List>
