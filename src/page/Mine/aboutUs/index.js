@@ -11,6 +11,7 @@ import {
     Header,
     Title,
     Button,
+    ListItem,
 } from 'native-base';
 import {
     Text,
@@ -19,19 +20,18 @@ import {
 } from 'react-native';
 
 import styles from "./styles";
-import CommonStyles from '../../../../css/commonStyle'
+import CommonStyles from '../../../css/commonStyle'
 /**
- * 修改名称
+ * 关于我们
  */
+const about = [{ v: "v1.0" }]
 
-
-class SettingName extends Component {
+class AboutUs extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            title: '',
+
         }
     }
     static navigationOptions = {
@@ -47,25 +47,21 @@ class SettingName extends Component {
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>
                     <Button transparent onPress={() => { this.goBack() }}>
-                        <Image source={require('../../../../../images/goBack.png')} style={CommonStyles.icon} />
+                        <Image source={require('../../../../images/goBack.png')} style={CommonStyles.icon} />
                     </Button>
                     <Body style={CommonStyles.titleBodyStyle}>
-                        <Text style={CommonStyles.headertextStyle}>个人信息</Text>
+                        <Text style={CommonStyles.headertextStyle}>关于区世界</Text>
                     </Body>
-                    <Button transparent onPress={() => { this.goBack() }}>
-                        <Text style={CommonStyles.headertextStyle}>保存</Text>
-                    </Button>
+                    <Button transparent />
                 </Header>
-                <Item multiline style={styles.itemstyle}>
-                    <Input placeholder="请输入名称"
-                        value={this.state.name}
-                        onChangeText={(text) => { this.setState({ name: text }) }} />
-                </Item>
-                <Text>{this.state.name}</Text>
+                <ListItem itemDivider>
+                    <Left><Text style={styles.textStyle}>版本号</Text></Left>
+                    <Right><Text>{about[0].v}</Text></Right>
+                </ListItem>
             </Container>
         );
     }
 }
 
 
-export default SettingName
+export default AboutUs

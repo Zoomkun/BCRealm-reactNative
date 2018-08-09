@@ -12,7 +12,8 @@ import {
     Icon,
     Thumbnail,
     Button,
-    ActionSheet,
+    Header,
+    Toast,
 } from 'native-base';
 import {
     Text,
@@ -21,10 +22,8 @@ import {
 } from 'react-native';
 
 import styles from "./styles";
+import CommonStyles from '../../../css/commonStyle'
 
-/**
- * 个人信息页面
- */
 const me = [
     {
         title: "头像",
@@ -36,40 +35,41 @@ const me = [
     }
 ];
 const m = [
-    { text: "姓名", arrows: require('../../../../images/goIn.png'), uri: 'Setting', Certification: "JayChou", line: true, uri: 'SettingName' },
-    { text: "性别", arrows: require('../../../../images/goIn.png'), uri: 'Setting', Certification: "男", },
+    { text: "姓名", arrows: require('../../../../images/goIn.png'), uri: 'SettingName', Certification: "JayChou", line: true, },
+    { text: "性别", arrows: require('../../../../images/goIn.png'), uri: 'SettingName', Certification: "男", },
 ];
 
-var BUTTONS = [
-    { text: "同意", icon: "american-football", iconColor: "#2c8ef4" },
-    { text: "删除", icon: "trash", iconColor: "#fa213b" },
-    { text: "取消", icon: "close", iconColor: "#25de5b" }
-];
 
-var DESTRUCTIVE_INDEX = 2;
-var CANCEL_INDEX = 2;
+/**
+ * 个人信息页面
+ */
 class PersonalInfo extends Component {
 
     constructor(props) {
         super(props)
     }
     static navigationOptions = {
-        headerTitle: (
-            <View>
-                <Left /><Body style={styles.textBodyStyle}>
-                    <Text style={styles.title}>个人信息</Text>
-                </Body><Right />
-            </View>),
-        headerStyle: {
-            "backgroundColor": "#FE6F06",
-        },
+        header: null
     };
+
+    goBack = () => {
+        this.props.navigation.goBack();
+    }
 
     render() {
         var e = me[0];
         const { navigate } = this.props.navigation;
         return (
             <Container style={styles.container}>
+                <Header style={CommonStyles.headerStyle}>
+                    <Button transparent onPress={() => { this.goBack() }}>
+                        <Image source={require('../../../../images/goBack.png')} style={CommonStyles.icon} />
+                    </Button>
+                    <Body style={CommonStyles.titleBodyStyle}>
+                        <Text style={CommonStyles.headertextStyle}>个人信息</Text>
+                    </Body>
+                    <Button transparent />
+                </Header>
                 <List>
                     <ListItem itemDivider={e.bg} style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} >
                         <Text>{e.title}</Text>

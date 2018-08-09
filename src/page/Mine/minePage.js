@@ -25,14 +25,14 @@ import CommonStyles from '../../css/commonStyle'
 import styles from "./styles";
 
 const menus = [
-    { icon: require('../../../images/wallet.png'), text: "钱包", arrows: require('../../../images/goIn.png'), uri: 'PersonalInfo', line: true },
-    { icon: require('../../../images/currency.png'), text: "货币", arrows: require('../../../images/goIn.png'), uri: 'PersonalInfo', line: true },
-    { icon: require('../../../images/news.png'), text: "私信", arrows: require('../../../images/goIn.png'), uri: 'PersonalInfo', line: true },
-    { icon: require('../../../images/authenticate.png'), text: "实名认证", arrows: require('../../../images/goIn.png'), uri: 'PersonalInfo', Certification: "未认证", },
+    { icon: require('../../../images/wallet.png'), text: "钱包", arrows: require('../../../images/goIn.png'), uri: 'Wallet', line: true },
+    { icon: require('../../../images/currency.png'), text: "货币", arrows: require('../../../images/goIn.png'), uri: 'Currency', line: true },
+    { icon: require('../../../images/news.png'), text: "私信", arrows: require('../../../images/goIn.png'), uri: 'Notice', line: true },
+    { icon: require('../../../images/authenticate.png'), text: "实名认证", arrows: require('../../../images/goIn.png'), uri: 'Authenticate', Certification: "未认证", },
 ];
 const m = [
-    { text: "清除缓存", arrows: require('../../../images/goIn.png'), uri: 'Setting', line: true },
-    { text: "关于区世界", arrows: require('../../../images/goIn.png'), uri: 'Setting', },
+    { text: "清除缓存", arrows: require('../../../images/goIn.png'), uri: "this.clearCache()", line: true },
+    { text: "关于区世界", arrows: require('../../../images/goIn.png'), uri: 'AboutUs', },
 ];
 const me = [
     {
@@ -43,17 +43,20 @@ const me = [
         uri: 'PersonalInfo',
     }
 ];
+/**
+ * 主页四:我
+ */
 export default class MinePage extends Component {
 
     //test code
     static navigationOptions = ({ navigation }) => ({
         headerTitle: (<Text style={CommonStyles.title}>我</Text>),
-        headerRight:(<Text style={styles.headerRight}>右边</Text>),
-        headerLeft:(<Text style={styles.headerLeft}>左边</Text>),
-        tabBarLabel: '我',
+        // headerLeft: (<Image style={styles.headerLeft}>左边</Image>),
+        // headerRight: (<Image style={styles.headerRight}>右边</Image>),
         headerStyle: {
             "backgroundColor": "#FE6F06",
         },
+        tabBarLabel: '我',
         tabBarIcon: ({ tintColor }) => (
             <Image
                 source={require('../../../images/mine.png')}
@@ -61,9 +64,6 @@ export default class MinePage extends Component {
             />
         ),
         headerTintColor: '#fff',
-        headerTitleStyle: {
-            alignSelf: 'center'
-        },
 
     })
 
@@ -92,13 +92,13 @@ export default class MinePage extends Component {
                             menus.map((item, index) => (
                                 //<ListItem key={index} button onPress={() => { this.props.navigation.navigate(item.uri) }}>
                                 <View key={index}>
-                                    <ListItem itemDivider style={styles.listItemStyle}>
+                                    <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate(item.uri) }}>
                                         <Image
                                             source={item.icon}
-                                            style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
+                                            style={CommonStyles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
                                         />
                                         <Body style={{ justifyContent: 'flex-start', }}>
-                                            <Text >{item.text}</Text>
+                                            <Text style={styles.textStyle}>{item.text}</Text>
                                         </Body>
                                         <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
                                             {item.Certification &&
@@ -107,7 +107,7 @@ export default class MinePage extends Component {
                                             {item.arrows &&
                                                 <Image
                                                     source={item.arrows}
-                                                    style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
+                                                    style={CommonStyles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
                                                 />
                                             }</Right>
                                     </ListItem>
@@ -122,7 +122,7 @@ export default class MinePage extends Component {
                             m.map((item, index) => (
                                 //<ListItem key={index} button onPress={() => { this.props.navigation.navigate(item.uri) }}>
                                 <View key={index}>
-                                    <ListItem itemDivider style={styles.listItemStyle}>
+                                    <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate(item.uri) }}>
 
                                         <Body style={{ justifyContent: 'flex-start', }}>
                                             <Text >{item.text}</Text>
@@ -131,7 +131,7 @@ export default class MinePage extends Component {
                                             {item.arrows != null &&
                                                 <Image
                                                     source={item.arrows}
-                                                    style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
+                                                    style={CommonStyles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
                                                 />
                                             }</Right>
                                     </ListItem>
@@ -152,5 +152,10 @@ export default class MinePage extends Component {
                 </Content>
             </Container >
         );
+    }
+
+
+    clearCache = () => {
+        console.log("hello")
     }
 }

@@ -19,19 +19,18 @@ import {
 } from 'react-native';
 
 import styles from "./styles";
-import CommonStyles from '../../../../css/commonStyle'
+import CommonStyles from '../../../css/commonStyle'
 /**
- * 修改名称
+ * 实名认证
  */
 
 
-class SettingName extends Component {
+class Authenticate extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            title: '',
+
         }
     }
     static navigationOptions = {
@@ -47,25 +46,18 @@ class SettingName extends Component {
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>
                     <Button transparent onPress={() => { this.goBack() }}>
-                        <Image source={require('../../../../../images/goBack.png')} style={CommonStyles.icon} />
+                        <Image source={require('../../../../images/goBack.png')} style={CommonStyles.icon} />
                     </Button>
                     <Body style={CommonStyles.titleBodyStyle}>
-                        <Text style={CommonStyles.headertextStyle}>个人信息</Text>
+                        <Text style={CommonStyles.headertextStyle}>实名认证</Text>
                     </Body>
-                    <Button transparent onPress={() => { this.goBack() }}>
-                        <Text style={CommonStyles.headertextStyle}>保存</Text>
-                    </Button>
+                    <Button transparent />
                 </Header>
-                <Item multiline style={styles.itemstyle}>
-                    <Input placeholder="请输入名称"
-                        value={this.state.name}
-                        onChangeText={(text) => { this.setState({ name: text }) }} />
-                </Item>
-                <Text>{this.state.name}</Text>
+
             </Container>
         );
     }
 }
 
 
-export default SettingName
+export default Authenticate
