@@ -23,7 +23,8 @@ import {
 
 import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle'
-
+import ImagePicker from 'react-native-image-picker';
+import constants from '../../constants.js';
 const me = [
     {
         title: "头像",
@@ -34,12 +35,6 @@ const me = [
         bg: true
     }
 ];
-const m = [
-    { text: "姓名", arrows: require('../../../../images/goIn.png'), uri: 'SettingName', Certification: "JayChou", line: true, },
-    { text: "性别", arrows: require('../../../../images/goIn.png'), uri: 'SettingName', Certification: "男", },
-];
-
-
 /**
  * 个人信息页面
  */
@@ -47,6 +42,10 @@ class PersonalInfo extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+           // avatarSource: null,
+            //videoSource: null
+        }
     }
     static navigationOptions = {
         header: null
@@ -70,48 +69,101 @@ class PersonalInfo extends Component {
                     </Body>
                     <Button transparent />
                 </Header>
+
                 <List>
-                    <ListItem itemDivider={e.bg} style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} >
+                    <ListItem itemDivider={e.bg} style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} button onPress={this.selectPhotoTapped.bind(this)}>
+
                         <Text>{e.title}</Text>
                         <Body />
-                        <Right style={styles.rightStyle}>
-                            <Thumbnail source={{ uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }} />
+                        <Right style={styles.rightStyle} >
+                            {/* <Thumbnail source={{ uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }} /> */}
+                            <Thumbnail source={constants.avatar} />
                             <Image
                                 source={require('../../../../images/goIn.png')}
-                                style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
+                                style={styles.icon}
                             />
                         </Right>
                     </ListItem>
-                    <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
-                    {
-                        m.map((item, index) => (
-                            //<ListItem key={index} button onPress={() => { this.props.navigation.navigate(item.uri) }}>
-                            <View key={index}>
-                                <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate(item.uri) }}>
 
-                                    <Body style={{ justifyContent: 'flex-start', }}>
-                                        <Text >{item.text}</Text>
-                                    </Body>
-                                    <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
-                                        {item.Certification != null &&
-                                            <Text style={{ alignItems: 'center', marginRight: 10 }}>{item.Certification}</Text>
-                                        }
-                                        {item.arrows &&
-                                            <Image
-                                                source={item.arrows}
-                                                style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
-                                            />
-                                        }</Right>
-                                </ListItem>
-                                {item.line &&
-                                    <View style={{ backgroundColor: '#F3F3F3', height: 3 }} />
-                                }
-                            </View>
-                        ))
-                    }
+                    <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
+
+                    <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate("SettingName") }}>
+                        <Body style={{ justifyContent: 'flex-start', }}>
+                            <Text >姓名</Text>
+                        </Body>
+                        <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
+                            <Text style={{ alignItems: 'center', marginRight: 10 }}>{constants.name}</Text>
+                            <Image
+                                source={require('../../../../images/goIn.png')}
+                                style={styles.icon}
+                            />
+                        </Right>
+                    </ListItem>
+
+                    <View style={{ backgroundColor: '#F3F3F3', height: 3 }} />
+
+                    <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate("SettingName") }}>
+                        <Body style={{ justifyContent: 'flex-start', }}>
+                            <Text >性别</Text>
+                        </Body>
+                        <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
+                            <Text style={{ alignItems: 'center', marginRight: 10 }}>男</Text>
+                            <Image
+                                source={require('../../../../images/goIn.png')}
+                                style={styles.icon}
+                            />
+                        </Right>
+                    </ListItem>
                 </List>
             </Container>
         );
+    }
+    //选择图片
+    selectPhotoTapped() {
+        const options = {
+            title: '选择',
+            cancelButtonTitle: '取消',
+            takePhotoButtonTitle: '拍照',
+            chooseFromLibraryButtonTitle: '选择照片',
+            cameraType: 'back',
+            mediaType: 'photo',
+            videoQuality: 'high',
+            durationLimit: 10,
+            maxWidth: 300,
+            maxHeight: 300,
+            quality: 0.8,
+            angle: 0,
+            allowsEditing: false,
+            noData: false,
+            storageOptions: {
+                skipBackup: true
+            }
+        };
+
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled photo picker');
+            }
+            else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            }
+            else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            }
+            else {
+                let source = { uri: response.uri };
+
+                // You can also display the image using data:
+                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                this.setState({
+                    //avatarSource: source,
+                    ...constants.avatar = source,
+                });
+            }
+        });
     }
 }
 
