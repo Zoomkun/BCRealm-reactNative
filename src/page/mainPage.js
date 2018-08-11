@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import {TabNavigator} from "react-navigation";
 
-import GamePage from './gamePage';
+import GamePage from './Game/gamePage';
 import CommunityPage from './communityPage';
 import MinePage from './Mine/minePage';
 import DiscoverPage from './discoverPage';
