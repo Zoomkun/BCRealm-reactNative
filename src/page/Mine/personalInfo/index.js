@@ -12,19 +12,20 @@ import {
     Icon,
     Thumbnail,
     Button,
-    ActionSheet,
+    Header,
+    Toast,
 } from 'native-base';
 import {
     Text,
     View,
     Image,
+    Picker,
 } from 'react-native';
 
 import styles from "./styles";
-
-/**
- * 个人信息页面
- */
+import CommonStyles from '../../../css/commonStyle'
+import ImagePicker from 'react-native-image-picker';
+import constants from '../../constants.js';
 const me = [
     {
         title: "头像",
@@ -35,83 +36,144 @@ const me = [
         bg: true
     }
 ];
-const m = [
-    { text: "姓名", arrows: require('../../../../images/goIn.png'), uri: 'Setting', Certification: "JayChou", line: true, uri: 'SettingName' },
-    { text: "性别", arrows: require('../../../../images/goIn.png'), uri: 'Setting', Certification: "男", },
-];
-
-var BUTTONS = [
-    { text: "同意", icon: "american-football", iconColor: "#2c8ef4" },
-    { text: "删除", icon: "trash", iconColor: "#fa213b" },
-    { text: "取消", icon: "close", iconColor: "#25de5b" }
-];
-
-var DESTRUCTIVE_INDEX = 2;
-var CANCEL_INDEX = 2;
+/**
+ * 个人信息页面
+ */
 class PersonalInfo extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            // avatarSource: null,
+            //videoSource: null
+            selected: ' ',
+        }
     }
     static navigationOptions = {
-        headerTitle: (
-            <View>
-                <Left /><Body style={styles.textBodyStyle}>
-                    <Text style={styles.title}>个人信息</Text>
-                </Body><Right />
-            </View>),
-        headerStyle: {
-            "backgroundColor": "#FE6F06",
-        },
+        header: null
     };
+
+    goBack = () => {
+        this.props.navigation.goBack();
+    }
 
     render() {
         var e = me[0];
         const { navigate } = this.props.navigation;
         return (
             <Container style={styles.container}>
+                <Header style={CommonStyles.headerStyle}>
+                    <Button transparent onPress={() => { this.goBack() }}>
+                        <Image source={require('../../../../images/goBack.png')} style={CommonStyles.icon} />
+                    </Button>
+                    <Body style={CommonStyles.titleBodyStyle}>
+                        <Text style={CommonStyles.headertextStyle}>个人信息</Text>
+                    </Body>
+                    <Button transparent />
+                </Header>
+
                 <List>
-                    <ListItem itemDivider={e.bg} style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} >
+                    <ListItem itemDivider={e.bg} style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} button onPress={this.selectPhotoTapped.bind(this)}>
+
                         <Text>{e.title}</Text>
                         <Body />
-                        <Right style={styles.rightStyle}>
-                            <Thumbnail source={{ uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }} />
+                        <Right style={styles.rightStyle} >
+                            {/* <Thumbnail source={{ uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }} /> */}
+                            <Thumbnail source={constants.avatar} />
                             <Image
                                 source={require('../../../../images/goIn.png')}
-                                style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
+                                style={styles.icon}
                             />
                         </Right>
                     </ListItem>
-                    <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
-                    {
-                        m.map((item, index) => (
-                            //<ListItem key={index} button onPress={() => { this.props.navigation.navigate(item.uri) }}>
-                            <View key={index}>
-                                <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate(item.uri) }}>
 
-                                    <Body style={{ justifyContent: 'flex-start', }}>
-                                        <Text >{item.text}</Text>
-                                    </Body>
-                                    <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
-                                        {item.Certification != null &&
-                                            <Text style={{ alignItems: 'center', marginRight: 10 }}>{item.Certification}</Text>
-                                        }
-                                        {item.arrows &&
-                                            <Image
-                                                source={item.arrows}
-                                                style={styles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
-                                            />
-                                        }</Right>
-                                </ListItem>
-                                {item.line &&
-                                    <View style={{ backgroundColor: '#F3F3F3', height: 3 }} />
-                                }
-                            </View>
-                        ))
-                    }
+                    <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
+
+                    <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate("SettingName") }}>
+                        <Body style={{ justifyContent: 'flex-start', }}>
+                            <Text >姓名</Text>
+                        </Body>
+                        <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
+                            <Text style={{ alignItems: 'center', marginRight: 10 }}>{constants.name}</Text>
+                            <Image
+                                source={require('../../../../images/goIn.png')}
+                                style={styles.icon}
+                            />
+                        </Right>
+                    </ListItem>
+
+                    <View style={{ backgroundColor: '#F3F3F3', height: 3 }} />
+
+                    <ListItem itemDivider style={styles.listItemStyle} >
+                        <Body style={{ justifyContent: 'flex-start', }}>
+                            <Text >性别</Text>
+                        </Body>
+                        <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
+                            <Picker
+                                style={styles.picker}
+                                selectedValue={this.state.selected}
+                                onValueChange={(value) => this.onValueChange(1, value)}>
+                                <Picker.Item label="男" value="0" />
+                                <Picker.Item label="女" value="1" />
+                            </Picker>
+                        </Right>
+                    </ListItem>
                 </List>
+                <Text>{this.state.selected}</Text>
             </Container>
         );
+    };
+
+    onValueChange = (flag, value) => {
+        this.setState({ selected: value });
+    };
+    
+    //选择图片
+    selectPhotoTapped() {
+        const options = {
+            title: '选择',
+            cancelButtonTitle: '取消',
+            takePhotoButtonTitle: '拍照',
+            chooseFromLibraryButtonTitle: '选择照片',
+            cameraType: 'back',
+            mediaType: 'photo',
+            videoQuality: 'high',
+            durationLimit: 10,
+            maxWidth: 300,
+            maxHeight: 300,
+            quality: 0.8,
+            angle: 0,
+            allowsEditing: false,
+            noData: false,
+            storageOptions: {
+                skipBackup: true
+            }
+        };
+
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled photo picker');
+            }
+            else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            }
+            else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            }
+            else {
+                let source = { uri: response.uri };
+
+                // You can also display the image using data:
+                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                this.setState({
+                    //avatarSource: source,
+                    ...constants.avatar = source,
+                });
+            }
+        });
     }
 }
 

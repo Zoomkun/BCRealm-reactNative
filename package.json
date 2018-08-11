@@ -12,6 +12,7 @@
     "react-native": "0.44.2",
     "react-native-easy-grid": "^0.2.0",
     "react-native-looped-carousel": "^0.1.13",
+    "react-native-image-picker": "^0.26.10",
     "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {
