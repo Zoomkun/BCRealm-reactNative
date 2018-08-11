@@ -19,6 +19,7 @@ import {
     Text,
     View,
     Image,
+    Picker,
 } from 'react-native';
 
 import styles from "./styles";
@@ -43,8 +44,9 @@ class PersonalInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
-           // avatarSource: null,
+            // avatarSource: null,
             //videoSource: null
+            selected: ' ',
         }
     }
     static navigationOptions = {
@@ -102,22 +104,30 @@ class PersonalInfo extends Component {
 
                     <View style={{ backgroundColor: '#F3F3F3', height: 3 }} />
 
-                    <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate("SettingName") }}>
+                    <ListItem itemDivider style={styles.listItemStyle} >
                         <Body style={{ justifyContent: 'flex-start', }}>
                             <Text >性别</Text>
                         </Body>
                         <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
-                            <Text style={{ alignItems: 'center', marginRight: 10 }}>男</Text>
-                            <Image
-                                source={require('../../../../images/goIn.png')}
-                                style={styles.icon}
-                            />
+                            <Picker
+                                style={styles.picker}
+                                selectedValue={this.state.selected}
+                                onValueChange={(value) => this.onValueChange(1, value)}>
+                                <Picker.Item label="男" value="0" />
+                                <Picker.Item label="女" value="1" />
+                            </Picker>
                         </Right>
                     </ListItem>
                 </List>
+                <Text>{this.state.selected}</Text>
             </Container>
         );
-    }
+    };
+
+    onValueChange = (flag, value) => {
+        this.setState({ selected: value });
+    };
+    
     //选择图片
     selectPhotoTapped() {
         const options = {

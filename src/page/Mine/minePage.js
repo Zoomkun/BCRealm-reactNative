@@ -23,6 +23,7 @@ import {
 import { Grid, Row, Col } from "react-native-easy-grid";
 import CommonStyles from '../../css/commonStyle'
 import styles from "./styles";
+import constants from'../constants.js';
 
 const menus = [
     { icon: require('../../../images/wallet.png'), text: "钱包", arrows: require('../../../images/goIn.png'), uri: 'Wallet', line: true },
@@ -75,7 +76,7 @@ export default class MinePage extends Component {
                 <Content>
                     <List>
                         <ListItem itemDivider style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} button onPress={() => { navigate(e.uri) }}>
-                            <Thumbnail source={{ uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }} />
+                            <Thumbnail source={constants.avatar} />
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text>{e.name}</Text>
                                 <Text note>{e.id}</Text>

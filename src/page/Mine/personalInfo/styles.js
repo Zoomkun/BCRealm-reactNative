@@ -29,4 +29,7 @@ export default {
     width: 80,
     height: 80
   },
+  picker: {
+    width:100,
+  },
 }
