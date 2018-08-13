@@ -3,7 +3,7 @@ import { StackNavigator } from "react-navigation";
 import MainPage from '../page/mainPage';
 import PersonalInfo from '../page/Mine/personalInfo';
 import SettingName from '../page/Mine/personalInfo/settingName';
-import MinePage from '../page/Mine/minePage';
+import MinePage from '../page/Mine';
 import Currency from '../page/Mine/currency';
 import Wallet from '../page/Mine/wallet';
 import Authenticate from '../page/Mine/authenticate';

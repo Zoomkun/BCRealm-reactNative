@@ -17,20 +17,20 @@ export default class GamePage extends Component {
             <Image
                 source={
                     require('../../images/game.png')
-                    }
-                style={[styles.icon,{tintColor: tintColor}]}// {tintColor: tintColor} 选中的图片和文字颜色
+                }
+                style={[styles.icon, { tintColor: tintColor }]}// {tintColor: tintColor} 选中的图片和文字颜色
             />
         ),
         headerTitleStyle: {
-         alignSelf:'center'
+            alignSelf: 'center'
         },
     };
 
     render() {
-        return(
-        <View>
-            <Text>游戏</Text>
-        </View>
+        return (
+            <View>
+                <Text>游戏</Text>
+            </View>
         )
     }
 }
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    icon:{
-        width:30,
-        height:30
+    icon: {
+        width: 30,
+        height: 30
     }
 });

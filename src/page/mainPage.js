@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     StyleSheet,
     Image,
     Style
 } from 'react-native';
-import {TabNavigator} from "react-navigation";
+import { TabNavigator } from "react-navigation";
 
 import GamePage from './gamePage';
 import CommunityPage from './communityPage';
-import MinePage from './Mine/minePage';
-import DiscoverPage from './discoverPage';
+import MinePage from './Mine';
+import DiscoverPage from './Discover';
 
 
 const mainPage = TabNavigator({

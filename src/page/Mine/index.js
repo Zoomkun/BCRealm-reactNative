@@ -18,12 +18,14 @@ import {
     Icon,
     Thumbnail,
     Button,
+    Toast,
 } from 'native-base';
 
 import { Grid, Row, Col } from "react-native-easy-grid";
-import CommonStyles from '../../css/commonStyle'
+import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
-import constants from'../constants.js';
+import constants from '../constants';
+import * as CacheManager from 'react-native-http-cache';
 
 const menus = [
     { icon: require('../../../images/wallet.png'), text: "钱包", arrows: require('../../../images/goIn.png'), uri: 'Wallet', line: true },
@@ -31,10 +33,10 @@ const menus = [
     { icon: require('../../../images/news.png'), text: "私信", arrows: require('../../../images/goIn.png'), uri: 'Notice', line: true },
     { icon: require('../../../images/authenticate.png'), text: "实名认证", arrows: require('../../../images/goIn.png'), uri: 'Authenticate', Certification: "未认证", },
 ];
-const m = [
-    { text: "清除缓存", arrows: require('../../../images/goIn.png'), uri: "this.clearCache()", line: true },
-    { text: "关于区世界", arrows: require('../../../images/goIn.png'), uri: 'AboutUs', },
-];
+// const m = [
+//     { text: "清除缓存", arrows: require('../../../images/goIn.png'), uri: _this.cleanCache(), line: true },
+//     { text: "关于区世界", arrows: require('../../../images/goIn.png'), uri: 'AboutUs', },
+// ];
 const me = [
     {
         name: "JayChou",
@@ -47,7 +49,21 @@ const me = [
 /**
  * 主页四:我
  */
-export default class MinePage extends Component {
+export default class Mine extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            cacheSize: 0,
+            showToast: false
+        };
+    }
+
+    componentDidMount() {
+
+        CacheManager.getCacheSize().then((size) => {
+            this.setState({ cacheSize: size })
+        })
+    }
 
     //test code
     static navigationOptions = ({ navigation }) => ({
@@ -119,29 +135,34 @@ export default class MinePage extends Component {
                             ))
                         }
                         <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
-                        {
-                            m.map((item, index) => (
-                                //<ListItem key={index} button onPress={() => { this.props.navigation.navigate(item.uri) }}>
-                                <View key={index}>
-                                    <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate(item.uri) }}>
 
-                                        <Body style={{ justifyContent: 'flex-start', }}>
-                                            <Text >{item.text}</Text>
-                                        </Body>
-                                        <Right>
-                                            {item.arrows != null &&
-                                                <Image
-                                                    source={item.arrows}
-                                                    style={CommonStyles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
-                                                />
-                                            }</Right>
-                                    </ListItem>
-                                    {item.line &&
-                                        <View style={{ backgroundColor: '#F3F3F3', height: 2 }} />
-                                    }
-                                </View>
-                            ))
-                        }
+
+                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { this._cleanCache() }}>
+                            <Body style={{ justifyContent: 'flex-start', }}>
+                                <Text >清除缓存</Text>
+                            </Body>
+                            <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
+                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100}M</Text>
+                                <Image
+                                    source={require('../../../images/goIn.png')}
+                                    style={CommonStyles.icon}
+                                />
+                            </Right>
+                        </ListItem>
+
+                        <View style={{ backgroundColor: '#F3F3F3', height: 2 }} />
+
+                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('AboutUs') }}>
+                            <Body style={{ justifyContent: 'flex-start', }}>
+                                <Text >关于区世界</Text>
+                            </Body>
+                            <Right>
+                                <Image
+                                    source={require('../../../images/goIn.png')}
+                                    style={CommonStyles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
+                                />
+                            </Right>
+                        </ListItem>
                     </List>
                     <Row size={20} style={styles.row}>
                         <View>
@@ -156,7 +177,33 @@ export default class MinePage extends Component {
     }
 
 
-    clearCache = () => {
-        console.log("hello")
+    _toast() {
+        Toast.show({
+            text: '恭喜您，成功清除缓存',
+            position: 'center',
+            type: 'success',
+            duration: 2000,
+            style: CommonStyles.toast,
+            textStyle: {
+                textAlign: 'center'
+            }
+        })
+    }
+    _cleanCache() {
+
+        CacheManager.clearCache()
+        CacheManager.getCacheSize().then((size) => {
+            this.setState({ cacheSize: size })
+
+            // Toast.show({
+            //     text: '恭喜您，成功清除缓存',
+            //     position: 'bottom',
+            //     duration: 2000,
+            //     style: CommonStyles.toast,
+            //     textStyle: {
+            //         textAlign: 'center'
+            //     }
+            // })
+        })
     }
 }

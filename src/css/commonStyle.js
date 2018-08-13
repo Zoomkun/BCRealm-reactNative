@@ -1,6 +1,6 @@
 export default {
     container: {
-        backgroundColor: '#fff',
+        backgroundColor: '#fff'
     },
     icon: {
         width: 20,
@@ -14,17 +14,32 @@ export default {
     },
     headerBodyStyle: {
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     headertextStyle: {
         color: '#fff',
-        fontSize: 20,
+        fontSize: 20
     },
     headerStyle: {
-        backgroundColor: "#FE6F06",
+        backgroundColor: "#FE6F06"
     },
     titleBodyStyle: {
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
+    },
+    tabsStyle: {
+        backgroundColor: '#FE6F06'
+    },
+    tabStyle: {
+        backgroundColor: '#ffffff'
+    },
+    tabActiveTabStyle: {
+        backgroundColor: '#ffffff'
+    },
+    tabActiveTextStyle: {
+        color: '#FE6F06'
+    },
+    tabtextStyle: {
+        color: '#808080'
     },
 }

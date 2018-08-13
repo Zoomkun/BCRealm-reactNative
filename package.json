@@ -7,10 +7,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "install": "^0.12.1",
     "native-base": "^2.2.0",
+    "npm": "^6.3.0",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.2",
     "react-native-easy-grid": "^0.2.0",
+    "react-native-http-cache": "git+https://github.com/ujff888/react-native-http-cache.git",
     "react-native-image-picker": "^0.26.10",
     "react-navigation": "^1.0.0-beta.11"
   },

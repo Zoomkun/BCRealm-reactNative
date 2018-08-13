@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -8,7 +8,7 @@ import {
     Button,
     ScrollView
 } from 'react-native';
-import {DrawerNavigator, DrawerItems} from 'react-navigation';
+import { DrawerNavigator, DrawerItems } from 'react-navigation';
 class MyHomeScreen extends Component {
     // static navigationOptions = {
     //     drawerLabel: 'Home',
@@ -75,13 +75,13 @@ const CustomDrawerContentComponent = (props) => (
     </ScrollView>
 );
 const MyDraw = DrawerNavigator({
-        Home: {
-            screen: MyHomeScreen,
-        },
-        Notifications: {
-            screen: MyNotificationsScreen,
-        },
+    Home: {
+        screen: MyHomeScreen,
     },
+    Notifications: {
+        screen: MyNotificationsScreen,
+    },
+},
     {
         //drawerWidth: 200, // 抽屉宽
         drawerPosition: 'left', // 抽屉在左边还是右边
@@ -104,5 +104,5 @@ const styles = StyleSheet.create({
         width: 24,
         height: 24,
     },
-    container:{justifyContent: 'center', alignItems: 'center', flex: 1}
+    container: { justifyContent: 'center', alignItems: 'center', flex: 1 }
 });
