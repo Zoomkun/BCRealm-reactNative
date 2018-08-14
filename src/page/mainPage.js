@@ -7,7 +7,7 @@ import {
 import { TabNavigator } from "react-navigation";
 
 import GamePage from './Game/gamePage';
-import CommunityPage from './communityPage';
+import CommunityPage from './Community';
 import MinePage from './Mine';
 import DiscoverPage from './Discover';
 

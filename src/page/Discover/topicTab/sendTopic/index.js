@@ -10,29 +10,31 @@ import {
     Input,
     Header,
     Title,
+    ListItem,
+    Content,
+    Card,
+    CardItem,
+    Icon,
     Button,
-    Icon
 } from 'native-base';
 import {
     Text,
     View,
     Image,
 } from 'react-native';
-
-import styles from "./styles";
-import CommonStyles from '../../../../css/commonStyle'
+import styles from '../styles';
+import CommonStyles from '../../../../css/commonStyle';
 /**
- * 修改名称
+ * 发送话题
  */
 
-
-class SettingName extends Component {
+class SendTopic extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
             title: '',
+            content: ''
         }
     }
     static navigationOptions = {
@@ -45,28 +47,31 @@ class SettingName extends Component {
     render() {
         const { navigate } = this.props.navigation;
         return (
-            <Container style={styles.container}>
+            <Container style={CommonStyles.container}>
                 <Header style={CommonStyles.headerStyle}>
                     <Button transparent onPress={() => { this.goBack() }}>
                         <Image source={require('../../../../../images/goBack.png')} style={CommonStyles.icon} />
                     </Button>
                     <Body style={CommonStyles.titleBodyStyle}>
-                        <Text style={CommonStyles.headertextStyle}>个人信息</Text>
+                        <Text style={CommonStyles.headertextStyle}>发送话题</Text>
                     </Body>
                     <Button transparent onPress={() => { this.goBack() }}>
-                        <Text style={CommonStyles.headertextStyle}>保存</Text>
+                        <Text style={styles.text}>保存</Text>
                     </Button>
                 </Header>
-                <Item multiline style={styles.itemstyle}>
-                    <Input placeholder="请输入名称"
-                        value={this.state.name}
-                        onChangeText={(text) => { this.setState({ name: text }) }} />
-                </Item>
-                <Text>{this.state.name}</Text>
+                <Content>
+                    <Item style={styles.itemstyle}>
+                        <Input placeholder="标题"
+                            value={this.state.title} onChangeText={(text) => { this.setState({ title: text }) }} />
+                    </Item>
+                    <Card style={styles.carditem}>
+                        <Input multiline style={{ textAlignVertical: 'top' }} placeholder="正文"
+                            value={this.state.content}
+                            onChangeText={(text) => { this.setState({ content: text }) }} />
+                    </Card >
+                </Content>
             </Container>
         );
     }
 }
-
-
-export default SettingName
+export default SendTopic

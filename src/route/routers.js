@@ -9,6 +9,7 @@ import Wallet from '../page/Mine/wallet';
 import Authenticate from '../page/Mine/authenticate';
 import AboutUs from '../page/Mine/aboutUs';
 import Notice from "../page/Mine/notice";
+import SendTopic from '../page/Discover/topicTab/sendTopic';
 const routers = StackNavigator({
     Main: { screen: MainPage },
     PersonalInfo: { screen: PersonalInfo },
@@ -19,6 +20,7 @@ const routers = StackNavigator({
     Authenticate: { screen: Authenticate },
     AboutUs: { screen: AboutUs },
     Notice: { screen: Notice },
+    SendTopic: { screen: SendTopic },
 });
 
 

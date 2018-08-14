@@ -25,7 +25,7 @@ import {
 import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle'
 import ImagePicker from 'react-native-image-picker';
-import constants from '../../constants.js';
+import constants from '../../constants';
 const me = [
     {
         title: "头像",
@@ -127,7 +127,7 @@ class PersonalInfo extends Component {
     onValueChange = (flag, value) => {
         this.setState({ selected: value });
     };
-    
+
     //选择图片
     selectPhotoTapped() {
         const options = {
