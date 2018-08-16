@@ -10,6 +10,8 @@ import Authenticate from '../page/Mine/authenticate';
 import AboutUs from '../page/Mine/aboutUs';
 import Notice from "../page/Mine/notice";
 import SendTopic from '../page/Discover/topicTab/sendTopic';
+import News from '../page/Discover/newsTab/news';
+import Content from '../page/Discover/topicTab/content';
 const routers = StackNavigator({
     Main: { screen: MainPage },
     PersonalInfo: { screen: PersonalInfo },
@@ -21,6 +23,8 @@ const routers = StackNavigator({
     AboutUs: { screen: AboutUs },
     Notice: { screen: Notice },
     SendTopic: { screen: SendTopic },
+    News: { screen: News },
+    Content: { screen: Content },
 });
 
 

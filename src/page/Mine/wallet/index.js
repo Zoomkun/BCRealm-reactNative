@@ -57,13 +57,13 @@ class Wallet extends Component {
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>
                     <Button transparent onPress={() => { this.goBack() }}>
-                        <Image source={require('../../../../images/goBack.png')} style={CommonStyles.icon} />
+                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
                     </Button>
                     <Body style={CommonStyles.titleBodyStyle}>
                         <Text style={CommonStyles.headertextStyle}>钱包</Text>
                     </Body>
                     <Button transparent onPress={() => { this.goBack() }}>
-                        <Image source={require('../../../../images/find.png')} style={CommonStyles.icon} />
+                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
                     </Button>
                 </Header>
                 <Content>

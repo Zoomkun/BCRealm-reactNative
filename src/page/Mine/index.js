@@ -5,6 +5,7 @@ import {
     Text,
     View,
     Image,
+    Linking
 } from 'react-native';
 
 import {
@@ -18,7 +19,6 @@ import {
     Icon,
     Thumbnail,
     Button,
-    Toast,
 } from 'native-base';
 
 import { Grid, Row, Col } from "react-native-easy-grid";
@@ -26,6 +26,7 @@ import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
 import constants from '../constants';
 import * as CacheManager from 'react-native-http-cache';
+import Toast, { DURATION } from 'react-native-easy-toast'
 
 const menus = [
     { icon: require('../../../images/wallet.png'), text: "钱包", arrows: require('../../../images/goIn.png'), uri: 'Wallet', line: true },
@@ -166,44 +167,31 @@ export default class Mine extends Component {
                     </List>
                     <Row size={20} style={styles.row}>
                         <View>
-                            <Button style={styles.button}>
+                            <Button style={styles.button} >
                                 <Text style={styles.buttonTextStyle}>退出登录</Text>
                             </Button>
                         </View>
                     </Row>
                 </Content>
+                <Toast
+                    ref="toast"
+                    style={{ backgroundColor: '#434343' }}
+                    position='center'
+                    positionValue={200}
+                    fadeInDuration={750}
+                    fadeOutDuration={1000}
+                    opacity={0.8}
+                    textStyle={{ color: '#ffffff' }}
+                />
             </Container >
         );
     }
 
-
-    _toast() {
-        Toast.show({
-            text: '恭喜您，成功清除缓存',
-            position: 'center',
-            type: 'success',
-            duration: 2000,
-            style: CommonStyles.toast,
-            textStyle: {
-                textAlign: 'center'
-            }
-        })
-    }
     _cleanCache() {
-
-        CacheManager.clearCache()
+        CacheManager.clearCache();
         CacheManager.getCacheSize().then((size) => {
             this.setState({ cacheSize: size })
-
-            // Toast.show({
-            //     text: '恭喜您，成功清除缓存',
-            //     position: 'bottom',
-            //     duration: 2000,
-            //     style: CommonStyles.toast,
-            //     textStyle: {
-            //         textAlign: 'center'
-            //     }
-            // })
+            this.refs.toast.show('恭喜您，成功清除缓存', DURATION.LENGTH_LONG);
         })
     }
 }

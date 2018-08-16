@@ -42,4 +42,8 @@ export default {
     tabtextStyle: {
         color: '#808080'
     },
+    backIconStyle: {
+        color: '#ffffff',
+        fontSize: 36
+    },
 }

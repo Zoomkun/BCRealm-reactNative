@@ -48,7 +48,7 @@ class Authenticate extends Component {
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>
                     <Button transparent onPress={() => { this.goBack() }}>
-                        <Image source={require('../../../../images/goBack.png')} style={CommonStyles.icon} />
+                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
                     </Button>
                     <Body style={CommonStyles.titleBodyStyle}>
                         <Text style={CommonStyles.headertextStyle}>实名认证</Text>

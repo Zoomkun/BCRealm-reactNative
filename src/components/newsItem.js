@@ -16,6 +16,7 @@ import {
  */
 export default class NewsItem extends Component {
     render() {
+
         let { avatar, onPress, title, time, like, read } = this.props;
         return (
             <ListItem style={styles.listItemStyle} button onPress={onPress} >
