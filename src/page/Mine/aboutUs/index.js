@@ -1,4 +1,3 @@
-import { FlatList } from 'react-native'
 import React, { Component } from "react";
 
 import {
@@ -6,17 +5,14 @@ import {
     Body,
     Left,
     Right,
-    Item,
-    Input,
     Header,
-    Title,
     Button,
     ListItem,
+    Icon
 } from 'native-base';
 import {
     Text,
-    View,
-    Image,
+    //FlatList
 } from 'react-native';
 
 import styles from "./styles";

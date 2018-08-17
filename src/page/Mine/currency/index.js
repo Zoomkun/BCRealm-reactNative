@@ -1,20 +1,16 @@
-import { FlatList } from 'react-native'
 import React, { Component } from "react";
-
 import {
     Container,
     Body,
-    Left,
-    Right,
     Header,
     Button,
     Content,
-    ListItem,
+    Icon
 } from 'native-base';
 import {
     Text,
-    View,
     Image,
+    //FlatList
 } from 'react-native';
 
 import CommonStyles from '../../../css/commonStyle'

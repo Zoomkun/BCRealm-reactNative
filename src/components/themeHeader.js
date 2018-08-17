@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import {
     Header,
-    Left,
     Button,
     Body,
-    Right,
     Icon,
     Image,
     Text,
-    View,
 } from "native-base";
 
 import CommonStyles from '../css/commonStyle'

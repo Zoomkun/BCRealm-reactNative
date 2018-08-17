@@ -3,29 +3,19 @@ import React, { Component } from "react";
 import {
     Container,
     Body,
-    Left,
-    Right,
-    Item,
-    Input,
     Header,
-    Title,
     Button,
     Content,
     Icon,
 } from 'native-base';
 import {
     Text,
-    View,
-    Image,
     FlatList,
 } from 'react-native';
 
 import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle'
 import { MsgItem } from '../../../components';
-/**
- * 私信页面
- */
 
 const notices = [
     { notices: "宁夏红游戏", timestamp: 1533802501000 },
@@ -33,6 +23,10 @@ const notices = [
     { notices: "太空城市", timestamp: 1533802501000 },
     { notices: "区世界APP区世界APP区世界APP区世界APP区世界APP区世界APP区世界APP区世界APP", timestamp: 1533802501000 }
 ]
+
+/**
+ * 私信页面
+ */
 class Notice extends Component {
 
     constructor(props) {

@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import {
-    View,
     Container,
     Header,
     Button,
-    Image,
     Text,
     Body,
     Icon,
 } from 'native-base';
 import {
-    FlatList,
     WebView,
 } from 'react-native';
 import styles from "./styles";

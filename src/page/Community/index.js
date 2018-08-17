@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import {
-    AppRegistry,
-    StyleSheet,
     Text,
-    View,
     Image,
-    Button
 } from 'react-native';
 import {
     Tab,
@@ -13,7 +9,7 @@ import {
     Container,
 } from 'native-base';
 
-import { NavigationActions } from 'react-navigation';
+//import { NavigationActions } from 'react-navigation';
 import styles from "./styles";
 import CommonStyles from '../../css/commonStyle';
 import InformationTab from './informationTab';

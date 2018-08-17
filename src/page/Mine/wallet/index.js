@@ -1,29 +1,22 @@
-import { FlatList } from 'react-native'
 import React, { Component } from "react";
 
 import {
     Container,
     Body,
-    Left,
-    Right,
     Header,
     Button,
     Content,
-    ListItem,
+    Icon
 } from 'native-base';
 import {
     Text,
-    View,
     Image,
+    //FlatList
 } from 'react-native';
 
 import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle';
 import { Grid, Row, Col } from "react-native-easy-grid";
-/**
- * 钱包页面
- */
-
 
 const m1 = [
     { all: "总资产", totalAssets: 10086, quantity: "数量", value: "价值" },
@@ -35,6 +28,10 @@ const menus = [
     { icon: require('../../../../images/find.png'), totalAssets: 1000000, quantity: 12345, value: 2545 },
     { icon: require('../../../../images/find.png'), totalAssets: 1000000, quantity: 12345, value: 2545 },
 ];
+
+/**
+ * 钱包页面
+ */
 class Wallet extends Component {
 
     constructor(props) {

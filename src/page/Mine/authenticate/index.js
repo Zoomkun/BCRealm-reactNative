@@ -3,19 +3,17 @@ import React, { Component } from "react";
 import {
     Container,
     Body,
-    Left,
     Right,
     List,
     ListItem,
     Button,
     Header,
-    Item,
-    Input
+    Input,
+    Icon
 } from 'native-base';
 import {
     Text,
     View,
-    Image,
     Picker,
 } from 'react-native';
 import CommonStyles from '../../../css/commonStyle'

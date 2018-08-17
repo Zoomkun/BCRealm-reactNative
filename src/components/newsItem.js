@@ -2,10 +2,6 @@ import React, { Component } from "react";
 import { Dimensions, View, } from "react-native";
 import moment from 'moment'
 import {
-    Button,
-    Left,
-    Body,
-    Right,
     ListItem,
     Text,
     Thumbnail

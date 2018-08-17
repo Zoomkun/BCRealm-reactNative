@@ -1,31 +1,25 @@
-import { FlatList } from 'react-native'
 import React, { Component } from "react";
 
 import {
     Container,
     Body,
-    Left,
-    Right,
     Item,
     Input,
     Header,
-    Title,
     Button,
     Icon
 } from 'native-base';
 import {
     Text,
-    View,
-    Image,
+    //FlatList
 } from 'react-native';
 
 import styles from "./styles";
-import CommonStyles from '../../../../css/commonStyle'
+import CommonStyles from '../../../../css/commonStyle';
+
 /**
  * 修改名称
  */
-
-
 class SettingName extends Component {
 
     constructor(props) {

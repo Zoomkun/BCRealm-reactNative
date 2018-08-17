@@ -1,9 +1,14 @@
 
 import { StackNavigator } from "react-navigation";
 import MainPage from '../page/mainPage';
+import Login from '../page/Login';
+import Registration from '../page/Login/registration';
+import ServiceAgreement from '../page/Login/serviceAgreement';
+import ForgetPassword from '../page/Login/forgetPassword';
+import GameWeb from '../page/Game/gameWeb';
 import PersonalInfo from '../page/Mine/personalInfo';
-import SettingName from '../page/Mine/personalInfo/settingName';
 import MinePage from '../page/Mine';
+import SettingName from '../page/Mine/personalInfo/settingName';
 import Currency from '../page/Mine/currency';
 import Wallet from '../page/Mine/wallet';
 import Authenticate from '../page/Mine/authenticate';
@@ -14,9 +19,14 @@ import News from '../page/Discover/newsTab/news';
 import Content from '../page/Discover/topicTab/content';
 const routers = StackNavigator({
     Main: { screen: MainPage },
+    Login: { screen: Login },
+    Registration: { screen: Registration },
+    ServiceAgreement: { screen: ServiceAgreement },
+    ForgetPassword: { screen: ForgetPassword },
+    GameWeb: { screen: GameWeb },
     PersonalInfo: { screen: PersonalInfo },
-    SettingName: { screen: SettingName },
     MinePage: { screen: MinePage },
+    SettingName: { screen: SettingName },
     Currency: { screen: Currency },
     Wallet: { screen: Wallet },
     Authenticate: { screen: Authenticate },

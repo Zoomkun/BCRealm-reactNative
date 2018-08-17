@@ -4,22 +4,19 @@ import {
     Container,
     Header,
     Button,
-    Image,
     Text,
     Body,
     Icon,
     Footer,
-    Left,
     Item,
     Input
 } from 'native-base';
 import {
-    FlatList,
     WebView,
 } from 'react-native';
 import styles from "./styles";
 import CommonStyles from '../../../../css/commonStyle';
-import { Grid, Col, Row } from "react-native-easy-grid";
+import { Col, Row } from "react-native-easy-grid";
 export default class News extends Component {
     constructor(props) {
         super(props)

@@ -4,16 +4,11 @@ import React, { Component } from "react";
 import {
     Container,
     Body,
-    Left,
-    Right,
     Item,
     Input,
     Header,
-    Title,
-    ListItem,
     Content,
     Card,
-    CardItem,
     Icon,
     Button,
 } from 'native-base';
@@ -50,7 +45,7 @@ class SendTopic extends Component {
             <Container style={CommonStyles.container}>
                 <Header style={CommonStyles.headerStyle}>
                     <Button transparent onPress={() => { this.goBack() }}>
-                    <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle}/>
+                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
                     </Button>
                     <Body style={CommonStyles.titleBodyStyle}>
                         <Text style={CommonStyles.headertextStyle}>发送话题</Text>

@@ -1,27 +1,22 @@
 import React, { Component } from 'react';
 import {
-    AppRegistry,
-    StyleSheet,
     Text,
     View,
     Image,
-    Linking
 } from 'react-native';
 
 import {
     Container,
     Content,
     Body,
-    Left,
     Right,
     List,
     ListItem,
-    Icon,
     Thumbnail,
     Button,
 } from 'native-base';
 
-import { Grid, Row, Col } from "react-native-easy-grid";
+import { Row, } from "react-native-easy-grid";
 import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
 import constants from '../constants';
@@ -47,6 +42,7 @@ const me = [
         uri: 'PersonalInfo',
     }
 ];
+
 /**
  * 主页四:我
  */
@@ -153,7 +149,8 @@ export default class Mine extends Component {
 
                         <View style={{ backgroundColor: '#F3F3F3', height: 2 }} />
 
-                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('AboutUs') }}>
+                        {/* <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('AboutUs') }}> */}
+                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('Login') }}>
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text >关于区世界</Text>
                             </Body>
@@ -188,10 +185,15 @@ export default class Mine extends Component {
     }
 
     _cleanCache() {
-        CacheManager.clearCache();
-        CacheManager.getCacheSize().then((size) => {
-            this.setState({ cacheSize: size })
-            this.refs.toast.show('恭喜您，成功清除缓存', DURATION.LENGTH_LONG);
-        })
+        if (this.state.cacheSize > 0) {
+            CacheManager.clearCache();
+            CacheManager.getCacheSize().then((size) => {
+                this.setState({ cacheSize: size })
+                this.refs.toast.show('恭喜您，成功清除缓存!', DURATION.LENGTH_LONG);
+            })
+        } else {
+            this.refs.toast.show('您的缓存已经清理!', DURATION.LENGTH_LONG);
+        }
+
     }
 }

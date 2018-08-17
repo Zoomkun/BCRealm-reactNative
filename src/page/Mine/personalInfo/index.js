@@ -1,11 +1,8 @@
-import { FlatList } from 'react-native'
 import React, { Component } from "react";
 
 import {
     Container,
-    Content,
     Body,
-    Left,
     Right,
     List,
     ListItem,
@@ -13,13 +10,13 @@ import {
     Thumbnail,
     Button,
     Header,
-    Toast,
 } from 'native-base';
 import {
     Text,
     View,
     Image,
     Picker,
+    //FlatList
 } from 'react-native';
 
 import styles from "./styles";
@@ -36,6 +33,7 @@ const me = [
         bg: true
     }
 ];
+
 /**
  * 个人信息页面
  */

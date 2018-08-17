@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import {
-    AppRegistry,
-    StyleSheet,
     Text,
-    View,
     Image,
-    Button,
-    TouchableOpacity
 } from 'react-native';
 import {
     Tab,
@@ -17,7 +12,7 @@ import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
 import NewsTab from './newsTab';
 import TopicTab from './topicTab';
-import FlatListExample from './FlatListExample';
+//import FlatListExample from './FlatListExample';
 export default class Discover extends Component {
 
     static navigationOptions = ({ navigation }) => ({
