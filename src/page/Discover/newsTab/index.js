@@ -1,16 +1,12 @@
 import React, { Component } from "react";
 import {
-    View,
+    View
 } from 'native-base';
 import {
     FlatList
 } from 'react-native';
 import { NewsItem } from '../../../components';
-import styles from "./styles";
-
-/**
- * 新闻
- */
+//import styles from "./styles";
 
 const m = [
     { avatar: { uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }, title: "紫光阁-中央和国家机关工作委员会", time: 1533802501000, like: 10086, read: 9999, s: "http://www.zgg.org.cn" },
@@ -22,6 +18,10 @@ const m = [
     { avatar: { uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }, title: "环球新闻", time: 1533802501000, like: 10086, read: 9999, s: "http://www.huanqiu.com/" },
     { avatar: { uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }, title: "新华社", time: 1533802501000, like: 10086, read: 9999, s: "http://www.xinhuanet.com/" },
 ]
+
+/**
+ * 新闻
+ */
 export default class NewsTab extends Component {
 
     constructor(props) {
@@ -29,8 +29,8 @@ export default class NewsTab extends Component {
         this.state = {
         }
     }
-    static navigationOptions = {
 
+    static navigationOptions = {
         header: null
     };
 

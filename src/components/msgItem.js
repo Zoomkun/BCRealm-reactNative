@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Dimensions, View, } from "react-native";
-import moment from 'moment'
+import moment from 'moment';
 import {
     Body,
     ListItem,

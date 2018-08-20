@@ -13,13 +13,9 @@ import {
     //FlatList
 } from 'react-native';
 
-import CommonStyles from '../../../css/commonStyle'
-import { Grid, Row, Col } from "react-native-easy-grid";
-import { ThemeHeader } from "../../../components";
+import CommonStyles from '../../../css/commonStyle';
+import { Grid, Col } from "react-native-easy-grid";
 import styles from "./styles";
-/**
- * 货币页面
- */
 
 const m1 = [
     { all: '', totalAssets: '', quantity: "最新", value: "涨幅" },
@@ -31,6 +27,10 @@ const menus = [
     { icon: require('../../../../images/find.png'), totalAssets: 1000000, quantity: 12345, value: 2545 },
     { icon: require('../../../../images/find.png'), totalAssets: 1000000, quantity: 12345, value: 2545 },
 ];
+
+/**
+ * 货币页面
+ */
 class Currency extends Component {
 
     constructor(props) {
@@ -39,13 +39,15 @@ class Currency extends Component {
 
         }
     }
-    static navigationOptions = {
 
+    static navigationOptions = {
         header: null
     };
+
     goBack = () => {
         this.props.navigation.goBack();
     }
+
     render() {
         const { navigate } = this.props.navigation;
         var m = m1[0];

@@ -8,7 +8,7 @@ import {
     Text,
 } from "native-base";
 
-import CommonStyles from '../css/commonStyle'
+import CommonStyles from '../css/commonStyle';
 
 /**
  * Header控件

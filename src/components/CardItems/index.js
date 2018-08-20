@@ -14,6 +14,9 @@ import {
 } from "native-base";
 import styles from "./styles";
 
+/**
+ * 游戏Card组件
+ */
 export default class CardItems extends Component {
     render() {
         let { title, url, currency, quantity, onPress, } = this.props;

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import {
     Container,
     Body,
@@ -29,15 +28,17 @@ class SettingName extends Component {
             title: '',
         }
     }
-    static navigationOptions = {
 
+    static navigationOptions = {
         header: null
     };
+
     goBack = () => {
         this.props.navigation.goBack();
     }
+
     render() {
-        const { navigate } = this.props.navigation;
+        //const { navigate } = this.props.navigation;
         return (
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>

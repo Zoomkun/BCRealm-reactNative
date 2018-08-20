@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     Text,
-    View,
+    View
 } from 'react-native';
 import {
     Button,
@@ -12,7 +12,7 @@ import {
     Header,
     Icon
 } from 'native-base';
-import { Grid, Row, Col } from 'react-native-easy-grid';
+import { Row, } from 'react-native-easy-grid';
 import CommonStyles from '../../../css/commonStyle';
 import Toast, { DURATION } from 'react-native-easy-toast'
 import styles from "./styles";
@@ -32,36 +32,14 @@ export default class ForgetPassword extends Component {
         }
         this.interval = 0
     }
-    componentWillUnmount() {
-        if (this.interval) {
-            clearInterval(this.interval);
-            this.setState({ disable: false });
-        }
-    }
-    _getCode(phone) {
-        if (phone.length > 10) {
-            this.state.seconds = 60
-            let disable = !this.state.disable
-            this.setState({ disable: disable })
 
-            this.interval = setInterval(() => {
-                let seconds = --this.state.seconds
-                if (seconds <= 0) {
-                    clearInterval(this.interval);
-                    this.setState({ disable: false })
-                }
-                else {
-                    this.setState({ seconds: seconds })
-                }
-            }, 1000)
-        } else {
-            this.refs.toast.show('请输入正确手机号!', DURATION.LENGTH_LONG);
-        }
+    goBack = () => {
+        this.props.navigation.goBack();
     }
 
-    static navigationOptions = { header: null };
-
-    goBack = () => { this.props.navigation.goBack(); }
+    static navigationOptions = {
+        header: null
+    };
 
     render() {
         return (
@@ -87,9 +65,9 @@ export default class ForgetPassword extends Component {
 
                     <Item style={styles.itemStyle}>
                         <Input placeholder="请输入验证码"
-                            value={this.state.password}
+                            value={this.state.code}
                             keyboardType={'numeric'}
-                            onChangeText={(text) => { this.setState({ password: text }) }} >
+                            onChangeText={(text) => { this.setState({ code: text }) }} >
                         </Input>
                         <Button bordered style={this.state.disable ? styles.disableCodeStyle : styles.codeStyle}
                             disabled={this.state.disable}
@@ -111,15 +89,16 @@ export default class ForgetPassword extends Component {
 
                     <Item itemDivider style={styles.itemStyle}>
                         <Input placeholder="请输入新密码"
-                            value={this.state.code}
+                            value={this.state.password}
                             keyboardType={'numeric'}
                             secureTextEntry={true}
-                            onChangeText={(text) => { this.setState({ code: text }) }} />
+                            onChangeText={(text) => { this.setState({ password: text }) }} />
                     </Item>
                 </View>
 
                 <Row size={0.6} style={styles.rowStyle}>
-                    <Button rounded style={styles.logInButtonStyle}>
+                    <Button rounded style={styles.logInButtonStyle}
+                        onPress={() => { this._changePassword(this.state.phone, this.state.password, this.state.code) }}>
                         <Text style={styles.logInTextStyle}>完成</Text>
                     </Button>
                 </Row>
@@ -135,5 +114,71 @@ export default class ForgetPassword extends Component {
                 />
             </Container>
         )
+    }
+
+    componentWillUnmount() {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.setState({ disable: false });
+        }
+    }
+
+    _getCode(phone) {
+        if (phone.length > 10) {
+            this.state.seconds = 60
+            let disable = !this.state.disable
+            this.setState({ disable: disable })
+            fetch('http://test.bcrealm.com:9003/api/user/sendCode?phone=' + `${phone}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then((response) => response.json())
+                .then((jsonData) => {
+                    console.log(jsonData);
+                    this.refs.toast.show((jsonData.data.msg), DURATION.LENGTH_LONG);
+                });
+            this.interval = setInterval(() => {
+                let seconds = --this.state.seconds
+                if (seconds <= 0) {
+                    clearInterval(this.interval);
+                    this.setState({ disable: false })
+                }
+                else {
+                    this.setState({ seconds: seconds })
+                }
+            }, 1000)
+        } else {
+            this.refs.toast.show('请输入正确手机号!', DURATION.LENGTH_LONG);
+        }
+    }
+
+    _changePassword(phone, password, code) {
+        console.log(phone + '__' + password + '__' + code)
+        if (phone.length > 10 && password != '' && code != '') {
+            fetch('http://test.bcrealm.com:9003/api/user/uppwd', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    // 'Accept': 'application/json',
+                },
+                body: JSON.stringify({
+                    'checkNum': `${code}`,
+                    'phoneNumber': `${phone}`,
+                    'pwd': `${password}`,
+                })
+            }).then((response) => response.json())
+                .then((jsonData) => {
+                    console.log(jsonData)
+                    if (jsonData.data === "修改成功") {
+                        this.goBack();
+                    } else {
+                        this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
+                    }
+                });
+        } else {
+            this.refs.toast.show('请检查您的账号、新密码、验证码是否正确!', DURATION.LENGTH_LONG);
+        }
+
     }
 }

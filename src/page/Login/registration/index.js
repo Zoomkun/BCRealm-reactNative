@@ -3,6 +3,7 @@ import {
     Text,
     View,
     Image,
+    TouchableOpacity
 } from 'react-native';
 import {
     Button,
@@ -33,37 +34,13 @@ export default class Registration extends Component {
         this.interval = 0
     }
 
-    componentWillUnmount() {
-        if (this.interval) {
-            clearInterval(this.interval);
-            this.setState({ disable: false });
-        }
+    static navigationOptions = {
+        header: null
+    };
+
+    goBack = () => {
+        this.props.navigation.goBack();
     }
-
-    _getCode(phone) {
-        if (phone.length > 10) {
-            this.state.seconds = 60
-            let disable = !this.state.disable
-            this.setState({ disable: disable })
-
-            this.interval = setInterval(() => {
-                let seconds = --this.state.seconds
-                if (seconds <= 0) {
-                    clearInterval(this.interval);
-                    this.setState({ disable: false })
-                }
-                else {
-                    this.setState({ seconds: seconds })
-                }
-            }, 1000)
-        } else {
-            this.refs.toast.show('请输入正确手机号!', DURATION.LENGTH_LONG);
-        }
-    }
-
-    static navigationOptions = { header: null };
-
-    goBack = () => { this.props.navigation.goBack(); }
 
     render() {
         const { navigate } = this.props.navigation;
@@ -132,15 +109,16 @@ export default class Registration extends Component {
 
                         <Row size={0.5} style={styles.row}>
                             <View >
-                                < Button rounded style={styles.logInButtonStyle} >
+                                < TouchableOpacity rounded style={styles.logInButtonStyle} onPress={() => { this._register(this.state.phone, this.state.password, this.state.code) }}>
                                     <Text style={styles.logInTextStyle}>注册</Text>
-                                </Button>
+                                </TouchableOpacity>
                             </View>
                         </Row>
+
                         <Row size={0.5} style={styles.row}>
                             <View >
                                 <Button transparent style={styles.button} onPress={() => { navigate("ServiceAgreement") }}>
-                                    <Text>点击登录即表示已阅读并同意</Text><Text style={{ color: '#FE6F06' }}>《服务协议》</Text>
+                                    <Text>点击注册即表示已阅读并同意</Text><Text style={{ color: '#FE6F06' }}>《服务协议》</Text>
                                 </Button>
                             </View>
                         </Row>
@@ -158,5 +136,70 @@ export default class Registration extends Component {
                 />
             </Container >
         )
+    }
+    componentWillUnmount() {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.setState({ disable: false });
+        }
+    }
+
+    _getCode(phone) {
+        if (phone.length > 10) {
+            this.state.seconds = 60
+            let disable = !this.state.disable
+            this.setState({ disable: disable })
+            fetch('http://test.bcrealm.com:9003/api/user/sendCode?phone=' + `${phone}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                }
+            }).then((response) => response.json())
+                .then((jsonData) => {
+                    this.refs.toast.show((jsonData.data.msg), DURATION.LENGTH_LONG);
+                });
+            this.interval = setInterval(() => {
+                let seconds = --this.state.seconds
+                if (seconds <= 0) {
+                    clearInterval(this.interval);
+                    this.setState({ disable: false })
+                }
+                else {
+                    this.setState({ seconds: seconds })
+                }
+            }, 1000)
+        } else {
+            this.refs.toast.show('请输入正确手机号!', DURATION.LENGTH_LONG);
+        }
+    }
+
+    _register(phone, password, code) {
+        console.log(phone + "__" + password + "__" + code);
+        if (phone.length > 10 && password != '' && code != '') {
+            fetch('http://test.bcrealm.com:9003/api/user/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                },
+                body: JSON.stringify({
+                    'checkNum': `${code}`,
+                    'phoneNumber': `${phone}`,
+                    'pwd': `${password}`,
+                })
+            }).then((response) =>
+                response.json()
+            )
+                .then((jsonData) => {
+                    console.log({
+                        'checkNum': `${code}`,
+                        'phoneNumber': `${phone}`,
+                        'pwd': `${password}`,
+                    })
+                    console.log(jsonData)
+                    this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
+                });
+        } else {
+            this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
+        }
     }
 }

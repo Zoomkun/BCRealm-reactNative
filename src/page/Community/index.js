@@ -8,7 +8,6 @@ import {
     Tabs,
     Container,
 } from 'native-base';
-
 //import { NavigationActions } from 'react-navigation';
 import styles from "./styles";
 import CommonStyles from '../../css/commonStyle';

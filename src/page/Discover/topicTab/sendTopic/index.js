@@ -1,4 +1,3 @@
-import { FlatList } from 'react-native'
 import React, { Component } from "react";
 
 import {
@@ -14,15 +13,13 @@ import {
 } from 'native-base';
 import {
     Text,
-    View,
-    Image,
 } from 'react-native';
 import styles from '../styles';
 import CommonStyles from '../../../../css/commonStyle';
+
 /**
  * 发送话题
  */
-
 class SendTopic extends Component {
 
     constructor(props) {
@@ -32,13 +29,15 @@ class SendTopic extends Component {
             content: ''
         }
     }
-    static navigationOptions = {
 
+    static navigationOptions = {
         header: null
     };
+
     goBack = () => {
         this.props.navigation.goBack();
     }
+
     render() {
         const { navigate } = this.props.navigation;
         return (

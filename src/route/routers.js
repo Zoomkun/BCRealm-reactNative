@@ -37,5 +37,4 @@ const routers = StackNavigator({
     Content: { screen: Content },
 });
 
-
 module.exports = routers;

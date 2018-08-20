@@ -12,12 +12,20 @@ import {
 } from 'react-native';
 import styles from "./styles";
 import CommonStyles from '../../../../css/commonStyle';
+
+/**
+ * 话题内容
+ */
 export default class Content extends Component {
     constructor(props) {
         super(props)
         this.url = this.props.navigation.state.params.url || "http://www.jvrmusic.com.tw/news/";
     }
-    static navigationOptions = { header: null };
+
+    static navigationOptions = {
+        header: null
+    };
+
     goBack = () => {
         this.props.navigation.goBack();
     }
