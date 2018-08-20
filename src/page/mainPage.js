@@ -8,7 +8,7 @@ import GamePage from './Game/gamePage';
 import CommunityPage from './Community';
 import MinePage from './Mine';
 import DiscoverPage from './Discover';
-
+import  Api  from '../api/Api';
 
 const mainPage = TabNavigator({
     Game: {
