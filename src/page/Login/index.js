@@ -16,6 +16,7 @@ import { Grid, Row, Col } from 'react-native-easy-grid';
 import Toast, { DURATION } from 'react-native-easy-toast'
 import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
+import HttpUtils from "../../api/Api";
 
 /**
  * 登录
@@ -210,26 +211,19 @@ export default class Login extends Component {
     }
 
     _login(phone, password) {
+        let self = this
         if (phone.length > 10 && password != '') {
-            fetch('http://test.bcrealm.com:9003/api/login/appLogin', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
+            HttpUtils.postRequrst(
+                'login/appLogin',
+                {
                     'cid': 'string',
                     'phoneNumber': `${phone}`,
                     'pwd': `${password}`,
-                })
-            }).then((response) => response.json())
-                .then((jsonData) => {
-                    console.log(jsonData)
-                    if (!jsonData.data) {
-                        this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
-                    } else {
-                        this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
-                    }
-                });
+                },
+                function (data) {
+                    self.refs.toast.show((data.userName), DURATION.LENGTH_LONG);
+                }
+            )
         } else {
             this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
         }
