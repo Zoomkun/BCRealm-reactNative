@@ -18,11 +18,11 @@ import {
     Picker,
     //FlatList
 } from 'react-native';
-
 import styles from "./styles";
-import CommonStyles from '../../../css/commonStyle'
+import CommonStyles from '../../../css/commonStyle';
 import ImagePicker from 'react-native-image-picker';
 import constants from '../../constants';
+
 const me = [
     {
         title: "头像",

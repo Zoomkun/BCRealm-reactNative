@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-    Text,
-} from 'react-native';
+import { Text } from 'react-native';
 import {
     Button,
     Container,
@@ -10,7 +8,7 @@ import {
     Icon
 } from 'native-base';
 import CommonStyles from '../../../css/commonStyle';
-import styles from "./styles";
+//import styles from "./styles";
 
 /**
  * 服务协议
@@ -24,9 +22,14 @@ export default class ServiceAgreement extends Component {
             password: ''
         }
     }
-    static navigationOptions = { header: null };
 
-    goBack = () => { this.props.navigation.goBack(); }
+    static navigationOptions = {
+        header: null
+    };
+
+    goBack = () => {
+        this.props.navigation.goBack();
+    }
 
     render() {
         return (

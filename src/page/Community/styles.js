@@ -1,7 +1,7 @@
 
 const React = require('react-native');
 import { PixelRatio, } from 'react-native';
-const { StyleSheet, Dimensions } = React;
+const { Dimensions } = React;
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
@@ -30,6 +30,6 @@ export default {
     height: 80
   },
   picker: {
-    width:100,
+    width: 100,
   },
 }

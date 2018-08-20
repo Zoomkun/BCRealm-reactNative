@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-    View,
     Container,
     Header,
     Button,
@@ -17,6 +16,10 @@ import {
 import styles from "./styles";
 import CommonStyles from '../../../../css/commonStyle';
 import { Col, Row } from "react-native-easy-grid";
+
+/**
+ * 新闻Tab
+ */
 export default class News extends Component {
     constructor(props) {
         super(props)
@@ -27,14 +30,16 @@ export default class News extends Component {
         this.url = this.props.navigation.state.params.url || "http://www.jvrmusic.com.tw/news/";
     }
 
-    static navigationOptions = { header: null };
+    static navigationOptions = {
+        header: null
+    };
 
-    goBack = () => { this.props.navigation.goBack(); }
+    goBack = () => {
+        this.props.navigation.goBack();
+    }
 
     render() {
-
-        const { navigate } = this.props.navigation;
-
+        //const { navigate } = this.props.navigation;
         let black = this.props.black || false;
         let url = this.url
 

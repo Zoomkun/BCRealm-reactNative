@@ -4,11 +4,8 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-
-} from 'react-native';
+//import React, { Component } from 'react';
+import { AppRegistry } from 'react-native';
 import routers from './src/route/routers';
 
 AppRegistry.registerComponent('BCRealm', () => routers);

@@ -16,7 +16,7 @@ import {
     View,
     Picker,
 } from 'react-native';
-import CommonStyles from '../../../css/commonStyle'
+import CommonStyles from '../../../css/commonStyle';
 import styles from "./styles";
 import { Grid, Row, Col } from "react-native-easy-grid";
 /**
@@ -32,16 +32,17 @@ class Authenticate extends Component {
             selected: ' ',
         }
     }
-    static navigationOptions = {
-        header: null
-    };
 
     goBack = () => {
         this.props.navigation.goBack();
     }
 
+    static navigationOptions = {
+        header: null
+    };
+
     render() {
-        const { navigate } = this.props.navigation;
+        //const { navigate } = this.props.navigation;
         return (
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>

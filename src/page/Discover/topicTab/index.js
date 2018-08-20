@@ -10,10 +10,6 @@ import {
 import { NewsItem } from '../../../components';
 import styles from "./styles";
 
-/**
- * 话题
- */
-
 const m = [
     { avatar: { uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }, title: "紫光阁-中央和国家机关工作委员会", time: 1533802501000, like: 10086, read: 9999, s: "http://www.zgg.org.cn" },
     { avatar: { uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }, title: "网易新闻", time: 1533802501000, like: 10086, read: 9999, s: "https://news.163.com/" },
@@ -24,6 +20,10 @@ const m = [
     { avatar: { uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }, title: "环球新闻", time: 1533802501000, like: 10086, read: 9999, s: "http://www.huanqiu.com/" },
     { avatar: { uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }, title: "新华社", time: 1533802501000, like: 10086, read: 9999, s: "http://www.xinhuanet.com/" },
 ]
+
+/**
+ * 话题
+ */
 export default class TopicTab extends Component {
 
     constructor(props) {
@@ -32,11 +32,10 @@ export default class TopicTab extends Component {
             buttonShow: ''
         }
     }
-    static navigationOptions = {
 
+    static navigationOptions = {
         header: null
     };
-
 
     render() {
         const { navigate } = this.props.navigation;

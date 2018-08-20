@@ -6,7 +6,7 @@ import {
 import {
     FlatList
 } from 'react-native';
-import styles from'./styles';
+//import styles from './styles';
 
 /**
  * 信息
@@ -29,13 +29,13 @@ export default class InformationTab extends Component {
         this.state = {
         }
     }
-    static navigationOptions = {
 
+    static navigationOptions = {
         header: null
     };
 
     render() {
-        let items = m;
+        //let items = m;
         return (
             <View>
                 <Text>信息</Text>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Text,
     View,
-    Image,
+    Image
 } from 'react-native';
 import {
     Button,
@@ -35,35 +35,9 @@ export default class Login extends Component {
 
     }
 
-    componentWillUnmount() {
-        if (this.interval) {
-            clearInterval(this.interval);
-            this.setState({ disable: false });
-        }
-    }
-
-    _getCode(phone) {
-        if (phone.length > 10) {
-            this.state.seconds = 60
-            let disable = !this.state.disable
-            this.setState({ disable: disable })
-
-            this.interval = setInterval(() => {
-                let seconds = --this.state.seconds
-                if (seconds <= 0) {
-                    clearInterval(this.interval);
-                    this.setState({ disable: false })
-                }
-                else {
-                    this.setState({ seconds: seconds })
-                }
-            }, 1000)
-        } else {
-            this.refs.toast.show('请输入正确手机号!', DURATION.LENGTH_LONG);
-        }
-    }
-
-    static navigationOptions = { header: null };
+    static navigationOptions = {
+        header: null
+    };
 
     render() {
         const { navigate } = this.props.navigation;
@@ -87,7 +61,6 @@ export default class Login extends Component {
                         </Row>
 
                         <Row size={2.2} style={styles.row}>
-
                             <Segment >
                                 <Button style={styles.SegmentButtonStyle} onPress={() => { this.setState({ pick: 0 }) }}>
                                     <Text style={this.state.pick == 0 ? styles.selectedTextStyle : styles.textStyle}>普通登录</Text>
@@ -163,12 +136,15 @@ export default class Login extends Component {
                                         </View>
                                     )
                             }
-
                         </Row>
 
                         <Row size={0.6} style={styles.row}>
                             <View>
-                                <Button rounded style={styles.logInButtonStyle}>
+                                <Button rounded style={styles.logInButtonStyle} onPress={() => {
+                                    this.state.pick == 0 ?
+                                        this._login(this.state.phone, this.state.password) :
+                                        this._smsLogin(this.state.phone, this.setState.code)
+                                }}>
                                     <Text style={styles.logInTextStyle}>登录</Text>
                                 </Button>
                             </View>
@@ -194,5 +170,95 @@ export default class Login extends Component {
                 />
             </Container >
         )
+    }
+
+    componentWillUnmount() {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.setState({ disable: false });
+        }
+    }
+
+    _getCode(phone) {
+        if (phone.length > 10) {
+            this.state.seconds = 60
+            let disable = !this.state.disable
+            this.setState({ disable: disable })
+            fetch('http://test.bcrealm.com:9003/api/user/sendCode?phone=' + `${phone}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                }
+            }).then((response) => response.json())
+                .then((jsonData) => {
+                    console.log(jsonData);
+                    this.refs.toast.show((jsonData.data.msg), DURATION.LENGTH_LONG);
+                });
+            this.interval = setInterval(() => {
+                let seconds = --this.state.seconds
+                if (seconds <= 0) {
+                    clearInterval(this.interval);
+                    this.setState({ disable: false })
+                }
+                else {
+                    this.setState({ seconds: seconds })
+                }
+            }, 1000)
+        } else {
+            this.refs.toast.show('请输入正确手机号!', DURATION.LENGTH_LONG);
+        }
+    }
+
+    _login(phone, password) {
+        if (phone.length > 10 && password != '') {
+            fetch('http://test.bcrealm.com:9003/api/login/appLogin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'cid': 'string',
+                    'phoneNumber': `${phone}`,
+                    'pwd': `${password}`,
+                })
+            }).then((response) => response.json())
+                .then((jsonData) => {
+                    console.log(jsonData)
+                    if (!jsonData.data) {
+                        this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
+                    } else {
+                        this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
+                    }
+                });
+        } else {
+            this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
+        }
+    }
+
+    _smsLogin(phone, code) {
+        if (phone.length > 10 && code != '') {
+            fetch('http://test.bcrealm.com:9003/api/login/user/smsLogin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({
+                    'cid': 'string',
+                    'phoneNumber': `${phone}`,
+                    'code': `${code}`,
+                })
+            }).then((response) => response.json())
+                .then((jsonData) => {
+                    console.log(jsonData)
+                    if (!jsonData.data) {
+                        this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
+                    } else {
+                        this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
+                    }
+                });
+        } else {
+            this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
+        }
     }
 }

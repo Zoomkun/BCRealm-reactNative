@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import styles from "./styles";
-import CommonStyles from '../../../css/commonStyle'
+import CommonStyles from '../../../css/commonStyle';
 import { MsgItem } from '../../../components';
 
 const notices = [
@@ -35,13 +35,15 @@ class Notice extends Component {
 
         }
     }
-    static navigationOptions = {
 
+    static navigationOptions = {
         header: null
     };
+
     goBack = () => {
         this.props.navigation.goBack();
     }
+
     render() {
         const { navigate } = this.props.navigation;
         let items = notices;

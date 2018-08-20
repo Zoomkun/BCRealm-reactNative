@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import {
-    AppRegistry,
     StyleSheet,
     Text,
     View,
-    Image,
     Button,
     ScrollView
 } from 'react-native';
-import { DrawerNavigator, DrawerItems } from 'react-navigation';
+import { DrawerNavigator } from 'react-navigation';
+
+/**
+ * 抽屉
+ */
 class MyHomeScreen extends Component {
     // static navigationOptions = {
     //     drawerLabel: 'Home',

@@ -6,10 +6,7 @@ import {
     Image,
     FlatList
 } from 'react-native';
-
-import {
-    Content,
-} from 'native-base';
+import { Content } from 'native-base';
 import Carousel from 'react-native-looped-carousel'
 import CommonStyles from "../../css/commonStyle";
 import { CardItems } from '../../components';

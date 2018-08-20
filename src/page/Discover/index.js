@@ -9,10 +9,14 @@ import {
     Container,
 } from 'native-base';
 import CommonStyles from '../../css/commonStyle';
-import styles from "./styles";
+//import styles from "./styles";
 import NewsTab from './newsTab';
 import TopicTab from './topicTab';
 //import FlatListExample from './FlatListExample';
+
+/**
+ * 主页三:发现
+ */
 export default class Discover extends Component {
 
     static navigationOptions = ({ navigation }) => ({

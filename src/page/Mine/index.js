@@ -21,7 +21,7 @@ import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
 import constants from '../constants';
 import * as CacheManager from 'react-native-http-cache';
-import Toast, { DURATION } from 'react-native-easy-toast'
+import Toast, { DURATION } from 'react-native-easy-toast';
 
 const menus = [
     { icon: require('../../../images/wallet.png'), text: "钱包", arrows: require('../../../images/goIn.png'), uri: 'Wallet', line: true },

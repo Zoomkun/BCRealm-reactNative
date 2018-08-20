@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import {
     Container,
     Body,
@@ -10,18 +9,15 @@ import {
     ListItem,
     Icon
 } from 'native-base';
-import {
-    Text,
-    //FlatList
-} from 'react-native';
-
+import { Text, } from 'react-native';
 import styles from "./styles";
-import CommonStyles from '../../../css/commonStyle'
+import CommonStyles from '../../../css/commonStyle';
+
+const about = [{ v: "v1.0" }];
+
 /**
  * 关于我们
  */
-const about = [{ v: "v1.0" }]
-
 class AboutUs extends Component {
 
     constructor(props) {
@@ -30,15 +26,17 @@ class AboutUs extends Component {
 
         }
     }
-    static navigationOptions = {
 
+    static navigationOptions = {
         header: null
     };
+
     goBack = () => {
         this.props.navigation.goBack();
     }
+
     render() {
-        const { navigate } = this.props.navigation;
+        //const { navigate } = this.props.navigation;
         return (
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>

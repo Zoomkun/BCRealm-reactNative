@@ -6,7 +6,7 @@ import {
 import {
     FlatList
 } from 'react-native';
-import styles from'./styles';
+//import styles from './styles';
 /**
  * 社群
  */
@@ -28,8 +28,8 @@ export default class CommunityTab extends Component {
         this.state = {
         }
     }
-    static navigationOptions = {
 
+    static navigationOptions = {
         header: null
     };
 

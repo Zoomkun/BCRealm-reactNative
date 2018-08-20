@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import {
     Container,
     Body,
@@ -13,10 +12,9 @@ import {
     Image,
     //FlatList
 } from 'react-native';
-
+import { Grid, Col } from "react-native-easy-grid";
 import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle';
-import { Grid, Row, Col } from "react-native-easy-grid";
 
 const m1 = [
     { all: "总资产", totalAssets: 10086, quantity: "数量", value: "价值" },
@@ -40,15 +38,17 @@ class Wallet extends Component {
 
         }
     }
-    static navigationOptions = {
 
+    static navigationOptions = {
         header: null
     };
+
     goBack = () => {
         this.props.navigation.goBack();
     }
+
     render() {
-        const { navigate } = this.props.navigation;
+        //const { navigate } = this.props.navigation;
         var m = m1[0];
         return (
             <Container style={styles.container}>
