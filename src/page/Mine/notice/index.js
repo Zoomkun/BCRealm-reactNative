@@ -11,6 +11,7 @@ import {
 import {
     Text,
     FlatList,
+    View
 } from 'react-native';
 
 import styles from "./styles";
@@ -32,13 +33,19 @@ class Notice extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            data: [],
+            refreshing: false
         }
+        this._getList = this._getList.bind(this);
     }
 
     static navigationOptions = {
         header: null
     };
+
+    componentDidMount() {
+        this._getList();
+    }
 
     goBack = () => {
         this.props.navigation.goBack();
@@ -46,7 +53,11 @@ class Notice extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
-        let items = notices;
+
+        if (!this.state.refreshing) {
+            return this.renderLoadingView();
+        }
+        let items = this.state.data[0].list;
         return (
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>
@@ -60,30 +71,67 @@ class Notice extends Component {
                 </Header>
 
                 <Content>
-                    {/* <MsgItem navigation={this.props.navigation}
-                        left={<Button warning style={styles.iconstyle}>
-                            <Icon name='ios-notifications' style={styles.space} />
-                        </Button>}
-                        onPress={() => this.props.navigation.navigate("SystemNotification")}
-                        text={'你有新的消息ijasdijasiodjisaodjuis你有新的消息ijasdijasiodjisasoiduoaisudoi'}
-                        item={{ timestamp: 1512799900236, }}
-                    /> */}
                     <FlatList data={items}
                         enableEmptySections={true}
-                        //refreshing={this.state.refreshing}
+                        refreshing={!this.state.refreshing}
                         onEndReachedThreshold={10}
                         //onRefresh={() => this._loadData(true)}
-                        onEndReached={() => this._loadData(false)}
+                        //onEndReached={() => this._loadData(false)}
                         keyExtractor={(item, key) => key}
                         renderItem={({ item, index }) => {
                             return <MsgItem
-                                text={item.notices}
-                                timestamp={item.timestamp}
+                                onPress={() => this.props.navigation.navigate("GameWeb", { data: item })}
+                                text={item.content}
+                                timestamp={item.letterDate}
                             />
                         }} />
                 </Content>
             </Container >
         );
+    }
+
+    renderLoadingView() {
+        return (
+            <Container style={styles.container}>
+                <Header style={CommonStyles.headerStyle}>
+                    <Button transparent onPress={() => { this.goBack() }}>
+                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
+                    </Button>
+                    <Body style={CommonStyles.titleBodyStyle}>
+                        <Text style={CommonStyles.headertextStyle}>私信</Text>
+                    </Body>
+                    <Button transparent />
+                </Header>
+                <Content>
+                    <FlatList
+                        refreshing={!this.state.refreshing}
+                    />
+                </Content>
+            </Container >
+        );
+    }
+
+    _getList() {
+        fetch('http://test.bcrealm.com:9003/api/letters?page=1&pageSize=10', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset-UTF-8',
+                'token': '0849c3a379c14b5db7e41ede148d55fd'
+            },
+        }).then((response) => response.json())
+            .then((jsonData) => {
+                console.log(jsonData);
+                if (jsonData.msg == "成功") {
+                    this.setState({
+                        data: this.state.data.concat(jsonData.data),
+                        refreshing: true
+                    });
+                    // console.log(jsonData.msg);
+                } else {
+                    // console.log(jsonData.msg);
+                }
+
+            })
     }
 }
 

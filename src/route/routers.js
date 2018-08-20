@@ -11,6 +11,7 @@ import MinePage from '../page/Mine';
 import SettingName from '../page/Mine/personalInfo/settingName';
 import Currency from '../page/Mine/currency';
 import Wallet from '../page/Mine/wallet';
+import SampleAppMovies from '../page/Mine/Movie';
 import Authenticate from '../page/Mine/authenticate';
 import AboutUs from '../page/Mine/aboutUs';
 import Notice from "../page/Mine/notice";

@@ -18,7 +18,8 @@ export default class MsgItem extends Component {
                 <Body >
                     <View style={styles.viewStyle}>
                         <Text numberOfLines={2} style={styles.content}>{text} </Text>
-                        <Text style={styles.timeStyles}>{moment(timestamp).format('YYYY-MM-DD  HH:mm:ss')}</Text>
+                        {/* <Text style={styles.timeStyles}>{moment(timestamp).format('YYYY-MM-DD  HH:mm:ss')}</Text> */}
+                        <Text style={styles.timeStyles}>{timestamp}</Text>
                     </View>
                 </Body>
             </ListItem>

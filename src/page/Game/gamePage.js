@@ -13,10 +13,10 @@ import { CardItems } from '../../components';
 import styles from "./styles";
 
 const m = [
-    { title: "画风精致|操作易上手", url: require('../../../images/banner1.jpg'), currency: "BTC", quantity: 10086, game: 'http://dbex.bcrealm.com/' },
-    { title: "画风精致|操作易上手", url: require('../../../images/banner1.jpg'), currency: "DBEX", quantity: 123, game: 'http://dbex.bcrealm.com/' },
-    { title: "画风精致|操作易上手", url: require('../../../images/banner1.jpg'), currency: "NXH", quantity: 789, game: 'http://nxh.bcrealm.com/' },
-    { title: "画风精致|操作易上手", url: require('../../../images/banner1.jpg'), currency: "BBM", quantity: 5656, game: 'http://bbm.bcrealm.com/' },
+    { title: "画风精致|操作易上手", url: require('../../../images/banner1.jpg'), currency: "BTC", quantity: 10086, gameUrl: 'http://dbex.bcrealm.com/' },
+    { title: "画风精致|操作易上手", url: require('../../../images/banner1.jpg'), currency: "DBEX", quantity: 123, gameUrl: 'http://dbex.bcrealm.com/' },
+    { title: "画风精致|操作易上手", url: require('../../../images/banner1.jpg'), currency: "NXH", quantity: 789, gameUrl: 'http://nxh.bcrealm.com/' },
+    { title: "画风精致|操作易上手", url: require('../../../images/banner1.jpg'), currency: "BBM", quantity: 5656, gameUrl: 'http://bbm.bcrealm.com/' },
 ]
 
 /**
