@@ -37,7 +37,7 @@ const me = [
     {
         name: "JayChou",
         id: "0118",
-        posters: { thumbnail: "http://img5.imgtn.bdimg.com/it/u=2716432665,3069906192&fm=11&gp=0.jpg" },
+        posters: { thumbnail: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" },
         icon: '../../../images/goIn.png',
         uri: 'PersonalInfo',
     }
@@ -88,8 +88,8 @@ export default class Mine extends Component {
             <Container style={CommonStyles.container}>
                 <Content>
                     <List>
-                        <ListItem itemDivider style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} button onPress={() => { navigate(e.uri) }}>
-                            <Thumbnail source={constants.avatar} />
+                        <ListItem itemDivider style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} button onPress={() => { navigate(e.uri, { url: e.posters.thumbnail }) }}>
+                            <Thumbnail source={{ uri: e.posters.thumbnail }} />
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text>{e.name}</Text>
                                 <Text note>{e.id}</Text>

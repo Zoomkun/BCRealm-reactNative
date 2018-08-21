@@ -22,6 +22,7 @@ import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle';
 import ImagePicker from 'react-native-image-picker';
 import constants from '../../constants';
+import HttpUtils from "../../../api/Api";
 
 const me = [
     {
@@ -44,8 +45,9 @@ class PersonalInfo extends Component {
         this.state = {
             // avatarSource: null,
             //videoSource: null
-            selected: ' ',
+            sex: '',
         }
+        this.url = this.props.navigation.state.params.url;
     }
     static navigationOptions = {
         header: null
@@ -71,12 +73,13 @@ class PersonalInfo extends Component {
                 </Header>
 
                 <List>
-                    <ListItem itemDivider={e.bg} style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} button onPress={this.selectPhotoTapped.bind(this)}>
+                    <ListItem itemDivider={true} style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} button onPress={this.selectPhotoTapped.bind(this)}>
 
-                        <Text>{e.title}</Text>
+                        <Text>头像</Text>
                         <Body />
                         <Right style={styles.rightStyle} >
                             {/* <Thumbnail source={{ uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }} /> */}
+
                             <Thumbnail source={constants.avatar} />
                             <Image
                                 source={require('../../../../images/goIn.png')}
@@ -109,22 +112,44 @@ class PersonalInfo extends Component {
                         <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
                             <Picker
                                 style={styles.picker}
-                                selectedValue={this.state.selected}
+                                selectedValue={this.state.sex}
                                 onValueChange={(value) => this.onValueChange(1, value)}>
-                                <Picker.Item label="男" value="0" />
-                                <Picker.Item label="女" value="1" />
+                                <Picker.Item label="男" value="1" />
+                                <Picker.Item label="女" value="2" />
                             </Picker>
                         </Right>
                     </ListItem>
                 </List>
-                <Text>{this.state.selected}</Text>
+                <Text>{this.state.sex}</Text>
             </Container>
         );
     };
 
     onValueChange = (flag, value) => {
-        this.setState({ selected: value });
+        this.setState({ sex: value });
+        this._upDATAForAPP();
     };
+
+    _upDATAForAPP() {
+        fetch('http://test.bcrealm.com:9003/api/user/updateForApp', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json;charset-UTF-8',
+                'token': 'b4ea3df41da84b4094f79e1a83fab6c3'
+            },
+            body: JSON.stringify({
+                "accountNo": '213',
+                "headUrl": `${constants.avatar.uri}`,
+                "id": 35,
+                "sex": `${this.state.sex}`,
+                "userName": `${constants.name}`
+            })
+        }).then((response) => response.json())
+            .then((jsonData) => {
+                console.log(jsonData)
+            });
+    }
+
 
     //选择图片
     selectPhotoTapped() {
@@ -167,8 +192,8 @@ class PersonalInfo extends Component {
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
 
                 this.setState({
-                    //avatarSource: source,
-                    ...constants.avatar = source,
+                    avatarSource: source,
+                    //...constants.avatar = source,
                 });
             }
         });
