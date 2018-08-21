@@ -49,7 +49,7 @@ export default class GameWeb extends Component {
                     <Button transparent />
                 </Header>
 
-                <WebView source={{ uri: data.game }} style={styles.webStyle} >
+                <WebView source={{ uri: data.gameUrl }} style={styles.webStyle} >
                 </WebView>
 
             </Container >
