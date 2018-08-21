@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Text,
     View,
-    Image
+    Image, AsyncStorage
 } from 'react-native';
 import {
     Button,
@@ -221,6 +221,7 @@ export default class Login extends Component {
                     'pwd': `${password}`,
                 },
                 function (data) {
+                    AsyncStorage.setItem('userToken',data.token)
                     self.refs.toast.show((data.userName), DURATION.LENGTH_LONG);
                 }
             )
