@@ -214,7 +214,7 @@ export default class Login extends Component {
         let self = this
         if (phone.length > 10 && password != '') {
             HttpUtils.postRequrst(
-                'login/appLogin',
+                'appLogin',
                 {
                     'cid': 'string',
                     'phoneNumber': `${phone}`,

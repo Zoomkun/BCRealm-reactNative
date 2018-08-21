@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import { AsyncStorage } from "react-native"
-import './UrlList'
+import Api from './UrlList'
 
 /**
  * fetch 网络请求的header，可自定义header 内容
@@ -76,8 +76,8 @@ export default class HttpUtils extends Component {
      * @param success 成功回调
      * @returns {Promise}
      */
-    static getRequest = (url, params ,success) => {
-        return timeoutFetch(fetch(handleUrl(baseUrl+url)(params), {
+    static getRequest = (ApiName, params ,success) => {
+        return timeoutFetch(fetch(handleUrl(baseUrl+Api[ApiName])(params), {
             method: 'GET',
             headers: header
         })).then(response => {
@@ -107,8 +107,8 @@ export default class HttpUtils extends Component {
      * @param success 成功回调
      * @returns {Promise}
      */
-    static postRequrst = (url, params, success) => {
-        return timeoutFetch(fetch(baseUrl+url, {
+    static postRequrst = (ApiName, params, success) => {
+        return timeoutFetch(fetch(baseUrl+Api[ApiName], {
             method: 'POST',
             headers: header,
             body: JSON.stringify(params)
@@ -136,8 +136,8 @@ export default class HttpUtils extends Component {
      * @param success 成功回调
      * @returns {Promise}
      */
-    static putRequrst = (url, params, success) => {
-        return timeoutFetch(fetch(baseUrl+url, {
+    static putRequrst = (ApiName, params, success) => {
+        return timeoutFetch(fetch(baseUrl+Api[ApiName], {
             method: 'POST',
             headers: header,
             body: JSON.stringify(params)
@@ -167,8 +167,8 @@ export default class HttpUtils extends Component {
      * @param success 成功回调
      * @returns {Promise}
      */
-    static deleteRequest = (url, params, success) => {
-        return timeoutFetch(fetch(handleUrl(baseUrl+url)(params), {
+    static deleteRequest = (ApiName, params, success) => {
+        return timeoutFetch(fetch(handleUrl(baseUrl+Api[ApiName])(params), {
             method: 'DELETE',
             headers: header
         })).then(response => {
@@ -192,6 +192,4 @@ export default class HttpUtils extends Component {
     }
 }
 
-// module.exports = HttpUtils
-
-global.HttpUtils =  this.HttpUtils
+module.exports = HttpUtils
