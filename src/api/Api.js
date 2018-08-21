@@ -1,12 +1,16 @@
 import {Component} from 'react'
+import { AsyncStorage } from "react-native"
 import './UrlList'
 
 /**
  * fetch 网络请求的header，可自定义header 内容
  * @type {{Accept: string, Content-Type: string, accessToken: *}}
  */
+let token =  AsyncStorage.getItem('userToken') || '';
+
 let header = {
     'Content-Type': 'application/json;charset=UTF-8',
+    'token': token
 }
 
 /**
