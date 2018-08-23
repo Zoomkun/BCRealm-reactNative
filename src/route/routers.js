@@ -13,6 +13,7 @@ import Currency from '../page/Mine/currency';
 import Wallet from '../page/Mine/wallet';
 import Authenticate from '../page/Mine/authenticate';
 import AboutUs from '../page/Mine/aboutUs';
+import CommunityInfo from '../page/Community/communityInfo';
 import Notice from "../page/Mine/notice";
 import SendTopic from '../page/Discover/topicTab/sendTopic';
 import News from '../page/Discover/newsTab/news';
@@ -23,6 +24,7 @@ const routers = StackNavigator({
     Registration: { screen: Registration },
     ServiceAgreement: { screen: ServiceAgreement },
     ForgetPassword: { screen: ForgetPassword },
+    CommunityInfo: { screen: CommunityInfo },
     GameWeb: { screen: GameWeb },
     PersonalInfo: { screen: PersonalInfo },
     MinePage: { screen: MinePage },
