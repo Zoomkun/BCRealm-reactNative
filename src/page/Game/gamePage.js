@@ -64,11 +64,11 @@ export default class GamePage extends Component {
         return (
             <Content>
                 <Carousel style={styles.wrapper} autoplay={true} bullets={true} >
-                    {data.map((item, index) => (
+                    {/* {data.map((item, index) => (
                         <View style={styles.slide} key={index}>
                             <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }} source={{}} />
                         </View>
-                    ))}
+                    ))} */}
                     <View style={styles.slide}>
                         <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }} source={require('../../../images/banner1.jpg')} />
                     </View>
