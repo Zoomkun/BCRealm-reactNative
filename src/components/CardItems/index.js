@@ -19,11 +19,11 @@ import styles from "./styles";
  */
 export default class CardItems extends Component {
     render() {
-        let { title, url, currency, quantity, onPress, } = this.props;
+        let { gameFeatureDTO, url, currency, quantity, onPress, } = this.props;
         return (
             <Card>
                 <CardItem cardBody>
-                    <Image source={url} style={styles.cardImageStyle} />
+                    <Image source={{ uri: url }} style={styles.cardImageStyle} />
                 </CardItem>
                 <CardItem style={styles.cardBodStyle}>
                     <Left>
@@ -33,10 +33,12 @@ export default class CardItems extends Component {
                 </CardItem>
                 <CardItem style={styles.caddBottomStyle}>
                     <View style={styles.viewStyle}>
-                        <Body>
-                            <Button transparent>
-                                <Text style={styles.titleStyle}>{title}</Text>
-                            </Button>
+                        <Body style={styles.bodyStyle}>
+                            {
+                                gameFeatureDTO.map((item, index) => (
+                                    <Text key={index} node style={styles.titleStyle}>{item.featureName}</Text>
+                                ))
+                            }
                         </Body>
                         <Right>
                             <Button style={styles.buttonStyle} onPress={onPress}>

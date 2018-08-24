@@ -16,7 +16,8 @@ import {
 } from 'react-native';
 import styles from '../styles';
 import CommonStyles from '../../../../css/commonStyle';
-
+import HttpUtils from '../../../../api/Api';
+import Toast, { DURATION } from 'react-native-easy-toast'
 /**
  * 发送话题
  */
@@ -49,7 +50,7 @@ class SendTopic extends Component {
                     <Body style={CommonStyles.titleBodyStyle}>
                         <Text style={CommonStyles.headertextStyle}>发送话题</Text>
                     </Body>
-                    <Button transparent onPress={() => { this.goBack() }}>
+                    <Button transparent onPress={() => { this._sendTopic(this.state.content, this.state.title) }}>
                         <Text style={styles.text}>保存</Text>
                     </Button>
                 </Header>
@@ -64,8 +65,43 @@ class SendTopic extends Component {
                             onChangeText={(text) => { this.setState({ content: text }) }} />
                     </Card >
                 </Content>
+                <Toast
+                    ref="toast"
+                    style={{ backgroundColor: '#434343' }}
+                    position='center'
+                    positionValue={200}
+                    fadeInDuration={750}
+                    fadeOutDuration={1000}
+                    opacity={0.8}
+                    textStyle={{ color: '#ffffff' }}
+                />
             </Container>
         );
     }
+
+    _sendTopic(content, title) {
+        self = this
+        if (content != '' && title != '') {
+            HttpUtils.postRequrst(
+                'appUrl',
+                'sendTopic',
+                {
+                    'content': `${content}`,
+                    'title': `${title}`,
+                },
+                function (data) {
+                    if (data == '') {
+                        self.refs.toast.show("发布成功", DURATION.LENGTH_LONG);
+                    } else {
+                        self.refs.toast.show(data, DURATION.LENGTH_LONG);
+                    }
+                }
+            )
+        } else {
+            self.refs.toast.show("标题或内容不可为空", DURATION.LENGTH_LONG);
+        }
+
+    }
+
 }
 export default SendTopic

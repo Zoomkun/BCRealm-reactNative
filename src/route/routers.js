@@ -18,8 +18,8 @@ import SendTopic from '../page/Discover/topicTab/sendTopic';
 import News from '../page/Discover/newsTab/news';
 import Content from '../page/Discover/topicTab/content';
 const routers = StackNavigator({
-    Main: { screen: MainPage },
     Login: { screen: Login },
+    Main: { screen: MainPage },
     Registration: { screen: Registration },
     ServiceAgreement: { screen: ServiceAgreement },
     ForgetPassword: { screen: ForgetPassword },

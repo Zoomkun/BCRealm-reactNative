@@ -16,6 +16,7 @@ import { Row, } from 'react-native-easy-grid';
 import CommonStyles from '../../../css/commonStyle';
 import Toast, { DURATION } from 'react-native-easy-toast'
 import styles from "./styles";
+import HttpUtils from "../../../api/Api";
 
 /**
  * 忘记密码
@@ -128,16 +129,28 @@ export default class ForgetPassword extends Component {
             this.state.seconds = 60
             let disable = !this.state.disable
             this.setState({ disable: disable })
-            fetch('http://test.bcrealm.com:9003/api/user/sendCode?phone=' + `${phone}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
+            console.log("yaoqingma")
+            HttpUtils.getRequest(
+                'userUrl',
+                'sendCode',
+                {
+                    '': `${phone}`
+                },
+                function (data) {
+                    console.log(data)
                 }
-            }).then((response) => response.json())
-                .then((jsonData) => {
-                    console.log(jsonData);
-                    this.refs.toast.show((jsonData.data.msg), DURATION.LENGTH_LONG);
-                });
+            )
+
+            // fetch('http://test.bcrealm.com:9003/api/user/sendCode?phone=' + `${phone}`, {
+            //     method: 'GET',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     }
+            // }).then((response) => response.json())
+            //     .then((jsonData) => {
+            //         console.log(jsonData);
+            //         this.refs.toast.show((jsonData.data.msg), DURATION.LENGTH_LONG);
+            //     });
             this.interval = setInterval(() => {
                 let seconds = --this.state.seconds
                 if (seconds <= 0) {
@@ -154,28 +167,42 @@ export default class ForgetPassword extends Component {
     }
 
     _changePassword(phone, password, code) {
-        console.log(phone + '__' + password + '__' + code)
+        let self = this
         if (phone.length > 10 && password != '' && code != '') {
-            fetch('http://test.bcrealm.com:9003/api/user/uppwd', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json;charset=UTF-8',
-                    // 'Accept': 'application/json',
-                },
-                body: JSON.stringify({
+
+            HttpUtils.putRequrst(
+                'smsLogin',
+                'uppwd',
+                {
                     'checkNum': `${code}`,
                     'phoneNumber': `${phone}`,
                     'pwd': `${password}`,
-                })
-            }).then((response) => response.json())
-                .then((jsonData) => {
-                    console.log(jsonData)
-                    if (jsonData.data === "修改成功") {
-                        this.goBack();
-                    } else {
-                        this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
-                    }
-                });
+                },
+                function (data) {
+                    if (data)
+                        self.refs.toast.show('修改成功', DURATION.LENGTH_LONG);
+                }
+            )
+            // fetch('http://test.bcrealm.com:9003/api/user/uppwd', {
+            //     method: 'PUT',
+            //     headers: {
+            //         'Content-Type': 'application/json;charset=UTF-8',
+            //         // 'Accept': 'application/json',
+            //     },
+            //     body: JSON.stringify({
+            //         'checkNum': `${code}`,
+            //         'phoneNumber': `${phone}`,
+            //         'pwd': `${password}`,
+            //     })
+            // }).then((response) => response.json())
+            //     .then((jsonData) => {
+            //         console.log(jsonData)
+            //         if (jsonData.data === "修改成功") {
+            //             this.goBack();
+            //         } else {
+            //             this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
+            //         }
+            //     });
         } else {
             this.refs.toast.show('请检查您的账号、新密码、验证码是否正确!', DURATION.LENGTH_LONG);
         }

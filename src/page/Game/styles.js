@@ -45,5 +45,8 @@ export default {
         justifyContent: 'center',
         alignItems: 'center'
     },
+    bannerStyle: {
+        flex: 1,
+    }
 
 }

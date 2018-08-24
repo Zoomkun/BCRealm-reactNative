@@ -32,12 +32,17 @@ export default {
         height: 50,
     },
     titleStyle: {
-        color: '#000000'
+        color: '#808080',
+        fontSize: 14,
     },
     viewStyle: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
     },
+    bodyStyle: {
+        flexDirection: 'row',
+        paddingLeft: 10
+    }
 
 }

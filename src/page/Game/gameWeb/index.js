@@ -37,6 +37,7 @@ export default class GameWeb extends Component {
     render() {
         //const { navigate } = this.props.navigation;
         let data = this.data
+        console.log(data)
         return (
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>
@@ -44,11 +45,10 @@ export default class GameWeb extends Component {
                         <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
                     </Button>
                     <Body style={CommonStyles.titleBodyStyle}>
-                        <Text style={CommonStyles.headertextStyle}>{data.currency}</Text>
+                        <Text style={CommonStyles.headertextStyle}>游戏</Text>
                     </Body>
                     <Button transparent />
                 </Header>
-
                 <WebView source={{ uri: data.gameUrl }} style={styles.webStyle} >
                 </WebView>
 

@@ -16,12 +16,11 @@ import {
     View,
     Image,
     Picker,
-    //FlatList
+    AsyncStorage
 } from 'react-native';
 import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle';
 import ImagePicker from 'react-native-image-picker';
-import constants from '../../constants';
 import HttpUtils from "../../../api/Api";
 
 const me = [
@@ -45,21 +44,50 @@ class PersonalInfo extends Component {
         this.state = {
             // avatarSource: null,
             //videoSource: null
-            sex: '',
+            data: [],
+            sex: 1,
+            headUrl: '',
+            userName: '',
+            id: 0,
+            accountNo: 0
         }
-        this.url = this.props.navigation.state.params.url;
+
+        //this.url = this.props.navigation.state.params.url;
     }
     static navigationOptions = {
         header: null
     };
 
     goBack = () => {
+        AsyncStorage.getItem('data').then(data => {
+            let datas = JSON.parse(data);
+            console.log(datas)
+            this.props.navigation.state.params.returnData(datas);
+        })
         this.props.navigation.goBack();
     }
 
+    componentDidMount() {
+        // this.setState({
+        //     data: this.props.navigation.state.params.data
+        // })
+        AsyncStorage.getItem('data').then(data => {
+            let datas = JSON.parse(data);
+            this.setState({
+                sex: datas.sex,
+                accountNo: datas.accountNo,
+                id: datas.id,
+                headUrl: datas.headUrl,
+                userName: datas.userName
+            })
+            console.log(datas);
+        })
+    }
+
     render() {
-        var e = me[0];
         const { navigate } = this.props.navigation;
+        let data = this.state.data;
+        console.log(data)
         return (
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>
@@ -73,14 +101,16 @@ class PersonalInfo extends Component {
                 </Header>
 
                 <List>
-                    <ListItem itemDivider={true} style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} button onPress={this.selectPhotoTapped.bind(this)}>
+                    <ListItem itemDivider={true} style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }}
+                        button onPress={this.selectPhotoTapped.bind(this)}>
 
                         <Text>头像</Text>
                         <Body />
                         <Right style={styles.rightStyle} >
-                            {/* <Thumbnail source={{ uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }} /> */}
-
-                            <Thumbnail source={constants.avatar} />
+                            {this.state.headUrl != '' &&
+                                <Thumbnail source={{ uri: this.state.headUrl }} />
+                            }
+                            {/* <Thumbnail source={constants.avatar} /> */}
                             <Image
                                 source={require('../../../../images/goIn.png')}
                                 style={styles.icon}
@@ -90,12 +120,16 @@ class PersonalInfo extends Component {
 
                     <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
 
-                    <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate("SettingName") }}>
+
+                    <ListItem itemDivider style={styles.listItemStyle}
+                        button onPress={() => {
+                            navigate("SettingName", { returnData: this._returnData.bind(this), id: this.state.id, accountNo: this.state.accountNo })
+                        }}>
                         <Body style={{ justifyContent: 'flex-start', }}>
                             <Text >姓名</Text>
                         </Body>
                         <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
-                            <Text style={{ alignItems: 'center', marginRight: 10 }}>{constants.name}</Text>
+                            <Text style={{ alignItems: 'center', marginRight: 10 }}>{this.state.userName}</Text>
                             <Image
                                 source={require('../../../../images/goIn.png')}
                                 style={styles.icon}
@@ -127,27 +161,63 @@ class PersonalInfo extends Component {
 
     onValueChange = (flag, value) => {
         this.setState({ sex: value });
-        this._upDATAForAPP();
+        console.log(this.state.sex)
+        // this._upDATAForAPP(
+        //     this.state.accountNo,
+        //     this.state.headUrl,
+        //     this.state.id,
+        //     value,
+        //     this.state.userName);
     };
 
-    _upDATAForAPP() {
-        fetch('http://test.bcrealm.com:9003/api/user/updateForApp', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json;charset-UTF-8',
-                'token': 'b4ea3df41da84b4094f79e1a83fab6c3'
+    _returnData(userName) {
+        this.setState({
+            userName: userName
+        });
+    }
+    /**
+     * 更改用户信息
+     */
+    _upDATAForAPP(accountNo, headUrl, id, sex) {
+        self = this
+        HttpUtils.putRequrst(
+            'userUrl',
+            'updateForApp',
+            {
+                "accountNo": `${accountNo}`,
+                "id": `${id}`,
+                "headUrl": `${headUrl}`,
+                "sex": `${sex}`
             },
-            body: JSON.stringify({
-                "accountNo": '213',
-                "headUrl": `${constants.avatar.uri}`,
-                "id": 35,
-                "sex": `${this.state.sex}`,
-                "userName": `${constants.name}`
-            })
-        }).then((response) => response.json())
-            .then((jsonData) => {
-                console.log(jsonData)
-            });
+            function (data) {
+                console.log(data)
+                // if (data.data.userName) {
+                //     AsyncStorage.setItem('data', JSON.stringify(data.data));
+                //     self.refs.toast.show((data.data.userName), DURATION.LENGTH_LONG);
+                // } else {
+                //     self.refs.toast.show((data.msg), DURATION.LENGTH_LONG);
+                // }
+            }
+        )
+
+
+        // fetch('http://test.bcrealm.com:9003/api/user/updateForApp', {
+        //     method: 'PUT',
+        //     headers: {
+        //         'Content-Type': 'application/json;charset-UTF-8',
+        //         'token': '07c298a08a1741b8accab242071ac690'
+        //     },
+        //     body: JSON.stringify({
+        //         "accountNo": `${accountNo}`,
+        //         "headUrl": `${headUrl}`,
+        //         "id": `${id}`,
+        //         "sex": `${sex}`,
+        //         "userName": `${userName}`
+        //     })
+        // }).then((response) => response.json())
+        //     .then((jsonData) => {
+        //         console.log(jsonData)
+        //     });
     }
 
 
@@ -187,14 +257,13 @@ class PersonalInfo extends Component {
             }
             else {
                 let source = { uri: response.uri };
-
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
                 this.setState({
-                    avatarSource: source,
+                    headUrl: source,
                     //...constants.avatar = source,
                 });
+                this._upDATAForAPP(this.state.accountNo, this.state.headUrl, this.state.id, this.state.sex);
             }
         });
     }

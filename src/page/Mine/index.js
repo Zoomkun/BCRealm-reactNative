@@ -3,6 +3,7 @@ import {
     Text,
     View,
     Image,
+    AsyncStorage
 } from 'react-native';
 
 import {
@@ -19,28 +20,15 @@ import {
 import { Row, } from "react-native-easy-grid";
 import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
-import constants from '../constants';
 import * as CacheManager from 'react-native-http-cache';
 import Toast, { DURATION } from 'react-native-easy-toast';
+import HttpUtils from "../../api/Api";
 
 const menus = [
     { icon: require('../../../images/wallet.png'), text: "钱包", arrows: require('../../../images/goIn.png'), uri: 'Wallet', line: true },
     { icon: require('../../../images/currency.png'), text: "货币", arrows: require('../../../images/goIn.png'), uri: 'Currency', line: true },
-    { icon: require('../../../images/news.png'), text: "私信", arrows: require('../../../images/goIn.png'), uri: 'Notice', line: true },
-    { icon: require('../../../images/authenticate.png'), text: "实名认证", arrows: require('../../../images/goIn.png'), uri: 'Authenticate', Certification: "未认证", },
-];
-// const m = [
-//     { text: "清除缓存", arrows: require('../../../images/goIn.png'), uri: _this.cleanCache(), line: true },
-//     { text: "关于区世界", arrows: require('../../../images/goIn.png'), uri: 'AboutUs', },
-// ];
-const me = [
-    {
-        name: "JayChou",
-        id: "0118",
-        posters: { thumbnail: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" },
-        icon: '../../../images/goIn.png',
-        uri: 'PersonalInfo',
-    }
+    { icon: require('../../../images/news.png'), text: "私信", arrows: require('../../../images/goIn.png'), uri: 'Notice', line: true, unReads: 1 },
+    { icon: require('../../../images/authenticate.png'), text: "实名认证", arrows: require('../../../images/goIn.png'), uri: 'Authenticate', Certification: 1 },
 ];
 
 /**
@@ -51,17 +39,37 @@ export default class Mine extends Component {
         super(props);
         this.state = {
             cacheSize: 0,
-            showToast: false
+            showToast: false,
+            data: [],
+            sex: 0,
+            headUrl: '',
+            userName: '',
+            id: 0,
+            accountNo: 0,
+            unReads: 0,
         };
     }
 
     componentDidMount() {
-
         CacheManager.getCacheSize().then((size) => {
             this.setState({ cacheSize: size })
         })
     }
 
+    componentWillMount() {
+        AsyncStorage.getItem('data').then(data => {
+            let datas = JSON.parse(data);
+            this.setState({
+                data: datas,
+                // sex: datas.sex,
+                // headUrl: datas.headUrl,
+                // userName: datas.userName,
+                // id: datas.id,
+                // accountNo: datas.accountNo
+            })
+        })
+        this._getUnReads();
+    }
     //test code
     static navigationOptions = ({ navigation }) => ({
         headerTitle: (<Text style={CommonStyles.title}>我</Text>),
@@ -82,17 +90,20 @@ export default class Mine extends Component {
     })
 
     render() {
-        var e = me[0];
         const { navigate } = this.props.navigation;
+        let data = this.state.data;
         return (
             <Container style={CommonStyles.container}>
                 <Content>
                     <List>
-                        <ListItem itemDivider style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }} button onPress={() => { navigate(e.uri, { url: e.posters.thumbnail }) }}>
-                            <Thumbnail source={{ uri: e.posters.thumbnail }} />
+                        <ListItem itemDivider style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }}
+                            button onPress={() => {
+                                navigate("PersonalInfo", { returnData: this._returnData.bind(this), data: this.state.data })
+                            }}>
+                            <Thumbnail source={{ uri: data.headUrl }} />
                             <Body style={{ justifyContent: 'flex-start', }}>
-                                <Text>{e.name}</Text>
-                                <Text note>{e.id}</Text>
+                                <Text>{data.userName}</Text>
+                                <Text note>{data.accountNo}</Text>
                             </Body>
                             <Right>
                                 <Image
@@ -115,8 +126,11 @@ export default class Mine extends Component {
                                             <Text style={styles.textStyle}>{item.text}</Text>
                                         </Body>
                                         <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
-                                            {item.Certification &&
-                                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{item.Certification}</Text>
+                                            {/* {item.Certification &&
+                                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{item.Certification == 1 ? "已认证" : "未认证"}</Text>
+                                            } */}
+                                            {item.unReads &&
+                                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{this.state.unReads > 0 ? this.state.unReads : ""}</Text>
                                             }
                                             {item.arrows &&
                                                 <Image
@@ -164,7 +178,7 @@ export default class Mine extends Component {
                     </List>
                     <Row size={20} style={styles.row}>
                         <View>
-                            <Button style={styles.button} >
+                            <Button style={styles.button} onPress={() => { this._loginOut() }}>
                                 <Text style={styles.buttonTextStyle}>退出登录</Text>
                             </Button>
                         </View>
@@ -196,4 +210,39 @@ export default class Mine extends Component {
         }
 
     }
+
+    _returnData(data) {
+        this.setState({
+            data: data
+        });
+    }
+
+    /**
+     * 获取指定用户的未读私信数量
+     */
+    _getUnReads() {
+        HttpUtils.getRequest(
+            'userUrl',
+            'unreads',
+            '',
+            function (data) {
+                this.setState({
+                    unReads: data,
+                })
+            }
+        )
+    }
+
+    _loginOut() {
+        let self = this
+        HttpUtils.deleteRequest(
+            'userUrl',
+            'loginOut',
+            '',
+            function (data) {
+                self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
+            }
+        )
+    }
+
 }

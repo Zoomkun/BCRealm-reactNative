@@ -11,6 +11,7 @@ import Carousel from 'react-native-looped-carousel'
 import CommonStyles from "../../css/commonStyle";
 import { CardItems } from '../../components';
 import styles from "./styles";
+import Http from '../../api/Api';
 
 const m = [
     { title: "画风精致|操作易上手", url: require('../../../images/banner1.jpg'), currency: "BTC", quantity: 10086, gameUrl: 'http://dbex.bcrealm.com/' },
@@ -23,8 +24,16 @@ const m = [
  * 主页一:游戏
  */
 export default class GamePage extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            data: [],
+            bannerData: []
+        }
 
+    }
     static navigationOptions = {
+        //header: null,
         headerTitle: (<Text style={CommonStyles.title}>游戏</Text>),
         tabBarLabel: '游戏',
         tabBarIcon: ({ tintColor }) => (
@@ -43,11 +52,23 @@ export default class GamePage extends Component {
         },
     };
 
+    componentDidMount() {
+        this._getGameList();
+        this._getBannerList();
+    }
+
     render() {
-        let items = m;
+        let items = this.state.data;
+        let data = this.state.bannerData;
+        console.log(this.state.data)
         return (
             <Content>
-                <Carousel style={styles.wrapper} autoplay={true} bullets={true}>
+                <Carousel style={styles.wrapper} autoplay={true} bullets={true} >
+                    {data.map((item, index) => (
+                        <View style={styles.slide} key={index}>
+                            <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }} source={{}} />
+                        </View>
+                    ))}
                     <View style={styles.slide}>
                         <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }} source={require('../../../images/banner1.jpg')} />
                     </View>
@@ -68,41 +89,48 @@ export default class GamePage extends Component {
                     renderItem={({ item, index }) => {
                         return <CardItems
                             {...this.props}
-                            title={item.title}
-                            url={item.url}
-                            currency={item.currency}
-                            quantity={item.quantity}
+                            gameFeatureDTO={item.gameFeatureDTO}
+                            url={item.gameImgUrl}
+                            currency={item.gameFeatureDTO[0].featureName}
+                            quantity={item.gameFeatureDTO[1].featureName}
                             onPress={() => this.props.navigation.navigate("GameWeb", { data: item })}
                         />
                     }} />
-                {/* <Card>
-                    <CardItem cardBody>
-                        <Image source={require('../../../images/banner1.jpg')} style={styles.cardImageStyle} />
-                    </CardItem>
-                    <CardItem style={styles.cardBodStyle}>
-                        <Left>
-                            <Text style={styles.currencyTextStyle}>BBM</Text>
-                            <Text style={styles.quantityStyle}>0</Text>
-                        </Left>
-                    </CardItem>
-                    <CardItem style={styles.caddBottomStyle}>
-                        <View style={styles.viewStyle}>
-                            <Body>
-                                <Button transparent>
-                                    <Text>画风精致|操作简单易上手</Text>
-                                </Button>
-                            </Body>
-                            <Right>
-                                <Button style={styles.buttonStyle}>
-                                    <Text style={styles.buttonTextStyle}>进入游戏</Text>
-                                </Button>
-                            </Right>
-                        </View>
-                    </CardItem>
-                </Card> */}
             </Content>
 
         )
     }
+
+    _getGameList() {
+        let self = this
+        Http.getRequest(
+            'appUrl',
+            'gameList',
+            '',
+            function (data) {
+                console.log(data)
+                self.setState({
+                    data: data.list
+                })
+                console.log(self.state.data)
+            }
+        )
+    }
+
+    _getBannerList() {
+        let self = this
+        Http.getRequest(
+            'appUrl',
+            'banner',
+            '',
+            function (data) {
+                console.log(data)
+                self.setState({
+                    bannerData: data
+                })
+            }
+        )
+    }
+
 }
 

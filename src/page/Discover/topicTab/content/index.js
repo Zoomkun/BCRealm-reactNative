@@ -9,6 +9,7 @@ import {
 } from 'native-base';
 import {
     WebView,
+    AsyncStorage
 } from 'react-native';
 import styles from "./styles";
 import CommonStyles from '../../../../css/commonStyle';
@@ -19,7 +20,10 @@ import CommonStyles from '../../../../css/commonStyle';
 export default class Content extends Component {
     constructor(props) {
         super(props)
-        this.url = this.props.navigation.state.params.url || "http://www.jvrmusic.com.tw/news/";
+        this.url = this.props.navigation.state.params.url;
+        this.state = {
+            token: ''
+        }
     }
 
     static navigationOptions = {
@@ -28,6 +32,17 @@ export default class Content extends Component {
 
     goBack = () => {
         this.props.navigation.goBack();
+    }
+
+    componentDidMount() {
+        AsyncStorage.getItem('data').then(data => {
+            let datas = JSON.parse(data);
+            this.setState({
+                token: datas.token,
+            })
+            this.refs.webView.postMessage(datas);
+        })
+
     }
 
     render() {
@@ -43,7 +58,14 @@ export default class Content extends Component {
                     </Body>
                     <Button transparent />
                 </Header>
-                <WebView source={{ uri: url }} style={styles.webStyle} >
+                <WebView
+                    // source={{ uri: "http://qsj.bcrealm.com/qsj/" + url }}
+                    source={{ uri: "http://192.168.31.124:8092/qsj/" + url }}
+                    style={styles.webStyle}
+                    ref='webView'
+                    onMessage={(e) => {
+                    }}
+                >
                 </WebView>
             </Container>
         )
