@@ -12,14 +12,14 @@ import {
  */
 export default class MsgItem extends Component {
     render() {
-        let { timestamp, onPress, text, } = this.props;
+        let { letterDate, onPress, text, } = this.props;
         return (
             <ListItem button onPress={onPress} style={{ paddingBottom: 5, }}>
                 <Body >
                     <View style={styles.viewStyle}>
                         <Text numberOfLines={2} style={styles.content}>{text} </Text>
                         {/* <Text style={styles.timeStyles}>{moment(timestamp).format('YYYY-MM-DD  HH:mm:ss')}</Text> */}
-                        <Text style={styles.timeStyles}>{timestamp}</Text>
+                        <Text style={styles.timeStyles}>{letterDate}</Text>
                     </View>
                 </Body>
             </ListItem>

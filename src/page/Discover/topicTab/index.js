@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { NewsItem } from '../../../components';
 import styles from "./styles";
+import HttpUtils from "../../../api/Api";
 
 const m = [
     { avatar: { uri: "http://g.hiphotos.baidu.com/zhidao/pic/item/203fb80e7bec54e79059f800ba389b504fc26a73.jpg" }, title: "紫光阁-中央和国家机关工作委员会", time: 1533802501000, like: 10086, read: 9999, s: "http://www.zgg.org.cn" },
@@ -29,17 +30,24 @@ export default class TopicTab extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            buttonShow: ''
+            buttonShow: '',
+            data: []
         }
     }
+
 
     static navigationOptions = {
         header: null
     };
 
+    componentDidMount() {
+        this._getTopic();
+    }
+
     render() {
         const { navigate } = this.props.navigation;
-        let items = m;
+        let items = this.state.data;
+        console.log(items)
         return (
             <Container>
                 <FlatList data={items}
@@ -52,12 +60,12 @@ export default class TopicTab extends Component {
                     renderItem={({ item, index }) => {
                         return <NewsItem
                             {...this.props}
-                            avatar={item.avatar}
+                            avatar={item.headUrl}
                             title={item.title}
-                            time={item.time}
-                            like={item.like}
-                            read={item.read}
-                            onPress={() => this.props.navigation.navigate("Content", { url: item.s })}
+                            time={item.sendDate}
+                            like={item.tsan}
+                            read={item.readVal}
+                            onPress={() => this.props.navigation.navigate("Content", { url: item.html5Url })}
                         />
                     }} />
                 <Button style={styles.addButtonStyle} onPress={() => { navigate("SendTopic") }}>
@@ -65,6 +73,38 @@ export default class TopicTab extends Component {
                 </Button>
             </Container>
         );
+    }
+
+    _getTopic() {
+        let self = this
+        HttpUtils.getRequest(
+            'appUrl',
+            'getTopic',
+            '',
+            function (data) {
+                self.setState({
+                    data: data.list
+                })
+            }
+        )
+    }
+
+
+    _GetTopic() {
+        fetch('http://test.bcrealm.com:9002/api/topic?page=1&pageSize=10', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset-UTF-8',
+                'token': '54a92193dcf649f2b721c23799848c6b'
+            }
+        }).then((response) => response.json())
+            .then((jsonData) => {
+                console.log(jsonData)
+                this.setState({
+                    data: jsonData.data.list
+                })
+                console.log(this.state.data)
+            });
     }
 }
 

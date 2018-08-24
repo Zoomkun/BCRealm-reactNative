@@ -17,7 +17,7 @@ export default class NewsItem extends Component {
         return (
             <ListItem style={styles.listItemStyle} button onPress={onPress} >
                 <View>
-                    <Thumbnail source={avatar} style={styles.avatarStyle} />
+                    <Thumbnail source={{ uri: avatar }} style={styles.avatarStyle} />
                 </View>
                 <View style={styles.bodyViewStyle}>
                     <Text numberOfLines={2} style={styles.content}>{title}</Text>

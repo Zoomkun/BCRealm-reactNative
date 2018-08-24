@@ -55,7 +55,7 @@ export default class News extends Component {
                     <Button transparent />
                 </Header>
 
-                <WebView source={{ uri: url }} style={styles.webStyle} >
+                <WebView source={{ uri: "http://qsj.bcrealm.com/qsj/news.html?id=26&from=singlemessage" }} style={styles.webStyle} >
                 </WebView>
                 {
                     this.state.showInput ?

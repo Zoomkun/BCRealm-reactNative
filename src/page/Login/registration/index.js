@@ -17,7 +17,7 @@ import { Grid, Row, Col } from 'react-native-easy-grid';
 import Toast, { DURATION } from 'react-native-easy-toast'
 import CommonStyles from '../../../css/commonStyle';
 import styles from "./styles";
-
+import Http from "../../../api/Api";
 /**
  * 注册
  */
@@ -109,9 +109,9 @@ export default class Registration extends Component {
 
                         <Row size={0.5} style={styles.row}>
                             <View >
-                                < TouchableOpacity rounded style={styles.logInButtonStyle} onPress={() => { this._register(this.state.phone, this.state.password, this.state.code) }}>
+                                < Button rounded style={styles.logInButtonStyle} onPress={() => { this._register(this.state.phone, this.state.password, this.state.code) }}>
                                     <Text style={styles.logInTextStyle}>注册</Text>
-                                </TouchableOpacity>
+                                </Button>
                             </View>
                         </Row>
 
@@ -144,20 +144,34 @@ export default class Registration extends Component {
         }
     }
 
+
+    //获取验证码
     _getCode(phone) {
         if (phone.length > 10) {
             this.state.seconds = 60
             let disable = !this.state.disable
             this.setState({ disable: disable })
-            fetch('http://test.bcrealm.com:9003/api/user/sendCode?phone=' + `${phone}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json;charset=UTF-8',
+            Http.getRequest(
+                'userUrl',
+                'sendCode',
+                {
+                    '': `${phone}`
+                },
+                function (data) {
+                    console.log(data)
                 }
-            }).then((response) => response.json())
-                .then((jsonData) => {
-                    this.refs.toast.show((jsonData.data.msg), DURATION.LENGTH_LONG);
-                });
+            )
+            // fetch('http://test.bcrealm.com:9003/api/user/sendCode?phone=' + `${phone}`, {
+            //     method: 'GET',
+            //     headers: {
+            //         'Content-Type': 'application/json;charset=UTF-8',
+            //     }
+            // }).then((response) => response.json())
+            //     .then((jsonData) => {
+            //         console.log(jsonData);
+            //         this.refs.toast.show((jsonData.data.msg), DURATION.LENGTH_LONG);
+            //     });
+
             this.interval = setInterval(() => {
                 let seconds = --this.state.seconds
                 if (seconds <= 0) {
@@ -174,30 +188,40 @@ export default class Registration extends Component {
     }
 
     _register(phone, password, code) {
-        console.log(phone + "__" + password + "__" + code);
         if (phone.length > 10 && password != '' && code != '') {
-            fetch('http://test.bcrealm.com:9003/api/user/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=UTF-8',
-                },
-                body: JSON.stringify({
+            Http.postRequrst(
+                'userUrl',
+                'register',
+                {
                     'checkNum': `${code}`,
                     'phoneNumber': `${phone}`,
-                    'pwd': `${password}`,
-                })
-            }).then((response) =>
-                response.json()
+                    'pwd': `${password}`
+                },
+                function (data) {
+                    console.log(data)
+                    this.refs.toast.show((data), DURATION.LENGTH_LONG);
+                }
             )
-                .then((jsonData) => {
-                    console.log({
-                        'checkNum': `${code}`,
-                        'phoneNumber': `${phone}`,
-                        'pwd': `${password}`,
-                    })
-                    console.log(jsonData)
-                    this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
-                });
+            // fetch('http://test.bcrealm.com:9003/api/user/register', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json;charset=UTF-8',
+            //     },
+            //     body: JSON.stringify({
+
+            //     })
+            // }).then((response) =>
+            //     response.json()
+            // )
+            //     .then((jsonData) => {
+            //         console.log({
+            //             'checkNum': `${code}`,
+            //             'phoneNumber': `${phone}`,
+            //             'pwd': `${password}`,
+            //         })
+            //         console.log(jsonData)
+            //         this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
+            //     });
         } else {
             this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
         }

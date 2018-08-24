@@ -40,6 +40,16 @@ export default class Login extends Component {
         header: null
     };
 
+    componentWillMount() {
+        let self = this
+        AsyncStorage.getItem('data').then(data => {
+            let datas = JSON.parse(data);
+            if (datas.token != '') {
+                self._goMainPage();
+            }
+        })
+    }
+
     render() {
         const { navigate } = this.props.navigation;
         return (
@@ -144,7 +154,7 @@ export default class Login extends Component {
                                 <Button rounded style={styles.logInButtonStyle} onPress={() => {
                                     this.state.pick == 0 ?
                                         this._login(this.state.phone, this.state.password) :
-                                        this._smsLogin(this.state.phone, this.setState.code)
+                                        this._smsLogin(this.state.phone, this.state.code)
                                 }}>
                                     <Text style={styles.logInTextStyle}>登录</Text>
                                 </Button>
@@ -180,21 +190,34 @@ export default class Login extends Component {
         }
     }
 
+    //获取验证码
     _getCode(phone) {
         if (phone.length > 10) {
             this.state.seconds = 60
             let disable = !this.state.disable
             this.setState({ disable: disable })
-            fetch('http://test.bcrealm.com:9003/api/user/sendCode?phone=' + `${phone}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json;charset=UTF-8',
+            console.log("yaoqingma")
+            HttpUtils.getRequest(
+                'userUrl',
+                'sendCode',
+                {
+                    '': `${phone}`
+                },
+                function (data) {
+                    console.log(data)
                 }
-            }).then((response) => response.json())
-                .then((jsonData) => {
-                    console.log(jsonData);
-                    this.refs.toast.show((jsonData.data.msg), DURATION.LENGTH_LONG);
-                });
+            )
+            // fetch('http://test.bcrealm.com:9003/api/user/sendCode?phone=' + `${phone}`, {
+            //     method: 'GET',
+            //     headers: {
+            //         'Content-Type': 'application/json;charset=UTF-8',
+            //     }
+            // }).then((response) => response.json())
+            //     .then((jsonData) => {
+            //         console.log(jsonData);
+            //         this.refs.toast.show((jsonData.data.msg), DURATION.LENGTH_LONG);
+            //     });
+
             this.interval = setInterval(() => {
                 let seconds = --this.state.seconds
                 if (seconds <= 0) {
@@ -210,10 +233,12 @@ export default class Login extends Component {
         }
     }
 
+    //密码登录
     _login(phone, password) {
         let self = this
         if (phone.length > 10 && password != '') {
             HttpUtils.postRequrst(
+                'userUrl',
                 'appLogin',
                 {
                     'cid': 'string',
@@ -221,37 +246,70 @@ export default class Login extends Component {
                     'pwd': `${password}`,
                 },
                 function (data) {
-                    AsyncStorage.setItem('userToken',data.token)
-                    self.refs.toast.show((data.userName), DURATION.LENGTH_LONG);
+                    if (data.userName) {
+                        AsyncStorage.setItem('data', JSON.stringify(data));
+                        self.refs.toast.show((data.userName), DURATION.LENGTH_LONG);
+                        self._goMainPage();
+                    } else {
+                        self.refs.toast.show((data), DURATION.LENGTH_LONG);
+                    }
+                    // AsyncStorage.getItem('data').then(data => {
+                    //     let dataObj = JSON.parse(data);
+                    //     console.log(dataObj)
+                    // })
                 }
             )
         } else {
             this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
         }
     }
-
+    _goMainPage() {
+        let { navigate } = this.props.navigation;
+        navigate("Main");
+    }
+    //短信登录
     _smsLogin(phone, code) {
+        let self = this
         if (phone.length > 10 && code != '') {
-            fetch('http://test.bcrealm.com:9003/api/login/user/smsLogin', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({
+            HttpUtils.postRequrst(
+                'userUrl',
+                'smsLogin',
+                {
                     'cid': 'string',
                     'phoneNumber': `${phone}`,
                     'code': `${code}`,
-                })
-            }).then((response) => response.json())
-                .then((jsonData) => {
-                    console.log(jsonData)
-                    if (!jsonData.data) {
-                        this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
+                },
+                function (data) {
+                    if (data.userName) {
+                        AsyncStorage.setItem('data', JSON.stringify(data));
+                        self.refs.toast.show((data.userName), DURATION.LENGTH_LONG);
+                        self._goMainPage();
                     } else {
-                        this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
+                        self.refs.toast.show((data), DURATION.LENGTH_LONG);
                     }
-                });
+                }
+            )
+
+            // fetch('http://test.bcrealm.com:9003/api/login/user/smsLogin', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Accept': 'application/json',
+            //     },
+            //     body: JSON.stringify({
+            //         'cid': 'string',
+            //         'phoneNumber': `${phone}`,
+            //         'code': `${code}`,
+            //     })
+            // }).then((response) => response.json())
+            //     .then((jsonData) => {
+            //         console.log(jsonData)
+            //         if (!jsonData.data) {
+            //             this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
+            //         } else {
+            //             this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
+            //         }
+            //     });
         } else {
             this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
         }
