@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {
     Container,
     Header,
@@ -35,14 +35,17 @@ export default class Content extends Component {
     }
 
     componentDidMount() {
+    }
+
+    _onLoadEnd = (e) =>{
         AsyncStorage.getItem('data').then(data => {
             let datas = JSON.parse(data);
             this.setState({
                 token: datas.token,
             })
-            this.refs.webView.postMessage(datas);
+            let dataJson = JSON.stringify(datas)
+            this.refs.webView.postMessage(dataJson);
         })
-
     }
 
     render() {
@@ -50,21 +53,22 @@ export default class Content extends Component {
         return (
             <Container>
                 <Header style={CommonStyles.headerStyle}>
-                    <Button transparent onPress={() => { this.goBack() }}>
-                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
+                    <Button transparent onPress={() => {
+                        this.goBack()
+                    }}>
+                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle}/>
                     </Button>
                     <Body style={CommonStyles.titleBodyStyle}>
-                        <Text style={CommonStyles.headertextStyle}>话题</Text>
+                    <Text style={CommonStyles.headertextStyle}>话题</Text>
                     </Body>
-                    <Button transparent />
+                    <Button transparent/>
                 </Header>
                 <WebView
                     // source={{ uri: "http://qsj.bcrealm.com/qsj/" + url }}
-                    source={{ uri: "http://192.168.31.124:8092/qsj/" + url }}
+                    source={{uri: "http://192.168.31.124:8092/qsj/" + url}}
                     style={styles.webStyle}
                     ref='webView'
-                    onMessage={(e) => {
-                    }}
+                    onLoadEnd={this._onLoadEnd}
                 >
                 </WebView>
             </Container>

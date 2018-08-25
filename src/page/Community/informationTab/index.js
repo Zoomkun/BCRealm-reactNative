@@ -73,7 +73,7 @@ export default class InformationTab extends Component {
     }
 
     static navigationOptions = {
-        header: null
+        header: ''
     };
 
     render() {
