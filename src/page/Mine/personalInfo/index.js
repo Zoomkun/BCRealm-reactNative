@@ -22,17 +22,8 @@ import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle';
 import ImagePicker from 'react-native-image-picker';
 import HttpUtils from "../../../api/Api";
+import Toast, { DURATION } from 'react-native-easy-toast'
 
-const me = [
-    {
-        title: "头像",
-        id: "0118",
-        posters: { thumbnail: "http://img5.imgtn.bdimg.com/it/u=2716432665,3069906192&fm=11&gp=0.jpg" },
-        icon: '../../../..s/images/goIn.png',
-        uri: 'PersonalInfo',
-        bg: true
-    }
-];
 
 /**
  * 个人信息页面
@@ -45,7 +36,7 @@ class PersonalInfo extends Component {
             // avatarSource: null,
             //videoSource: null
             data: [],
-            sex: 1,
+            sex: '',
             headUrl: '',
             userName: '',
             id: 0,
@@ -86,8 +77,6 @@ class PersonalInfo extends Component {
 
     render() {
         const { navigate } = this.props.navigation;
-        let data = this.state.data;
-        console.log(data)
         return (
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>
@@ -144,30 +133,40 @@ class PersonalInfo extends Component {
                             <Text >性别</Text>
                         </Body>
                         <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
-                            <Picker
-                                style={styles.picker}
-                                selectedValue={this.state.sex}
-                                onValueChange={(value) => this.onValueChange(1, value)}>
-                                <Picker.Item label="男" value="1" />
-                                <Picker.Item label="女" value="2" />
-                            </Picker>
+                            {this.state.sex != 0 &&
+                                (
+                                    < Picker
+                                        style={styles.picker}
+                                        selectedValue={this.state.sex}
+                                        onValueChange={(value) => this.onValueChange(1, value)}>
+                                        <Picker.Item label={this.state.sex == 1 ? "男" : "女"} value={this.state.sex == 1 ? 1 : '2'} />
+                                        <Picker.Item label={this.state.sex == 1 ? "女" : "男"} value={this.state.sex == 1 ? 2 : '1'} />
+                                    </Picker>
+                                )
+
+                            }
                         </Right>
                     </ListItem>
                 </List>
-                <Text>{this.state.sex}</Text>
-            </Container>
+                <Toast
+                    ref="toast"
+                    style={{ backgroundColor: '#434343' }}
+                    position='center'
+                    positionValue={200}
+                    fadeInDuration={750}
+                    fadeOutDuration={1000}
+                    opacity={0.8}
+                    textStyle={{ color: '#ffffff' }}
+                />
+            </Container >
         );
     };
 
     onValueChange = (flag, value) => {
         this.setState({ sex: value });
-        console.log(this.state.sex)
-        // this._upDATAForAPP(
-        //     this.state.accountNo,
-        //     this.state.headUrl,
-        //     this.state.id,
-        //     value,
-        //     this.state.userName);
+        if (this.state.userName != '') {
+            this._changeSex(this.state.accountNo, this.state.id, value)
+        }
     };
 
     _returnData(userName) {
@@ -175,50 +174,32 @@ class PersonalInfo extends Component {
             userName: userName
         });
     }
+
     /**
-     * 更改用户信息
-     */
-    _upDATAForAPP(accountNo, headUrl, id, sex) {
-        self = this
+    * 更改用户信息
+    */
+    _changeSex(accountNo, id, sex) {
+        console.log(accountNo + "__" + id + "___" + sex)
+        let self = this
         HttpUtils.putRequrst(
             'userUrl',
             'updateForApp',
             {
                 "accountNo": `${accountNo}`,
                 "id": `${id}`,
-                "headUrl": `${headUrl}`,
                 "sex": `${sex}`
             },
             function (data) {
-                console.log(data)
-                // if (data.data.userName) {
-                //     AsyncStorage.setItem('data', JSON.stringify(data.data));
-                //     self.refs.toast.show((data.data.userName), DURATION.LENGTH_LONG);
-                // } else {
-                //     self.refs.toast.show((data.msg), DURATION.LENGTH_LONG);
-                // }
+                if (data.data.userName) {
+                    AsyncStorage.setItem('data', JSON.stringify(data.data));
+                    self.refs.toast.show((data.msg), DURATION.LENGTH_LONG);
+                } else {
+                    self.refs.toast.show((data.msg), DURATION.LENGTH_LONG);
+                }
             }
         )
-
-
-        // fetch('http://test.bcrealm.com:9003/api/user/updateForApp', {
-        //     method: 'PUT',
-        //     headers: {
-        //         'Content-Type': 'application/json;charset-UTF-8',
-        //         'token': '07c298a08a1741b8accab242071ac690'
-        //     },
-        //     body: JSON.stringify({
-        //         "accountNo": `${accountNo}`,
-        //         "headUrl": `${headUrl}`,
-        //         "id": `${id}`,
-        //         "sex": `${sex}`,
-        //         "userName": `${userName}`
-        //     })
-        // }).then((response) => response.json())
-        //     .then((jsonData) => {
-        //         console.log(jsonData)
-        //     });
     }
+
 
 
     //选择图片

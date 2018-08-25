@@ -21,11 +21,12 @@ export default class NewsItem extends Component {
                 </View>
                 <View style={styles.bodyViewStyle}>
                     <Text numberOfLines={2} style={styles.content}>{title}</Text>
-                    <Text note style={styles.timeStyle}>{moment(time).format('YYYY-MM-DD  HH:mm:ss')}</Text>
+                    {/* <Text note style={styles.timeStyle}>{moment(time).format('YYYY-MM-DD  HH:mm:ss')}</Text> */}
+                    <Text note style={styles.timeStyle}>{time}</Text>
                 </View>
                 <View style={styles.viewStyle}>
-                    <Text>{like}赞</Text>
-                    <Text>{read}阅读</Text>
+                    <Text style={styles.text}>{like}赞</Text>
+                    <Text style={styles.text}>{read}阅读</Text>
                 </View>
             </ListItem>
         );
@@ -54,7 +55,10 @@ const styles = {
         marginLeft: -width / 8.57
     },
     viewStyle: {
+        flex: 1,
         flexDirection: 'column',
-        marginLeft: 5
     },
+    text: {
+        alignSelf: 'flex-end'
+    }
 };

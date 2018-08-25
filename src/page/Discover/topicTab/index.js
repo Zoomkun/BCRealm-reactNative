@@ -79,7 +79,7 @@ export default class TopicTab extends Component {
         let self = this
         HttpUtils.getRequest(
             'appUrl',
-            'getTopic',
+            'topicList',
             '',
             function (data) {
                 self.setState({

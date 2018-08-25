@@ -27,10 +27,10 @@ import HttpUtils from "../../api/Api";
 const menus = [
     { icon: require('../../../images/wallet.png'), text: "钱包", arrows: require('../../../images/goIn.png'), uri: 'Wallet', line: true },
     { icon: require('../../../images/currency.png'), text: "货币", arrows: require('../../../images/goIn.png'), uri: 'Currency', line: true },
-    { icon: require('../../../images/news.png'), text: "私信", arrows: require('../../../images/goIn.png'), uri: 'Notice', line: true, unReads: 1 },
-    { icon: require('../../../images/authenticate.png'), text: "实名认证", arrows: require('../../../images/goIn.png'), uri: 'Authenticate', Certification: 1 },
 ];
 
+// { icon: require('../../../images/news.png'), text: "私信", arrows: require('../../../images/goIn.png'), uri: 'Notice', line: true, unReads: 1 },
+// { icon: require('../../../images/authenticate.png'), text: "实名认证", arrows: require('../../../images/goIn.png'), uri: 'Authenticate', Certification: 1 },
 /**
  * 主页四:我
  */
@@ -41,10 +41,6 @@ export default class Mine extends Component {
             cacheSize: 0,
             showToast: false,
             data: [],
-            sex: 0,
-            headUrl: '',
-            userName: '',
-            id: 0,
             accountNo: 0,
             unReads: 0,
         };
@@ -61,16 +57,11 @@ export default class Mine extends Component {
             let datas = JSON.parse(data);
             this.setState({
                 data: datas,
-                // sex: datas.sex,
-                // headUrl: datas.headUrl,
-                // userName: datas.userName,
-                // id: datas.id,
-                // accountNo: datas.accountNo
             })
         })
         this._getUnReads();
     }
-    //test code
+
     static navigationOptions = ({ navigation }) => ({
         headerTitle: (<Text style={CommonStyles.title}>我</Text>),
         // headerLeft: (<Image style={styles.headerLeft}>左边</Image>),
@@ -101,59 +92,11 @@ export default class Mine extends Component {
                                 navigate("PersonalInfo", { returnData: this._returnData.bind(this), data: this.state.data })
                             }}>
                             <Thumbnail source={{ uri: data.headUrl }} />
-                            <Body style={{ justifyContent: 'flex-start', }}>
+                            <Body style={{ justifyContent: 'flex-start', paddingLeft: 10 }}>
                                 <Text>{data.userName}</Text>
                                 <Text note>{data.accountNo}</Text>
                             </Body>
                             <Right>
-                                <Image
-                                    source={require('../../../images/goIn.png')}
-                                    style={CommonStyles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
-                                />
-                            </Right>
-                        </ListItem>
-                        <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
-                        {
-                            menus.map((item, index) => (
-                                //<ListItem key={index} button onPress={() => { this.props.navigation.navigate(item.uri) }}>
-                                <View key={index}>
-                                    <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate(item.uri) }}>
-                                        <Image
-                                            source={item.icon}
-                                            style={CommonStyles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
-                                        />
-                                        <Body style={{ justifyContent: 'flex-start', }}>
-                                            <Text style={styles.textStyle}>{item.text}</Text>
-                                        </Body>
-                                        <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
-                                            {/* {item.Certification &&
-                                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{item.Certification == 1 ? "已认证" : "未认证"}</Text>
-                                            } */}
-                                            {item.unReads &&
-                                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{this.state.unReads > 0 ? this.state.unReads : ""}</Text>
-                                            }
-                                            {item.arrows &&
-                                                <Image
-                                                    source={item.arrows}
-                                                    style={CommonStyles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
-                                                />
-                                            }</Right>
-                                    </ListItem>
-                                    {item.line &&
-                                        <View style={{ backgroundColor: '#F3F3F3', height: 2 }} />
-                                    }
-                                </View>
-                            ))
-                        }
-                        <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
-
-
-                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { this._cleanCache() }}>
-                            <Body style={{ justifyContent: 'flex-start', }}>
-                                <Text >清除缓存</Text>
-                            </Body>
-                            <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
-                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100}M</Text>
                                 <Image
                                     source={require('../../../images/goIn.png')}
                                     style={CommonStyles.icon}
@@ -161,7 +104,81 @@ export default class Mine extends Component {
                             </Right>
                         </ListItem>
 
-                        <View style={{ backgroundColor: '#F3F3F3', height: 2 }} />
+                        <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
+                        {
+                            menus.map((item, index) => (
+                                <View key={index}>
+                                    <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate(item.uri) }}>
+                                        <Image
+                                            source={item.icon}
+                                            style={CommonStyles.icon}
+                                        />
+                                        <Body style={{ justifyContent: 'flex-start', }}>
+                                            <Text style={styles.textStyle}>{item.text}</Text>
+                                        </Body>
+                                        <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
+                                            <Image
+                                                source={item.arrows}
+                                                style={CommonStyles.icon}
+                                            />
+                                        </Right>
+                                    </ListItem>
+                                    {item.line &&
+                                        <View style={styles.line} />
+                                    }
+                                </View>
+                            ))
+                        }
+
+                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('Notice') }}>
+                            <Image
+                                source={require('../../../images/news.png')}
+                                style={CommonStyles.icon}
+                            />
+                            <Body style={{ justifyContent: 'flex-start', }}>
+                                <Text style={styles.textStyle}>私信</Text>
+                            </Body>
+                            <Right style={styles.rightStyle}>
+                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{this.state.unReads > 0 ? this.state.unReads : ""}</Text>
+                                <Image
+                                    source={require('../../../images/goIn.png')}
+                                    style={CommonStyles.icon}
+                                />
+                            </Right>
+                        </ListItem>
+                        <View style={styles.line} />
+
+                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { data.certification > 0 ? '' : navigate('Authenticate') }}>
+                            <Image
+                                source={require('../../../images/authenticate.png')}
+                                style={CommonStyles.icon}
+                            />
+                            <Body style={{ justifyContent: 'flex-start', }}>
+                                <Text style={styles.textStyle}>实名认证</Text>
+                            </Body>
+                            <Right style={styles.rightStyle}>
+                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{data.certification > 0 ? "已认证 " : "未认证"}</Text>
+                                <Image
+                                    source={require('../../../images/goIn.png')}
+                                    style={CommonStyles.icon}
+                                />
+                            </Right>
+                        </ListItem>
+                        <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
+
+                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { this._cleanCache() }}>
+                            <Body style={{ justifyContent: 'flex-start', }}>
+                                <Text >清除缓存</Text>
+                            </Body>
+                            <Right style={styles.rightStyle}>
+                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100}M</Text>
+                                <Image
+                                    source={require('../../../images/goIn.png')}
+                                    style={CommonStyles.icon}
+                                />
+                            </Right>
+                        </ListItem>
+                        <View style={styles.line} />
 
                         {/* <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('AboutUs') }}> */}
                         <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('Login') }}>
@@ -171,7 +188,7 @@ export default class Mine extends Component {
                             <Right>
                                 <Image
                                     source={require('../../../images/goIn.png')}
-                                    style={CommonStyles.icon}// {tintColor: tintColor} 选中的图片和文字颜色
+                                    style={CommonStyles.icon}
                                 />
                             </Right>
                         </ListItem>
@@ -221,12 +238,13 @@ export default class Mine extends Component {
      * 获取指定用户的未读私信数量
      */
     _getUnReads() {
+        let self = this
         HttpUtils.getRequest(
             'userUrl',
             'unreads',
             '',
             function (data) {
-                this.setState({
+                self.setState({
                     unReads: data,
                 })
             }
@@ -240,9 +258,20 @@ export default class Mine extends Component {
             'loginOut',
             '',
             function (data) {
-                self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
+                if (data.msg == '成功') {
+                    self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
+                    self._gologin();
+                } else {
+                    self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
+                }
+
             }
         )
+    }
+
+    _gologin() {
+        let { navigate } = this.props.navigation;
+        navigate("Login");
     }
 
 }

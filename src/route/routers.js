@@ -1,4 +1,3 @@
-
 import { StackNavigator } from "react-navigation";
 import MainPage from '../page/mainPage';
 import Login from '../page/Login';

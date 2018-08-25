@@ -59,16 +59,23 @@ export default class GamePage extends Component {
 
     render() {
         let items = this.state.data;
-        let data = this.state.bannerData;
-        console.log(this.state.data)
+        let bannerData = this.state.bannerData;
         return (
             <Content>
-                <Carousel style={styles.wrapper} autoplay={true} bullets={true} >
-                    {/* {data.map((item, index) => (
-                        <View style={styles.slide} key={index}>
-                            <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }} source={{}} />
-                        </View>
-                    ))} */}
+                <Carousel style={styles.wrapper} autoplay={true} bullets={true} {...console.log(bannerData)}>
+
+                    <View />
+                    {
+                        bannerData.map((item, index) => (
+                            <View style={styles.slide} key={index}>
+                                <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }} source={{ url: "http://bcr-app-oss-001.oss-cn-shenzhen.aliyuncs.com/banner/wsipnPRkE8.jpg" }} />
+                            </View>
+                        ))
+                    }
+                    {/* <View style={styles.slide} >
+                        <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }}
+                            source={require('../../../images/banner1.jpg')} />
+                    </View>
                     <View style={styles.slide}>
                         <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }} source={require('../../../images/banner1.jpg')} />
                     </View>
@@ -77,7 +84,7 @@ export default class GamePage extends Component {
                     </View>
                     <View style={styles.slide}>
                         <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }} source={require('../../../images/banner3.jpg')} />
-                    </View>
+                    </View> */}
                 </Carousel>
                 <FlatList data={items}
                     enableEmptySections={true}
@@ -96,7 +103,7 @@ export default class GamePage extends Component {
                             onPress={() => this.props.navigation.navigate("GameWeb", { data: item })}
                         />
                     }} />
-            </Content>
+            </Content >
 
         )
     }
@@ -112,7 +119,6 @@ export default class GamePage extends Component {
                 self.setState({
                     data: data.list
                 })
-                console.log(self.state.data)
             }
         )
     }

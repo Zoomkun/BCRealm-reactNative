@@ -13,7 +13,7 @@ import {
     Input
 } from 'native-base';
 import { Grid, Row, Col } from 'react-native-easy-grid';
-import Toast, { DURATION } from 'react-native-easy-toast'
+import Toast, { DURATION } from 'react-native-easy-toast';
 import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
 import HttpUtils from "../../api/Api";
@@ -207,17 +207,6 @@ export default class Login extends Component {
                     console.log(data)
                 }
             )
-            // fetch('http://test.bcrealm.com:9003/api/user/sendCode?phone=' + `${phone}`, {
-            //     method: 'GET',
-            //     headers: {
-            //         'Content-Type': 'application/json;charset=UTF-8',
-            //     }
-            // }).then((response) => response.json())
-            //     .then((jsonData) => {
-            //         console.log(jsonData);
-            //         this.refs.toast.show((jsonData.data.msg), DURATION.LENGTH_LONG);
-            //     });
-
             this.interval = setInterval(() => {
                 let seconds = --this.state.seconds
                 if (seconds <= 0) {
@@ -253,20 +242,18 @@ export default class Login extends Component {
                     } else {
                         self.refs.toast.show((data), DURATION.LENGTH_LONG);
                     }
-                    // AsyncStorage.getItem('data').then(data => {
-                    //     let dataObj = JSON.parse(data);
-                    //     console.log(dataObj)
-                    // })
                 }
             )
         } else {
             this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
         }
     }
+
     _goMainPage() {
         let { navigate } = this.props.navigation;
         navigate("Main");
     }
+
     //短信登录
     _smsLogin(phone, code) {
         let self = this
@@ -289,27 +276,6 @@ export default class Login extends Component {
                     }
                 }
             )
-
-            // fetch('http://test.bcrealm.com:9003/api/login/user/smsLogin', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'Accept': 'application/json',
-            //     },
-            //     body: JSON.stringify({
-            //         'cid': 'string',
-            //         'phoneNumber': `${phone}`,
-            //         'code': `${code}`,
-            //     })
-            // }).then((response) => response.json())
-            //     .then((jsonData) => {
-            //         console.log(jsonData)
-            //         if (!jsonData.data) {
-            //             this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
-            //         } else {
-            //             this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
-            //         }
-            //     });
         } else {
             this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
         }

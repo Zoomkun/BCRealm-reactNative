@@ -6,7 +6,9 @@ import Api from './UrlList'
  * fetch 网络请求的header，可自定义header 内容
  * @type {{Accept: string, Content-Type: string, accessToken: *}}
  */
-let header = {}
+let header = {
+    'Content-Type': 'application/json;charset=UTF-8',
+}
 
 AsyncStorage.getItem('data').then(data => {
     let datas = JSON.parse(data);
@@ -164,6 +166,7 @@ export default class HttpUtils extends Component {
             //     return response
             // }
         }).catch(error => {
+            console.log(error)
             alert(error)
         })
     }
@@ -188,12 +191,6 @@ export default class HttpUtils extends Component {
         }).then(response => {
             // response.code：是与服务器端约定code：200表示请求成功，非200表示请求失败，message：请求失败内容
             success(response)
-            if (response && response.code === 1) {
-            } else {
-                // 非 200，错误处理
-                // alert(response.message)
-                return response
-            }
         }).catch(error => {
             alert(error)
         })

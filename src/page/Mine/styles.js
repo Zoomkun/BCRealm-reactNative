@@ -32,6 +32,10 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
     },
+    line: {
+        backgroundColor: '#F3F3F3',
+        height: 2
+    },
     row: {
         marginTop: 50,
         flexDirection: 'column',
@@ -54,5 +58,10 @@ export default {
     headerLeft: {
         fontSize: 20,
         color: '#fff',
+    },
+    rightStyle: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
     }
 }
