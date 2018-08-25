@@ -88,23 +88,5 @@ export default class TopicTab extends Component {
             }
         )
     }
-
-
-    _GetTopic() {
-        fetch('http://test.bcrealm.com:9002/api/topic?page=1&pageSize=10', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset-UTF-8',
-                'token': '54a92193dcf649f2b721c23799848c6b'
-            }
-        }).then((response) => response.json())
-            .then((jsonData) => {
-                console.log(jsonData)
-                this.setState({
-                    data: jsonData.data.list
-                })
-                console.log(this.state.data)
-            });
-    }
 }
 

@@ -6,15 +6,11 @@ import Api from './UrlList'
  * fetch 网络请求的header，可自定义header 内容
  * @type {{Accept: string, Content-Type: string, accessToken: *}}
  */
-let header = {}
+let header = {'Content-Type': 'application/json;charset=UTF-8'}
 
 AsyncStorage.getItem('data').then(data => {
     let datas = JSON.parse(data);
-    header = {
-        'Content-Type': 'application/json;charset=UTF-8',
-        'token': datas.token
-    }
-    console.log(datas.token)
+    header.token = datas.token
 })
 
 /**
@@ -117,14 +113,12 @@ export default class HttpUtils extends Component {
             headers: header,
             body: JSON.stringify(params)
         })).then(response => {
-            console.log(JSON.stringify(params))
             if (response.ok) {
                 return response.json()
             } else {
                 alert('服务器繁忙，请稍后再试；\r\nCode:' + response.status)
             }
         }).then(response => {
-            console.log(response)
             // response.code：是与服务器端约定code：200表示请求成功，非200表示请求失败，message：请求失败内容
             if (response && response.code === 1) {
                 success(response.data)
