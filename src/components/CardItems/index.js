@@ -23,7 +23,7 @@ export default class CardItems extends Component {
         return (
             <Card>
                 <CardItem cardBody>
-                    <Image source={{ uri: url }} style={styles.cardImageStyle} />
+                    <Image source={{ uri: url }} style={styles.cardImageStyle} {...console.log(url)} />
                 </CardItem>
                 <CardItem style={styles.cardBodStyle}>
                     <Left>

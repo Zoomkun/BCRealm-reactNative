@@ -3,14 +3,18 @@ const { Dimensions } = React;
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 export default {
+    imageStyle: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     wrapper: {
         width: deviceWidth,
         height: 493 * (deviceWidth / 750),
     },
     slide: {
-        flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     buttonStyle: {
         backgroundColor: '#FE6F06',

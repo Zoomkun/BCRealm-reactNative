@@ -4,7 +4,6 @@ import {
     Button,
     Body,
     Icon,
-    Image,
     Text,
 } from "native-base";
 
@@ -15,22 +14,23 @@ import CommonStyles from '../css/commonStyle';
  */
 export default class ThemeHeader extends Component {
     render() {
-        let { leftSource, rightSource, onLeftPress, onRightPress, headerTitle } = this.props;
+        let { leftSource, onLeftOnPress, title, onRightPress, rightSource } = this.props;
         return (
-            <Header >
-                <Button transparent onPress={() => { onLeftPress }}>
-                    <Image source={leftSource} style={CommonStyles.icon} />
-                </Button>
-                <Body style={CommonStyles.headerBodyStyle}>
-                    <Text style={CommonStyles.headertextStyle}>{headerTitle}</Text>
+            <Header style={CommonStyles.headerStyle}>
+                {leftSource &&
+                    <Button transparent onPress={() => { onLeftOnPress }}  >
+                        <Icon name={leftSource} style={CommonStyles.backIconStyle} />
+                    </Button>
+                }
+                <Body style={CommonStyles.titleBodyStyle}>
+                    <Text style={CommonStyles.headertextStyle}>{title}</Text>
                 </Body>
-                {rightSource !== null ?
+                {rightSource &&
                     < Button transparent onPress={() => { onRightPress }}>
-                        <Image source={rightSource} style={CommonStyles.icon} />
-                    </Button> : < Button transparent />
+                        <Icon name={rightSource} style={CommonStyles.backIconStyle} />
+                    </Button>
                 }
             </Header>
-            // <View style={{ backgroundColor: 'pink', height: 20 }} />
         );
     }
 }

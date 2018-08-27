@@ -11,9 +11,8 @@ export default {
     buttonTextStyle: {
         color: '#ffffff'
     },
-
     cardImageStyle: {
-        height: 150,
+        height: deviceWidth / 2.4,
         width: null,
         flex: 1
     },

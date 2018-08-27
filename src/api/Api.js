@@ -2,15 +2,17 @@ import { Component } from 'react'
 import { AsyncStorage } from "react-native"
 import Api from './UrlList'
 
+
 /**
  * fetch 网络请求的header，可自定义header 内容
  * @type {{Accept: string, Content-Type: string, accessToken: *}}
  */
-let header = {'Content-Type': 'application/json;charset=UTF-8'}
-
+let header = { 'Content-Type': 'application/json;charset=UTF-8' }
+let headers = {}
 AsyncStorage.getItem('data').then(data => {
     let datas = JSON.parse(data);
-    header.token = datas.token
+    header.token = datas.token;
+    headers.token = datas.token;
 })
 
 /**
@@ -113,6 +115,7 @@ export default class HttpUtils extends Component {
             headers: header,
             body: JSON.stringify(params)
         })).then(response => {
+            console.log(JSON.stringify(params))
             if (response.ok) {
                 return response.json()
             } else {
@@ -129,6 +132,38 @@ export default class HttpUtils extends Component {
             alert(error)
         })
     }
+
+    /**
+    * 基于fetch 的 POSTformData 请求
+    * @param url 请求的URL
+    * @param params 请求参数
+    * @param success 成功回调
+    * @returns {Promise}
+    */
+    static formDataRequest = (Url, ApiName, params, success) => {
+        return timeoutFetch(fetch(Api[Url] + Api[ApiName], {
+            method: 'POST',
+            headers: headers,
+            body: params
+        })).then(response => {
+            if (response.ok) {
+                return response.json()
+            } else {
+                alert('服务器繁忙，请稍后再试；\r\nCode:' + response.status)
+            }
+        }).then(response => {
+            // response.code：是与服务器端约定code：200表示请求成功，非200表示请求失败，message：请求失败内容
+            if (response && response.code === 1) {
+                success(response.data)
+            } else {
+                success(response.msg)
+            }
+        }).catch(error => {
+            console.log(error)
+            alert(error)
+        })
+    }
+
 
     /**
      * 基于fetch 的 PUT 请求

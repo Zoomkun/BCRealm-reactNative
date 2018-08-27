@@ -17,6 +17,7 @@ import {
     Button,
 } from 'native-base';
 
+import { ThemeHeader } from '../../components';
 import { Row, } from "react-native-easy-grid";
 import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
@@ -63,7 +64,8 @@ export default class Mine extends Component {
     }
 
     static navigationOptions = ({ navigation }) => ({
-        headerTitle: (<Text style={CommonStyles.title}>我</Text>),
+        header: null,
+        //headerTitle: (<Text style={CommonStyles.title}>我</Text>),
         // headerLeft: (<Image style={styles.headerLeft}>左边</Image>),
         // headerRight: (<Image style={styles.headerRight}>右边</Image>),
         headerStyle: {
@@ -85,6 +87,7 @@ export default class Mine extends Component {
         let data = this.state.data;
         return (
             <Container style={CommonStyles.container}>
+                <ThemeHeader title={"我"} />
                 <Content>
                     <List>
                         <ListItem itemDivider style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }}

@@ -11,12 +11,14 @@ import {
 import CommonStyles from '../../css/commonStyle';
 import InformationTab from './informationTab';
 import CommunityTab from './communityTab';
+import { ThemeHeader } from '../../components';
 
 export default class CommunityPage extends Component {
 
 
     static navigationOptions = ({ navigation }) => ({
-        headerTitle: (<Text style={CommonStyles.title}>社区</Text>),
+        header: null,
+        //headerTitle: (<Text style={CommonStyles.title}>社区</Text>),
         headerStyle: {
             "backgroundColor": "#FE6F06",
         },
@@ -34,6 +36,7 @@ export default class CommunityPage extends Component {
     render() {
         return (
             <Container>
+                <ThemeHeader title={"社区"} />
                 <Tabs tabBarUnderlineStyle={CommonStyles.tabsStyle}>
                     <Tab heading="信息" tabStyle={CommonStyles.tabStyle}
                         activeTabStyle={CommonStyles.tabActiveTabStyle}

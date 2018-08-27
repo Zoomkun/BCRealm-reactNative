@@ -9,9 +9,10 @@ import {
     Container,
 } from 'native-base';
 import CommonStyles from '../../css/commonStyle';
-//import styles from "./styles";
+import { ThemeHeader } from '../../components';
 import NewsTab from './newsTab';
 import TopicTab from './topicTab';
+//import styles from "./styles";
 //import FlatListExample from './FlatListExample';
 
 /**
@@ -20,7 +21,8 @@ import TopicTab from './topicTab';
 export default class Discover extends Component {
 
     static navigationOptions = ({ navigation }) => ({
-        headerTitle: (<Text style={CommonStyles.title}>发现</Text>),
+        header: null,
+        //headerTitle: (<Text style={CommonStyles.title}>发现</Text>),
         // headerLeft: (<Image style={styles.headerLeft}>左边</Image>),
         // headerRight: (<Image style={styles.headerRight}>右边</Image>),
         headerStyle: {
@@ -39,6 +41,7 @@ export default class Discover extends Component {
     render() {
         return (
             <Container>
+                <ThemeHeader title={"话题"} />
                 <Tabs tabBarUnderlineStyle={CommonStyles.tabsStyle}>
                     <Tab heading="新闻" tabStyle={CommonStyles.tabStyle}
                         activeTabStyle={CommonStyles.tabActiveTabStyle}

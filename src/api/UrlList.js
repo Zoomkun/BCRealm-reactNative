@@ -4,10 +4,10 @@ import { Component } from 'react'
  * api集合
  */
 export default {
-    appUrl: 'http://test.bcrealm.com:9002/api/',
-    userUrl: 'http://test.bcrealm.com:9003/api/',
-    // appUrl: 'http://192.168.31.124:9002/api/',
-    // userUrl: 'http://192.168.31.124:9003/api/',
+    // appUrl: 'http://test.bcrealm.com:9002/api/',
+    // userUrl: 'http://test.bcrealm.com:9003/api/',
+    appUrl: 'http://192.168.31.124:9002/api/',
+    userUrl: 'http://192.168.31.124:9003/api/',
 
     register: 'user/register',//注册ok
     sendCode: 'user/sendCode?phone',//获取验证码ok

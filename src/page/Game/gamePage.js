@@ -2,23 +2,15 @@ import React, { Component } from 'react';
 import {
     Text,
     View,
-    // Dimensions,
     Image,
     FlatList
 } from 'react-native';
-import { Content } from 'native-base';
+import { Content, Container } from 'native-base';
 import Carousel from 'react-native-looped-carousel'
 import CommonStyles from "../../css/commonStyle";
-import { CardItems } from '../../components';
+import { CardItems, ThemeHeader } from '../../components';
 import styles from "./styles";
 import Http from '../../api/Api';
-
-const m = [
-    { title: "画风精致|操作易上手", url: require('../../../images/banner1.jpg'), currency: "BTC", quantity: 10086, gameUrl: 'http://dbex.bcrealm.com/' },
-    { title: "画风精致|操作易上手", url: require('../../../images/banner1.jpg'), currency: "DBEX", quantity: 123, gameUrl: 'http://dbex.bcrealm.com/' },
-    { title: "画风精致|操作易上手", url: require('../../../images/banner1.jpg'), currency: "NXH", quantity: 789, gameUrl: 'http://nxh.bcrealm.com/' },
-    { title: "画风精致|操作易上手", url: require('../../../images/banner1.jpg'), currency: "BBM", quantity: 5656, gameUrl: 'http://bbm.bcrealm.com/' },
-]
 
 /**
  * 主页一:游戏
@@ -33,8 +25,8 @@ export default class GamePage extends Component {
 
     }
     static navigationOptions = {
-        //header: null,
-        headerTitle: (<Text style={CommonStyles.title}>游戏</Text>),
+        header: null,
+        //headerTitle: (<Text style={CommonStyles.title}>游戏</Text>),
         tabBarLabel: '游戏',
         tabBarIcon: ({ tintColor }) => (
             <Image
@@ -53,58 +45,55 @@ export default class GamePage extends Component {
     };
 
     componentDidMount() {
-        this._getGameList();
         this._getBannerList();
+        this._getGameList();
     }
 
     render() {
         let items = this.state.data;
         let bannerData = this.state.bannerData;
         return (
-            <Content>
-                <Carousel style={styles.wrapper} autoplay={true} bullets={true} {...console.log(bannerData)}>
-
-                    <View />
+            <Container>
+                <ThemeHeader title={"游戏"} />
+                <Content>
                     {
-                        bannerData.map((item, index) => (
-                            <View style={styles.slide} key={index}>
-                                <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }} source={{ url: "http://bcr-app-oss-001.oss-cn-shenzhen.aliyuncs.com/banner/wsipnPRkE8.jpg" }} />
-                            </View>
-                        ))
-                    }
-                    {/* <View style={styles.slide} >
+                        bannerData.length != 0 &&
+                        <Carousel style={styles.wrapper} autoplay={true} bullets={true}>
+                            {
+                                bannerData.map((item, index) => (
+                                    <Image style={styles.imageStyle}
+                                        source={{ uri: item.bannerUrl }} key={index} />
+                                ))
+                            }
+                            {/* <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }}
+                            source={{ uri: 'http://bcr-app-oss-001.oss-cn-shenzhen.aliyuncs.com/game/Ky5d8wthSA.jpg' }} />
                         <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }}
-                            source={require('../../../images/banner1.jpg')} />
-                    </View>
-                    <View style={styles.slide}>
-                        <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }} source={require('../../../images/banner1.jpg')} />
-                    </View>
-                    <View style={styles.slide}>
-                        <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }} source={require('../../../images/banner2.jpg')} />
-                    </View>
-                    <View style={styles.slide}>
-                        <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }} source={require('../../../images/banner3.jpg')} />
-                    </View> */}
-                </Carousel>
-                <FlatList data={items}
-                    enableEmptySections={true}
-                    //refreshing={this.state.refreshing}
-                    onEndReachedThreshold={10}
-                    // onRefresh={() => this._loadData(true)}
-                    //onEndReached={() => this._loadData(false)}
-                    keyExtractor={(item, key) => key}
-                    renderItem={({ item, index }) => {
-                        return <CardItems
-                            {...this.props}
-                            gameFeatureDTO={item.gameFeatureDTO}
-                            url={item.gameImgUrl}
-                            currency={item.gameFeatureDTO[0].featureName}
-                            quantity={item.gameFeatureDTO[1].featureName}
-                            onPress={() => this.props.navigation.navigate("GameWeb", { data: item })}
-                        />
-                    }} />
-            </Content >
-
+                            source={{ uri: 'http://bcr-app-oss-001.oss-cn-shenzhen.aliyuncs.com/game/Ky5d8wthSA.jpg' }} />
+                        <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }}
+                            source={{ uri: 'http://bcr-app-oss-001.oss-cn-shenzhen.aliyuncs.com/game/Ky5d8wthSA.jpg' }} />
+                        <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }}
+                            source={{ uri: 'http://bcr-app-oss-001.oss-cn-shenzhen.aliyuncs.com/game/Ky5d8wthSA.jpg' }} /> */}
+                        </Carousel>
+                    }
+                    <FlatList data={items}
+                        enableEmptySections={true}
+                        //refreshing={this.state.refreshing}
+                        onEndReachedThreshold={10}
+                        // onRefresh={() => this._loadData(true)}
+                        //onEndReached={() => this._loadData(false)}
+                        keyExtractor={(item, key) => key}
+                        renderItem={({ item, index }) => {
+                            return <CardItems
+                                {...this.props}
+                                gameFeatureDTO={item.gameFeatureDTO}
+                                url={item.gameImgUrl}
+                                currency={item.gameFeatureDTO[0].featureName}
+                                quantity={item.gameFeatureDTO[1].featureName}
+                                onPress={() => this.props.navigation.navigate("GameWeb", { data: item })}
+                            />
+                        }} />
+                </Content >
+            </Container>
         )
     }
 
@@ -115,7 +104,6 @@ export default class GamePage extends Component {
             'gameList',
             '',
             function (data) {
-                console.log(data)
                 self.setState({
                     data: data.list
                 })

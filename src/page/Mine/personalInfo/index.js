@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import _ from 'lodash';
 import {
     Container,
     Body,
@@ -40,7 +40,8 @@ class PersonalInfo extends Component {
             headUrl: '',
             userName: '',
             id: 0,
-            accountNo: 0
+            accountNo: 0,
+            token: ''
         }
 
         //this.url = this.props.navigation.state.params.url;
@@ -69,7 +70,8 @@ class PersonalInfo extends Component {
                 accountNo: datas.accountNo,
                 id: datas.id,
                 headUrl: datas.headUrl,
-                userName: datas.userName
+                userName: datas.userName,
+                token: datas.token
             })
             console.log(datas);
         })
@@ -200,6 +202,54 @@ class PersonalInfo extends Component {
         )
     }
 
+    // _changeAvatar(loadForm) {
+    //     let fileName = file.fileName
+    //     let curr = moment().format('YYYYMMDD').toString()
+    //     let prefix = moment(file.lastModified).format('HHmmss').toString()
+    //     let suffix = (fileName || '').toLowerCase()
+    //     let key = encodeURI(`${curr}/${prefix}_${suffix}`)
+    //     let uri = file.uri
+
+
+    //     console.log(loadForm)
+    //     var dataForm = new FormData();
+    //     dataForm.append('file', loadForm)
+    //     console.log(dataForm)
+    //     HttpUtils.formDataRequest(
+    //         'userUrl',
+    //         'changeAvatar',
+    //         dataForm,
+    //         function (data) {
+    //             console.log(data)
+    //         }
+
+    //     )
+    // }
+
+    _changeAvatar(loadForm) {
+        console.log(loadForm.data)
+        var base64String = 'data:image/jpeg;base64,' + loadForm.data;
+        console.log(base64String);
+        var bytes = window.atob(base64String.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < bytes.length; i++) {
+            array.push(bytes.charCodeAt(i));
+        }
+        var blob = new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
+        var fd = new FormData();
+        fd.append('file', blob, Date.now() + '.jpg');
+
+        console.log(fd)
+        HttpUtils.formDataRequest(
+            'userUrl',
+            'changeAvatar',
+            fd,
+            function (data) {
+                console.log(data)
+            }
+
+        )
+    }
 
 
     //选择图片
@@ -237,14 +287,15 @@ class PersonalInfo extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                let source = { uri: response.uri };
+                // let source = { uri: response.uri };
+                let source = response.uri;
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+                this._changeAvatar(response);
                 this.setState({
                     headUrl: source,
                     //...constants.avatar = source,
                 });
-                this._upDATAForAPP(this.state.accountNo, this.state.headUrl, this.state.id, this.state.sex);
             }
         });
     }
