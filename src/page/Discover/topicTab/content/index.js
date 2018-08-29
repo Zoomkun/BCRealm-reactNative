@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
     Container,
     Header,
@@ -9,7 +9,9 @@ import {
 } from 'native-base';
 import {
     WebView,
-    AsyncStorage
+    AsyncStorage,
+    AppRegistry,
+    Keyboard
 } from 'react-native';
 import styles from "./styles";
 import CommonStyles from '../../../../css/commonStyle';
@@ -21,8 +23,11 @@ export default class Content extends Component {
     constructor(props) {
         super(props)
         this.url = this.props.navigation.state.params.url;
+        this.keyboardDidShowListener = null;
+        this.keyboardDidHideListener = null;
         this.state = {
-            token: ''
+            token: '',
+            webViewData: []
         }
     }
 
@@ -34,10 +39,7 @@ export default class Content extends Component {
         this.props.navigation.goBack();
     }
 
-    componentDidMount() {
-    }
-
-    _onLoadEnd = (e) =>{
+    _onLoadEnd = (e) => {
         AsyncStorage.getItem('data').then(data => {
             let datas = JSON.parse(data);
             this.setState({
@@ -48,6 +50,13 @@ export default class Content extends Component {
         })
     }
 
+    _onMessage = (e) => {
+        this.setState({
+            webViewData: e.nativeEvent.data
+        });
+        Alert.alert(e.nativeEvent.data)
+    }
+
     render() {
         let url = this.url
         return (
@@ -56,19 +65,21 @@ export default class Content extends Component {
                     <Button transparent onPress={() => {
                         this.goBack()
                     }}>
-                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle}/>
+                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
                     </Button>
                     <Body style={CommonStyles.titleBodyStyle}>
-                    <Text style={CommonStyles.headertextStyle}>话题</Text>
+                        <Text style={CommonStyles.headertextStyle}>话题</Text>
                     </Body>
-                    <Button transparent/>
+                    <Button transparent />
                 </Header>
                 <WebView
                     // source={{ uri: "http://qsj.bcrealm.com/qsj/" + url }}
-                    source={{uri: "http://192.168.31.124:8092/qsj/" + url}}
-                    style={styles.webStyle}
+                    source={{ uri: "http://192.168.31.124:8092/qsj/" + url }}
                     ref='webView'
                     onLoadEnd={this._onLoadEnd}
+                    onMessage={(e) => {
+                        this._onMessage(e)
+                    }}
                 >
                 </WebView>
             </Container>

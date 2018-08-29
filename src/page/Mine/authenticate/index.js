@@ -87,7 +87,7 @@ class Authenticate extends Component {
                         <Right style={styles.rightStyle}>
                             <Picker
                                 mode={'dropdown'}
-                                style={{ width: 100 }}
+                                style={styles.picker}
                                 selectedValue={this.state.nat}
                                 onValueChange={(value) => this.onValueChange(1, value)}>
                                 {/* nationality.map((item, index) => (
@@ -193,23 +193,6 @@ class Authenticate extends Component {
                 })
             }
         )
-        // fetch('http://test.bcrealm.com:9003/api/nationality', {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json;charset-UTF-8',
-        //         'token': '4cf1f9adc26c4142a4079e4323e2a8c3'
-        //     },
-        // }).then((response) => response.json())
-        //     .then((jsonData) => {
-        //         console.log(jsonData);
-        //         if (jsonData.msg == "成功") {
-        //             this.setState({
-        //                 nationality: this.state.nationality.concat(jsonData.data),
-        //             });
-        //         } else {
-        //             // console.log(jsonData.msg);
-        //         }
-        //     })
     }
 
     /**
@@ -227,25 +210,6 @@ class Authenticate extends Component {
                 });
             }
         )
-
-        // fetch('http://test.bcrealm.com:9003/api/', {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json;charset-UTF-8',
-        //         'token': '4cf1f9adc26c4142a4079e4323e2a8c3'
-        //     },
-        // }).then((response) => response.json())
-        //     .then((jsonData) => {
-        //         console.log(jsonData);
-        //         if (jsonData.msg == "成功") {
-        //             this.setState({
-        //                 certificate: this.state.certificate.concat(jsonData.data),
-        //                 //refreshing: true
-        //             });
-        //         } else {
-        //             // console.log(jsonData.msg);
-        //         }
-        // })
     }
 
     /**
@@ -253,38 +217,29 @@ class Authenticate extends Component {
      */
     _authenticate() {
         self = this
-        Http.postRequrst(
-            'userUrl',
-            'realNameAu',
-            {
-                "certificateNumber": `${this.state.certificateNumber}`,
-                "certificateTypeId": `${this.state.cer}`,
-                "id": `${this.state.id}`,
-                "nationalityId": `${this.state.nat}`,
-                "realName": `${this.state.name}`
-            },
-            function (data) {
-                if (data == '') {
-                    self.refs.toast.show("认证成功", DURATION.LENGTH_LONG);
-                } else {
-                    self.refs.toast.show(data, DURATION.LENGTH_LONG);
+        if (this.state.name != '' && this.state.certificateNumber != '') {
+            Http.postRequrst(
+                'userUrl',
+                'realNameAu',
+                {
+                    "certificateNumber": `${this.state.certificateNumber}`,
+                    "certificateTypeId": `${this.state.cer}`,
+                    "id": `${this.state.id}`,
+                    "nationalityId": `${this.state.nat}`,
+                    "realName": `${this.state.name}`
+                },
+                function (data) {
+                    if (data == '') {
+                        self.refs.toast.show("认证成功", DURATION.LENGTH_LONG);
+                    } else {
+                        self.refs.toast.show(data, DURATION.LENGTH_LONG);
+                    }
                 }
-            }
-        )
+            )
+        } else {
+            self.refs.toast.show("真实姓名或证件号码不可为空", DURATION.LENGTH_LONG);
+        }
 
-        // fetch('http://test.bcrealm.com:9003/api/user/realNameAu', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json;charset-UTF-8',
-        //         'token': 'dfff6860ceb04e00bc800b1853ea83af'
-        //     },
-        //     body: JSON.stringify({
-
-        //     })
-        // }).then((response) => response.json())
-        //     .then((jsonData) => {
-        //         this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
-        //     });
     }
 }
 

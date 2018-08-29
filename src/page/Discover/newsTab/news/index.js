@@ -12,6 +12,7 @@ import {
 } from 'native-base';
 import {
     WebView,
+    AsyncStorage
 } from 'react-native';
 import styles from "./styles";
 import CommonStyles from '../../../../css/commonStyle';
@@ -26,8 +27,9 @@ export default class News extends Component {
         this.state = {
             attention: false,
             showInput: false,
+            webViewData: []
         }
-        this.url = this.props.navigation.state.params.url || "http://www.jvrmusic.com.tw/news/";
+        this.url = this.props.navigation.state.params.url;
     }
 
     static navigationOptions = {
@@ -36,6 +38,24 @@ export default class News extends Component {
 
     goBack = () => {
         this.props.navigation.goBack();
+    }
+
+    _onLoadEnd = (e) => {
+        AsyncStorage.getItem('data').then(data => {
+            let datas = JSON.parse(data);
+            this.setState({
+                token: datas.token,
+            })
+            let dataJson = JSON.stringify(datas)
+            this.refs.webView.postMessage(dataJson);
+        })
+    }
+
+    _onMessage = (e) => {
+        this.setState({
+            webViewData: e.nativeEvent.data
+        });
+        Alert.alert(e.nativeEvent.data)
     }
 
     render() {
@@ -55,7 +75,12 @@ export default class News extends Component {
                     <Button transparent />
                 </Header>
 
-                <WebView source={{ uri: "http://192.168.31.124:8092/qsj/" + url }} style={styles.webStyle} >
+                {/* <WebView source={{ uri: "http://192.168.31.124:8092/qsj/" + url }} */}
+                <WebView source={{ uri: "http://192.168.31.124:8092/qsj/" + url }}
+                    ref='webView'
+                    onLoadEnd={this._onLoadEnd}
+                    style={styles.webStyle} >
+
                 </WebView>
                 {
                     //底部按钮

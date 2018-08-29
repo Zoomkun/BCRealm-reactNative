@@ -10,7 +10,8 @@ import {
 } from 'native-base';
 import {
     Text,
-    AsyncStorage
+    AsyncStorage,
+    Keyboard
 } from 'react-native';
 
 import styles from "./styles";
@@ -25,6 +26,8 @@ class SettingName extends Component {
 
     constructor(props) {
         super(props)
+        this.keyboardDidShowListener = null;
+        this.keyboardDidHideListener = null;
         this.state = {
             userName: '',
             title: '',
@@ -40,6 +43,10 @@ class SettingName extends Component {
     goBack = () => {
         this.props.navigation.state.params.returnData(this.state.userName);
         this.props.navigation.goBack();
+    }
+
+    dissmissKeyboard() {
+        Keyboard.dismiss();
     }
 
     componentDidMount() {
@@ -68,12 +75,16 @@ class SettingName extends Component {
                     <Body style={CommonStyles.titleBodyStyle}>
                         <Text style={CommonStyles.headertextStyle}>个人信息</Text>
                     </Body>
-                    <Button transparent onPress={() => { this._changeUserName(this.state.accountNo, this.state.id, this.state.userName) }}>
+                    <Button transparent onPress={() => {
+                        this._changeUserName(this.state.accountNo, this.state.id, this.state.userName),
+                            this.dissmissKeyboard()
+                    }}>
                         <Text style={CommonStyles.headertextStyle}>保存</Text>
                     </Button>
                 </Header>
                 <Item multiline style={styles.itemstyle}>
                     <Input placeholder="请输入名称"
+                        ref="bottomInput"
                         value={this.state.userName}
                         onChangeText={(text) => { this.setState({ userName: text }) }} />
                 </Item>
@@ -92,25 +103,31 @@ class SettingName extends Component {
     }
 
     _changeUserName(accountNo, id, userName) {
+        this.dissmissKeyboard.bind(this);
         let self = this
-        HttpUtils.putRequrst(
-            'userUrl',
-            'updateForApp',
-            {
-                "accountNo": `${accountNo}`,
-                "id": `${id}`,
-                "userName": `${userName}`
-            },
-            function (data) {
-                console.log(data)
-                if (data.data.userName) {
-                    AsyncStorage.setItem('data', JSON.stringify(data.data));
-                    self.refs.toast.show((data.data.userName), DURATION.LENGTH_LONG);
-                } else {
-                    self.refs.toast.show((data.msg), DURATION.LENGTH_LONG);
+        if (self.state.userName != '') {
+            HttpUtils.putRequrst(
+                'userUrl',
+                'updateForApp',
+                {
+                    "accountNo": `${accountNo}`,
+                    "id": `${id}`,
+                    "userName": `${userName}`
+                },
+                function (data) {
+                    console.log(data)
+                    if (data.data.userName) {
+                        AsyncStorage.setItem('data', JSON.stringify(data.data));
+                        self.refs.toast.show((data.data.userName), DURATION.LENGTH_LONG);
+                    } else {
+                        self.refs.toast.show((data.msg), DURATION.LENGTH_LONG);
+                    }
                 }
-            }
-        )
+            )
+        } else {
+            self.refs.toast.show(("名称不可为空"), DURATION.LENGTH_LONG);
+        }
+
         // _upDATAForAPP(accountNo, headUrl, id, sex, userName) {
         //     fetch('http://test.bcrealm.com:9003/api/user/updateForApp', {
         //         method: 'PUT',
