@@ -27,6 +27,7 @@ export default class News extends Component {
         this.state = {
             attention: false,
             showInput: false,
+            webViewData: []
         }
         this.url = this.props.navigation.state.params.url;
     }

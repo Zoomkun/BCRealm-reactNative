@@ -23,6 +23,8 @@ export default class Content extends Component {
     constructor(props) {
         super(props)
         this.url = this.props.navigation.state.params.url;
+        this.keyboardDidShowListener = null;
+        this.keyboardDidHideListener = null;
         this.state = {
             token: '',
         }
@@ -47,6 +49,13 @@ export default class Content extends Component {
         })
     }
 
+    _onMessage = (e) => {
+        this.setState({
+            webViewData: e.nativeEvent.data
+        });
+        Alert.alert(e.nativeEvent.data)
+    }
+
     render() {
         let url = this.url
         return (
@@ -67,6 +76,9 @@ export default class Content extends Component {
                     source={{ uri: "http://192.168.31.124:8092/qsj/" + url }}
                     ref='webView'
                     onLoadEnd={this._onLoadEnd}
+                    onMessage={(e) => {
+                        this._onMessage(e)
+                    }}
                 >
                 </WebView>
             </Container>
