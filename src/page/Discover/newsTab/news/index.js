@@ -12,6 +12,7 @@ import {
 } from 'native-base';
 import {
     WebView,
+    AsyncStorage
 } from 'react-native';
 import styles from "./styles";
 import CommonStyles from '../../../../css/commonStyle';
@@ -27,7 +28,7 @@ export default class News extends Component {
             attention: false,
             showInput: false,
         }
-        this.url = this.props.navigation.state.params.url || "http://www.jvrmusic.com.tw/news/";
+        this.url = this.props.navigation.state.params.url;
     }
 
     static navigationOptions = {
@@ -36,6 +37,17 @@ export default class News extends Component {
 
     goBack = () => {
         this.props.navigation.goBack();
+    }
+
+    _onLoadEnd = (e) => {
+        AsyncStorage.getItem('data').then(data => {
+            let datas = JSON.parse(data);
+            this.setState({
+                token: datas.token,
+            })
+            let dataJson = JSON.stringify(datas)
+            this.refs.webView.postMessage(dataJson);
+        })
     }
 
     render() {
@@ -55,54 +67,12 @@ export default class News extends Component {
                     <Button transparent />
                 </Header>
 
-                <WebView source={{ uri: "http://192.168.31.124:8092/qsj/" + url }} style={styles.webStyle} >
+                {/* <WebView source={{ uri: "http://192.168.31.124:8092/qsj/" + url }} */}
+                <WebView source={{ uri: "http://192.168.31.124:8092/qsj/" + url }}
+                    ref='webView'
+                    onLoadEnd={this._onLoadEnd}
+                    style={styles.webStyle} >
                 </WebView>
-                {
-                    //底部按钮
-                    // this.state.showInput ?
-                    //     (< Footer style={styles.footerStyle} >
-                    //         <Row style={styles.rowStyle}>
-                    //             <Col size={2.4} style={styles.leftstyle}>
-                    //                 <Item rounded style={styles.item}>
-                    //                     <Button style={styles.button} onPress={() => { this.setState({ showInput: !this.state.showInput }) }} />
-                    //                 </Item>
-                    //             </Col>
-                    //             <Col size={1} style={styles.layout}>
-                    //                 <Button iconLeft transparent>
-                    //                     <Icon style={styles.comments} name='md-text' />
-                    //                     <Text note style={styles.comments}>12</Text>
-                    //                 </Button>
-                    //             </Col>
-                    //             <Col size={1} style={styles.layout}>
-                    //                 <Button transparent onPress={() => { this.setState({ attention: !this.state.attention }) }}>
-                    //                     <Icon style={this.state.attention ? styles.like : styles.icon} name={this.state.attention ? 'md-heart' : 'ios-heart-outline'} />
-                    //                     <Text note style={styles.comments}>12</Text>
-                    //                 </Button>
-                    //             </Col>
-                    //         </Row>
-                    //     </Footer>) :
-                    //     (< Footer style={styles.footerStyle}>
-                    //         <Row style={styles.rowStyle}>
-                    //             <Col size={2.4} style={styles.leftstyle}>
-                    //                 <Item rounded style={styles.item}>
-                    //                     <Input multiline
-                    //                         style={black ? styles.input : styles.inputblack}
-                    //                         placeholder='写评论...' />
-                    //                 </Item>
-                    //             </Col>
-                    //             <Col size={1} style={styles.layou}>
-                    //                 <Button transparent style={styles.item} onPress={() => { this.setState({ showInput: !this.state.showInput }) }}>
-                    //                     <Text style={styles.comments}>发送</Text>
-                    //                 </Button>
-                    //             </Col>
-                    //             <Col size={1} style={styles.layou}>
-                    //                 <Button transparent style={styles.item} onPress={() => { this.setState({ showInput: !this.state.showInput }) }}>
-                    //                     <Text style={styles.comments}>取消</Text>
-                    //                 </Button>
-                    //             </Col>
-                    //         </Row>
-                    //     </Footer>)
-                }
             </Container >
         );
     }

@@ -59,9 +59,6 @@ class Wallet extends Component {
                     <Body style={CommonStyles.titleBodyStyle}>
                         <Text style={CommonStyles.headertextStyle}>钱包</Text>
                     </Body>
-                    <Button transparent onPress={() => { this.goBack() }}>
-                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
-                    </Button>
                 </Header>
                 <Content>
                     <Grid style={styles.gridStyle} >

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
     Text,
     View,
-    Image, AsyncStorage
+    Image,
+    AsyncStorage,
 } from 'react-native';
 import {
     Button,
@@ -42,12 +43,12 @@ export default class Login extends Component {
 
     componentWillMount() {
         let self = this
-        AsyncStorage.getItem('data').then(data => {
-            let datas = JSON.parse(data);
-            if (datas.token != '') {
-                self._goMainPage();
-            }
-        })
+        // AsyncStorage.getItem('data').then(data => {
+        //     let datas = JSON.parse(data);
+        //     if (datas.token != '') {
+        //         self._goMainPage();
+        //     }
+        // })
     }
 
     render() {
@@ -155,6 +156,7 @@ export default class Login extends Component {
                                     this.state.pick == 0 ?
                                         this._login(this.state.phone, this.state.password) :
                                         this._smsLogin(this.state.phone, this.state.code)
+
                                 }}>
                                     <Text style={styles.logInTextStyle}>登录</Text>
                                 </Button>

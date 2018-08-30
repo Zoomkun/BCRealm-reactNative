@@ -8,19 +8,16 @@ const deviceWidth = Dimensions.get("window").width;
 export default {
   viewStyle: {
     backgroundColor: '#F3F3F3',
-    height: 50,
+    height: deviceWidth / 7.2,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  tipsStyle: {
-
   },
   textStyle: {
     fontSize: 18,
     color: '#000000',
   },
   picker: {
-    width: 100,
+    width: deviceWidth / 3.6,
   },
   button: {
     width: deviceWidth * 0.8,
@@ -32,15 +29,14 @@ export default {
     color: '#ffffff'
   },
   row: {
-    marginTop: 10,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: deviceWidth / 2.4,
   },
   bodyStyle: {
     justifyContent: 'flex-start',
-    marginLeft: 20
+    marginLeft: deviceWidth / 18
   },
   rightStyle: {
     flexDirection: 'row',
@@ -51,7 +47,7 @@ export default {
     backgroundColor: '#ffffff'
   },
   listItemStyle: {
-    height: 50,
+    height: deviceWidth / 7.2,
     backgroundColor: '#ffffff',
   },
   lineStyle: {
@@ -61,7 +57,7 @@ export default {
     height: 3
   },
   gridStyle: {
-    height: 10,
+    height: deviceWidth / 36,
     width: deviceWidth,
   },
   colStyle: {

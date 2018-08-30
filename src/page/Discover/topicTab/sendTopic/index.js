@@ -13,6 +13,7 @@ import {
 } from 'native-base';
 import {
     Text,
+    Keyboard
 } from 'react-native';
 import styles from '../styles';
 import CommonStyles from '../../../../css/commonStyle';
@@ -50,7 +51,10 @@ class SendTopic extends Component {
                     <Body style={CommonStyles.titleBodyStyle}>
                         <Text style={CommonStyles.headertextStyle}>发送话题</Text>
                     </Body>
-                    <Button transparent onPress={() => { this._sendTopic(this.state.content, this.state.title) }}>
+                    <Button transparent onPress={() => {
+                        this._sendTopic(this.state.content, this.state.title),
+                            this._dissmissKeyboard()
+                    }}>
                         <Text style={styles.text}>保存</Text>
                     </Button>
                 </Header>
@@ -77,6 +81,10 @@ class SendTopic extends Component {
                 />
             </Container>
         );
+    }
+
+    _dissmissKeyboard() {
+        Keyboard.dismiss();
     }
 
     _sendTopic(content, title) {

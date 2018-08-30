@@ -16,7 +16,7 @@ import {
     View,
     Image,
     Picker,
-    AsyncStorage
+    AsyncStorage,
 } from 'react-native';
 import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle';
@@ -53,7 +53,8 @@ class PersonalInfo extends Component {
     goBack = () => {
         AsyncStorage.getItem('data').then(data => {
             let datas = JSON.parse(data);
-            console.log(datas)
+            datas.headUrl = this.state.headUrl;
+            console.log(datas);
             this.props.navigation.state.params.returnData(datas);
         })
         this.props.navigation.goBack();
@@ -76,6 +77,8 @@ class PersonalInfo extends Component {
             console.log(datas);
         })
     }
+
+    
 
     render() {
         const { navigate } = this.props.navigation;
@@ -228,28 +231,43 @@ class PersonalInfo extends Component {
 
     _changeAvatar(loadForm) {
         console.log(loadForm.data)
-        var base64String = 'data:image/jpeg;base64,' + loadForm.data;
-        console.log(base64String);
-        var bytes = window.atob(base64String.split(',')[1]);
-        var array = [];
-        for (var i = 0; i < bytes.length; i++) {
-            array.push(bytes.charCodeAt(i));
-        }
-        var blob = new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
-        var fd = new FormData();
-        fd.append('file', blob, Date.now() + '.jpg');
+        let self = this
+        let fileName = loadForm.fileName
+        let uri = loadForm.uri
+        let formData = new FormData()
+        formData.append("file", { uri: uri, type: 'application/octet-stream', name: fileName });
 
-        console.log(fd)
         HttpUtils.formDataRequest(
             'userUrl',
             'changeAvatar',
-            fd,
+            formData,
             function (data) {
-                console.log(data)
+                if (data.userName) {
+                    AsyncStorage.setItem('data', JSON.stringify(data));
+                    self.refs.toast.show((data.userName), DURATION.LENGTH_LONG);
+                } else {
+                    self.refs.toast.show((data), DURATION.LENGTH_LONG);
+                }
             }
 
         )
     }
+
+    // _changeAvatar(loadForm) {
+    //     console.log(loadForm.data)
+
+
+    //     console.log(fd)
+    //     HttpUtils.formDataRequest(
+    //         'userUrl',
+    //         'changeAvatar',
+    //         fd,
+    //         function (data) {
+    //             console.log(data)
+    //         }
+
+    //     )
+    // }
 
 
     //选择图片

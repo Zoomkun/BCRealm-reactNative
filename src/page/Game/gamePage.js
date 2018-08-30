@@ -118,7 +118,6 @@ export default class GamePage extends Component {
             'banner',
             '',
             function (data) {
-                console.log(data)
                 self.setState({
                     bannerData: data
                 })
