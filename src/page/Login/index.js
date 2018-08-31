@@ -34,7 +34,6 @@ export default class Login extends Component {
             disable: false,
         }
         this.interval = 0
-
     }
 
     static navigationOptions = {
@@ -43,12 +42,22 @@ export default class Login extends Component {
 
     componentWillMount() {
         let self = this
-        // AsyncStorage.getItem('data').then(data => {
-        //     let datas = JSON.parse(data);
-        //     if (datas.token != '') {
-        //         self._goMainPage();
-        //     }
-        // })
+        AsyncStorage.getItem('phone').then(data => {
+            console.log(data)
+            if (data) {
+                self.setState({
+                    phone: JSON.parse(data)
+                })
+            }
+        })
+        AsyncStorage.getItem('password').then(data => {
+            if (data) {
+                self.setState({
+                    password: JSON.parse(data)
+                })
+            }
+            console.log(data)
+        })
     }
 
     render() {
@@ -239,6 +248,8 @@ export default class Login extends Component {
                 function (data) {
                     if (data.userName) {
                         AsyncStorage.setItem('data', JSON.stringify(data));
+                        AsyncStorage.setItem('phone', JSON.stringify(self.state.phone));
+                        AsyncStorage.setItem('password', JSON.stringify(self.state.password));
                         self.refs.toast.show((data.userName), DURATION.LENGTH_LONG);
                         self._goMainPage();
                     } else {

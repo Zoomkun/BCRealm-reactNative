@@ -46,6 +46,7 @@ export default class Content extends Component {
             })
             let dataJson = JSON.stringify(datas)
             this.refs.webView.postMessage(dataJson);
+            console.log(dataJson)
         })
     }
 
@@ -73,6 +74,7 @@ export default class Content extends Component {
                 </Header>
                 <WebView
                     // source={{ uri: "http://qsj.bcrealm.com/qsj/" + url }}
+                    {...console.log('http://192.168.31.124:8092/qsj/' + url)}
                     source={{ uri: "http://192.168.31.124:8092/qsj/" + url }}
                     ref='webView'
                     onLoadEnd={this._onLoadEnd}
