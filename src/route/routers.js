@@ -1,5 +1,6 @@
 import { StackNavigator } from "react-navigation";
 import MainPage from '../page/mainPage';
+import StartPage from '../page/startpage';
 import Login from '../page/Login';
 import Registration from '../page/Login/registration';
 import ServiceAgreement from '../page/Login/serviceAgreement';
@@ -18,6 +19,7 @@ import SendTopic from '../page/Discover/topicTab/sendTopic';
 import News from '../page/Discover/newsTab/news';
 import Content from '../page/Discover/topicTab/content';
 const routers = StackNavigator({
+    StartPage: { screen: StartPage },
     Login: { screen: Login },
     Main: { screen: MainPage },
     Registration: { screen: Registration },

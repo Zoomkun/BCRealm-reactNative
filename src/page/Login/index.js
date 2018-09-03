@@ -18,6 +18,13 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
 import HttpUtils from "../../api/Api";
+import { NavigationActions } from 'react-navigation';
+resetAction = NavigationActions.reset({
+    index: 0,
+    actions: [
+        NavigationActions.navigate({ routeName: 'Main' })//要跳转到的页面名字
+    ]
+});
 
 /**
  * 登录
@@ -161,12 +168,13 @@ export default class Login extends Component {
 
                         <Row size={0.6} style={styles.row}>
                             <View>
-                                <Button rounded style={styles.logInButtonStyle} onPress={() => {
-                                    this.state.pick == 0 ?
-                                        this._login(this.state.phone, this.state.password) :
-                                        this._smsLogin(this.state.phone, this.state.code)
+                                <Button rounded style={styles.logInButtonStyle}
+                                    onPress={() => {
+                                        this.state.pick == 0 ?
+                                            this._login(this.state.phone, this.state.password) :
+                                            this._smsLogin(this.state.phone, this.state.code)
 
-                                }}>
+                                    }}>
                                     <Text style={styles.logInTextStyle}>登录</Text>
                                 </Button>
                             </View>
@@ -247,11 +255,12 @@ export default class Login extends Component {
                 },
                 function (data) {
                     if (data.userName) {
+                        HttpUtils.setHeader({ token: data.token })
                         AsyncStorage.setItem('data', JSON.stringify(data));
                         AsyncStorage.setItem('phone', JSON.stringify(self.state.phone));
                         AsyncStorage.setItem('password', JSON.stringify(self.state.password));
                         self.refs.toast.show((data.userName), DURATION.LENGTH_LONG);
-                        self._goMainPage();
+                        self.props.navigation.dispatch(resetAction);
                     } else {
                         self.refs.toast.show((data), DURATION.LENGTH_LONG);
                     }
@@ -283,6 +292,7 @@ export default class Login extends Component {
                     if (data.userName) {
                         AsyncStorage.setItem('data', JSON.stringify(data));
                         self.refs.toast.show((data.userName), DURATION.LENGTH_LONG);
+                        HttpUtils.headers.token = data.token;
                         self._goMainPage();
                     } else {
                         self.refs.toast.show((data), DURATION.LENGTH_LONG);

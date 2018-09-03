@@ -88,8 +88,8 @@ export default class News extends Component {
                     </Button>
                 </Header>
                 {/* <WebView source={{ uri: "http://192.168.31.124:8092/qsj/" + url }} */}
-                <WebView source={{ uri: "http://192.168.31.124:8092/qsj/" + url }}
-                    {...console.log('http://192.168.31.124:8092/qsj/' + url)}
+                <WebView source={{ uri: "http://qsj.bcrealm.com/static/" + url }}
+                    {...console.log('http://qsj.bcrealm.com/static/' + url)}
                     ref='webView'
                     onLoadEnd={this._onLoadEnd}
                     style={styles.webStyle} >

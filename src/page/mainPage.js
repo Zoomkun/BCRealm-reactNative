@@ -9,7 +9,7 @@ import CommunityPage from './Community';
 import MinePage from './Mine';
 import DiscoverPage from './Discover';
 import Api from '../api/Api';
- 
+
 const mainPage = TabNavigator({
     Game: {
         screen: GamePage,
@@ -17,12 +17,13 @@ const mainPage = TabNavigator({
             //默认参数
         }
     },
-    Community: {
-        screen: CommunityPage,
-        navigationOptions: {
+    // Community: {
+    //     screen: CommunityPage,
+    //     navigationOptions: {
 
-        }
-    }, Discover: {
+    //     }
+    // },
+    Discover: {
         screen: DiscoverPage,
         navigationOptions: {
 

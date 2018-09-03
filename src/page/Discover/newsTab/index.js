@@ -35,10 +35,7 @@ export default class NewsTab extends Component {
             <View>
                 <FlatList data={items}
                     enableEmptySections={true}
-                    //refreshing={this.state.refreshing}
                     onEndReachedThreshold={10}
-                    // onRefresh={() => this._loadData(true)}
-                    //onEndReached={() => this._loadData(false)}
                     keyExtractor={(item, key) => key}
                     renderItem={({ item, index }) => {
                         return <NewsItem

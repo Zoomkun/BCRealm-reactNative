@@ -68,6 +68,17 @@ const timeoutFetch = (original_fetch, timeout = 30000) => {
  */
 export default class HttpUtils extends Component {
 
+    /**
+     * 设置headers
+     * @param obj 设置的header对象
+     */
+    static setHeader = (obj) => {
+        if (typeof obj !== 'object') {
+            return false
+        }
+        Object.assign(headers, obj)
+        Object.assign(header, obj)
+    }
 
     /**
      * 基于fetch 封装的GET 网络请求

@@ -78,7 +78,7 @@ class PersonalInfo extends Component {
         })
     }
 
-    
+
 
     render() {
         const { navigate } = this.props.navigation;
@@ -195,6 +195,7 @@ class PersonalInfo extends Component {
                 "sex": `${sex}`
             },
             function (data) {
+                console.log(data)
                 if (data.data.userName) {
                     AsyncStorage.setItem('data', JSON.stringify(data.data));
                     self.refs.toast.show((data.msg), DURATION.LENGTH_LONG);
@@ -244,7 +245,6 @@ class PersonalInfo extends Component {
             function (data) {
                 if (data.userName) {
                     AsyncStorage.setItem('data', JSON.stringify(data));
-                    self.refs.toast.show((data.userName), DURATION.LENGTH_LONG);
                 } else {
                     self.refs.toast.show((data), DURATION.LENGTH_LONG);
                 }

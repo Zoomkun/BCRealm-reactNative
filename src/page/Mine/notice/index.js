@@ -69,8 +69,6 @@ class Notice extends Component {
                         enableEmptySections={true}
                         refreshing={!this.state.refreshing}
                         onEndReachedThreshold={10}
-                        //onRefresh={() => this._loadData(true)}
-                        //onEndReached={() => this._loadData(false)}
                         keyExtractor={(item, key) => key}
                         renderItem={({ item, index }) => {
                             return <MsgItem
@@ -118,26 +116,6 @@ class Notice extends Component {
                 });
             }
         )
-        // fetch('http://test.bcrealm.com:9003/api/letters?page=1&pageSize=10', {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json;charset-UTF-8',
-        //         'token': '8661d4fd9bbd4acc8cacf71b8104d77a'
-        //     },
-        // }).then((response) => response.json())
-        //     .then((jsonData) => {
-        //         console.log(jsonData);
-        //         if (jsonData.msg == "成功") {
-        //             this.setState({
-        //                 data: this.state.data.concat(jsonData.data),
-        //                 refreshing: true
-        //             });
-        //             // console.log(jsonData.msg);
-        //         } else {
-        //             // console.log(jsonData.msg);
-        //         }
-
-        //     })
     }
 
     /**

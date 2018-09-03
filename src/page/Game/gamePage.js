@@ -44,7 +44,7 @@ export default class GamePage extends Component {
         },
     };
 
-    componentDidMount() {
+    componentWillMount() {
         this._getBannerList();
         this._getGameList();
     }
@@ -77,10 +77,7 @@ export default class GamePage extends Component {
                     }
                     <FlatList data={items}
                         enableEmptySections={true}
-                        //refreshing={this.state.refreshing}
                         onEndReachedThreshold={10}
-                        // onRefresh={() => this._loadData(true)}
-                        //onEndReached={() => this._loadData(false)}
                         keyExtractor={(item, key) => key}
                         renderItem={({ item, index }) => {
                             return <CardItems

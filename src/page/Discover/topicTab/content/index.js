@@ -74,8 +74,8 @@ export default class Content extends Component {
                 </Header>
                 <WebView
                     // source={{ uri: "http://qsj.bcrealm.com/qsj/" + url }}
-                    {...console.log('http://192.168.31.124:8092/qsj/' + url)}
-                    source={{ uri: "http://192.168.31.124:8092/qsj/" + url }}
+                    {...console.log('http://qsj.bcrealm.com/static/' + url)}
+                    source={{ uri: "http://qsj.bcrealm.com/static/" + url }}
                     ref='webView'
                     onLoadEnd={this._onLoadEnd}
                     onMessage={(e) => {
