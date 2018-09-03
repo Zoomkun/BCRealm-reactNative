@@ -12,9 +12,6 @@ export default {
         width: deviceWidth * 0.9,
         height: 60
     },
-    codeTextStyle: {
-        color: '#FE6F06',
-    },
     logInButtonStyle: {
         backgroundColor: '#FE6F06',
         width: deviceWidth * 0.8,
@@ -23,7 +20,7 @@ export default {
     rowStyle: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 50
+        marginTop: deviceWidth / (deviceWidth / 50)
     },
     codeStyle: {
         borderColor: '#FE6F06',
@@ -36,9 +33,9 @@ export default {
     disableCodeStyle: {
         borderColor: '#808080',
         borderRadius: 10,
-        marginTop: 13,
+        marginTop: deviceWidth / (deviceWidth / 13),
         marginRight: 15,
-        height: 30,
+        height: deviceWidth / (deviceWidth / 30),
         width: deviceWidth / 3.35,
     },
 }

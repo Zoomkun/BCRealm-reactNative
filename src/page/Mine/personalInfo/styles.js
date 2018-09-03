@@ -1,6 +1,5 @@
 
 const React = require('react-native');
-import { PixelRatio, } from 'react-native';
 const { Dimensions } = React;
 
 const deviceHeight = Dimensions.get("window").height;
@@ -11,25 +10,14 @@ export default {
     justifyContent: "center",
     alignItems: "center"
   },
-  icon: {
+  iconStyle: {
     width: 20,
     height: 20,
   },
   listItemStyle: {
     backgroundColor: '#ffffff',
   },
-  avatarContainer: {
-    borderColor: '#9B9B9B',
-    borderWidth: 1 / PixelRatio.get(),
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  avatar: {
-    borderRadius: 50,
-    width: 80,
-    height: 80
-  },
-  picker: {
+  pickerStyle: {
     width: 100,
   },
 }

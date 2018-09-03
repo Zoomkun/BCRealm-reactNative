@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import {
-    Text,
-    View,
     Image,
     FlatList
 } from 'react-native';
-import { Content, Container } from 'native-base';
+import { Content, Container, View, Button } from 'native-base';
 import Carousel from 'react-native-looped-carousel'
 import CommonStyles from "../../css/commonStyle";
 import { CardItems, ThemeHeader } from '../../components';
@@ -52,6 +50,7 @@ export default class GamePage extends Component {
     render() {
         let items = this.state.data;
         let bannerData = this.state.bannerData;
+        console.log(bannerData)
         return (
             <Container>
                 <ThemeHeader title={"游戏"} />
@@ -62,7 +61,8 @@ export default class GamePage extends Component {
                             {
                                 bannerData.map((item, index) => (
                                     <Image style={styles.imageStyle}
-                                        source={{ uri: item.bannerUrl }} key={index} />
+                                        source={{ uri: item.bannerUrl }} key={index}
+                                    />
                                 ))
                             }
                             {/* <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }}
@@ -121,6 +121,5 @@ export default class GamePage extends Component {
             }
         )
     }
-
 }
 

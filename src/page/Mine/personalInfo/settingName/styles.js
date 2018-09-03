@@ -14,12 +14,4 @@ export default {
   container: {
     backgroundColor: '#ffffff'
   },
-  title: {
-    color: '#fff',
-    fontSize: 22,
-  },
-  textBodyStyle: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 }

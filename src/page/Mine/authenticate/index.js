@@ -51,7 +51,6 @@ class Authenticate extends Component {
     }
 
     componentDidMount() {
-
         AsyncStorage.getItem('data').then(data => {
             let datas = JSON.parse(data);
             this.setState({
@@ -61,10 +60,7 @@ class Authenticate extends Component {
         })
     }
 
-
     render() {
-        //const { navigate } = this.props.navigation;
-        //let nationality = this.state.nationality;
         return (
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>
@@ -87,7 +83,7 @@ class Authenticate extends Component {
                         <Right style={styles.rightStyle}>
                             <Picker
                                 mode={'dropdown'}
-                                style={styles.picker}
+                                style={styles.pickerStyle}
                                 selectedValue={this.state.nat}
                                 onValueChange={(value) => this.onValueChange(1, value)}>
                                 {/* nationality.map((item, index) => (
@@ -140,7 +136,9 @@ class Authenticate extends Component {
                             <Text style={{ marginLeft: 38, fontSize: 18, color: '#000000', }}>证件号码</Text></Col>
                         <Col style={styles.colStyle}>
                             <View style={{ justifyContent: 'flex-end', width: 200, height: 50, }}>
-                                <Input placeholder="请输入"
+                                <Input
+                                    placeholder="请输入"
+                                    keyboardType={'numeric'}
                                     value={this.state.certificateNumber}
                                     style={{ justifyContent: 'flex-end', }}
                                     onChangeText={(text) => { this.setState({ certificateNumber: text }) }} />
@@ -149,9 +147,9 @@ class Authenticate extends Component {
                 </View>
                 <View style={styles.lineStyle} />
 
-                <Row size={20} style={styles.row}>
+                <Row size={20} style={styles.rowStyle}>
                     <View>
-                        <Button style={styles.button} onPress={() => { this._authenticate() }}>
+                        <Button style={styles.buttonStyle} onPress={() => { this._authenticate() }}>
                             <Text style={styles.buttonTextStyle}>确认并提交</Text>
                         </Button>
                     </View>
@@ -216,7 +214,7 @@ class Authenticate extends Component {
      * 实名认证
      */
     _authenticate() {
-        self = this
+        let self = this
         if (this.state.name != '' && this.state.certificateNumber != '') {
             Http.postRequrst(
                 'userUrl',
@@ -229,17 +227,17 @@ class Authenticate extends Component {
                     "realName": `${this.state.name}`
                 },
                 function (data) {
+                    console.log(data)
                     if (data == '') {
-                        self.refs.toast.show("认证成功", DURATION.LENGTH_LONG);
+                        self.refs.toast.show("成功", DURATION.LENGTH_LONG);
                     } else {
                         self.refs.toast.show(data, DURATION.LENGTH_LONG);
                     }
                 }
             )
         } else {
-            self.refs.toast.show("真实姓名或证件号码不可为空", DURATION.LENGTH_LONG);
+            this.refs.toast.show("真实姓名或证件号码不可为空", DURATION.LENGTH_LONG);
         }
-
     }
 }
 

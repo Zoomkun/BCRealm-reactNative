@@ -10,7 +10,6 @@ import {
 import {
     Text,
     Image,
-    //FlatList
 } from 'react-native';
 import { Grid, Col } from "react-native-easy-grid";
 import styles from "./styles";
@@ -34,9 +33,6 @@ class Wallet extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-
-        }
     }
 
     static navigationOptions = {
@@ -48,7 +44,6 @@ class Wallet extends Component {
     }
 
     render() {
-        //const { navigate } = this.props.navigation;
         var m = m1[0];
         return (
             <Container style={styles.container}>
@@ -73,7 +68,7 @@ class Wallet extends Component {
                                 <Col style={styles.colStyle}>
                                     <Image
                                         source={item.icon}
-                                        style={styles.icon}
+                                        style={styles.iconStyle}
                                     /></Col>
                                 <Col style={styles.colStyle}><Text>{item.totalAssets}</Text></Col>
                                 <Col style={styles.colStyle}><Text>{item.quantity}</Text></Col>
@@ -86,6 +81,4 @@ class Wallet extends Component {
         );
     }
 }
-
-
 export default Wallet

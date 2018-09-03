@@ -5,28 +5,10 @@ const { StyleSheet, Dimensions } = React;
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 export default {
-    icon: {
-        width: 20,
-        height: 20,
-    },
     textStyle: {
         marginLeft: 10
     },
-    title: {
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    iconstyle: {
-        color: '#808080',
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    button: {
+    buttonStyle: {
         width: deviceWidth * 0.8,
         backgroundColor: "#CC0000",
         justifyContent: 'center',
@@ -36,7 +18,7 @@ export default {
         backgroundColor: '#F3F3F3',
         height: 2
     },
-    row: {
+    rowStyle: {
         marginTop: 50,
         flexDirection: 'column',
         justifyContent: 'center',
@@ -50,14 +32,6 @@ export default {
         color: '#ffffff',
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    headerRight: {
-        fontSize: 20,
-        color: '#fff',
-    },
-    headerLeft: {
-        fontSize: 20,
-        color: '#fff',
     },
     rightStyle: {
         flexDirection: 'row',

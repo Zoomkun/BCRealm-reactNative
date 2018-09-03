@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, WebView } from 'react-native';
 import {
     Button,
     Container,
     Body,
     Header,
-    Icon
+    Icon,
+    Content,
 } from 'native-base';
 import CommonStyles from '../../../css/commonStyle';
-//import styles from "./styles";
+import styles from "./styles";
 
 /**
  * 服务协议
@@ -43,7 +44,9 @@ export default class ServiceAgreement extends Component {
                     </Body>
                     <Button transparent />
                 </Header>
-                <Text>服务协议服务协议</Text>
+                <WebView source={{ uri: "http://qsj.bcrealm.com/static/protocol.html" }}
+                    style={styles.webStyle} >
+                </WebView>
             </Container>
         )
     }

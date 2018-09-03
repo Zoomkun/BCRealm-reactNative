@@ -16,10 +16,10 @@ export default {
     fontSize: 18,
     color: '#000000',
   },
-  picker: {
+  pickerStyle: {
     width: deviceWidth / 3.6,
   },
-  button: {
+  buttonStyle: {
     width: deviceWidth * 0.8,
     backgroundColor: "#FE6F06",
     justifyContent: 'center',
@@ -28,7 +28,7 @@ export default {
   buttonTextStyle: {
     color: '#ffffff'
   },
-  row: {
+  rowStyle: {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',

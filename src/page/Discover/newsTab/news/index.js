@@ -52,7 +52,6 @@ export default class News extends Component {
 
     render() {
         //const { navigate } = this.props.navigation;
-        let black = this.props.black || false;
         let url = this.url
 
         return (
@@ -94,6 +93,7 @@ export default class News extends Component {
                     onLoadEnd={this._onLoadEnd}
                     style={styles.webStyle} >
                 </WebView>
+
                 {/* <CustomButton text='微信好友分享-文本'
                     onPress={() => {
                         WeChat.isWXAppInstalled()
@@ -169,5 +169,4 @@ export default class News extends Component {
             </Container >
         );
     }
-
 }

@@ -3,7 +3,6 @@ import {
     Text,
     View,
     Image,
-    TouchableOpacity
 } from 'react-native';
 import {
     Button,
@@ -18,6 +17,7 @@ import Toast, { DURATION } from 'react-native-easy-toast'
 import CommonStyles from '../../../css/commonStyle';
 import styles from "./styles";
 import Http from "../../../api/Api";
+
 /**
  * 注册
  */
@@ -38,6 +38,13 @@ export default class Registration extends Component {
         header: null
     };
 
+    componentWillUnmount() {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.setState({ disable: false });
+        }
+    }
+
     goBack = () => {
         this.props.navigation.goBack();
     }
@@ -48,7 +55,7 @@ export default class Registration extends Component {
             <Container style={CommonStyles.container}>
                 <Content >
                     <Grid style={styles.gridStyle}>
-                        <Row size={2} style={styles.row}>
+                        <Row size={2} style={styles.rowStyle}>
                             <Row>
                                 <Col style={{ justifyContent: 'flex-end' }}>
                                     <Button transparent onPress={() => { this.goBack() }}>
@@ -62,7 +69,7 @@ export default class Registration extends Component {
                             />
                         </Row>
 
-                        <Row size={2} style={styles.row}>
+                        <Row size={2} style={styles.rowStyle}>
                             <View style={{ flexDirection: 'column', alignItems: 'center', }}>
                                 <Item rounded style={styles.itemStyle}>
                                     <Input placeholder="请输入手机号"
@@ -107,7 +114,7 @@ export default class Registration extends Component {
                             </View>
                         </Row>
 
-                        <Row size={0.5} style={styles.row}>
+                        <Row size={0.5} style={styles.rowStyle}>
                             <View >
                                 < Button rounded style={styles.logInButtonStyle} onPress={() => { this._register(this.state.phone, this.state.password, this.state.code) }}>
                                     <Text style={styles.logInTextStyle}>注册</Text>
@@ -115,9 +122,9 @@ export default class Registration extends Component {
                             </View>
                         </Row>
 
-                        <Row size={0.5} style={styles.row}>
+                        <Row size={0.5} style={styles.rowStyle}>
                             <View >
-                                <Button transparent style={styles.button} onPress={() => { navigate("ServiceAgreement") }}>
+                                <Button transparent style={styles.buttonStyle} onPress={() => { navigate("ServiceAgreement") }}>
                                     <Text>点击注册即表示已阅读并同意</Text><Text style={{ color: '#FE6F06' }}>《服务协议》</Text>
                                 </Button>
                             </View>
@@ -137,15 +144,7 @@ export default class Registration extends Component {
             </Container >
         )
     }
-    componentWillUnmount() {
-        if (this.interval) {
-            clearInterval(this.interval);
-            this.setState({ disable: false });
-        }
-    }
 
-
-    //获取验证码
     _getCode(phone) {
         if (phone.length > 10) {
             this.state.seconds = 60
@@ -161,17 +160,6 @@ export default class Registration extends Component {
                     console.log(data)
                 }
             )
-            // fetch('http://test.bcrealm.com:9003/api/user/sendCode?phone=' + `${phone}`, {
-            //     method: 'GET',
-            //     headers: {
-            //         'Content-Type': 'application/json;charset=UTF-8',
-            //     }
-            // }).then((response) => response.json())
-            //     .then((jsonData) => {
-            //         console.log(jsonData);
-            //         this.refs.toast.show((jsonData.data.msg), DURATION.LENGTH_LONG);
-            //     });
-
             this.interval = setInterval(() => {
                 let seconds = --this.state.seconds
                 if (seconds <= 0) {
@@ -188,6 +176,7 @@ export default class Registration extends Component {
     }
 
     _register(phone, password, code) {
+        let slef = this
         if (phone.length > 10 && password != '' && code != '') {
             Http.postRequrst(
                 'userUrl',
@@ -199,29 +188,9 @@ export default class Registration extends Component {
                 },
                 function (data) {
                     console.log(data)
-                    this.refs.toast.show((data), DURATION.LENGTH_LONG);
+                    slef.refs.toast.show((data), DURATION.LENGTH_LONG);
                 }
             )
-            // fetch('http://test.bcrealm.com:9003/api/user/register', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json;charset=UTF-8',
-            //     },
-            //     body: JSON.stringify({
-
-            //     })
-            // }).then((response) =>
-            //     response.json()
-            // )
-            //     .then((jsonData) => {
-            //         console.log({
-            //             'checkNum': `${code}`,
-            //             'phoneNumber': `${phone}`,
-            //             'pwd': `${password}`,
-            //         })
-            //         console.log(jsonData)
-            //         this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
-            //     });
         } else {
             this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
         }

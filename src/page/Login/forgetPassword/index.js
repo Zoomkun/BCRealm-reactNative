@@ -42,6 +42,13 @@ export default class ForgetPassword extends Component {
         header: null
     };
 
+    componentWillUnmount() {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.setState({ disable: false });
+        }
+    }
+
     render() {
         return (
             <Container style={CommonStyles.container}>
@@ -117,14 +124,10 @@ export default class ForgetPassword extends Component {
         )
     }
 
-    componentWillUnmount() {
-        if (this.interval) {
-            clearInterval(this.interval);
-            this.setState({ disable: false });
-        }
-    }
+
 
     _getCode(phone) {
+        let slef = this
         if (phone.length > 10) {
             this.state.seconds = 60
             let disable = !this.state.disable
@@ -140,17 +143,6 @@ export default class ForgetPassword extends Component {
                     console.log(data)
                 }
             )
-
-            // fetch('http://test.bcrealm.com:9003/api/user/sendCode?phone=' + `${phone}`, {
-            //     method: 'GET',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     }
-            // }).then((response) => response.json())
-            //     .then((jsonData) => {
-            //         console.log(jsonData);
-            //         this.refs.toast.show((jsonData.data.msg), DURATION.LENGTH_LONG);
-            //     });
             this.interval = setInterval(() => {
                 let seconds = --this.state.seconds
                 if (seconds <= 0) {
@@ -169,9 +161,8 @@ export default class ForgetPassword extends Component {
     _changePassword(phone, password, code) {
         let self = this
         if (phone.length > 10 && password != '' && code != '') {
-
             HttpUtils.putRequrst(
-                'smsLogin',
+                'userUrl',
                 'uppwd',
                 {
                     'checkNum': `${code}`,
@@ -179,33 +170,11 @@ export default class ForgetPassword extends Component {
                     'pwd': `${password}`,
                 },
                 function (data) {
-                    if (data)
-                        self.refs.toast.show('修改成功', DURATION.LENGTH_LONG);
+                    self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
                 }
             )
-            // fetch('http://test.bcrealm.com:9003/api/user/uppwd', {
-            //     method: 'PUT',
-            //     headers: {
-            //         'Content-Type': 'application/json;charset=UTF-8',
-            //         // 'Accept': 'application/json',
-            //     },
-            //     body: JSON.stringify({
-            //         'checkNum': `${code}`,
-            //         'phoneNumber': `${phone}`,
-            //         'pwd': `${password}`,
-            //     })
-            // }).then((response) => response.json())
-            //     .then((jsonData) => {
-            //         console.log(jsonData)
-            //         if (jsonData.data === "修改成功") {
-            //             this.goBack();
-            //         } else {
-            //             this.refs.toast.show((jsonData.msg), DURATION.LENGTH_LONG);
-            //         }
-            //     });
         } else {
             this.refs.toast.show('请检查您的账号、新密码、验证码是否正确!', DURATION.LENGTH_LONG);
         }
-
     }
 }
