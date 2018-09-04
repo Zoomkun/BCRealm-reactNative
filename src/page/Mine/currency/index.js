@@ -49,7 +49,6 @@ class Currency extends Component {
     }
 
     render() {
-        const { navigate } = this.props.navigation;
         var m = m1[0];
         return (
             <Container style={styles.container}>
@@ -75,7 +74,7 @@ class Currency extends Component {
                                 <Col style={styles.colStyle}>
                                     <Image
                                         source={item.icon}
-                                        style={styles.icon}
+                                        style={styles.iconStyle}
                                     /></Col>
                                 <Col style={styles.colStyle}><Text>{item.totalAssets}</Text></Col>
                                 <Col style={styles.colStyle}><Text>{item.quantity}</Text></Col>
@@ -88,6 +87,4 @@ class Currency extends Component {
         );
     }
 }
-
-
 export default Currency

@@ -29,12 +29,9 @@ import Toast, { DURATION } from 'react-native-easy-toast'
  * 个人信息页面
  */
 class PersonalInfo extends Component {
-
     constructor(props) {
         super(props)
         this.state = {
-            // avatarSource: null,
-            //videoSource: null
             data: [],
             sex: '',
             headUrl: '',
@@ -43,9 +40,8 @@ class PersonalInfo extends Component {
             accountNo: 0,
             token: ''
         }
-
-        //this.url = this.props.navigation.state.params.url;
     }
+
     static navigationOptions = {
         header: null
     };
@@ -61,9 +57,6 @@ class PersonalInfo extends Component {
     }
 
     componentDidMount() {
-        // this.setState({
-        //     data: this.props.navigation.state.params.data
-        // })
         AsyncStorage.getItem('data').then(data => {
             let datas = JSON.parse(data);
             this.setState({
@@ -77,8 +70,6 @@ class PersonalInfo extends Component {
             console.log(datas);
         })
     }
-
-
 
     render() {
         const { navigate } = this.props.navigation;
@@ -97,7 +88,6 @@ class PersonalInfo extends Component {
                 <List>
                     <ListItem itemDivider={true} style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }}
                         button onPress={this.selectPhotoTapped.bind(this)}>
-
                         <Text>头像</Text>
                         <Body />
                         <Right style={styles.rightStyle} >
@@ -107,13 +97,11 @@ class PersonalInfo extends Component {
                             {/* <Thumbnail source={constants.avatar} /> */}
                             <Image
                                 source={require('../../../../images/goIn.png')}
-                                style={styles.icon}
+                                style={styles.iconStyle}
                             />
                         </Right>
                     </ListItem>
-
                     <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
-
 
                     <ListItem itemDivider style={styles.listItemStyle}
                         button onPress={() => {
@@ -126,11 +114,10 @@ class PersonalInfo extends Component {
                             <Text style={{ alignItems: 'center', marginRight: 10 }}>{this.state.userName}</Text>
                             <Image
                                 source={require('../../../../images/goIn.png')}
-                                style={styles.icon}
+                                style={styles.iconStyle}
                             />
                         </Right>
                     </ListItem>
-
                     <View style={{ backgroundColor: '#F3F3F3', height: 3 }} />
 
                     <ListItem itemDivider style={styles.listItemStyle} >
@@ -141,18 +128,18 @@ class PersonalInfo extends Component {
                             {this.state.sex != 0 &&
                                 (
                                     < Picker
-                                        style={styles.picker}
+                                        style={styles.pickerStyle}
                                         selectedValue={this.state.sex}
                                         onValueChange={(value) => this.onValueChange(1, value)}>
                                         <Picker.Item label={this.state.sex == 1 ? "男" : "女"} value={this.state.sex == 1 ? 1 : '2'} />
                                         <Picker.Item label={this.state.sex == 1 ? "女" : "男"} value={this.state.sex == 1 ? 2 : '1'} />
                                     </Picker>
                                 )
-
                             }
                         </Right>
                     </ListItem>
                 </List>
+
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}
@@ -180,9 +167,6 @@ class PersonalInfo extends Component {
         });
     }
 
-    /**
-    * 更改用户信息
-    */
     _changeSex(accountNo, id, sex) {
         console.log(accountNo + "__" + id + "___" + sex)
         let self = this
@@ -206,30 +190,6 @@ class PersonalInfo extends Component {
         )
     }
 
-    // _changeAvatar(loadForm) {
-    //     let fileName = file.fileName
-    //     let curr = moment().format('YYYYMMDD').toString()
-    //     let prefix = moment(file.lastModified).format('HHmmss').toString()
-    //     let suffix = (fileName || '').toLowerCase()
-    //     let key = encodeURI(`${curr}/${prefix}_${suffix}`)
-    //     let uri = file.uri
-
-
-    //     console.log(loadForm)
-    //     var dataForm = new FormData();
-    //     dataForm.append('file', loadForm)
-    //     console.log(dataForm)
-    //     HttpUtils.formDataRequest(
-    //         'userUrl',
-    //         'changeAvatar',
-    //         dataForm,
-    //         function (data) {
-    //             console.log(data)
-    //         }
-
-    //     )
-    // }
-
     _changeAvatar(loadForm) {
         console.log(loadForm.data)
         let self = this
@@ -237,7 +197,6 @@ class PersonalInfo extends Component {
         let uri = loadForm.uri
         let formData = new FormData()
         formData.append("file", { uri: uri, type: 'application/octet-stream', name: fileName });
-
         HttpUtils.formDataRequest(
             'userUrl',
             'changeAvatar',
@@ -249,26 +208,8 @@ class PersonalInfo extends Component {
                     self.refs.toast.show((data), DURATION.LENGTH_LONG);
                 }
             }
-
         )
     }
-
-    // _changeAvatar(loadForm) {
-    //     console.log(loadForm.data)
-
-
-    //     console.log(fd)
-    //     HttpUtils.formDataRequest(
-    //         'userUrl',
-    //         'changeAvatar',
-    //         fd,
-    //         function (data) {
-    //             console.log(data)
-    //         }
-
-    //     )
-    // }
-
 
     //选择图片
     selectPhotoTapped() {
@@ -318,6 +259,4 @@ class PersonalInfo extends Component {
         });
     }
 }
-
-
 export default PersonalInfo

@@ -5,7 +5,6 @@ import {
     Image,
     AsyncStorage
 } from 'react-native';
-
 import {
     Container,
     Content,
@@ -30,8 +29,6 @@ const menus = [
     { icon: require('../../../images/currency.png'), text: "货币", arrows: require('../../../images/goIn.png'), uri: 'Currency', line: true },
 ];
 
-// { icon: require('../../../images/news.png'), text: "私信", arrows: require('../../../images/goIn.png'), uri: 'Notice', line: true, unReads: 1 },
-// { icon: require('../../../images/authenticate.png'), text: "实名认证", arrows: require('../../../images/goIn.png'), uri: 'Authenticate', Certification: 1 },
 /**
  * 主页四:我
  */
@@ -65,9 +62,6 @@ export default class Mine extends Component {
 
     static navigationOptions = ({ navigation }) => ({
         header: null,
-        //headerTitle: (<Text style={CommonStyles.title}>我</Text>),
-        // headerLeft: (<Image style={styles.headerLeft}>左边</Image>),
-        // headerRight: (<Image style={styles.headerRight}>右边</Image>),
         headerStyle: {
             "backgroundColor": "#FE6F06",
         },
@@ -75,11 +69,10 @@ export default class Mine extends Component {
         tabBarIcon: ({ tintColor }) => (
             <Image
                 source={require('../../../images/mine.png')}
-                style={[CommonStyles.icon, { tintColor: tintColor }]}// {tintColor: tintColor} 选中的图片和文字颜色
+                style={[CommonStyles.icon, { tintColor: tintColor }]}
             />
         ),
         headerTintColor: '#fff',
-
     })
 
     render() {
@@ -151,7 +144,7 @@ export default class Mine extends Component {
                         </ListItem>
                         <View style={styles.line} />
 
-                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { data.certification > 0 ? '' : navigate('Authenticate') }}>
+                        <ListItem itemDivider style={styles.listItemStyle}{...console.log(data.certification)} button onPress={() => { data.certification > 0 ? '' : navigate('Authenticate') }}>
                             <Image
                                 source={require('../../../images/authenticate.png')}
                                 style={CommonStyles.icon}
@@ -183,8 +176,7 @@ export default class Mine extends Component {
                         </ListItem>
                         <View style={styles.line} />
 
-                        {/* <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('AboutUs') }}> */}
-                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('Login') }}>
+                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('AboutUs') }}>
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text >关于区世界</Text>
                             </Body>
@@ -196,9 +188,9 @@ export default class Mine extends Component {
                             </Right>
                         </ListItem>
                     </List>
-                    <Row size={20} style={styles.row}>
+                    <Row size={20} style={styles.rowStyle}>
                         <View>
-                            <Button style={styles.button} onPress={() => { this._loginOut() }}>
+                            <Button style={styles.buttonStyle} onPress={() => { this._loginOut() }}>
                                 <Text style={styles.buttonTextStyle}>退出登录</Text>
                             </Button>
                         </View>
@@ -276,5 +268,4 @@ export default class Mine extends Component {
         let { navigate } = this.props.navigation;
         navigate("Login");
     }
-
 }

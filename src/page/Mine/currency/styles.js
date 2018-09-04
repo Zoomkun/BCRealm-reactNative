@@ -1,16 +1,5 @@
 
-const React = require('react-native');
-
-const { StyleSheet, Dimensions } = React;
-
-const deviceHeight = Dimensions.get("window").height;
-const deviceWidth = Dimensions.get("window").width;
 export default {
-  headerStyle: {
-    backgroundColor: "#FE6F06",
-    alignItems: "center",
-    flexDirection: 'row',
-  },
   gridStyle: {
     height: 50,
   },
@@ -18,7 +7,7 @@ export default {
     alignItems: 'center',
     justifyContent: 'center'
   },
-  icon: {
+  iconStyle: {
     backgroundColor: 'pink',
     width: 20,
     height: 20
@@ -29,9 +18,5 @@ export default {
   titleBodyStyle: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  title: {
-    color: '#fff',
-    fontSize: 22,
   },
 }

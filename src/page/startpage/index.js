@@ -20,7 +20,7 @@ export default class StartPage extends Component {
             () => {
                 this.props.navigation.navigate("Login");
             },
-            1000
+            2000
         );
     }
 
@@ -33,7 +33,8 @@ export default class StartPage extends Component {
             <Container>
                 <StatusBar hidden={true} />
                 <Button transparent style={styles.buttonStyle}
-                    onPress={() => { this.props.navigation.navigate("Login") }}>
+                //onPress={() => { this.props.navigation.navigate("Login") }}
+                >
                     <Image source={require('../../../images/Icon.png')}
                         style={styles.image} />
                 </Button>

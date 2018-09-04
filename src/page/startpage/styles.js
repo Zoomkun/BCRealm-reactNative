@@ -15,7 +15,7 @@ export default {
         height: deviceHeight
     },
     image: {
-        width: 180,
-        height: 180,
+        width: deviceWidth / (deviceWidth / 180),
+        height: deviceWidth / (deviceWidth / 180),
     },
 };

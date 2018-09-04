@@ -7,36 +7,25 @@ export default {
     gridStyle: {
         height: deviceHeight * 0.9,
     },
-    rowStyle: {
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-    },
-    row: {
+    rowStyel: {
         flexDirection: 'column',
         width: deviceWidth,
         justifyContent: "center",
         alignItems: 'center',
     },
     imageStyle: {
-        width: 180,
-        height: 180
-    },
-    tabsStyle: {
-        backgroundColor: '#FE6F06',
-        width: 100,
-        marginLeft: 40
+        width: deviceWidth / (deviceWidth / 180),
+        height: deviceWidth / (deviceWidth / 180)
     },
     SegmentButtonStyle: {
         flexDirection: 'column',
-        height: 50,
+        height: deviceWidth / (deviceWidth / 50),
     },
     textStyle: {
         color: '#808080'
     },
     selectedTextStyle: {
         color: '#FE6F06'
-    },
-    viewStyle: {
     },
     selectedViewStyle: {
         backgroundColor: '#FE6F06',
@@ -45,14 +34,14 @@ export default {
         marginBottom: 10
     },
     itemStyle: {
-        marginTop: 10,
+        marginTop: deviceWidth / (deviceWidth / 10),
         width: deviceWidth * 0.8,
-        height: 50,
+        height: deviceWidth / (deviceWidth / 50),
         justifyContent: 'center',
         alignItems: 'center',
     },
     forgetPassword: {
-        width: 120,
+        width: deviceWidth / (deviceWidth / 120),
         justifyContent: 'center',
         marginTop: 5
     },
@@ -61,7 +50,7 @@ export default {
         borderRadius: 10,
         marginTop: 10,
         marginRight: 15,
-        height: 30,
+        height: deviceWidth / (deviceWidth / 30),
         width: deviceWidth / 3.35,
     },
     disableCodeStyle: {
@@ -69,7 +58,7 @@ export default {
         borderRadius: 10,
         marginTop: 10,
         marginRight: 15,
-        height: 30,
+        height: deviceWidth / (deviceWidth / 30),
         width: deviceWidth / 3.35,
     },
     logInButtonStyle: {
@@ -80,7 +69,7 @@ export default {
     logInTextStyle: {
         color: '#ffffff'
     },
-    button: {
+    buttonStyle: {
         width: deviceWidth * 0.8,
         justifyContent: 'center',
     }

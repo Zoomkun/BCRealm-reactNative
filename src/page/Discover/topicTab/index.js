@@ -25,7 +25,6 @@ export default class TopicTab extends Component {
         }
     }
 
-
     static navigationOptions = {
         header: null
     };

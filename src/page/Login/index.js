@@ -22,7 +22,7 @@ import { NavigationActions } from 'react-navigation';
 resetAction = NavigationActions.reset({
     index: 0,
     actions: [
-        NavigationActions.navigate({ routeName: 'Main' })//要跳转到的页面名字
+        NavigationActions.navigate({ routeName: 'Main' })
     ]
 });
 
@@ -73,7 +73,7 @@ export default class Login extends Component {
             <Container style={CommonStyles.container}>
                 <Content>
                     <Grid style={styles.gridStyle}>
-                        <Row size={2} style={styles.row}>
+                        <Row size={2} style={styles.rowStyel}>
                             <Row>
                                 <Col size={4} />
                                 <Col>
@@ -88,7 +88,7 @@ export default class Login extends Component {
                             />
                         </Row>
 
-                        <Row size={2.2} style={styles.row}>
+                        <Row size={2.2} style={styles.rowStyel}>
                             <Segment >
                                 <Button style={styles.SegmentButtonStyle} onPress={() => { this.setState({ pick: 0 }) }}>
                                     <Text style={this.state.pick == 0 ? styles.selectedTextStyle : styles.textStyle}>普通登录</Text>
@@ -166,7 +166,7 @@ export default class Login extends Component {
                             }
                         </Row>
 
-                        <Row size={0.6} style={styles.row}>
+                        <Row size={0.6} style={styles.rowStyel}>
                             <View>
                                 <Button rounded style={styles.logInButtonStyle}
                                     onPress={() => {
@@ -179,15 +179,17 @@ export default class Login extends Component {
                                 </Button>
                             </View>
                         </Row>
-                        <Row size={0.6} style={styles.row}>
+
+                        <Row size={0.6} style={styles.rowStyel}>
                             <View >
-                                <Button transparent style={styles.button} onPress={() => { navigate("ServiceAgreement") }}>
+                                <Button transparent style={styles.buttonStyle} onPress={() => { navigate("ServiceAgreement") }}>
                                     <Text>点击登录即表示已阅读并同意</Text><Text style={{ color: '#FE6F06' }}>《服务协议》</Text>
                                 </Button>
                             </View>
                         </Row>
                     </Grid>
                 </Content>
+
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}
@@ -198,7 +200,7 @@ export default class Login extends Component {
                     opacity={0.8}
                     textStyle={{ color: '#ffffff' }}
                 />
-            </Container >
+            </Container>
         )
     }
 
@@ -259,7 +261,6 @@ export default class Login extends Component {
                         AsyncStorage.setItem('data', JSON.stringify(data));
                         AsyncStorage.setItem('phone', JSON.stringify(self.state.phone));
                         AsyncStorage.setItem('password', JSON.stringify(self.state.password));
-                        self.refs.toast.show((data.userName), DURATION.LENGTH_LONG);
                         self.props.navigation.dispatch(resetAction);
                     } else {
                         self.refs.toast.show((data), DURATION.LENGTH_LONG);
@@ -291,7 +292,6 @@ export default class Login extends Component {
                 function (data) {
                     if (data.userName) {
                         AsyncStorage.setItem('data', JSON.stringify(data));
-                        self.refs.toast.show((data.userName), DURATION.LENGTH_LONG);
                         HttpUtils.headers.token = data.token;
                         self._goMainPage();
                     } else {

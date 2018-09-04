@@ -11,7 +11,6 @@ import {
 import {
     Text,
     FlatList,
-    View
 } from 'react-native';
 
 import styles from "./styles";
@@ -23,7 +22,6 @@ import Http from "../../../api/Api";
  * 私信页面
  */
 class Notice extends Component {
-
     constructor(props) {
         super(props)
         this.state = {
@@ -46,10 +44,8 @@ class Notice extends Component {
     }
 
     render() {
-        const { navigate } = this.props.navigation;
-
         if (!this.state.refreshing) {
-            return this.renderLoadingView();
+            return this._renderLoadingView();
         }
         let items = this.state.data.list;
         return (
@@ -82,7 +78,7 @@ class Notice extends Component {
         );
     }
 
-    renderLoadingView() {
+    _renderLoadingView() {
         return (
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>
@@ -103,6 +99,7 @@ class Notice extends Component {
         );
     }
 
+    
     _getList() {
         let self = this
         Http.getRequest(
@@ -118,9 +115,6 @@ class Notice extends Component {
         )
     }
 
-    /**
-   * 修改指定用户的未读私信为已读
-   */
     _putUpStatus() {
         Http.putRequrst(
             'userUrl',
@@ -132,6 +126,4 @@ class Notice extends Component {
         )
     }
 }
-
-
 export default Notice

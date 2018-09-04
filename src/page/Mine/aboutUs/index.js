@@ -22,9 +22,6 @@ class AboutUs extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-
-        }
     }
 
     static navigationOptions = {
@@ -36,9 +33,8 @@ class AboutUs extends Component {
     }
 
     render() {
-        //const { navigate } = this.props.navigation;
         return (
-            <Container style={styles.container}>
+            <Container style={CommonStyles.container}>
                 <Header style={CommonStyles.headerStyle}>
                     <Button transparent onPress={() => { this.goBack() }}>
                         <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
@@ -48,7 +44,8 @@ class AboutUs extends Component {
                     </Body>
                     <Button transparent />
                 </Header>
-                <ListItem itemDivider>
+
+                <ListItem itemDivider style={CommonStyles.container}>
                     <Left><Text style={styles.textStyle}>版本号</Text></Left>
                     <Right><Text>{about[0].v}</Text></Right>
                 </ListItem>
@@ -56,6 +53,4 @@ class AboutUs extends Component {
         );
     }
 }
-
-
 export default AboutUs

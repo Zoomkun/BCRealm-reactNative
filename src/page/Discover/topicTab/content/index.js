@@ -10,10 +10,8 @@ import {
 import {
     WebView,
     AsyncStorage,
-    AppRegistry,
-    Keyboard
 } from 'react-native';
-import styles from "./styles";
+//import styles from "./styles";
 import CommonStyles from '../../../../css/commonStyle';
 
 /**
@@ -36,25 +34,6 @@ export default class Content extends Component {
 
     goBack = () => {
         this.props.navigation.goBack();
-    }
-
-    _onLoadEnd = (e) => {
-        AsyncStorage.getItem('data').then(data => {
-            let datas = JSON.parse(data);
-            this.setState({
-                token: datas.token,
-            })
-            let dataJson = JSON.stringify(datas)
-            this.refs.webView.postMessage(dataJson);
-            console.log(dataJson)
-        })
-    }
-
-    _onMessage = (e) => {
-        this.setState({
-            webViewData: e.nativeEvent.data
-        });
-        Alert.alert(e.nativeEvent.data)
     }
 
     render() {
@@ -85,5 +64,24 @@ export default class Content extends Component {
                 </WebView>
             </Container>
         )
+    }
+
+    _onLoadEnd = (e) => {
+        AsyncStorage.getItem('data').then(data => {
+            let datas = JSON.parse(data);
+            this.setState({
+                token: datas.token,
+            })
+            let dataJson = JSON.stringify(datas)
+            this.refs.webView.postMessage(dataJson);
+            console.log(dataJson)
+        })
+    }
+
+    _onMessage = (e) => {
+        this.setState({
+            webViewData: e.nativeEvent.data
+        });
+        Alert.alert(e.nativeEvent.data)
     }
 }

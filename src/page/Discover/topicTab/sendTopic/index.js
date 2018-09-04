@@ -15,7 +15,7 @@ import {
     Text,
     Keyboard
 } from 'react-native';
-import styles from '../styles';
+import styles from './styles';
 import CommonStyles from '../../../../css/commonStyle';
 import HttpUtils from '../../../../api/Api';
 import Toast, { DURATION } from 'react-native-easy-toast'
@@ -55,9 +55,10 @@ class SendTopic extends Component {
                         this._sendTopic(this.state.content, this.state.title),
                             this._dissmissKeyboard()
                     }}>
-                        <Text style={styles.text}>保存</Text>
+                        <Text style={styles.textStyle}>保存</Text>
                     </Button>
                 </Header>
+
                 <Content>
                     <Item style={styles.itemstyle}>
                         <Input placeholder="标题"
@@ -69,6 +70,7 @@ class SendTopic extends Component {
                             onChangeText={(text) => { this.setState({ content: text }) }} />
                     </Card >
                 </Content>
+
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}
@@ -88,7 +90,7 @@ class SendTopic extends Component {
     }
 
     _sendTopic(content, title) {
-        self = this
+        let self = this
         if (content != '' && title != '') {
             HttpUtils.postRequrst(
                 'appUrl',
@@ -108,8 +110,6 @@ class SendTopic extends Component {
         } else {
             self.refs.toast.show("标题或内容不可为空", DURATION.LENGTH_LONG);
         }
-
     }
-
 }
 export default SendTopic

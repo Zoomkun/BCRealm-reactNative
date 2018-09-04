@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-    Text,
     Image,
 } from 'react-native';
 import {
@@ -12,8 +11,6 @@ import CommonStyles from '../../css/commonStyle';
 import { ThemeHeader } from '../../components';
 import NewsTab from './newsTab';
 import TopicTab from './topicTab';
-//import styles from "./styles";
-//import FlatListExample from './FlatListExample';
 
 /**
  * 主页三:发现
@@ -22,9 +19,6 @@ export default class Discover extends Component {
 
     static navigationOptions = ({ navigation }) => ({
         header: null,
-        //headerTitle: (<Text style={CommonStyles.title}>发现</Text>),
-        // headerLeft: (<Image style={styles.headerLeft}>左边</Image>),
-        // headerRight: (<Image style={styles.headerRight}>右边</Image>),
         headerStyle: {
             "backgroundColor": "#FE6F06",
         },
@@ -32,7 +26,7 @@ export default class Discover extends Component {
         tabBarIcon: ({ tintColor }) => (
             <Image
                 source={require('../../../images/detection.png')}
-                style={[CommonStyles.icon, { tintColor: tintColor }]}// {tintColor: tintColor} 选中的图片和文字颜色
+                style={[CommonStyles.icon, { tintColor: tintColor }]}
             />
         ),
         headerTintColor: '#fff',
