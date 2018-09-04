@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Dimensions, View, } from "react-native";
-import moment from 'moment';
 import {
     ListItem,
     Text,
@@ -21,7 +20,6 @@ export default class NewsItem extends Component {
                 </View>
                 <View style={styles.bodyViewStyle}>
                     <Text numberOfLines={2} style={styles.content}>{title}</Text>
-                    {/* <Text note style={styles.timeStyle}>{moment(time).format('YYYY-MM-DD  HH:mm:ss')}</Text> */}
                     <Text note style={styles.timeStyle}>{time}</Text>
                 </View>
                 <View style={styles.viewStyle}>

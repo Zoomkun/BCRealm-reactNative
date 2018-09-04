@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Dimensions, View, } from "react-native";
-import moment from 'moment';
 import {
     Body,
     ListItem,
@@ -18,7 +17,6 @@ export default class MsgItem extends Component {
                 <Body >
                     <View style={styles.viewStyle}>
                         <Text numberOfLines={2} style={styles.content}>{text} </Text>
-                        {/* <Text style={styles.timeStyles}>{moment(timestamp).format('YYYY-MM-DD  HH:mm:ss')}</Text> */}
                         <Text style={styles.timeStyles}>{letterDate}</Text>
                     </View>
                 </Body>

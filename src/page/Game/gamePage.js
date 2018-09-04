@@ -65,14 +65,6 @@ export default class GamePage extends Component {
                                         source={{ uri: item.bannerUrl }} key={index} />
                                 ))
                             }
-                            {/* <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }}
-                            source={{ uri: 'http://bcr-app-oss-001.oss-cn-shenzhen.aliyuncs.com/game/Ky5d8wthSA.jpg' }} />
-                        <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }}
-                            source={{ uri: 'http://bcr-app-oss-001.oss-cn-shenzhen.aliyuncs.com/game/Ky5d8wthSA.jpg' }} />
-                        <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }}
-                            source={{ uri: 'http://bcr-app-oss-001.oss-cn-shenzhen.aliyuncs.com/game/Ky5d8wthSA.jpg' }} />
-                        <Image style={{ flex: 1, resizeMode: Image.resizeMode.contain }}
-                            source={{ uri: 'http://bcr-app-oss-001.oss-cn-shenzhen.aliyuncs.com/game/Ky5d8wthSA.jpg' }} /> */}
                         </Carousel>
                     }
                     <FlatList data={items}

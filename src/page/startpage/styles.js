@@ -1,6 +1,6 @@
-const React = require('react-native');
 
-const { StyleSheet, Dimensions } = React;
+import  React  from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
