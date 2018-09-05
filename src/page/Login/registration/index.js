@@ -116,7 +116,7 @@ export default class Registration extends Component {
 
                         <Row size={0.5} style={styles.rowStyle}>
                             <View >
-                                < Button rounded style={styles.logInButtonStyle} onPress={() => { this._register(this.state.phone, this.state.password, this.state.code) }}>
+                                < Button style={styles.logInButtonStyle} onPress={() => { this._register(this.state.phone, this.state.password, this.state.code) }}>
                                     <Text style={styles.logInTextStyle}>注册</Text>
                                 </Button>
                             </View>

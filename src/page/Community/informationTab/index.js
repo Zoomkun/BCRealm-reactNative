@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
     View,
     Text,
@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 //import styles from './styles';
 
-import {InformationItem} from '../../../components';
+import { InformationItem } from '../../../components';
 
 /**
  * 信息
@@ -81,20 +81,20 @@ export default class InformationTab extends Component {
         return (
             <View>
                 <FlatList data={items}
-                          enableEmptySections={true}
-                          onEndReachedThreshold={10}
-                          keyExtractor={(item, key) => key}
-                          renderItem={({item, index}) => {
-                              return <InformationItem
-                                  {...this.props}
-                                  name={item.name}
-                                  time={item.time}
-                                  msg={item.msg}
-                                  image={item.image}
-                                  id={item.id}
-                                  // onPress={() => this.props.navigation.navigate("News", {url: item.s})}
-                              />
-                          }}/>
+                    enableEmptySections={true}
+                    onEndReachedThreshold={10}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item, index }) => {
+                        return <InformationItem
+                            {...this.props}
+                            name={item.name}
+                            time={item.time}
+                            msg={item.msg}
+                            image={item.image}
+                            id={item.id}
+                        // onPress={() => this.props.navigation.navigate("News", {url: item.s})}
+                        />
+                    }} />
             </View>
         );
     }

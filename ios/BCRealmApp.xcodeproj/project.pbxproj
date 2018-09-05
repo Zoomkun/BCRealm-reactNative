@@ -56,6 +56,8 @@
 		34E0D5E8EA8547BC9B54376E /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3165E8749754014BE981ADD /* rubicon-icon-font.ttf */; };
 		5FBA699AEDDC4E0E82302702 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90E5F5A28B6746E28D2F5CDF /* SimpleLineIcons.ttf */; };
 		36FAA2ED09CA43F08926FAC5 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57509F3A74184317AA766EAE /* Zocial.ttf */; };
+		E1A9D615031549FF93D8C54F /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79363DB5CB78455881447C9B /* libRNDeviceInfo.a */; };
+		B087E22DDAED4FF8A72B74A9 /* libRNDeviceInfo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91170AD471464A97BE594BAD /* libRNDeviceInfo-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -384,6 +386,9 @@
 		C3165E8749754014BE981ADD /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		90E5F5A28B6746E28D2F5CDF /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		57509F3A74184317AA766EAE /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C3FC8ADD9ACD486087C98587 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; name = "RNDeviceInfo.xcodeproj"; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		79363DB5CB78455881447C9B /* libRNDeviceInfo.a */ = {isa = PBXFileReference; name = "libRNDeviceInfo.a"; path = "libRNDeviceInfo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		91170AD471464A97BE594BAD /* libRNDeviceInfo-tvOS.a */ = {isa = PBXFileReference; name = "libRNDeviceInfo-tvOS.a"; path = "libRNDeviceInfo-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -417,6 +422,7 @@
 				CE5D83BF39064A698E046CFF /* libRNNeteaseIm.a in Frameworks */,
 				78862DDB3E4749D48F9500A2 /* libRCTWeChat.a in Frameworks */,
 				2F55FA34D380478C9F004BD8 /* RCTWeChatTests.xctest in Resources */,
+				E1A9D615031549FF93D8C54F /* libRNDeviceInfo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +438,7 @@
 				2D02E4C61E0B4AEC006451C7 /* libRCTSettings-tvOS.a in Frameworks */,
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
+				B087E22DDAED4FF8A72B74A9 /* libRNDeviceInfo-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +614,7 @@
 				1CFA8C7F229447E49C61A444 /* RNImagePicker.xcodeproj */,
 				BD2E64CA591D46BABD1E17C8 /* RNNeteaseIm.xcodeproj */,
 				C4C9F77B02D24050A9F87895 /* RCTWeChat.xcodeproj */,
+				C3FC8ADD9ACD486087C98587 /* RNDeviceInfo.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1275,6 +1283,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1282,6 +1292,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 					"$(SRCROOT)\..\node_modules\react-native-wechat\ios",
+					"$(SRCROOT)\..\node_modules\react-native-device-info\ios\RNDeviceInfo",
 				);
 			};
 			name = Debug;
@@ -1307,6 +1318,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1314,6 +1327,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 					"$(SRCROOT)\..\node_modules\react-native-wechat\ios",
+					"$(SRCROOT)\..\node_modules\react-native-device-info\ios\RNDeviceInfo",
 				);
 			};
 			name = Release;
@@ -1339,6 +1353,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 					"$(SRCROOT)\..\node_modules\react-native-wechat\ios",
+					"$(SRCROOT)\..\node_modules\react-native-device-info\ios\RNDeviceInfo",
 				);
 			};
 			name = Debug;
@@ -1363,6 +1378,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 					"$(SRCROOT)\..\node_modules\react-native-wechat\ios",
+					"$(SRCROOT)\..\node_modules\react-native-device-info\ios\RNDeviceInfo",
 				);
 			};
 			name = Release;
@@ -1397,6 +1413,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1404,6 +1422,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 					"$(SRCROOT)\..\node_modules\react-native-wechat\ios",
+					"$(SRCROOT)\..\node_modules\react-native-device-info\ios\RNDeviceInfo",
 				);
 			};
 			name = Debug;
@@ -1438,6 +1457,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1445,6 +1466,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 					"$(SRCROOT)\..\node_modules\react-native-wechat\ios",
+					"$(SRCROOT)\..\node_modules\react-native-device-info\ios\RNDeviceInfo",
 				);
 			};
 			name = Release;
@@ -1478,6 +1500,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1485,6 +1509,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 					"$(SRCROOT)\..\node_modules\react-native-wechat\ios",
+					"$(SRCROOT)\..\node_modules\react-native-device-info\ios\RNDeviceInfo",
 				);
 			};
 			name = Debug;
@@ -1518,6 +1543,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1525,6 +1552,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 					"$(SRCROOT)\..\node_modules\react-native-netease-im\ios\RNNeteaseIm\RNNeteaseIm/**",
 					"$(SRCROOT)\..\node_modules\react-native-wechat\ios",
+					"$(SRCROOT)\..\node_modules\react-native-device-info\ios\RNDeviceInfo",
 				);
 			};
 			name = Release;

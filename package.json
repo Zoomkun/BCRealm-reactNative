@@ -7,11 +7,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "install": "^0.12.1",
+    "native-base": "^2.4.0",
+    "npm": "^6.3.0",
     "react": "16.3.1",
     "react-native": "0.55.4",
-    "install": "^0.12.1",
-    "native-base": "^2.2.0",
-    "npm": "^6.3.0",
+    "react-native-device-info": "^0.22.5",
     "react-native-easy-grid": "^0.2.0",
     "react-native-easy-toast": "^1.1.0",
     "react-native-http-cache": "git+https://github.com/ujff888/react-native-http-cache.git",

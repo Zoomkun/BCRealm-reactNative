@@ -48,6 +48,7 @@ export default {
         backgroundColor: '#FE6F06',
         width: deviceWidth * 0.8,
         justifyContent: 'center',
+        borderRadius: 50
     },
     logInTextStyle: {
         color: '#ffffff'

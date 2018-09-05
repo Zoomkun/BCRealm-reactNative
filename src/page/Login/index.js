@@ -19,6 +19,9 @@ import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
 import HttpUtils from "../../api/Api";
 import { NavigationActions } from 'react-navigation';
+import DeviceInfo from 'react-native-device-info';
+
+
 resetAction = NavigationActions.reset({
     index: 0,
     actions: [
@@ -38,6 +41,7 @@ export default class Login extends Component {
             phone: '',
             password: '',
             code: '',
+            cid: '',
             disable: false,
         }
         this.interval = 0
@@ -49,6 +53,8 @@ export default class Login extends Component {
 
     componentWillMount() {
         let self = this
+        let cid = DeviceInfo.getUniqueID();
+
         AsyncStorage.getItem('phone').then(data => {
             console.log(data)
             if (data) {
@@ -65,6 +71,12 @@ export default class Login extends Component {
             }
             console.log(data)
         })
+
+        console.log("Device Unique ID", cid);
+        this.setState({
+            cid: cid
+        })
+        console.log(this.state.cid)
     }
 
     render() {
@@ -168,12 +180,11 @@ export default class Login extends Component {
 
                         <Row size={0.6} style={styles.rowStyel}>
                             <View>
-                                <Button rounded style={styles.logInButtonStyle}
+                                <Button style={styles.logInButtonStyle}
                                     onPress={() => {
                                         this.state.pick == 0 ?
-                                            this._login(this.state.phone, this.state.password) :
-                                            this._smsLogin(this.state.phone, this.state.code)
-
+                                            this._login(this.state.phone, this.state.password, this.state.cid) :
+                                            this._smsLogin(this.state.phone, this.state.code, this.state.cid)
                                     }}>
                                     <Text style={styles.logInTextStyle}>登录</Text>
                                 </Button>
@@ -244,23 +255,28 @@ export default class Login extends Component {
     }
 
     //密码登录
-    _login(phone, password) {
+    _login(phone, password, cid) {
         let self = this
         if (phone.length > 10 && password != '') {
             HttpUtils.postRequrst(
                 'userUrl',
                 'appLogin',
                 {
-                    'cid': 'string',
+                    'cid': `${cid}`,
                     'phoneNumber': `${phone}`,
                     'pwd': `${password}`,
                 },
                 function (data) {
+                    console.log(data)
                     if (data.userName) {
                         HttpUtils.setHeader({ token: data.token })
                         AsyncStorage.setItem('data', JSON.stringify(data));
                         AsyncStorage.setItem('phone', JSON.stringify(self.state.phone));
                         AsyncStorage.setItem('password', JSON.stringify(self.state.password));
+                        AsyncStorage.getItem('data').then(data => {
+                            let datas = JSON.parse(data);
+                            console.log(datas)
+                        })
                         self.props.navigation.dispatch(resetAction);
                     } else {
                         self.refs.toast.show((data), DURATION.LENGTH_LONG);
@@ -278,14 +294,14 @@ export default class Login extends Component {
     }
 
     //短信登录
-    _smsLogin(phone, code) {
+    _smsLogin(phone, code, cid) {
         let self = this
         if (phone.length > 10 && code != '') {
             HttpUtils.postRequrst(
                 'userUrl',
                 'smsLogin',
                 {
-                    'cid': 'string',
+                    'cid': `${cid}`,
                     'phoneNumber': `${phone}`,
                     'code': `${code}`,
                 },
