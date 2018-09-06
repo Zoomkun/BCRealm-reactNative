@@ -18,7 +18,7 @@ export default class ThemeHeader extends Component {
         return (
             <Header style={CommonStyles.headerStyle}>
                 {leftSource &&
-                    <Button transparent onPress={() => { onLeftOnPress }}  >
+                    <Button onPress={() => { onLeftOnPress }}  >
                         <Icon name={leftSource} style={CommonStyles.backIconStyle} />
                     </Button>
                 }

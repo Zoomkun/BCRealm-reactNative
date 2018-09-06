@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
     View,
     Text,
@@ -9,7 +9,7 @@ import {
 import {
     FlatList
 } from 'react-native';
-import {CommunityItem} from '../../../components';
+import { CommunityItem } from '../../../components';
 //import styles from './styles';
 /**
  * 社群
@@ -35,8 +35,8 @@ export default class CommunityTab extends Component {
         header: null
     };
 
-    _goToCommunityInfo(id){
-        this.props.navigation.navigate("CommunityInfo", {id: id})
+    _goToCommunityInfo(id) {
+        this.props.navigation.navigate("CommunityInfo", { id: id })
     }
 
     render() {
@@ -47,8 +47,8 @@ export default class CommunityTab extends Component {
                     <Text style={styles.text}>已加入</Text>
                     <FlatList
                         data={items}
-                        keyExtractor={(item, key) => key}
-                        renderItem={({item, index}) => {
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item, index }) => {
                             return <CommunityItem
                                 {...this.props}
                                 navigation={this.props.navigation}
@@ -57,16 +57,16 @@ export default class CommunityTab extends Component {
                                 chatGroupNo={item.chatGroupNo}
                                 announcement={item.announcement}
                                 id={item.id}
-                                onPress={()=>this._goToCommunityInfo(item.id)}
+                                onPress={() => this._goToCommunityInfo(item.id)}
                             />
-                            }
+                        }
                         }>
                     </FlatList>
                     <Text style={styles.text}>未加入</Text>
                     <FlatList
                         data={items}
-                        keyExtractor={(item, key) => key}
-                        renderItem={({item, index}) => {
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item, index }) => {
                             return <CommunityItem
                                 {...this.props}
                                 chatGroupName={item.chatGroupName}
@@ -74,9 +74,9 @@ export default class CommunityTab extends Component {
                                 chatGroupNo={item.chatGroupNo}
                                 announcement={item.announcement}
                                 id={item.id}
-                                onPress={()=>this._goToCommunityInfo(item.id)}
+                                onPress={() => this._goToCommunityInfo(item.id)}
                             />
-                            }
+                        }
                         }>
                     </FlatList>
                 </Content>
@@ -87,6 +87,6 @@ export default class CommunityTab extends Component {
 
 const styles = {
     text: {
-        marginTop:20,
+        marginTop: 20,
     },
 };

@@ -47,6 +47,12 @@ class Authenticate extends Component {
     };
 
     goBack = () => {
+        AsyncStorage.getItem('data').then(data => {
+            let datas = JSON.parse(data);
+            datas.headUrl = this.state.headUrl;
+            console.log(datas);
+            this.props.navigation.state.params.returnData(datas);
+        })
         this.props.navigation.goBack();
     }
 
@@ -229,6 +235,7 @@ class Authenticate extends Component {
                 function (data) {
                     console.log(data)
                     if (data == '') {
+                        AsyncStorage.setItem('data', JSON.stringify(data.data));
                         self.refs.toast.show("成功", DURATION.LENGTH_LONG);
                     } else {
                         self.refs.toast.show(data, DURATION.LENGTH_LONG);

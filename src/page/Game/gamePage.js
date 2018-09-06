@@ -50,7 +50,6 @@ export default class GamePage extends Component {
     render() {
         let items = this.state.data;
         let bannerData = this.state.bannerData;
-        console.log(bannerData)
         return (
             <Container>
                 <ThemeHeader title={"游戏"} />
@@ -70,7 +69,7 @@ export default class GamePage extends Component {
                     <FlatList data={items}
                         enableEmptySections={true}
                         onEndReachedThreshold={10}
-                        keyExtractor={(item, key) => key}
+                        keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item, index }) => {
                             return <CardItems
                                 {...this.props}

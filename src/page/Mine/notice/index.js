@@ -65,7 +65,7 @@ class Notice extends Component {
                         enableEmptySections={true}
                         refreshing={!this.state.refreshing}
                         onEndReachedThreshold={10}
-                        keyExtractor={(item, key) => key}
+                        keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item, index }) => {
                             return <MsgItem
                                 onPress={() => { this.props.navigation.navigate("GameWeb", { data: item }), this._putUpStatus() }}
@@ -99,7 +99,7 @@ class Notice extends Component {
         );
     }
 
-    
+
     _getList() {
         let self = this
         Http.getRequest(

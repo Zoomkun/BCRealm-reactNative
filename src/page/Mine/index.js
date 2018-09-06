@@ -56,6 +56,7 @@ export default class Mine extends Component {
             this.setState({
                 data: datas,
             })
+            console.log(datas)
         })
         this._getUnReads();
     }
@@ -102,28 +103,28 @@ export default class Mine extends Component {
 
                         <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
                         {
-                            menus.map((item, index) => (
-                                <View key={index}>
-                                    <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate(item.uri) }}>
-                                        <Image
-                                            source={item.icon}
-                                            style={CommonStyles.icon}
-                                        />
-                                        <Body style={{ justifyContent: 'flex-start', }}>
-                                            <Text style={styles.textStyle}>{item.text}</Text>
-                                        </Body>
-                                        <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
-                                            <Image
-                                                source={item.arrows}
-                                                style={CommonStyles.icon}
-                                            />
-                                        </Right>
-                                    </ListItem>
-                                    {item.line &&
-                                        <View style={styles.line} />
-                                    }
-                                </View>
-                            ))
+                            // menus.map((item, index) => (
+                            //     <View key={index}>
+                            //         <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate(item.uri) }}>
+                            //             <Image
+                            //                 source={item.icon}
+                            //                 style={CommonStyles.icon}
+                            //             />
+                            //             <Body style={{ justifyContent: 'flex-start', }}>
+                            //                 <Text style={styles.textStyle}>{item.text}</Text>
+                            //             </Body>
+                            //             <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
+                            //                 <Image
+                            //                     source={item.arrows}
+                            //                     style={CommonStyles.icon}
+                            //                 />
+                            //             </Right>
+                            //         </ListItem>
+                            //         {item.line &&
+                            //             <View style={styles.line} />
+                            //         }
+                            //     </View>
+                            // ))
                         }
 
                         <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('Notice') }}>
@@ -144,7 +145,15 @@ export default class Mine extends Component {
                         </ListItem>
                         <View style={styles.line} />
 
-                        <ListItem itemDivider style={styles.listItemStyle}{...console.log(data.certification)} button onPress={() => { data.certification > 0 ? '' : navigate('Authenticate') }}>
+                        <ListItem
+                            itemDivider
+                            button
+                            style={styles.listItemStyle}
+                            {...console.log(data.certification)}
+                            onPress={() => {
+                                navigate("PersonalInfo", { returnData: this._returnData.bind(this), data: this.state.data })
+                            }}
+                            onPress={() => { data.certification > 0 ? '' : navigate('Authenticate', { returnData: this._returnData.bind(this) }) }}>
                             <Image
                                 source={require('../../../images/authenticate.png')}
                                 style={CommonStyles.icon}

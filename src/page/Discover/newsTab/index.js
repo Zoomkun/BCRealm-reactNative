@@ -36,7 +36,7 @@ export default class NewsTab extends Component {
                 <FlatList data={items}
                     enableEmptySections={true}
                     onEndReachedThreshold={10}
-                    keyExtractor={(item, key) => key}
+                    keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item, index }) => {
                         return <NewsItem
                             {...this.props}
