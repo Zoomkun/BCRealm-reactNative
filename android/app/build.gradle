@@ -111,6 +111,9 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+         manifestPlaceholders = [
+            "NIM_KEY": " 1db9ef0d8ed602fe71cfb042475aba96"
+         ]
     }
     splits {
         abi {

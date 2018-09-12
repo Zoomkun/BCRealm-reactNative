@@ -218,9 +218,10 @@ export default class HttpUtils extends Component {
      * @returns {Promise}
      */
     static deleteRequest = (Url, ApiName, params, success) => {
-        return timeoutFetch(fetch(handleUrl(Api[Url] + Api[ApiName])(params), {
+        return timeoutFetch(fetch(Api[Url] + Api[ApiName], {
             method: 'DELETE',
-            headers: header
+            headers: header,
+            body: JSON.stringify(params)
         })).then(response => {
             if (response.ok) {
                 return response.json()

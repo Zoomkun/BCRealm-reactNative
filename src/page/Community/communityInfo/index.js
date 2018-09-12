@@ -14,10 +14,13 @@ import {
     Header,
 } from 'native-base';
 import {
+    AsyncStorage,
     Text,
 } from 'react-native';
+import {NimSession, NimFriend, NimUtils} from 'react-native-netease-im';
 import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle';
+import Http from "../../../api/Api";
 
 /**
  * 社群信息页面
@@ -27,7 +30,8 @@ class CommunityInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            chatGroupInfo:{},
+            userInfo:{}
         }
 
     }
@@ -35,14 +39,70 @@ class CommunityInfo extends Component {
         header: null
     };
 
+    componentWillMount(){
+        let self = this
+        self.setState({
+            chatGroupInfo:self.props.navigation.getParam('item')
+        })
+
+        AsyncStorage.getItem('data').then(data => {
+            let userInfo = JSON.parse(data);
+            self.setState({
+                userInfo:userInfo
+            })
+        })
+    }
+
     goBack = () => {
         this.props.navigation.goBack();
     }
 
+    _toChat(){
+        let self = this
+        const {navigation} = this.props;
+        const data = self.state
+        const groupInfo = data.chatGroupInfo
+        let session = {
+            ...groupInfo,
+            sessionType:'0',
+            imToken:data.userInfo.imToken,
+            account:data. userInfo.accountNo,
+        };
+        navigation.popToTop()
+
+        NimSession.login(session.account,session.imToken).then((data)=>{
+            navigation.navigate('Chat',{session:session })
+        },(err)=>{
+            console.warn(err);
+        })
+    }
+
+    // 退群
+    _leaveChat(){
+        let self = this
+        let groupInfo = self.state.chatGroupInfo
+        let userInfo = self.state.userInfo
+        Http.deleteRequest(
+            'appUrl',
+            'leaveChatGroup',
+            {
+                "accountNo": userInfo.accountNo,
+                "chatGroupId": groupInfo.chatGroupId,
+                "chatGroupNo": groupInfo.chatGroupNo,
+                "userId": userInfo.userId
+            },
+            function (data) {
+                self.props.navigation.state.params.refresh();
+                self.props.navigation.goBack();
+            }
+        )
+    }
+
     render() {
-        const { navigate } = this.props.navigation;
+        const data = this.state.chatGroupInfo;
         return (
-            <Container style={styles.container}>
+            <Container style={styles.container}
+                       data={data}>
                 <Header style={CommonStyles.headerStyle}>
                     <Button transparent onPress={() => { this.goBack() }}>
                         <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
@@ -52,19 +112,20 @@ class CommunityInfo extends Component {
                     </Body>
                 </Header>
                 <View style={styles.top}>
-                    <Thumbnail large style={styles.image} source={{ uri: 'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1192198377,2781673332&fm=58&w=150&h=150&img.JPEG' }} />
-                    <Text style={{ color: '#333' }}>NXH社群</Text>
+                    <Thumbnail large style={styles.image} source={{ uri: data.icon }} />
+                    <Text style={{ color: '#333',paddingBottom:20 }}>{data.chatGroupName}</Text>
                 </View>
                 <Content style={styles.content}>
-                    <Text style={{ color: '#000', fontSize: 18 }}>群公告</Text>
-                    <Text style={{ height: 8, backgroundColor: '#efefef' }}></Text>
-                    <Text style={{ fontSize: 12, lineHeight: 15 }}>
-                        这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告这个是测试群公告
+                    <Text style={styles.title}>群二维码</Text>
+                    <Text style={styles.title}>群成员</Text>
+                    <Text style={styles.title}>群公告</Text>
+                    <Text style={{ fontSize: 14, lineHeight: 18 }}>
+                        {data.announcement}
                     </Text>
-                    <Button full small style={{ backgroundColor: '#FE6F06', marginTop: 20 }}>
+                    <Button full style={{ backgroundColor: '#FE6F06', marginTop: 20 }}  onPress={()=>this._toChat()}>
                         <Text style={styles.colorWhite}>进入该群</Text>
                     </Button>
-                    <Button full small style={{ backgroundColor: '#FE0606', marginTop: 20 }}>
+                    <Button full style={{ backgroundColor: '#FE0606', marginTop: 20 }}  onPress={()=>this._leaveChat()}>
                         <Text style={styles.colorWhite}>退出该群</Text>
                     </Button>
                 </Content>

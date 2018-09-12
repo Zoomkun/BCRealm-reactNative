@@ -56,7 +56,6 @@ export default class Mine extends Component {
             this.setState({
                 data: datas,
             })
-            console.log(datas)
         })
         this._getUnReads();
     }

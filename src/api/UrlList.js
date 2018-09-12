@@ -33,4 +33,8 @@ export default {
 
     gameList: 'game?page=1&pageSize=10',//获取游戏列表ok
     banner: 'banner',//图集
+
+    chatGroup: 'chatGroups/list/all', // 获取所有群列表
+    joinItem: 'chatGroups/joinItem', // 加入群
+    leaveChatGroup: 'chatGroups/leave', // 加入群
 }

@@ -32,5 +32,11 @@ export default {
         alignItems: 'center',
         borderBottomWidth:8,
         borderColor:'#F9F9F9',
+    },
+    title:{
+        color: '#000',
+        fontSize: 16,
+        paddingBottom:10,
+        paddingTop:10,
     }
 }

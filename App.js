@@ -18,6 +18,7 @@ import Notice from "./src/page/Mine/notice";
 import SendTopic from './src/page/Discover/topicTab/sendTopic';
 import News from './src/page/Discover/newsTab/news';
 import Content from './src/page/Discover/topicTab/content';
+import Chat from './src/page/Community/chat';
 
 const routers = StackNavigator({
     StartPage: { screen: StartPage },
@@ -39,6 +40,7 @@ const routers = StackNavigator({
     SendTopic: { screen: SendTopic },
     News: { screen: News },
     Content: { screen: Content },
+    Chat: { screen: Chat },
 });
 
 export default routers;

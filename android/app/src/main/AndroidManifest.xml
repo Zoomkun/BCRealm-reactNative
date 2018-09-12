@@ -4,12 +4,32 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
+    <permission
+            android:name="com.im.bcrealmapp.permission.RECEIVE_MSG"
+            android:protectionLevel="signature"/>
+
+    <uses-permission android:name="com.im.bcrealmapp.permission.RECEIVE_MSG"/>
+    <!-- 小米推送 -->
+    <permission
+            android:name="com.im.bcrealmapp.permission.MIPUSH_RECEIVE"
+            android:protectionLevel="signature"/>
+    <uses-permission android:name="com.im.bcrealmapp.permission.MIPUSH_RECEIVE"/>
+
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+
+        <meta-data
+                android:name="com.netease.nim.appKey"
+                android:value="1db9ef0d8ed602fe71cfb042475aba96" />
+        <provider
+                android:name="com.netease.nimlib.ipc.NIMContentProvider"
+                android:authorities="com.netease.nim.bcrealmapp.ipc.provider"
+                android:exported="false"
+                android:process=":core" />
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

@@ -38,8 +38,8 @@ export default class Login extends Component {
         this.state = {
             pick: 0,
             seconds: 0,
-            phone: '',
-            password: '',
+            phone: '15729358579',
+            password: '123456',
             code: '',
             cid: '',
             disable: false,
@@ -267,7 +267,6 @@ export default class Login extends Component {
                     'pwd': `${password}`,
                 },
                 function (data) {
-                    console.log(data)
                     if (data.userName) {
                         HttpUtils.setHeader({ token: data.token })
                         AsyncStorage.setItem('data', JSON.stringify(data));
@@ -277,6 +276,7 @@ export default class Login extends Component {
                             let datas = JSON.parse(data);
                             console.log(datas)
                         })
+
                         self.props.navigation.dispatch(resetAction);
                     } else {
                         self.refs.toast.show((data), DURATION.LENGTH_LONG);

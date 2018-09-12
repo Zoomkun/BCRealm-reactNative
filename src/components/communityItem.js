@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Dimensions, View,} from "react-native";
+import {AsyncStorage, Dimensions, View,} from "react-native";
 import {
     Body,
     ListItem,
@@ -9,25 +9,65 @@ import {
     Thumbnail,
     Button,
 } from "native-base";
+import HttpUtils from "../api/Api";
 
 /**
  * 信息组件
  */
 export default class CommunityItem extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            userInfo:{}
+        }
+    }
+
+    componentWillMount(){
+        let self = this
+        AsyncStorage.getItem('data').then(data => {
+            let userInfo = JSON.parse(data);
+            self.setState({
+                userInfo:userInfo
+            })
+        })
+    }
+
+    _joinChatGroup(){
+        let self = this
+        let groupInfo = self.props.item
+        let userInfo = self.state.userInfo
+        HttpUtils.postRequrst(
+            'appUrl',
+            'joinItem',
+            {
+                "accountNo": userInfo.accountNo,
+                "chatGroupId": groupInfo.chatGroupId,
+                "chatGroupNo":groupInfo.chatGroupNo,
+                "owner": groupInfo.owner,
+                "userId": userInfo.userId
+            },
+            function (data) {
+                console.log(self.props)
+                self.props.methods()
+                // self.props.params.refresh();
+            }
+        )
+    }
+
     render() {
-        let {chatGroupName, icon, onPress,chatGroupNo, announcement, id} = this.props;
+        let { item,onPress } = this.props
         return (
             <ListItem  button style={styles.listItemStyle} onPress={onPress} avatar>
                 <Left>
-                    <Thumbnail square source={{uri: icon}} style={styles.avatarStyle}/>
+                    <Thumbnail square source={{uri: item.icon}} style={styles.avatarStyle}/>
                 </Left>
                 <Body style={styles.listItemStyle}>
-                <Text>{chatGroupName}</Text>
+                <Text>{item.chatGroupName}</Text>
                 </Body>
                 <Right style={styles.listItemStyle}>
                     {
-                        0 ?
-                        <Button small bordered style={styles.borderStyle}>
+                        item.join === false ?
+                        <Button small bordered style={styles.borderStyle} onPress={()=>this._joinChatGroup()}>
                         <Text style={styles.text}>加入社群</Text>
                     </Button>
                         : null

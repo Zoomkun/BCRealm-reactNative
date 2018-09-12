@@ -17,12 +17,12 @@ const mainPage = TabNavigator({
             //默认参数
         }
     },
-    // Community: {
-    //     screen: CommunityPage,
-    //     navigationOptions: {
+    Community: {
+        screen: CommunityPage,
+        navigationOptions: {
 
-    //     }
-    // },
+        }
+    },
     Discover: {
         screen: DiscoverPage,
         navigationOptions: {
