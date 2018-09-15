@@ -6,6 +6,7 @@ import {
     Tab,
     Tabs,
     Container,
+    Icon
 } from 'native-base';
 import CommonStyles from '../../css/commonStyle';
 import { ThemeHeader } from '../../components';
@@ -24,12 +25,8 @@ export default class Discover extends Component {
         },
         tabBarLabel: '发现',
         tabBarIcon: ({ tintColor }) => (
-            <Image
-                source={require('../../../images/detection.png')}
-                style={[CommonStyles.icon, { tintColor: tintColor }]}
-            />
+            <Icon name={"news"} type={"Entypo"} fontSize={5} style={CommonStyles.iconStyle} />
         ),
-        headerTintColor: '#fff',
     })
 
     render() {

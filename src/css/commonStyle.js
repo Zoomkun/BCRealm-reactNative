@@ -6,11 +6,22 @@ export default {
         width: 20,
         height: 20
     },
+    iconStyle: {
+        fontSize: 18,
+        color: '#FE6F06'
+    },
+    rightIconStyle: {
+        fontSize: 22,
+        color: '#020202'
+    },
     title: {
         flex: 1,
         fontSize: 20,
         color: '#fff',
         textAlign: "center"
+    },
+    textColor: {
+        color: '#020202'
     },
     headerBodyStyle: {
         justifyContent: 'center',
@@ -44,6 +55,6 @@ export default {
     },
     backIconStyle: {
         color: '#ffffff',
-        fontSize: 36
+        fontSize: 30
     },
 }
