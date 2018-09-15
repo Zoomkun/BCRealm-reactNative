@@ -62,7 +62,7 @@ class PersonalInfo extends Component {
             this.setState({
                 sex: datas.sex,
                 accountNo: datas.accountNo,
-                id: datas.id,
+                id: datas.userId,
                 headUrl: datas.headUrl,
                 userName: datas.userName,
                 token: datas.token

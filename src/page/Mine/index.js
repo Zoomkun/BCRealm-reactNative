@@ -56,6 +56,7 @@ export default class Mine extends Component {
             this.setState({
                 data: datas,
             })
+            console.log(datas)
         })
         this._getUnReads();
     }
@@ -78,6 +79,7 @@ export default class Mine extends Component {
     render() {
         const { navigate } = this.props.navigation;
         let data = this.state.data;
+        console.log(data)
         return (
             <Container style={CommonStyles.container}>
                 <ThemeHeader title={"我"} />
@@ -148,11 +150,8 @@ export default class Mine extends Component {
                             itemDivider
                             button
                             style={styles.listItemStyle}
-                            {...console.log(data.certification)}
-                            onPress={() => {
-                                navigate("PersonalInfo", { returnData: this._returnData.bind(this), data: this.state.data })
-                            }}
-                            onPress={() => { data.certification > 0 ? '' : navigate('Authenticate', { returnData: this._returnData.bind(this) }) }}>
+                            {...console.log(data.certification + "certification")}
+                            onPress={() => { navigate('Authenticate', { returnData: this._returnData.bind(this) }) }}>
                             <Image
                                 source={require('../../../images/authenticate.png')}
                                 style={CommonStyles.icon}
@@ -175,7 +174,7 @@ export default class Mine extends Component {
                                 <Text >清除缓存</Text>
                             </Body>
                             <Right style={styles.rightStyle}>
-                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100}M</Text>
+                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{0.15 >= (Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100) ? 0 : (Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100)}M</Text>
                                 <Image
                                     source={require('../../../images/goIn.png')}
                                     style={CommonStyles.icon}
@@ -219,7 +218,7 @@ export default class Mine extends Component {
     }
 
     _cleanCache() {
-        if (this.state.cacheSize > 0) {
+        if (this.state.cacheSize > 160000) {
             CacheManager.clearCache();
             CacheManager.getCacheSize().then((size) => {
                 this.setState({ cacheSize: size })
