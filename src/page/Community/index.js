@@ -11,12 +11,7 @@ import {
     Icon,
     View,
     Container,
-    ListItem,
-    Left,
-    Button,
-    Body,
-    Right,
-    Content,
+    Icon
 } from 'native-base';
 import CommonStyles from '../../css/commonStyle';
 import InformationTab from './informationTab';
@@ -38,11 +33,9 @@ export default class CommunityPage extends Component {
             "backgroundColor": "#FE6F06",
         },
         tabBarLabel: '社区',
-        tabBarIcon: ({tintColor}) => (
-            <Image
-                source={require('../../../images/community.png')}
-                style={[CommonStyles.icon, {tintColor: tintColor}]}
-            />
+        tabBarIcon: ({ tintColor }) => (
+            <Icon name={"message-text-outline"} type={"MaterialCommunityIcons"}
+                fontSize={5} style={CommonStyles.iconStyle} />
         ),
         headerTintColor: '#fff',
     })
