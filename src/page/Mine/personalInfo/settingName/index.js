@@ -109,7 +109,7 @@ class SettingName extends Component {
                     console.log(data)
                     if (data.data.userName) {
                         AsyncStorage.setItem('data', JSON.stringify(data.data));
-                        self.refs.toast.show((data.msg), DURATION.LENGTH_LONG);
+                        self.goBack();
                     } else {
                         self.refs.toast.show((data.msg), DURATION.LENGTH_LONG);
                     }

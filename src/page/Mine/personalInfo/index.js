@@ -62,7 +62,7 @@ class PersonalInfo extends Component {
             this.setState({
                 sex: datas.sex,
                 accountNo: datas.accountNo,
-                id: datas.id,
+                id: datas.userId,
                 headUrl: datas.headUrl,
                 userName: datas.userName,
                 token: datas.token
@@ -88,17 +88,14 @@ class PersonalInfo extends Component {
                 <List>
                     <ListItem itemDivider={true} style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }}
                         button onPress={this.selectPhotoTapped.bind(this)}>
-                        <Text>头像</Text>
+                        <Text style={CommonStyles.textColor}>头像</Text>
                         <Body />
                         <Right style={styles.rightStyle} >
                             {this.state.headUrl != '' &&
                                 <Thumbnail source={{ uri: this.state.headUrl }} />
                             }
                             {/* <Thumbnail source={constants.avatar} /> */}
-                            <Image
-                                source={require('../../../../images/goIn.png')}
-                                style={styles.iconStyle}
-                            />
+                            <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                         </Right>
                     </ListItem>
                     <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
@@ -108,21 +105,18 @@ class PersonalInfo extends Component {
                             navigate("SettingName", { returnData: this._returnData.bind(this), id: this.state.id, accountNo: this.state.accountNo })
                         }}>
                         <Body style={{ justifyContent: 'flex-start', }}>
-                            <Text >姓名</Text>
+                            <Text style={CommonStyles.textColor}>姓名</Text>
                         </Body>
                         <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
                             <Text style={{ alignItems: 'center', marginRight: 10 }}>{this.state.userName}</Text>
-                            <Image
-                                source={require('../../../../images/goIn.png')}
-                                style={styles.iconStyle}
-                            />
+                            <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                         </Right>
                     </ListItem>
                     <View style={{ backgroundColor: '#F3F3F3', height: 3 }} />
 
                     <ListItem itemDivider style={styles.listItemStyle} >
                         <Body style={{ justifyContent: 'flex-start', }}>
-                            <Text >性别</Text>
+                            <Text style={CommonStyles.textColor}>性别</Text>
                         </Body>
                         <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
                             {this.state.sex != 0 &&

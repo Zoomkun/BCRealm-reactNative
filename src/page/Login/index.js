@@ -38,8 +38,8 @@ export default class Login extends Component {
         this.state = {
             pick: 0,
             seconds: 0,
-            phone: '15729358579',
-            password: '123456',
+            phone: '',
+            password: '',
             code: '',
             cid: '',
             disable: false,
@@ -55,28 +55,19 @@ export default class Login extends Component {
         let self = this
         let cid = DeviceInfo.getUniqueID();
 
-        AsyncStorage.getItem('phone').then(data => {
-            console.log(data)
-            if (data) {
+        AsyncStorage.getItem('user').then(data => {
+            datas = JSON.parse(data)
+            if (datas) {
                 self.setState({
-                    phone: JSON.parse(data)
+                    phone: datas.phone,
+                    password: datas.password
                 })
             }
-        })
-        AsyncStorage.getItem('password').then(data => {
-            if (data) {
-                self.setState({
-                    password: JSON.parse(data)
-                })
-            }
-            console.log(data)
         })
 
-        console.log("Device Unique ID", cid);
         this.setState({
             cid: cid
         })
-        console.log(this.state.cid)
     }
 
     render() {
@@ -101,17 +92,16 @@ export default class Login extends Component {
                         </Row>
 
                         <Row size={2.2} style={styles.rowStyel}>
-                            <Segment >
-                                <Button style={styles.SegmentButtonStyle} onPress={() => { this.setState({ pick: 0 }) }}>
+                            <View style={{ flexDirection: "row" }}>
+                                <Button transparent style={styles.SegmentButtonStyle} onPress={() => { this.setState({ pick: 0 }) }}>
                                     <Text style={this.state.pick == 0 ? styles.selectedTextStyle : styles.textStyle}>普通登录</Text>
                                     <View style={this.state.pick == 0 ? styles.selectedViewStyle : styles.viewStyle} />
                                 </Button>
-                                <Button style={styles.SegmentButtonStyle} onPress={() => { this.setState({ pick: 1 }) }}>
+                                <Button transparent style={styles.SegmentButtonStyle} onPress={() => { this.setState({ pick: 1 }) }}>
                                     <Text style={this.state.pick == 1 ? styles.selectedTextStyle : styles.textStyle}>验证码登录</Text>
                                     <View style={this.state.pick == 1 ? styles.selectedViewStyle : styles.viewStyle} />
                                 </Button>
-                            </Segment>
-
+                            </View>
                             {
                                 this.state.pick == 0 ? (
                                     <View style={{ alignItems: 'center', flexDirection: 'column' }}>
@@ -270,13 +260,10 @@ export default class Login extends Component {
                     if (data.userName) {
                         HttpUtils.setHeader({ token: data.token })
                         AsyncStorage.setItem('data', JSON.stringify(data));
-                        AsyncStorage.setItem('phone', JSON.stringify(self.state.phone));
-                        AsyncStorage.setItem('password', JSON.stringify(self.state.password));
-                        AsyncStorage.getItem('data').then(data => {
-                            let datas = JSON.parse(data);
-                            console.log(datas)
-                        })
-
+                        var user = new Object();
+                        user.phone = self.state.phone
+                        user.password = self.state.password
+                        AsyncStorage.setItem('user', JSON.stringify(user));
                         self.props.navigation.dispatch(resetAction);
                     } else {
                         self.refs.toast.show((data), DURATION.LENGTH_LONG);
@@ -307,9 +294,10 @@ export default class Login extends Component {
                 },
                 function (data) {
                     if (data.userName) {
+                        HttpUtils.setHeader({ token: data.token })
                         AsyncStorage.setItem('data', JSON.stringify(data));
-                        HttpUtils.headers.token = data.token;
                         self._goMainPage();
+                        self.props.navigation.dispatch(resetAction);
                     } else {
                         self.refs.toast.show((data), DURATION.LENGTH_LONG);
                     }

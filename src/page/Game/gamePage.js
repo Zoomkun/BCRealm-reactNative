@@ -3,7 +3,7 @@ import {
     Image,
     FlatList
 } from 'react-native';
-import { Content, Container, View, Button } from 'native-base';
+import { Content, Container, View, Button, Icon } from 'native-base';
 import Carousel from 'react-native-looped-carousel'
 import CommonStyles from "../../css/commonStyle";
 import { CardItems, ThemeHeader } from '../../components';
@@ -27,12 +27,7 @@ export default class GamePage extends Component {
         //headerTitle: (<Text style={CommonStyles.title}>游戏</Text>),
         tabBarLabel: '游戏',
         tabBarIcon: ({ tintColor }) => (
-            <Image
-                source={
-                    require('../../../images/game.png')
-                }
-                style={[CommonStyles.icon, { tintColor: tintColor }]}// {tintColor: tintColor} 选中的图片和文字颜色
-            />
+            < Icon name={"gamepad-variant"} type={"MaterialCommunityIcons"} fontSize={5} style={CommonStyles.iconStyle} />
         ),
         headerStyle: {
             "backgroundColor": "#FE6F06",

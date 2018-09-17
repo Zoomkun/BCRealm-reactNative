@@ -14,6 +14,7 @@ import {
     ListItem,
     Thumbnail,
     Button,
+    Icon
 } from 'native-base';
 
 import { ThemeHeader } from '../../components';
@@ -56,6 +57,7 @@ export default class Mine extends Component {
             this.setState({
                 data: datas,
             })
+            console.log(datas)
         })
         this._getUnReads();
     }
@@ -67,10 +69,8 @@ export default class Mine extends Component {
         },
         tabBarLabel: '我',
         tabBarIcon: ({ tintColor }) => (
-            <Image
-                source={require('../../../images/mine.png')}
-                style={[CommonStyles.icon, { tintColor: tintColor }]}
-            />
+            <Icon name={"user-o"} type={"FontAwesome"}
+                fontSize={5} style={CommonStyles.iconStyle} />
         ),
         headerTintColor: '#fff',
     })
@@ -78,6 +78,7 @@ export default class Mine extends Component {
     render() {
         const { navigate } = this.props.navigation;
         let data = this.state.data;
+        console.log(data)
         return (
             <Container style={CommonStyles.container}>
                 <ThemeHeader title={"我"} />
@@ -89,14 +90,11 @@ export default class Mine extends Component {
                             }}>
                             <Thumbnail source={{ uri: data.headUrl }} />
                             <Body style={{ justifyContent: 'flex-start', paddingLeft: 10 }}>
-                                <Text>{data.userName}</Text>
+                                <Text style={CommonStyles.textColor}>{data.userName}</Text>
                                 <Text note>{data.accountNo}</Text>
                             </Body>
                             <Right>
-                                <Image
-                                    source={require('../../../images/goIn.png')}
-                                    style={CommonStyles.icon}
-                                />
+                                <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>
 
@@ -127,19 +125,21 @@ export default class Mine extends Component {
                         }
 
                         <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('Notice') }}>
-                            <Image
+                            {/* <Image
                                 source={require('../../../images/news.png')}
                                 style={CommonStyles.icon}
-                            />
+                            /> */}
+                            <Icon name={"message-circle"} type={"Feather"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text style={styles.textStyle}>私信</Text>
                             </Body>
                             <Right style={styles.rightStyle}>
                                 <Text style={{ alignItems: 'center', marginRight: 10 }}>{this.state.unReads > 0 ? this.state.unReads : ""}</Text>
-                                <Image
+                                {/* <Image
                                     source={require('../../../images/goIn.png')}
                                     style={CommonStyles.icon}
-                                />
+                                /> */}
+                                <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>
                         <View style={styles.line} />
@@ -148,51 +148,36 @@ export default class Mine extends Component {
                             itemDivider
                             button
                             style={styles.listItemStyle}
-                            {...console.log(data.certification)}
-                            onPress={() => {
-                                navigate("PersonalInfo", { returnData: this._returnData.bind(this), data: this.state.data })
-                            }}
-                            onPress={() => { data.certification > 0 ? '' : navigate('Authenticate', { returnData: this._returnData.bind(this) }) }}>
-                            <Image
-                                source={require('../../../images/authenticate.png')}
-                                style={CommonStyles.icon}
-                            />
+                            {...console.log(data.certification + "certification")}
+                            onPress={() => { navigate('Authenticate', { returnData: this._returnData.bind(this) }) }}>
+                            <Icon name={"vcard-o"} type={"FontAwesome"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text style={styles.textStyle}>实名认证</Text>
                             </Body>
                             <Right style={styles.rightStyle}>
                                 <Text style={{ alignItems: 'center', marginRight: 10 }}>{data.certification > 0 ? "已认证 " : "未认证"}</Text>
-                                <Image
-                                    source={require('../../../images/goIn.png')}
-                                    style={CommonStyles.icon}
-                                />
+                                <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>
                         <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
 
                         <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { this._cleanCache() }}>
                             <Body style={{ justifyContent: 'flex-start', }}>
-                                <Text >清除缓存</Text>
+                                <Text style={CommonStyles.textColor}>清除缓存</Text>
                             </Body>
                             <Right style={styles.rightStyle}>
-                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100}M</Text>
-                                <Image
-                                    source={require('../../../images/goIn.png')}
-                                    style={CommonStyles.icon}
-                                />
+                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{0.15 >= (Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100) ? 0 : (Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100)}M</Text>
+                                <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>
                         <View style={styles.line} />
 
                         <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('AboutUs') }}>
                             <Body style={{ justifyContent: 'flex-start', }}>
-                                <Text >关于区世界</Text>
+                                <Text style={CommonStyles.textColor}>关于区世界</Text>
                             </Body>
                             <Right>
-                                <Image
-                                    source={require('../../../images/goIn.png')}
-                                    style={CommonStyles.icon}
-                                />
+                                <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>
                     </List>
@@ -219,7 +204,7 @@ export default class Mine extends Component {
     }
 
     _cleanCache() {
-        if (this.state.cacheSize > 0) {
+        if (this.state.cacheSize > 160000) {
             CacheManager.clearCache();
             CacheManager.getCacheSize().then((size) => {
                 this.setState({ cacheSize: size })

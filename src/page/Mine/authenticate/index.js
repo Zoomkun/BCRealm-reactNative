@@ -49,7 +49,6 @@ class Authenticate extends Component {
     goBack = () => {
         AsyncStorage.getItem('data').then(data => {
             let datas = JSON.parse(data);
-            datas.headUrl = this.state.headUrl;
             console.log(datas);
             this.props.navigation.state.params.returnData(datas);
         })
@@ -105,18 +104,19 @@ class Authenticate extends Component {
                     </ListItem>
                     <View style={styles.lineStyle} />
 
-                    <ListItem itemDivider style={styles.listItemStyle} >
-                        <Body style={styles.bodyStyle}>
-                            <Text style={styles.textStyle}>真实姓名</Text>
-                        </Body>
-                        <Body style={{ justifyContent: 'center', alignItems: 'center', }}>
-                            <View style={{ width: 100, height: 50 }}>
-                                <Input placeholder="请输入名称"
-                                    value={this.state.name}
-                                    onChangeText={(text) => { this.setState({ name: text }) }} />
-                            </View>
-                        </Body>
-                    </ListItem>
+                    <View style={{ height: 50 }}>
+                        <Grid style={styles.gridStyle} >
+                            <Col style={styles.colStyle} size={2}>
+                                <Text style={{ marginLeft: 38, fontSize: 18, color: '#000000', }}>真实姓名</Text></Col>
+                            <Col style={styles.colStyle} size={1.2}>
+                                <View style={{ width: 120, height: 50, }}>
+                                    <Input placeholder="请输入名称"
+                                        style={{ backgroundColor: 'skyblue' }}
+                                        value={this.state.name}
+                                        onChangeText={(text) => { this.setState({ name: text }) }} />
+                                </View></Col>
+                        </Grid>
+                    </View>
                     <View style={styles.lineStyle} />
 
                     <ListItem itemDivider style={styles.listItemStyle} >
@@ -138,15 +138,14 @@ class Authenticate extends Component {
                 </List>
                 <View style={{ height: 50 }}>
                     <Grid style={styles.gridStyle} >
-                        <Col style={styles.colStyle}>
+                        <Col style={styles.colStyle} size={1.5}>
                             <Text style={{ marginLeft: 38, fontSize: 18, color: '#000000', }}>证件号码</Text></Col>
-                        <Col style={styles.colStyle}>
-                            <View style={{ justifyContent: 'flex-end', width: 200, height: 50, }}>
+                        <Col style={styles.colStyle} size={2}>
+                            <View style={{ width: 200, height: 50, }}>
                                 <Input
                                     placeholder="请输入"
                                     keyboardType={'numeric'}
                                     value={this.state.certificateNumber}
-                                    style={{ justifyContent: 'flex-end', }}
                                     onChangeText={(text) => { this.setState({ certificateNumber: text }) }} />
                             </View></Col>
                     </Grid>
@@ -234,8 +233,8 @@ class Authenticate extends Component {
                 },
                 function (data) {
                     console.log(data)
-                    if (data == '') {
-                        AsyncStorage.setItem('data', JSON.stringify(data.data));
+                    if (data.userName) {
+                        AsyncStorage.setItem('data', JSON.stringify(data));
                         self.refs.toast.show("成功", DURATION.LENGTH_LONG);
                     } else {
                         self.refs.toast.show(data, DURATION.LENGTH_LONG);
