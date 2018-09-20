@@ -11,7 +11,6 @@ import {
     Icon,
     View,
     Container,
-    Icon
 } from 'native-base';
 import CommonStyles from '../../css/commonStyle';
 import InformationTab from './informationTab';
