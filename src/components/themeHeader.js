@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {
     Header,
     Button,
     Body,
     Icon,
     Text,
+    View,
 } from "native-base";
 
 import CommonStyles from '../css/commonStyle';
@@ -14,20 +15,25 @@ import CommonStyles from '../css/commonStyle';
  */
 export default class ThemeHeader extends Component {
     render() {
-        let { leftSource, onLeftOnPress, title, onRightPress, rightSource } = this.props;
+        let {leftSource, onLeftOnPress, title, onRightPress, buttonIconName, buttonIconType} = this.props;
         return (
             <Header style={CommonStyles.headerStyle}>
                 {leftSource &&
-                    <Button onPress={() => { onLeftOnPress }}  >
-                        <Icon name={leftSource} style={CommonStyles.backIconStyle} />
-                    </Button>
+                <Button onPress={() => {
+                    onLeftOnPress
+                }}>
+                    <Icon name={leftSource} style={CommonStyles.backIconStyle}/>
+                </Button>
                 }
                 <Body style={CommonStyles.titleBodyStyle}>
-                    <Text style={CommonStyles.headertextStyle}>{title}</Text>
+                <Text style={CommonStyles.headertextStyle}>{title}</Text>
                 </Body>
-                {rightSource &&
-                    < Button transparent onPress={() => { onRightPress }}>
-                        <Icon name={rightSource} style={CommonStyles.backIconStyle} />
+                {
+                    buttonIconName &&
+                    < Button transparent onPress={() => {
+                        onRightPress()
+                    }}>
+                        <Icon name={buttonIconName} type={buttonIconType} style={CommonStyles.backIconStyle}/>
                     </Button>
                 }
             </Header>

@@ -10,7 +10,7 @@ export default {
     // userUrl: 'http://192.168.31.124:9003/api/',
 
     register: 'user/register',//注册ok
-    sendCode: 'user/sendCode?phone',//获取验证码ok
+    sendCode: 'user/sendCode?',//获取验证码ok
     appLogin: 'login/appLogin',// 用户登录ok
     smsLogin: 'login/user/smsLogin',//短信登录ok
     uppwd: 'user/uppwd',//修改密码ok
@@ -36,5 +36,6 @@ export default {
 
     chatGroup: 'chatGroups/list/all', // 获取所有群列表
     joinItem: 'chatGroups/joinItem', // 加入群
-    leaveChatGroup: 'chatGroups/leave', // 加入群
+    leaveChatGroup: 'chatGroups/leave', // 退出群
+    groupInfo: 'chatGroups/details?', // 获取群详细信息
 }

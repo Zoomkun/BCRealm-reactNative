@@ -6,7 +6,8 @@ const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 export default {
     textStyle: {
-        marginLeft: 10
+        marginLeft: 10,
+        color: '#020202'
     },
     buttonStyle: {
         width: deviceWidth * 0.8,

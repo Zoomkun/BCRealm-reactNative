@@ -223,7 +223,7 @@ export default class Login extends Component {
                 'userUrl',
                 'sendCode',
                 {
-                    '': `${phone}`
+                    'phone': `${phone}`
                 },
                 function (data) {
                     console.log(data)
