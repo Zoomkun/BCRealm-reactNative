@@ -54,10 +54,10 @@ export default class Mine extends Component {
     componentWillMount() {
         AsyncStorage.getItem('data').then(data => {
             let datas = JSON.parse(data);
+            console.log(datas)
             this.setState({
                 data: datas,
             })
-            console.log(datas)
         })
         this._getUnReads();
     }
@@ -78,7 +78,6 @@ export default class Mine extends Component {
     render() {
         const { navigate } = this.props.navigation;
         let data = this.state.data;
-        console.log(data)
         return (
             <Container style={CommonStyles.container}>
                 <ThemeHeader title={"我"} />
@@ -148,8 +147,11 @@ export default class Mine extends Component {
                             itemDivider
                             button
                             style={styles.listItemStyle}
-                            {...console.log(data.certification + "certification")}
-                            onPress={() => { navigate('Authenticate', { returnData: this._returnData.bind(this) }) }}>
+                            onPress={() => {
+                                data.certification > 0 ?
+                                    this.refs.toast.show("您已认证", DURATION.LENGTH_LONG) :
+                                    navigate('Authenticate', { returnData: this._returnData.bind(this) })
+                            }}>
                             <Icon name={"vcard-o"} type={"FontAwesome"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text style={styles.textStyle}>实名认证</Text>

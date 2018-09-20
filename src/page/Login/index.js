@@ -54,18 +54,17 @@ export default class Login extends Component {
     componentWillMount() {
         let self = this
         let cid = DeviceInfo.getUniqueID();
-
         AsyncStorage.getItem('user').then(data => {
             datas = JSON.parse(data)
             if (datas) {
                 self.setState({
                     phone: datas.phone,
-                    password: datas.password
+                    password: datas.password,
                 })
             }
         })
 
-        this.setState({
+        self.setState({
             cid: cid
         })
     }
