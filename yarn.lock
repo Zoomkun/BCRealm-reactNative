@@ -5527,10 +5527,6 @@ react-native-simple-toast@^0.0.8:
   version "0.0.8"
   resolved "http://registry.npm.taobao.org/react-native-simple-toast/download/react-native-simple-toast-0.0.8.tgz#513f4add8d30e4c5109e536bfc6ea5825fea5d83"
 
-react-native-smart-barcode@^1.0.6:
-  version "1.0.6"
-  resolved "http://registry.npm.taobao.org/react-native-smart-barcode/download/react-native-smart-barcode-1.0.6.tgz#7411586c687ed25b6adf456f949b39699c63db5e"
-
 "react-native-tab-view@github:react-navigation/react-native-tab-view":
   version "0.0.74"
   resolved "https://codeload.github.com/react-navigation/react-native-tab-view/tar.gz/36ebd834d78b841fc19778c966465d02fd1213bb"
