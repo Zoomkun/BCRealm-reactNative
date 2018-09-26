@@ -51,6 +51,14 @@ export default class CommunityPage extends Component {
             })
     }
 
+    // 跳转扫描
+    _scanCode(){
+        this.setState({
+            plugIng: true
+        })
+        this.props.navigation.navigate("scanCode");
+    }
+
 //qrcode FontAwesome
     render() {
         return (
@@ -68,7 +76,7 @@ export default class CommunityPage extends Component {
                 {
                     this.state.plugIng === true &&
                     <TouchableOpacity onPress={() => {
-                        this._plugToggle()
+                        this._scanCode()
                     }} style={{
                         position: 'absolute',
                         top: 55,
