@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
     Image,
-    FlatList
+    FlatList,
+    Alert
 } from 'react-native';
 import { Content, Container, View, Button, Icon } from 'native-base';
 import Carousel from 'react-native-looped-carousel'
@@ -9,6 +10,7 @@ import CommonStyles from "../../css/commonStyle";
 import { CardItems, ThemeHeader } from '../../components';
 import styles from "./styles";
 import Http from '../../api/Api';
+import Getui from 'react-native-getui'
 
 /**
  * 主页一:游戏
@@ -18,7 +20,10 @@ export default class GamePage extends Component {
         super(props)
         this.state = {
             data: [],
-            bannerData: []
+            bannerData: [],
+            clientId: '',
+            version: '',
+            status: ''
         }
 
     }
@@ -40,6 +45,11 @@ export default class GamePage extends Component {
     componentWillMount() {
         this._getBannerList();
         this._getGameList();
+        this.updateComponentInfo();
+    }
+
+    componentDidMount() {
+        this.updateComponentInfo()
     }
 
     render() {
@@ -87,6 +97,7 @@ export default class GamePage extends Component {
             'gameList',
             '',
             function (data) {
+                console.log(data)
                 self.setState({
                     data: data.list
                 })
@@ -101,11 +112,77 @@ export default class GamePage extends Component {
             'banner',
             '',
             function (data) {
+                console.log(data)
                 self.setState({
                     bannerData: data
                 })
             }
         )
     }
+
+    updateComponentInfo() {
+
+        Getui.clientId((param) => {
+            this.setState({ 'clientId': param })
+            console.log(param)
+        })
+
+        Getui.version((param) => {
+            this.setState({ 'version': param })
+        })
+
+        Getui.status((param) => {
+            let status = ''
+            switch (param) {
+                case '0':
+                    status = '正在启动'
+                    break;
+                case '1':
+                    status = '启动'
+                    break;
+                case '2':
+                    status = '停止'
+                    break;
+            }
+            this.setState({ 'status': status })
+        })
+    }
 }
+
+//订阅消息通知
+var { NativeAppEventEmitter } = require('react-native');
+
+var receiveRemoteNotificationSub = NativeAppEventEmitter.addListener(
+    'receiveRemoteNotification',
+    (notification) => {
+        //Android的消息类型为payload 透传消息 或者 cmd消息
+        switch (notification.type) {
+            case "cid":
+                //  console.log("receiveRemoteNotification cid = " + notification.cid)
+                //Alert.alert('初始化获取到cid', JSON.stringify(notification))
+                console.log('初始化获取到cid', JSON.stringify(notification))
+                break;
+            case 'payload':
+                console.log('payload 消息通知', JSON.stringify(notification))
+                break
+            case 'cmd':
+                console.log('cmd 消息通知', 'cmd action = ' + notification.cmd)
+                break
+            case 'notificationArrived':
+                console.log('notificationArrived 通知到达', JSON.stringify(notification))
+                break
+            case 'notificationClicked':
+                console.log('notificationArrived 通知点击', JSON.stringify(notification))
+                break
+            default:
+        }
+    }
+);
+
+var clickRemoteNotificationSub = NativeAppEventEmitter.addListener(
+    'clickRemoteNotification',
+    (notification) => {
+        Alert.alert('点击通知', JSON.stringify(notification))
+    }
+);
 

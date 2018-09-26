@@ -14,7 +14,7 @@ import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
 import HttpUtils from "../../api/Api";
 
-
+//重置路由
 resetAction = NavigationActions.reset({
     index: 0,
     actions: [

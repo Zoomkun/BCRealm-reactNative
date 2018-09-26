@@ -111,7 +111,6 @@ class Authenticate extends Component {
                             <Col style={styles.colStyle} size={1.2}>
                                 <View style={{ width: 120, height: 50, }}>
                                     <Input placeholder="请输入名称"
-                                        style={{ backgroundColor: 'skyblue' }}
                                         value={this.state.name}
                                         onChangeText={(text) => { this.setState({ name: text }) }} />
                                 </View></Col>
@@ -134,8 +133,8 @@ class Authenticate extends Component {
                         </Right>
                     </ListItem>
                     <View style={styles.lineStyle} />
-
                 </List>
+
                 <View style={{ height: 50 }}>
                     <Grid style={styles.gridStyle} >
                         <Col style={styles.colStyle} size={1.5}>
