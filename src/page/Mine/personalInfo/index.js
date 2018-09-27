@@ -140,7 +140,7 @@ class PersonalInfo extends Component {
                     position='center'
                     positionValue={200}
                     fadeInDuration={750}
-                    fadeOutDuration={1000}
+                    fadeOutDuration={5000}
                     opacity={0.8}
                     textStyle={{ color: '#ffffff' }}
                 />
@@ -173,8 +173,7 @@ class PersonalInfo extends Component {
                 "sex": `${sex}`
             },
             function (data) {
-                console.log(data)
-                if (data.data.userName) {
+                if (data.userName != null) {
                     AsyncStorage.setItem('data', JSON.stringify(data.data));
                     self.refs.toast.show((data.msg), DURATION.LENGTH_LONG);
                 } else {

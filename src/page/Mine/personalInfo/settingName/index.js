@@ -107,7 +107,7 @@ class SettingName extends Component {
                 },
                 function (data) {
                     console.log(data)
-                    if (data.data.userName) {
+                    if (data.data != null) {
                         AsyncStorage.setItem('data', JSON.stringify(data.data));
                         self.goBack();
                     } else {

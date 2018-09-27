@@ -20,6 +20,7 @@ import styles from "./styles";
 import HttpUtils from "../../api/Api";
 import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
+import Getui from 'react-native-getui'
 
 
 resetAction = NavigationActions.reset({
@@ -43,6 +44,9 @@ export default class Login extends Component {
             code: '',
             cid: '',
             disable: false,
+            clientId: '',
+            version: '',
+            status: ''
         }
         this.interval = 0
     }
@@ -53,20 +57,20 @@ export default class Login extends Component {
 
     componentWillMount() {
         let self = this
-        let cid = DeviceInfo.getUniqueID();
+        this.updateComponentInfo();
+        // let cid = DeviceInfo.getUniqueID();
         AsyncStorage.getItem('user').then(data => {
             datas = JSON.parse(data)
             if (datas) {
                 self.setState({
                     phone: datas.phone,
-                    password: datas.password,
                 })
             }
         })
 
-        self.setState({
-            cid: cid
-        })
+        // self.setState({
+        //     cid: cid
+        // })
     }
 
     render() {
@@ -172,8 +176,8 @@ export default class Login extends Component {
                                 <Button style={styles.logInButtonStyle}
                                     onPress={() => {
                                         this.state.pick == 0 ?
-                                            this._login(this.state.phone, this.state.password, this.state.cid) :
-                                            this._smsLogin(this.state.phone, this.state.code, this.state.cid)
+                                            this._login(this.state.phone, this.state.password, this.state.clientId) :
+                                            this._smsLogin(this.state.phone, this.state.code, this.state.clientId)
                                     }}>
                                     <Text style={styles.logInTextStyle}>登录</Text>
                                 </Button>
@@ -211,6 +215,34 @@ export default class Login extends Component {
         }
     }
 
+    updateComponentInfo() {
+
+        Getui.clientId((param) => {
+            this.setState({ 'clientId': param })
+            console.log(param + "__cid")
+        })
+
+        Getui.version((param) => {
+            this.setState({ 'version': param })
+        })
+
+        Getui.status((param) => {
+            let status = ''
+            switch (param) {
+                case '0':
+                    status = '正在启动'
+                    break;
+                case '1':
+                    status = '启动'
+                    break;
+                case '2':
+                    status = '停止'
+                    break;
+            }
+            this.setState({ 'status': status })
+        })
+    }
+
     //获取验证码
     _getCode(phone) {
         if (phone.length > 10) {
@@ -244,25 +276,36 @@ export default class Login extends Component {
     }
 
     //密码登录
-    _login(phone, password, cid) {
+    _login(phone, password, clientId) {
         let self = this
         if (phone.length > 10 && password != '') {
             HttpUtils.postRequrst(
                 'userUrl',
                 'appLogin',
                 {
-                    'cid': `${cid}`,
+                    'cid': `${clientId}`,
                     'phoneNumber': `${phone}`,
                     'pwd': `${password}`,
                 },
                 function (data) {
+                    console.log(data)
                     if (data.userName) {
                         HttpUtils.setHeader({ token: data.token })
-                        AsyncStorage.setItem('data', JSON.stringify(data));
+                        AsyncStorage.setItem('data', JSON.stringify(data), (error) => {
+                            if (!error) {
+                                console.log('保存数据成功', DURATION.LENGTH_SHORT);
+                            } else {
+                                console.log('保存数据失败', DURATION.LENGTH_SHORT);
+                            }
+                        })
+                        AsyncStorage.getItem('data').then(data => {
+                            let datas = JSON.parse(data);
+                            console.log(datas.token + 'TOKEN');
+                        })
                         var user = new Object();
                         user.phone = self.state.phone
-                        user.password = self.state.password
                         AsyncStorage.setItem('user', JSON.stringify(user));
+
                         self.props.navigation.dispatch(resetAction);
                     } else {
                         self.refs.toast.show((data), DURATION.LENGTH_LONG);
@@ -280,14 +323,14 @@ export default class Login extends Component {
     }
 
     //短信登录
-    _smsLogin(phone, code, cid) {
+    _smsLogin(phone, code, clientId) {
         let self = this
         if (phone.length > 10 && code != '') {
             HttpUtils.postRequrst(
                 'userUrl',
                 'smsLogin',
                 {
-                    'cid': `${cid}`,
+                    'cid': `${clientId}`,
                     'phoneNumber': `${phone}`,
                     'code': `${code}`,
                 },

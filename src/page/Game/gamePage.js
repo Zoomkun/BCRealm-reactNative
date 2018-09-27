@@ -11,10 +11,10 @@ import { CardItems, ThemeHeader } from '../../components';
 import styles from "./styles";
 import Http from '../../api/Api';
 import Getui from 'react-native-getui'
-
 /**
  * 主页一:游戏
  */
+
 export default class GamePage extends Component {
     constructor(props) {
         super(props)
@@ -27,6 +27,7 @@ export default class GamePage extends Component {
         }
 
     }
+    static not = 0;
     static navigationOptions = {
         header: null,
         //headerTitle: (<Text style={CommonStyles.title}>游戏</Text>),
@@ -46,10 +47,6 @@ export default class GamePage extends Component {
         this._getBannerList();
         this._getGameList();
         this.updateComponentInfo();
-    }
-
-    componentDidMount() {
-        this.updateComponentInfo()
     }
 
     render() {
@@ -121,7 +118,7 @@ export default class GamePage extends Component {
     }
 
     updateComponentInfo() {
-
+        console.log(111)
         Getui.clientId((param) => {
             this.setState({ 'clientId': param })
             console.log(param)
@@ -152,37 +149,37 @@ export default class GamePage extends Component {
 //订阅消息通知
 var { NativeAppEventEmitter } = require('react-native');
 
-var receiveRemoteNotificationSub = NativeAppEventEmitter.addListener(
-    'receiveRemoteNotification',
-    (notification) => {
-        //Android的消息类型为payload 透传消息 或者 cmd消息
-        switch (notification.type) {
-            case "cid":
-                //  console.log("receiveRemoteNotification cid = " + notification.cid)
-                //Alert.alert('初始化获取到cid', JSON.stringify(notification))
-                console.log('初始化获取到cid', JSON.stringify(notification))
-                break;
-            case 'payload':
-                console.log('payload 消息通知', JSON.stringify(notification))
-                break
-            case 'cmd':
-                console.log('cmd 消息通知', 'cmd action = ' + notification.cmd)
-                break
-            case 'notificationArrived':
-                console.log('notificationArrived 通知到达', JSON.stringify(notification))
-                break
-            case 'notificationClicked':
-                console.log('notificationArrived 通知点击', JSON.stringify(notification))
-                break
-            default:
-        }
+var receiveRemoteNotificationSub = NativeAppEventEmitter.addListener('receiveRemoteNotification', (notification) => {
+    //Android的消息类型为payload 透传消息 或者 cmd消息
+    switch (notification.type) {
+        case "cid":
+            //  console.log("receiveRemoteNotification cid = " + notification.cid)
+            //Alert.alert('初始化获取到cid', JSON.stringify(notification))
+            console.log('初始化获取到cid')
+            break;
+        case 'payload':
+            console.log('消息通知', JSON.stringify(notification))
+            this.not += 1;
+            console.log(this.not);
+            break
+        case 'cmd':
+            console.log('cmd消息通知')
+            break
+        case 'notificationArrived':
+            console.log('通知到达', JSON.stringify(notification))
+            break
+        case 'notificationClicked':
+            console.log('通知点击')
+            break
+        default:
     }
+}
 );
 
 var clickRemoteNotificationSub = NativeAppEventEmitter.addListener(
     'clickRemoteNotification',
     (notification) => {
-        Alert.alert('点击通知', JSON.stringify(notification))
+        console.log('点击通知')
     }
 );
 

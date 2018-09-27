@@ -52,6 +52,7 @@ export default class Mine extends Component {
     }
 
     componentWillMount() {
+        console.log("我")
         AsyncStorage.getItem('data').then(data => {
             let datas = JSON.parse(data);
             console.log(datas)
