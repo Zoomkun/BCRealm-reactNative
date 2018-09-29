@@ -99,7 +99,6 @@ class Notice extends Component {
         );
     }
 
-
     _getList() {
         let self = this
         Http.getRequest(
@@ -107,6 +106,7 @@ class Notice extends Component {
             'letters',
             '',
             function (data) {
+                console.log(data);
                 self.setState({
                     data: data,
                     refreshing: true

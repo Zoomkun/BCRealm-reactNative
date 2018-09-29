@@ -1,6 +1,6 @@
 import { StackNavigator } from "react-navigation";
 import MainPage from './src/page/mainPage';
-import StartPage from './src/page/startpage';
+import StartPage from './src/page/startPage';
 import Login from './src/page/Login';
 import Registration from './src/page/Login/registration';
 import ServiceAgreement from './src/page/Login/serviceAgreement';

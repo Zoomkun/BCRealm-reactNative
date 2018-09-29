@@ -1,6 +1,11 @@
 package com.bcrealmapp;
 
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
+
 import com.facebook.react.ReactActivity;
+import com.getui.reactnativegetui.GetuiModule;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +16,11 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "BCRealmApp";
+    }
+
+     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        GetuiModule.initPush(this);
     }
 }

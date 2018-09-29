@@ -3,6 +3,7 @@ package com.bcrealmapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.getui.reactnativegetui.GetuiPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.theweflex.react.WeChatPackage;
 import com.netease.im.RNNeteaseImPackage;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new GetuiPackage(),
             new RNDeviceInfo(),
             new WeChatPackage(),
             new RNNeteaseImPackage(),

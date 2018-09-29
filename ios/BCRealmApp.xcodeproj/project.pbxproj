@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -61,6 +60,23 @@
 		F2DF640A21476437003120C7 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2ED31A121469FD30000B0B3 /* libRNImagePicker.a */; };
 		F2DF643621476634003120C7 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2ED31A121469FD30000B0B3 /* libRNImagePicker.a */; };
 		F749828F651B4244A1813B4E /* libLRDRCTSimpleToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B878CEEE746145EE8486B794 /* libLRDRCTSimpleToast.a */; };
+		781757B7EF2D44ECAAB34472 /* libRCTGetuiModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEACB7404F45493E8798326A /* libRCTGetuiModule.a */; };
+		5758BFA494854B998F421016 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 703B83EB94B64DB3B9261CEB /* libz.tbd */; };
+		99582E1DA93145C19D33EC66 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0443BFEAAC584FB09D41F002 /* libc++.tbd */; };
+		FE942CCE3520445EB4E0D404 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CA88D5C62B4A4EA8946F37ED /* libsqlite3.tbd */; };
+		52B27ACE810F41CFB61E4189 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517ED11299E849518A2E0A66 /* Security.framework */; };
+		36464A20073442949E4BEBB6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC74F0B674140C0B195A0BD /* MobileCoreServices.framework */; };
+		163AE7FD379A444280D35731 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44B39CC0AF841D9A65DF6E1 /* SystemConfiguration.framework */; };
+		97FA4C9866074E6B90A617F6 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0482828B384A4F34AC10F38C /* CoreTelephony.framework */; };
+		8D53E1C35BF64138B3995669 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B24BCC21BA6B412BA8483E6D /* AVFoundation.framework */; };
+		D9BE7DE977C6400AA4F987FF /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C19FC138B743C79CF05F04 /* JavaScriptCore.framework */; };
+		FAB76DD7F21545C18AD8C5CE /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C134DBEB79AA4C02B5E466B4 /* UserNotifications.framework */; };
+		6A4D418F0F2C4350985CEC5C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88F375958506466AA6D23412 /* CoreLocation.framework */; };
+		2C3B7945E76541BC808BB487 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D51EDCCE044A939E16FB8A /* AdSupport.framework */; };
+		BC8867259FD141598EA6CDFE /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EDD5A855B854451A9E4353D /* CoreFoundation.framework */; };
+		C00E0CB889A849EC9FB7BEFE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1385123A5F4163959E6276 /* Foundation.framework */; };
+		B2711BA33A2D47F68685271D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7AD71EA3BB74D5696BBA0CB /* UIKit.framework */; };
+		4E8A10494DB142B2B7383BA9 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6550B4C4D44B45F4BE234636 /* PushKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -442,6 +458,24 @@
 		C4C9F77B02D24050A9F87895 /* RCTWeChat.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTWeChat.xcodeproj; path = "../node_modules/react-native-wechat/ios/RCTWeChat.xcodeproj"; sourceTree = "<group>"; };
 		C86B97D759604CB0AF4125C6 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		F2C44002214776CC0091F195 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		D27514AFF1C74A33A9364A62 /* RCTGetuiModule.xcodeproj */ = {isa = PBXFileReference; name = "RCTGetuiModule.xcodeproj"; path = "../node_modules/react-native-getui/ios/RCTGetuiModule/RCTGetuiModule.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		AEACB7404F45493E8798326A /* libRCTGetuiModule.a */ = {isa = PBXFileReference; name = "libRCTGetuiModule.a"; path = "libRCTGetuiModule.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		703B83EB94B64DB3B9261CEB /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		0443BFEAAC584FB09D41F002 /* libc++.tbd */ = {isa = PBXFileReference; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		CA88D5C62B4A4EA8946F37ED /* libsqlite3.tbd */ = {isa = PBXFileReference; name = "libsqlite3.tbd"; path = "usr/lib/libsqlite3.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		517ED11299E849518A2E0A66 /* Security.framework */ = {isa = PBXFileReference; name = "Security.framework"; path = "System/Library/Frameworks/Security.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		DDC74F0B674140C0B195A0BD /* MobileCoreServices.framework */ = {isa = PBXFileReference; name = "MobileCoreServices.framework"; path = "System/Library/Frameworks/MobileCoreServices.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		C44B39CC0AF841D9A65DF6E1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		0482828B384A4F34AC10F38C /* CoreTelephony.framework */ = {isa = PBXFileReference; name = "CoreTelephony.framework"; path = "System/Library/Frameworks/CoreTelephony.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		B24BCC21BA6B412BA8483E6D /* AVFoundation.framework */ = {isa = PBXFileReference; name = "AVFoundation.framework"; path = "System/Library/Frameworks/AVFoundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		09C19FC138B743C79CF05F04 /* JavaScriptCore.framework */ = {isa = PBXFileReference; name = "JavaScriptCore.framework"; path = "System/Library/Frameworks/JavaScriptCore.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		C134DBEB79AA4C02B5E466B4 /* UserNotifications.framework */ = {isa = PBXFileReference; name = "UserNotifications.framework"; path = "System/Library/Frameworks/UserNotifications.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		88F375958506466AA6D23412 /* CoreLocation.framework */ = {isa = PBXFileReference; name = "CoreLocation.framework"; path = "System/Library/Frameworks/CoreLocation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		09D51EDCCE044A939E16FB8A /* AdSupport.framework */ = {isa = PBXFileReference; name = "AdSupport.framework"; path = "System/Library/Frameworks/AdSupport.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		4EDD5A855B854451A9E4353D /* CoreFoundation.framework */ = {isa = PBXFileReference; name = "CoreFoundation.framework"; path = "System/Library/Frameworks/CoreFoundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		0C1385123A5F4163959E6276 /* Foundation.framework */ = {isa = PBXFileReference; name = "Foundation.framework"; path = "System/Library/Frameworks/Foundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		A7AD71EA3BB74D5696BBA0CB /* UIKit.framework */ = {isa = PBXFileReference; name = "UIKit.framework"; path = "System/Library/Frameworks/UIKit.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		6550B4C4D44B45F4BE234636 /* PushKit.framework */ = {isa = PBXFileReference; name = "PushKit.framework"; path = "System/Library/Frameworks/PushKit.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -477,6 +511,23 @@
 				2F55FA34D380478C9F004BD8 /* RCTWeChatTests.xctest in Frameworks */,
 				E1A9D615031549FF93D8C54F /* libRNDeviceInfo.a in Frameworks */,
 				F749828F651B4244A1813B4E /* libLRDRCTSimpleToast.a in Frameworks */,
+				781757B7EF2D44ECAAB34472 /* libRCTGetuiModule.a in Frameworks */,
+				5758BFA494854B998F421016 /* libz.tbd in Frameworks */,
+				99582E1DA93145C19D33EC66 /* libc++.tbd in Frameworks */,
+				FE942CCE3520445EB4E0D404 /* libsqlite3.tbd in Frameworks */,
+				52B27ACE810F41CFB61E4189 /* Security.framework in Frameworks */,
+				36464A20073442949E4BEBB6 /* MobileCoreServices.framework in Frameworks */,
+				163AE7FD379A444280D35731 /* SystemConfiguration.framework in Frameworks */,
+				97FA4C9866074E6B90A617F6 /* CoreTelephony.framework in Frameworks */,
+				8D53E1C35BF64138B3995669 /* AVFoundation.framework in Frameworks */,
+				D9BE7DE977C6400AA4F987FF /* JavaScriptCore.framework in Frameworks */,
+				FAB76DD7F21545C18AD8C5CE /* UserNotifications.framework in Frameworks */,
+				6A4D418F0F2C4350985CEC5C /* CoreLocation.framework in Frameworks */,
+				2C3B7945E76541BC808BB487 /* AdSupport.framework in Frameworks */,
+				BC8867259FD141598EA6CDFE /* CoreFoundation.framework in Frameworks */,
+				C00E0CB889A849EC9FB7BEFE /* Foundation.framework in Frameworks */,
+				B2711BA33A2D47F68685271D /* UIKit.framework in Frameworks */,
+				4E8A10494DB142B2B7383BA9 /* PushKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,6 +681,22 @@
 			children = (
 				F2C44002214776CC0091F195 /* libsqlite3.0.tbd */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				703B83EB94B64DB3B9261CEB /* libz.tbd */,
+				0443BFEAAC584FB09D41F002 /* libc++.tbd */,
+				CA88D5C62B4A4EA8946F37ED /* libsqlite3.tbd */,
+				517ED11299E849518A2E0A66 /* Security.framework */,
+				DDC74F0B674140C0B195A0BD /* MobileCoreServices.framework */,
+				C44B39CC0AF841D9A65DF6E1 /* SystemConfiguration.framework */,
+				0482828B384A4F34AC10F38C /* CoreTelephony.framework */,
+				B24BCC21BA6B412BA8483E6D /* AVFoundation.framework */,
+				09C19FC138B743C79CF05F04 /* JavaScriptCore.framework */,
+				C134DBEB79AA4C02B5E466B4 /* UserNotifications.framework */,
+				88F375958506466AA6D23412 /* CoreLocation.framework */,
+				09D51EDCCE044A939E16FB8A /* AdSupport.framework */,
+				4EDD5A855B854451A9E4353D /* CoreFoundation.framework */,
+				0C1385123A5F4163959E6276 /* Foundation.framework */,
+				A7AD71EA3BB74D5696BBA0CB /* UIKit.framework */,
+				6550B4C4D44B45F4BE234636 /* PushKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -693,6 +760,7 @@
 				C4C9F77B02D24050A9F87895 /* RCTWeChat.xcodeproj */,
 				C3FC8ADD9ACD486087C98587 /* RNDeviceInfo.xcodeproj */,
 				B125B653629341CA925CE1DB /* LRDRCTSimpleToast.xcodeproj */,
+				D27514AFF1C74A33A9364A62 /* RCTGetuiModule.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1456,12 +1524,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-wechatios",
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
+					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
 				);
 				INFOPLIST_FILE = BCRealmAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1486,12 +1556,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-wechatios",
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
+					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
 				);
 				INFOPLIST_FILE = BCRealmAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1517,6 +1589,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-wechatios",
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
+					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
 				);
 				INFOPLIST_FILE = BCRealmApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1543,6 +1616,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-wechatios",
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
+					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
 				);
 				INFOPLIST_FILE = BCRealmApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1576,11 +1650,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-wechatios",
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
+					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
 				);
 				INFOPLIST_FILE = "BCRealmApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1615,11 +1691,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-wechatios",
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
+					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
 				);
 				INFOPLIST_FILE = "BCRealmApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1653,11 +1731,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-wechatios",
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
+					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
 				);
 				INFOPLIST_FILE = "BCRealmApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1691,11 +1771,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-wechatios",
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
+					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
 				);
 				INFOPLIST_FILE = "BCRealmApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
