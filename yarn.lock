@@ -5498,9 +5498,9 @@ react-native-looped-carousel@^0.1.13:
     lodash.isequal "^4.5.0"
     prop-types "^15.6.1"
 
-react-native-netease-im@^2.0.8:
+"react-native-netease-im@https://github.com/reactnativecomponent/react-native-netease-im":
   version "2.0.8"
-  resolved "http://registry.npm.taobao.org/react-native-netease-im/download/react-native-netease-im-2.0.8.tgz#14a060940c6431788d8831efd2c79c4824713bca"
+  resolved "https://github.com/reactnativecomponent/react-native-netease-im#ad7990f4e119ca6d3418a88e8e5e34fec4b297bc"
 
 react-native-parsed-text@^0.0.20:
   version "0.0.20"

@@ -130,7 +130,7 @@ export default class Bubble extends React.Component {
                                       borderRadius:90}}/>
 
                         <Text style={{color:"lightgrey"}}>
-                            {"" + msg.extend.duration + "''"}
+                            {"" + Math.round(msg.extend.duration/1000) + "''"}
                         </Text>
                     </View>
                 );
@@ -138,7 +138,7 @@ export default class Bubble extends React.Component {
                 return (
                     <View style={{marginLeft:4, justifyContent:"flex-end"}}>
                         <Text style={{color:"lightgrey"}}>
-                            {"" + msg.extend.duration + "''"}
+                            {"" + Math.round(msg.extend.duration/1000) + "''"}
                         </Text>
                     </View>
                 );                
@@ -149,7 +149,7 @@ export default class Bubble extends React.Component {
             return (
                 <View style={{marginRight:4, justifyContent:"flex-end"}}>
                     <Text style={{color:"lightgrey"}}>
-                        {"" + msg.extend.duration + "''"}
+                        {"" + Math.round(msg.extend.duration/1000) + "''"}
                     </Text>
                 </View>
             );                
@@ -235,7 +235,7 @@ export default class Bubble extends React.Component {
                                   color: '#fff',
                                   fontSize: 12,
                                   fontWeight: '400',}}>
-                            {msg.extend.tipMsg}
+                            {msg.text}
                         </Text>
                     </View>
                 </View>

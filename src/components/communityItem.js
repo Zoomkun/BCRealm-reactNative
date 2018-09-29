@@ -44,10 +44,9 @@ export default class CommunityItem extends Component {
                 "chatGroupId": groupInfo.chatGroupId,
                 "chatGroupNo":groupInfo.chatGroupNo,
                 "owner": groupInfo.owner,
-                "userId": userInfo.userId
+                "userId": userInfo.id
             },
             function (data) {
-                console.log(self.props)
                 self.props.methods()
                 // self.props.params.refresh();
             }

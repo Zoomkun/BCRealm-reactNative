@@ -15,6 +15,7 @@ export default class Avatar extends React.Component {
                 <GiftedAvatar
                     avatarStyle={StyleSheet.flatten([styles[this.props.position].image, this.props.imageStyle[this.props.position]])}
                     user={this.props.currentMessage.user}
+                    avatar={this.props.currentMessage.fromUser.avatar}
                 />
             </View>
         );

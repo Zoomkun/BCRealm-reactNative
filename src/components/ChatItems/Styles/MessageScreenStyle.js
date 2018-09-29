@@ -83,30 +83,30 @@ export default create({
     },
     slide: {
         height: 150,
-        paddingTop: 15,
+        paddingTop:15,
         paddingHorizontal: 15,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         flexDirection: 'column',
         flexWrap: 'wrap',
     },
     slideRow: {
-        flex: 1,
+        // flex: 1,
         justifyContent: 'space-between',
         flexDirection: 'row',
-        height: 30,
+        height: 35,
     },
     sendRow: {
         justifyContent: 'flex-end',
         flexDirection: 'row'
     },
     emoji: {
-        // flex: 1,
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: 25,
         paddingLeft: 4,
         paddingBottom: 1,
-        // height: 30
+        height: 30,
         color: '#fff'
     },
     send: {
