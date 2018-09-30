@@ -13,18 +13,17 @@ import {
  */
 export default class InformationItem extends Component {
     render() {
-        let {name, time, msg, image, id} = this.props;
+        let {data,onPress} = this.props;
         return (
-            <ListItem button style={{paddingBottom: 5,}}>
+            <ListItem onPress={onPress} button style={{paddingBottom: 5,}}>
                 <Left>
-                    <Thumbnail square source={{uri: image}} style={styles.avatarStyle}/>
+                    <Thumbnail square source={{uri: data.imagePath}} style={styles.avatarStyle}/>
                     <Body>
-                        <Text>{name}</Text>
-                        <Text note>{time}</Text>
-                        <Text note numberOfLines={1}>{msg}</Text>
+                        <Text>{data.name}</Text>
+                        <Text note>{data.time}</Text>
+                        <Text note numberOfLines={1}>{data.content}</Text>
                     </Body>
                 </Left>
-
             </ListItem>
         );
     }

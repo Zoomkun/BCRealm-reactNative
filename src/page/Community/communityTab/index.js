@@ -100,7 +100,6 @@ export default class CommunityTab extends Component {
                                 {...this.props}
                                 item={item}
                                 methods={() =>this._getGroupList()}
-                                onPress={() => this._goToCommunityInfo(item)}
                             />
                         }
                         }>

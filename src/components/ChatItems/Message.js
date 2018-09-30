@@ -153,6 +153,6 @@ Message.propTypes = {
     user: PropTypes.object,
     containerStyle: PropTypes.shape({
         left: View.propTypes.style,
-        right: View.propTypes.style,
+         right: View.propTypes.style,
     }),
 };

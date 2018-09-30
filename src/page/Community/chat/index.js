@@ -31,7 +31,7 @@ const NAVIGATIONBAR_HEIGHT = 0;
 
 export default class Index extends React.Component {
     static navigationOptions = ({navigation}) => ({
-        title: navigation.state.params.chatGroupName,
+        title: navigation.state.params.session.chatGroupName ||  navigation.state.params.session.name,
         headerRight: (
             <View style={{flexDirection: 'row', paddingRight: 8, alignItems: 'center', justifyContent: 'center'}}>
                 <TouchableOpacity onPress={() => {
@@ -98,10 +98,12 @@ export default class Index extends React.Component {
         };
     }
 
+    //时间格式化
     getLocalTime(nS) {
         return new Date(parseInt(nS) * 1000);
     }
 
+    // 聊天记录进行时间排序
     formatData(arr) {
         arr.map((m, i) => {
             arr[i].createdAt = this.getLocalTime(m.timeString);
@@ -112,6 +114,7 @@ export default class Index extends React.Component {
         return arr;
     }
 
+    // 消息合并
     concatMessage(newData) {
         let messages = this.state.messages;
         let isHas = false;
@@ -129,7 +132,7 @@ export default class Index extends React.Component {
 
     componentDidMount() {
         const {session = {}} = this.props.navigation.state.params;
-        NimSession.startSession(session.contactId, session.sessionType);
+        NimSession.startSession(session.chatGroupNo ||session.contactId, session.sessionType);
         this.sessionListener = NativeAppEventEmitter.addListener("observeReceiveMessage", (data) => {
             console.info('新消息通知', data)
             let messages = this.formatData(data);
@@ -249,6 +252,26 @@ export default class Index extends React.Component {
     }
 
     handleImagePicker() {
+        const options = {
+            title: '选择',
+            cancelButtonTitle: '取消',
+            takePhotoButtonTitle: '拍照',
+            chooseFromLibraryButtonTitle: '选择照片',
+            cameraType: 'back',
+            mediaType: 'photo',
+            videoQuality: 'high',
+            durationLimit: 10,
+            maxWidth: 300,
+            maxHeight: 300,
+            quality: 0.8,
+            angle: 0,
+            allowsEditing: false,
+            noData: false,
+            storageOptions: {
+                skipBackup: true
+            }
+        };
+
         ImagePicker.showImagePicker(options, (response) => {
             console.log('Response = ', response);
 
@@ -262,15 +285,7 @@ export default class Index extends React.Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                // let source = { uri: response.uri };
-                let source = response.uri;
-                // You can also display the image using data:
-                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-                this._changeAvatar(response);
-                this.setState({
-                    headUrl: source,
-                    //...constants.avatar = source,
-                });
+                NimSession.sendImageMessages( response.uri, "myName");
             }
         });
     }
@@ -530,7 +545,7 @@ export default class Index extends React.Component {
                     canLoadMore={this.state.canLoadMoreContent}
                     onLoadMoreAsync={this._loadMoreContentAsync}
                     user={{
-                        _id: global.imaccount, // sent messages should have same user._id
+                        _id: session.account, // sent messages should have same user._id
                     }}
                     session={session}
                     isLoadingEarlier={this.state.isLoadingEarlier}

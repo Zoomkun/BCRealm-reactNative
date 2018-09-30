@@ -22,7 +22,7 @@
     "react-native-http-cache": "git+https://github.com/ujff888/react-native-http-cache.git",
     "react-native-image-picker": "^0.26.10",
     "react-native-looped-carousel": "^0.1.13",
-    "react-native-netease-im": "^2.0.8",
+    "react-native-netease-im": "https://github.com/reactnativecomponent/react-native-netease-im",
     "react-native-parsed-text": "^0.0.20",
     "react-native-qrcode": "^0.2.7",
     "react-native-simple-toast": "^0.0.8",

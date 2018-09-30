@@ -24,22 +24,6 @@ export default class MessageContainer extends React.Component {
         };
     }
     prepareMessages(messages) {
-        // return {
-        //     keys: messages.map(m => m.msgId),
-        //     blob: messages.reduce((o, m, i) => {
-        //         const previousMessage = messages[i + 1] || {};
-        //         const nextMessage = messages[i - 1] || {};
-        //         // add next and previous messages to hash to ensure updates
-        //         const toHash = JSON.stringify(m) + previousMessage.msgId + nextMessage.msgId;
-        //         o[m.msgId] = {
-        //             ...m,
-        //             previousMessage,
-        //             nextMessage,
-        //             hash: md5.createHash(toHash)
-        //         };
-        //         return o;
-        //     }, {})
-        // };
         return output = messages.reduce((o, m, i) => {
             const previousMessage = messages[i + 1] || {}
             const nextMessage = messages[i - 1] || {}

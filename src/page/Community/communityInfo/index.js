@@ -90,17 +90,12 @@ class CommunityInfo extends Component {
         const groupInfo = data.chatGroupInfo
         let session = {
             ...groupInfo,
-            sessionType: '0',
+            sessionType: '1',
             imToken: data.userInfo.imToken,
             account: data.userInfo.accountNo,
         };
         navigation.popToTop()
-
-        NimSession.login(session.account, session.imToken).then((data) => {
-            navigation.navigate('Chat', {session: session})
-        }, (err) => {
-            console.warn(err);
-        })
+        navigation.navigate('Chat', {session: session})
     }
 
     // 退群

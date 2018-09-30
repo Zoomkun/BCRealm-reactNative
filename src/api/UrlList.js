@@ -35,7 +35,7 @@ export default {
     banner: 'banner',//图集
 
     chatGroup: 'chatGroups/list/all', // 获取所有群列表
-    joinItem: 'chatGroups/joinItem', // 加入群
+    joinItem: 'chatGroups/invitation/joinItem', // 加入群
     leaveChatGroup: 'chatGroups/leave', // 退出群
     groupInfo: 'chatGroups/details?', // 获取群详细信息
 }
