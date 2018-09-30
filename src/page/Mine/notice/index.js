@@ -7,6 +7,7 @@ import {
     Button,
     Content,
     Icon,
+    Item,
 } from 'native-base';
 import {
     Text,
@@ -40,6 +41,7 @@ class Notice extends Component {
     }
 
     goBack = () => {
+        this.props.navigation.state.params.returnData();
         this.props.navigation.goBack();
     }
 
@@ -68,7 +70,7 @@ class Notice extends Component {
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item, index }) => {
                             return <MsgItem
-                                onPress={() => { this.props.navigation.navigate("GameWeb", { data: item }), this._putUpStatus() }}
+                                onPress={() => { this.props.navigation.navigate("NoticeContent", { data: item }), this._putUpStatus() }}
                                 text={item.content}
                                 letterDate={item.letterDate}
                             />

@@ -42,6 +42,7 @@ export default class Mine extends Component {
             data: [],
             accountNo: 0,
             unReads: 0,
+            push: 0
         };
     }
 
@@ -60,7 +61,7 @@ export default class Mine extends Component {
                 data: datas,
             })
         })
-        this._getUnReads();
+        this._getUnReads(1);
     }
 
     static navigationOptions = ({ navigation }) => ({
@@ -123,8 +124,7 @@ export default class Mine extends Component {
                             //     </View>
                             // ))
                         }
-
-                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('Notice') }}>
+                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('Notice', { returnData: this._upDataUnReads.bind(this) }) }}>
                             {/* <Image
                                 source={require('../../../images/news.png')}
                                 style={CommonStyles.icon}
@@ -134,7 +134,10 @@ export default class Mine extends Component {
                                 <Text style={styles.textStyle}>私信</Text>
                             </Body>
                             <Right style={styles.rightStyle}>
-                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{this.state.unReads > 0 ? this.state.unReads : ""}</Text>
+                                <Text style={{ alignItems: 'center', marginRight: 10 }}{...console.log(this.state.unReads + 'unReads' + this.state.push + 'push')}>
+                                    {this.state.unReads + this.state.push > 0 ?
+                                        this.state.unReads + this.state.push : ""}
+                                </Text>
                                 {/* <Image
                                     source={require('../../../images/goIn.png')}
                                     style={CommonStyles.icon}
@@ -152,6 +155,7 @@ export default class Mine extends Component {
                                 data.certification > 0 ?
                                     this.refs.toast.show("您已认证", DURATION.LENGTH_LONG) :
                                     navigate('Authenticate', { returnData: this._returnData.bind(this) })
+
                             }}>
                             <Icon name={"vcard-o"} type={"FontAwesome"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             <Body style={{ justifyContent: 'flex-start', }}>
@@ -230,6 +234,13 @@ export default class Mine extends Component {
         });
     }
 
+    _upDataUnReads() {
+        this.setState({
+            push: 0
+        })
+        this._getUnReads();
+    }
+
     /**
      * 获取指定用户的未读私信数量
      */
@@ -269,4 +280,43 @@ export default class Mine extends Component {
         let { navigate } = this.props.navigation;
         navigate("Login");
     }
+
+    receiveRemoteNotificationSub = NativeAppEventEmitter.addListener('receiveRemoteNotification', (notification) => {
+        let self = this
+        //Android的消息类型为payload 透传消息 或者 cmd消息
+        switch (notification.type) {
+            case "cid":
+                console.log('初始化获取到cid', JSON.stringify(notification))
+                break;
+            case "cmd":
+                console.log('cmd 消息通知', JSON.stringify(notification))
+                break;
+            case "payload":
+                console.log('payload 消息通知', JSON.stringify(notification))
+                this.setState({
+                    push: this.state.push + 1
+                })
+                console.log(this.state.push)
+                break;
+            //新增回调通知到达，点击回调
+            case 'notificationArrived':
+                console.log('notificationArrived 通知到达', JSON.stringify(notification))
+                break
+            case 'notificationClicked':
+                console.log('notificationArrived 通知点击', JSON.stringify(notification))
+                break
+            default:
+        }
+    }
+    );
 }
+
+//订阅消息通知
+var { NativeAppEventEmitter } = require('react-native');
+
+var clickRemoteNotificationSub = NativeAppEventEmitter.addListener(
+    'clickRemoteNotification',
+    (notification) => {
+        console.log('点击通知')
+    }
+);
