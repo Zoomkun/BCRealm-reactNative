@@ -27,7 +27,6 @@ export default class GamePage extends Component {
         }
 
     }
-    static not = 0;
     static navigationOptions = {
         header: null,
         //headerTitle: (<Text style={CommonStyles.title}>游戏</Text>),
@@ -145,41 +144,3 @@ export default class GamePage extends Component {
         })
     }
 }
-
-//订阅消息通知
-var { NativeAppEventEmitter } = require('react-native');
-
-var receiveRemoteNotificationSub = NativeAppEventEmitter.addListener('receiveRemoteNotification', (notification) => {
-    //Android的消息类型为payload 透传消息 或者 cmd消息
-    switch (notification.type) {
-        case "cid":
-            //  console.log("receiveRemoteNotification cid = " + notification.cid)
-            //Alert.alert('初始化获取到cid', JSON.stringify(notification))
-            console.log('初始化获取到cid')
-            break;
-        case 'payload':
-            console.log('消息通知', JSON.stringify(notification))
-            this.not += 1;
-            console.log(this.not);
-            break
-        case 'cmd':
-            console.log('cmd消息通知')
-            break
-        case 'notificationArrived':
-            console.log('通知到达', JSON.stringify(notification))
-            break
-        case 'notificationClicked':
-            console.log('通知点击')
-            break
-        default:
-    }
-}
-);
-
-var clickRemoteNotificationSub = NativeAppEventEmitter.addListener(
-    'clickRemoteNotification',
-    (notification) => {
-        console.log('点击通知')
-    }
-);
-

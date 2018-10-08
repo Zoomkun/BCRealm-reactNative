@@ -1,27 +1,28 @@
 import React, { Component } from "react";
+
 import {
     Container,
+    Body,
     Header,
     Button,
-    Text,
-    Body,
+    Content,
     Icon,
 } from 'native-base';
 import {
-    WebView,
+    Text,
+    WebView
 } from 'react-native';
+
 import styles from "./styles";
-import CommonStyles from '../../../css/commonStyle';
+import CommonStyles from '../../../../css/commonStyle';
 
 /**
- * 游戏
+ * 私信内容
  */
-export default class GameWeb extends Component {
+class NoticeContent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            attention: false,
-            showInput: false,
         }
         this.data = this.props.navigation.state.params.data || "";
     }
@@ -35,16 +36,15 @@ export default class GameWeb extends Component {
     }
 
     render() {
-        //const { navigate } = this.props.navigation;
         let data = this.data
-        console.log(data)
         return (
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>
-                    <Button transparent onPress={() => { this.goBack() }}  >
+                    <Button transparent onPress={() => { this.goBack() }}>
                         <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
                     </Button>
                     <Body style={CommonStyles.titleBodyStyle}>
+                        <Text style={CommonStyles.headertextStyle}>{data.gameUrl != null ? "游戏" : "私信"}</Text>
                     </Body>
                     <Button transparent />
                 </Header>
@@ -54,7 +54,8 @@ export default class GameWeb extends Component {
                         </WebView> :
                         <Text style={styles.textStyle}>{data.content}</Text>
                 }
-            </Container >
-        );
+            </Container>
+        )
     }
 }
+export default NoticeContent

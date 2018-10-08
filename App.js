@@ -15,6 +15,7 @@ import Authenticate from './src/page/Mine/authenticate';
 import AboutUs from './src/page/Mine/aboutUs';
 import CommunityInfo from './src/page/Community/communityInfo';
 import Notice from "./src/page/Mine/notice";
+import NoticeContent from "./src/page/Mine/notice/noticeContent"
 import SendTopic from './src/page/Discover/topicTab/sendTopic';
 import News from './src/page/Discover/newsTab/news';
 import Content from './src/page/Discover/topicTab/content';
@@ -37,6 +38,7 @@ const routers = StackNavigator({
     Authenticate: { screen: Authenticate },
     AboutUs: { screen: AboutUs },
     Notice: { screen: Notice },
+    NoticeContent: { screen: NoticeContent },
     SendTopic: { screen: SendTopic },
     News: { screen: News },
     Content: { screen: Content },

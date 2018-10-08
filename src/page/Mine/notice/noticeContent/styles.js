@@ -10,6 +10,7 @@ export default {
         height: deviceWidth * 2,
     },
     textStyle: {
+        color: "#000000",
         marginLeft: deviceWidth / (deviceWidth / 20),
         marginTop: deviceWidth / (deviceWidth / 10)
     },
