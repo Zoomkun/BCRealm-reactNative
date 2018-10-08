@@ -139,10 +139,10 @@ export default class Index extends React.Component {
             if (!Array.isArray(data)) {
                 messages = [messages];
             }
-            this.sendMessage = messages;
-            messages = messages.concat(this.state.messages);
+            // this.sendMessage = messages;
+            // messages = messages.concat(this.state.messages);
             this.setState({
-                messages: messages
+                messages: this.concatMessage(messages)
             });
         });
         this.msgStatusListener = NativeAppEventEmitter.addListener("observeMsgStatus", (data) => {
