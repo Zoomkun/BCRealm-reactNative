@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import {
     Image,
     FlatList,
-    Alert
+    View,
 } from 'react-native';
-import { Content, Container, View, Button, Icon } from 'native-base';
-import Carousel from 'react-native-looped-carousel'
+import { Content, Container, Icon, Button } from 'native-base';
+import Swiper from 'react-native-swiper';
 import CommonStyles from "../../css/commonStyle";
 import { CardItems, ThemeHeader } from '../../components';
 import styles from "./styles";
@@ -50,23 +50,33 @@ export default class GamePage extends Component {
 
     render() {
         let items = this.state.data;
-        let bannerData = this.state.bannerData;
         return (
             <Container>
                 <ThemeHeader title={"游戏"} />
                 <Content>
-                    {
-                        bannerData.length != 0 &&
-                        <Carousel style={styles.wrapper} autoplay={true} bullets={true}>
+                    <View style={styles.wrapper}>
+                        <Swiper
+                            horizontal={true} //水平方向
+                            isLoop={true}
+                            autoplay={true}   //自动轮播
+                            autoplayTimeout={4}//隔几秒播放
+                            dot={<View style={styles.dotStyle} />}
+                            activeDot={<View style={styles.activeDotStyle} />}
+                        >
                             {
-                                bannerData.map((item, index) => (
-                                    <Image style={styles.imageStyle}
-                                        source={{ uri: item.bannerUrl }} key={index}
-                                    />
+                                this.state.bannerData.map((item, index) => (
+                                    <Button key={index}
+                                        onPress={() => this.props.navigation.navigate("GameWeb", { data: item })}
+                                        style={styles.buttonStyle}>
+                                        <Image style={styles.imageStyle}
+                                            source={{ uri: item.bannerUrl }}
+                                        />
+                                    </Button>
                                 ))
                             }
-                        </Carousel>
-                    }
+                        </Swiper>
+                    </View>
+
                     <FlatList data={items}
                         enableEmptySections={true}
                         onEndReachedThreshold={10}
@@ -117,7 +127,6 @@ export default class GamePage extends Component {
     }
 
     updateComponentInfo() {
-        console.log(111)
         Getui.clientId((param) => {
             this.setState({ 'clientId': param })
             console.log(param)
