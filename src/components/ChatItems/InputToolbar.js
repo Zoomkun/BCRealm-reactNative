@@ -346,24 +346,24 @@ export default class InputToolbar extends React.Component {
                 }]
             }]}>
 
-                <View style={{alignItems: "center", marginRight: 20}}>
-                    <TouchableOpacity style={Styles.iconTouch} onPress={this.handleCameraPicker.bind(this)}>
-                        <Icon name="ios-image-outline"/>
-                    </TouchableOpacity>
-                    <Text style={{marginTop: 6, fontSize: 12}}>拍照</Text>
-                </View>
+                {/*<View style={{alignItems: "center", marginRight: 20}}>*/}
+                    {/*<TouchableOpacity style={Styles.iconTouch} onPress={this.handleCameraPicker.bind(this)}>*/}
+                        {/*<Icon name="ios-image-outline"/>*/}
+                    {/*</TouchableOpacity>*/}
+                    {/*<Text style={{marginTop: 6, fontSize: 12}}>拍照</Text>*/}
+                {/*</View>*/}
                 <View style={{alignItems: "center", marginRight: 20}}>
                     <TouchableOpacity style={Styles.iconTouch} onPress={this.handleImagePicker.bind(this)}>
                         <Icon name="ios-image-outline"/>
                     </TouchableOpacity>
-                    <Text style={{marginTop: 6, fontSize: 12}}>相册</Text>
+                    <Text style={{marginTop: 6, fontSize: 12}}>图片</Text>
                 </View>
-                <View style={{alignItems: "center"}}>
-                    <TouchableOpacity style={Styles.iconTouch} onPress={this.handleLocationClick.bind(this)}>
-                        <Icon name="ios-image-outline"/>
-                    </TouchableOpacity>
-                    <Text style={{marginTop: 6, fontSize: 12}}>位置</Text>
-                </View>
+                {/*<View style={{alignItems: "center"}}>*/}
+                    {/*<TouchableOpacity style={Styles.iconTouch} onPress={this.handleLocationClick.bind(this)}>*/}
+                        {/*<Icon name="ios-image-outline"/>*/}
+                    {/*</TouchableOpacity>*/}
+                    {/*<Text style={{marginTop: 6, fontSize: 12}}>位置</Text>*/}
+                {/*</View>*/}
             </Animated.View>
         );
     }
