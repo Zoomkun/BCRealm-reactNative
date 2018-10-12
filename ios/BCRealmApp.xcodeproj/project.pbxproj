@@ -77,6 +77,7 @@
 		C00E0CB889A849EC9FB7BEFE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1385123A5F4163959E6276 /* Foundation.framework */; };
 		B2711BA33A2D47F68685271D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7AD71EA3BB74D5696BBA0CB /* UIKit.framework */; };
 		4E8A10494DB142B2B7383BA9 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6550B4C4D44B45F4BE234636 /* PushKit.framework */; };
+		894B61DE32D64340AD3ED511 /* libRCTHotUpdate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F84263C7B0784F0C90DC24D7 /* libRCTHotUpdate.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -476,6 +477,8 @@
 		0C1385123A5F4163959E6276 /* Foundation.framework */ = {isa = PBXFileReference; name = "Foundation.framework"; path = "System/Library/Frameworks/Foundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		A7AD71EA3BB74D5696BBA0CB /* UIKit.framework */ = {isa = PBXFileReference; name = "UIKit.framework"; path = "System/Library/Frameworks/UIKit.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		6550B4C4D44B45F4BE234636 /* PushKit.framework */ = {isa = PBXFileReference; name = "PushKit.framework"; path = "System/Library/Frameworks/PushKit.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		4BEC782685434140A5F85527 /* RCTHotUpdate.xcodeproj */ = {isa = PBXFileReference; name = "RCTHotUpdate.xcodeproj"; path = "../node_modules/react-native-update/ios/RCTHotUpdate.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		F84263C7B0784F0C90DC24D7 /* libRCTHotUpdate.a */ = {isa = PBXFileReference; name = "libRCTHotUpdate.a"; path = "libRCTHotUpdate.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -528,6 +531,7 @@
 				C00E0CB889A849EC9FB7BEFE /* Foundation.framework in Frameworks */,
 				B2711BA33A2D47F68685271D /* UIKit.framework in Frameworks */,
 				4E8A10494DB142B2B7383BA9 /* PushKit.framework in Frameworks */,
+				894B61DE32D64340AD3ED511 /* libRCTHotUpdate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,6 +765,7 @@
 				C3FC8ADD9ACD486087C98587 /* RNDeviceInfo.xcodeproj */,
 				B125B653629341CA925CE1DB /* LRDRCTSimpleToast.xcodeproj */,
 				D27514AFF1C74A33A9364A62 /* RCTGetuiModule.xcodeproj */,
+				4BEC782685434140A5F85527 /* RCTHotUpdate.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1525,12 +1530,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
+					"$(SRCROOT)\..\node_modules\react-native-update\ios\RCTHotUpdate/**",
 				);
 				INFOPLIST_FILE = BCRealmAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1557,12 +1564,14 @@
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
+					"$(SRCROOT)\..\node_modules\react-native-update\ios\RCTHotUpdate/**",
 				);
 				INFOPLIST_FILE = BCRealmAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1590,6 +1599,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
+					"$(SRCROOT)\..\node_modules\react-native-update\ios\RCTHotUpdate/**",
 				);
 				INFOPLIST_FILE = BCRealmApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1617,6 +1627,7 @@
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
+					"$(SRCROOT)\..\node_modules\react-native-update\ios\RCTHotUpdate/**",
 				);
 				INFOPLIST_FILE = BCRealmApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1651,11 +1662,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
+					"$(SRCROOT)\..\node_modules\react-native-update\ios\RCTHotUpdate/**",
 				);
 				INFOPLIST_FILE = "BCRealmApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1692,11 +1705,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
+					"$(SRCROOT)\..\node_modules\react-native-update\ios\RCTHotUpdate/**",
 				);
 				INFOPLIST_FILE = "BCRealmApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1732,11 +1747,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
+					"$(SRCROOT)\..\node_modules\react-native-update\ios\RCTHotUpdate/**",
 				);
 				INFOPLIST_FILE = "BCRealmApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1772,11 +1789,13 @@
 					"$(SRCROOT)..\node_modules\neact-native-device-infoiosRNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
 					"$(SRCROOT)\..\node_modules\react-native-getui\ios\RCTGetuiModule\RCTGetuiModule",
+					"$(SRCROOT)\..\node_modules\react-native-update\ios\RCTHotUpdate/**",
 				);
 				INFOPLIST_FILE = "BCRealmApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);

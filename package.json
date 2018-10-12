@@ -26,6 +26,7 @@
     "react-native-parsed-text": "^0.0.20",
     "react-native-qrcode": "^0.2.7",
     "react-native-simple-toast": "^0.0.8",
+    "react-native-update": "5.x",
     "react-native-wechat": "^1.9.10",
     "react-navigation": "^1.0.0-beta.11",
     "spliddit": "^2.1.1"

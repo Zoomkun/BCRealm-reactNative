@@ -164,6 +164,7 @@ dependencies {
     compile project(':react-native-netease-im')
     compile project(':react-native-image-picker')
     compile project(':react-native-http-cache')
+    compile project(':react-native-update')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile project(':react-native-device-info')
     compile "com.android.support:appcompat-v7:23.0.1"
