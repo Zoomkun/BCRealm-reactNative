@@ -11,8 +11,10 @@ let header = { 'Content-Type': 'application/json;charset=UTF-8' }
 let headers = {}
 AsyncStorage.getItem('data').then(data => {
     let datas = JSON.parse(data);
-    header.token = datas.token;
-    headers.token = datas.token;
+    if (datas) {
+        header.token = datas.token;
+        headers.token = datas.token;
+    }
 })
 
 /**
