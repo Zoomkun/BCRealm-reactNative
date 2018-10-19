@@ -4,6 +4,7 @@ import NewsItem from './newsItem';
 import CardItems from './CardItems';
 import InformationItem from './informationItem';
 import CommunityItem from './communityItem';
+import CurrencyItem from './currencyItem';
 export {
     ThemeHeader,
     MsgItem,
@@ -11,4 +12,5 @@ export {
     CardItems,
     InformationItem,
     CommunityItem,
+    CurrencyItem
 }

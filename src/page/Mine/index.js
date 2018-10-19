@@ -3,7 +3,8 @@ import {
     Text,
     View,
     Image,
-    AsyncStorage
+    AsyncStorage,
+    ImageBackground
 } from 'react-native';
 import {
     Container,
@@ -18,12 +19,12 @@ import {
 } from 'native-base';
 
 import { ThemeHeader } from '../../components';
-import { Row, } from "react-native-easy-grid";
 import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
 import * as CacheManager from 'react-native-http-cache';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import HttpUtils from "../../api/Api";
+import { Grid, Row, Col } from 'react-native-easy-grid';
 
 const menus = [
     { icon: require('../../../images/wallet.png'), text: "钱包", arrows: require('../../../images/goIn.png'), uri: 'Wallet', line: true },
@@ -42,7 +43,7 @@ export default class Mine extends Component {
             data: [],
             accountNo: 0,
             unReads: 0,
-            push: 0
+            push: 0,
         };
     }
 
@@ -85,7 +86,23 @@ export default class Mine extends Component {
                 <ThemeHeader title={"我"} />
                 <Content>
                     <List>
-                        <ListItem itemDivider style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }}
+                        <ImageBackground resizeMode={"contain"}
+                            source={require('../../../images/aboutme_bg.png')}
+                            style={styles.imageStyle}
+                        >
+                            <Grid size={1}>
+                                <Col size={1.5} >
+                                    <Thumbnail source={{ uri: data.headUrl }} style={styles.headStyle} />
+                                </Col>
+                                <Col size={2} >
+                                    <Text style={styles.userNameStyle}>{data.userName}</Text>
+                                </Col>
+                                <Col size={3}></Col>
+                            </Grid>
+                        </ImageBackground>
+
+                        {/* 修改用户信息入口 */}
+                        {/* <ListItem itemDivider style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }}
                             button onPress={() => {
                                 navigate("PersonalInfo", { returnData: this._returnData.bind(this), data: this.state.data })
                             }}>
@@ -97,38 +114,21 @@ export default class Mine extends Component {
                             <Right>
                                 <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
-                        </ListItem>
+                        </ListItem> */}
+                        {/* <View style={{ backgroundColor: '#F3F3F3', height: 20 }} /> */}
 
-                        <View style={{ backgroundColor: '#F3F3F3', height: 20 }} />
-                        {
-                            // menus.map((item, index) => (
-                            //     <View key={index}>
-                            //         <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate(item.uri) }}>
-                            //             <Image
-                            //                 source={item.icon}
-                            //                 style={CommonStyles.icon}
-                            //             />
-                            //             <Body style={{ justifyContent: 'flex-start', }}>
-                            //                 <Text style={styles.textStyle}>{item.text}</Text>
-                            //             </Body>
-                            //             <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
-                            //                 <Image
-                            //                     source={item.arrows}
-                            //                     style={CommonStyles.icon}
-                            //                 />
-                            //             </Right>
-                            //         </ListItem>
-                            //         {item.line &&
-                            //             <View style={styles.line} />
-                            //         }
-                            //     </View>
-                            // ))
-                        }
+                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('Assets') }}>
+                            <Icon name={"currency-cny"} type={"MaterialCommunityIcons"} fontSize={5} style={CommonStyles.rightIconStyle} />
+                            <Body style={{ justifyContent: 'flex-start', }}>
+                                <Text style={styles.textStyle}>资产</Text>
+                            </Body>
+                            <Right style={styles.rightStyle}>
+                                <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
+                            </Right>
+                        </ListItem>
+                        <View style={styles.line} />
+
                         <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('Notice', { returnData: this._upDataUnReads.bind(this) }) }}>
-                            {/* <Image
-                                source={require('../../../images/news.png')}
-                                style={CommonStyles.icon}
-                            /> */}
                             <Icon name={"message-circle"} type={"Feather"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text style={styles.textStyle}>私信</Text>
@@ -142,6 +142,27 @@ export default class Mine extends Component {
                                     source={require('../../../images/goIn.png')}
                                     style={CommonStyles.icon}
                                 /> */}
+                                <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
+                            </Right>
+                        </ListItem>
+                        <View style={styles.line} />
+
+                        <ListItem
+                            itemDivider
+                            button
+                            style={styles.listItemStyle}
+                            onPress={() => {
+                                data.certification > 0 ?
+                                    this.refs.toast.show("您已认证", DURATION.LENGTH_LONG) :
+                                    navigate('Authenticate', { returnData: this._returnData.bind(this) })
+
+                            }}>
+                            <Icon name={"wallet"} type={"SimpleLineIcons"} fontSize={5} style={CommonStyles.rightIconStyle} />
+                            <Body style={{ justifyContent: 'flex-start', }}>
+                                <Text style={styles.textStyle}>钱包认证</Text>
+                            </Body>
+                            <Right style={styles.rightStyle}>
+                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{data.certification > 0 ? "已认证 " : "未认证"}</Text>
                                 <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>
@@ -174,11 +195,6 @@ export default class Mine extends Component {
                             </Body>
                             <Right style={styles.rightStyle}>
                                 <Text style={{ alignItems: 'center', marginRight: 10 }}>{0.15 >= (Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100) ? 0 : (Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100)}M</Text>
-                                {/* // <Image
-                                //     source={require('../../../images/goIn.png')}
-                                //     style={CommonStyles.icon}
-                                // /> */}
-
                                 <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>
@@ -256,6 +272,10 @@ export default class Mine extends Component {
                 })
             }
         )
+    }
+
+    _getImageSize() {
+
     }
 
     _loginOut() {

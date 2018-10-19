@@ -8,6 +8,7 @@ import ForgetPassword from './src/page/Login/forgetPassword';
 import GameWeb from './src/page/Game/gameWeb';
 import PersonalInfo from './src/page/Mine/personalInfo';
 import MinePage from './src/page/Mine';
+import Assets from './src/page/Mine/assets';
 import SettingName from './src/page/Mine/personalInfo/settingName';
 import Currency from './src/page/Mine/currency';
 import Wallet from './src/page/Mine/wallet';
@@ -32,6 +33,7 @@ const routers = StackNavigator({
     GameWeb: { screen: GameWeb },
     PersonalInfo: { screen: PersonalInfo },
     MinePage: { screen: MinePage },
+    Assets: { screen: Assets },
     SettingName: { screen: SettingName },
     Currency: { screen: Currency },
     Wallet: { screen: Wallet },

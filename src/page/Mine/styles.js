@@ -20,7 +20,7 @@ export default {
         height: 2
     },
     rowStyle: {
-        marginTop: 50,
+        marginTop: deviceWidth / (deviceWidth / 50),
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -38,5 +38,17 @@ export default {
         flexDirection: 'row',
         justifyContent: 'flex-end',
         alignItems: 'center',
+    },
+    imageStyle: {
+        width: deviceWidth,
+        height: deviceWidth / (deviceWidth / 126)
+    },
+    headStyle: {
+        marginTop: deviceWidth / (deviceWidth / 25),
+        marginLeft: deviceWidth / (deviceWidth / 10)
+    },
+    userNameStyle: {
+        marginTop: deviceWidth / (deviceWidth / 45),
+        color: '#FFFFFF'
     }
 }

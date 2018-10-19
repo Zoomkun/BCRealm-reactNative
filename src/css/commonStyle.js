@@ -32,7 +32,7 @@ export default {
         fontSize: 20
     },
     headerStyle: {
-        backgroundColor: "#FE6F06"
+        backgroundColor: "skyblue"
     },
     titleBodyStyle: {
         justifyContent: 'center',
@@ -57,4 +57,7 @@ export default {
         color: '#ffffff',
         fontSize: 30
     },
+    blackText: {
+        color: '#000000'
+    }
 }
