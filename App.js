@@ -3,6 +3,8 @@ import MainPage from './src/page/mainPage';
 import StartPage from './src/page/startPage';
 import Login from './src/page/Login';
 import Registration from './src/page/Login/registration';
+import NewRegistration from './src/page/Login/newRegistration';
+import ConfirmThePassword from './src/page/Login/newRegistration/confirmThePassword';
 import ServiceAgreement from './src/page/Login/serviceAgreement';
 import ForgetPassword from './src/page/Login/forgetPassword';
 import GameWeb from './src/page/Game/gameWeb';
@@ -28,6 +30,8 @@ const routers = StackNavigator({
     Login: { screen: Login },
     Main: { screen: MainPage },
     Registration: { screen: Registration },
+    NewRegistration: { screen: NewRegistration },
+    ConfirmThePassword: { screen: ConfirmThePassword },
     ServiceAgreement: { screen: ServiceAgreement },
     ForgetPassword: { screen: ForgetPassword },
     CommunityInfo: { screen: CommunityInfo },

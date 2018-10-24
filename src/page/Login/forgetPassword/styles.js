@@ -10,12 +10,12 @@ export default {
     },
     itemStyle: {
         width: deviceWidth * 0.9,
-        height: 60
+        height: deviceWidth / (deviceWidth / 50),
     },
     logInButtonStyle: {
-        backgroundColor: '#FE6F06',
         width: deviceWidth * 0.8,
         justifyContent: 'center',
+        borderRadius: deviceWidth / (deviceWidth / 50),
     },
     rowStyle: {
         justifyContent: 'center',
@@ -23,19 +23,19 @@ export default {
         marginTop: deviceWidth / (deviceWidth / 50)
     },
     codeStyle: {
-        borderColor: '#FE6F06',
-        borderRadius: 10,
-        marginTop: 13,
         marginRight: 15,
         height: 30,
         width: deviceWidth / 3.35,
+        alignSelf: 'center'
     },
     disableCodeStyle: {
-        borderColor: '#808080',
-        borderRadius: 10,
-        marginTop: deviceWidth / (deviceWidth / 13),
         marginRight: 15,
         height: deviceWidth / (deviceWidth / 30),
         width: deviceWidth / 3.35,
+        alignSelf: 'center'
     },
+    logInTextStyle: {
+        color: 'white',
+        fontSize: 15
+    }
 }

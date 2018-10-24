@@ -15,8 +15,10 @@ export default {
     logInButtonStyle: {
         width: deviceWidth * 0.8,
         justifyContent: 'center',
+        alignSelf: 'center'
     },
     rowStyle: {
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: deviceWidth / (deviceWidth / 50)
@@ -36,5 +38,10 @@ export default {
     logInTextStyle: {
         color: 'white',
         fontSize: 15
+    },
+    buttonStyle: {
+        width: deviceWidth * 0.8,
+        justifyContent: 'center',
+        alignSelf: 'center'
     }
 }

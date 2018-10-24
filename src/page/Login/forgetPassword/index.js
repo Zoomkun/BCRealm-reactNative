@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
     Text,
-    View
+    View,
+    ImageBackground,
+    Image
 } from 'react-native';
 import {
     Button,
@@ -9,14 +11,17 @@ import {
     Body,
     Item,
     Input,
-    Header,
-    Icon
+    Icon,
+    Content,
+    Left,
+    Right
 } from 'native-base';
-import { Row, } from 'react-native-easy-grid';
 import CommonStyles from '../../../css/commonStyle';
 import Toast, { DURATION } from 'react-native-easy-toast'
 import styles from "./styles";
 import HttpUtils from "../../../api/Api";
+import { login_bg } from '../../../../images'
+import { Grid, Row, Col } from 'react-native-easy-grid';
 
 /**
  * 忘记密码
@@ -30,6 +35,8 @@ export default class ForgetPassword extends Component {
             password: '',
             code: '',
             disable: false,
+            change: false,
+            CodeUuId: ''
         }
         this.interval = 0
     }
@@ -43,6 +50,7 @@ export default class ForgetPassword extends Component {
     };
 
     componentWillUnmount() {
+        //  this._getCodeUuId();
         if (this.interval) {
             clearInterval(this.interval);
             this.setState({ disable: false });
@@ -52,64 +60,97 @@ export default class ForgetPassword extends Component {
     render() {
         return (
             <Container style={CommonStyles.container}>
-                <Header style={CommonStyles.headerStyle}>
-                    <Button transparent onPress={() => { this.goBack() }}>
-                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
-                    </Button>
-                    <Body style={CommonStyles.titleBodyStyle}>
-                        <Text style={CommonStyles.headertextStyle}>忘记密码</Text>
-                    </Body>
-                    <Button transparent />
-                </Header>
 
-                <View style={styles.viewStyle}>
-                    <Item style={styles.itemStyle}>
-                        <Input placeholder="请输入手机号"
-                            value={this.state.phone}
-                            maxLength={11}
-                            keyboardType={'numeric'}
-                            onChangeText={(text) => { this.setState({ phone: text }) }} />
-                    </Item>
+                <ImageBackground source={login_bg}
+                    resizeMode={"contain"}
+                    style={CommonStyles.backgroundStyle}
+                >
+                    <Content>
+                        <Grid style={CommonStyles.gridStyle}>
+                            <Row style={{ height: 60, }}>
+                                <Left>
+                                    <Button transparent onPress={() => { this.goBack() }}>
+                                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
+                                    </Button>
+                                </Left>
+                                <Body>
+                                    <Text style={CommonStyles.titleStyle}>找回密码</Text>
+                                </Body>
+                                <Right>
+                                    <Button transparent />
+                                </Right>
+                            </Row>
+                            <Row size={0.4} />
 
-                    <Item style={styles.itemStyle}>
-                        <Input placeholder="请输入验证码"
-                            value={this.state.code}
-                            keyboardType={'numeric'}
-                            onChangeText={(text) => { this.setState({ code: text }) }} >
-                        </Input>
-                        <Button bordered style={this.state.disable ? styles.disableCodeStyle : styles.codeStyle}
-                            disabled={this.state.disable}
-                            onPress={() => { this._getCode(this.state.phone) }}>
-                            {
-                                this.state.disable ?
-                                    <View style={{
-                                        flexDirection: 'row',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
+                            < View style={styles.viewStyle}>
+                                <Item style={styles.itemStyle}>
+                                    <Input placeholder="请输入手机号"
+                                        value={this.state.phone}
+                                        maxLength={11}
+                                        keyboardType={'numeric'}
+                                        style={{ color: 'white' }}
+                                        placeholderTextColor={'#FEFEFE'}
+                                        onChangeText={(text) => { this.setState({ phone: text }) }} />
+                                </Item>
+
+
+                                <Item style={styles.itemStyle}>
+                                    <Input placeholder="输入右侧图形码"
+                                        value={this.state.code}
+                                        keyboardType={'numeric'}
+                                        style={{ color: 'white' }}
+                                        placeholderTextColor={'#FEFEFE'}
+                                        onChangeText={(text) => { this.setState({ code: text }) }} >
+                                    </Input>
+                                    <View style={{ height: 25, width: 1, backgroundColor: 'white' }} />
+
+                                    <Button onPress={() => { this._getCode(this.state.phone) }}>
+                                        <Image source={this.state.imgCode} />
+                                    </Button>
+                                </Item>
+
+                                <Item style={styles.itemStyle}>
+                                    <Input placeholder="请输入验证码"
+                                        value={this.state.code}
+                                        keyboardType={'numeric'}
+                                        style={{ color: 'white' }}
+                                        placeholderTextColor={'#FEFEFE'}
+                                        onChangeText={(text) => { this.setState({ code: text }) }} >
+                                    </Input>
+                                    <View style={{ height: 25, width: 1, backgroundColor: 'white' }} />
+
+                                    <Button transparent style={this.state.disable ? styles.disableCodeStyle : styles.codeStyle}
+                                        disabled={this.state.disable}
+                                        onPress={() => { this._getCode(this.state.phone) }}>
+                                        {
+                                            this.state.disable ?
+                                                <View style={{
+                                                    flexDirection: 'row',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                }}>
+                                                    <Text style={{ color: '#999999' }} note>重新发送</Text>
+                                                    <Text style={{ color: '#999999' }} >（{this.state.seconds}）</Text>
+                                                </View> :
+                                                <Text style={{ color: 'white', fontSize: 14 }}>获取验证码</Text>
+                                        }
+                                    </Button>
+                                </Item>
+                            </View>
+
+                            < Row size={0.6} style={styles.rowStyle}>
+
+                                <Button style={styles.logInButtonStyle}
+                                    onPress={() => {
+                                        this._getCodeUuId()
                                     }}>
-                                        <Text style={{ color: '#999999' }} note>重新发送</Text>
-                                        <Text style={{ color: '#999999' }} >（{this.state.seconds}）</Text>
-                                    </View> :
-                                    <Text style={{ color: '#FE6F06', fontSize: 14 }}>获取验证码</Text>
-                            }
-                        </Button>
-                    </Item>
-
-                    <Item itemDivider style={styles.itemStyle}>
-                        <Input placeholder="请输入新密码"
-                            value={this.state.password}
-                            keyboardType={'numeric'}
-                            secureTextEntry={true}
-                            onChangeText={(text) => { this.setState({ password: text }) }} />
-                    </Item>
-                </View>
-
-                <Row size={0.6} style={styles.rowStyle}>
-                    <Button rounded style={styles.logInButtonStyle}
-                        onPress={() => { this._changePassword(this.state.phone, this.state.password, this.state.code) }}>
-                        <Text style={styles.logInTextStyle}>完成</Text>
-                    </Button>
-                </Row>
+                                    <Text style={styles.logInTextStyle}>下一步</Text>
+                                </Button>
+                            </Row>
+                            <Text style={{ color: 'pink', fontSize: 30 }}>{this.state.change}</Text>
+                        </Grid>
+                    </Content>
+                </ImageBackground>
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}
@@ -120,12 +161,36 @@ export default class ForgetPassword extends Component {
                     opacity={0.8}
                     textStyle={{ color: '#ffffff' }}
                 />
-            </Container>
+            </Container >
         )
     }
 
+    _confirm() {
 
-
+    }
+    _getCodeUuId() {
+        HttpUtils.getRequest(
+            'userUrl',
+            'getCodeUuId',
+            '',
+            function (data) {
+                console.log(data)
+                if (data != '') {
+                    console.log(1111)
+                    HttpUtils.getRequest(
+                        'userUrl',
+                        'imgCode',
+                        {
+                            'uuId': `${data}`
+                        },
+                        function (data) {
+                            console.log(data)
+                        }
+                    )
+                }
+            }
+        )
+    }
     _getCode(phone) {
         let slef = this
         if (phone.length > 10) {

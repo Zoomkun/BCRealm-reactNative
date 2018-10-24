@@ -144,7 +144,7 @@ export default class NewRegistration extends Component {
                                 <Button style={styles.logInButtonStyle}
                                     // this._getCodeUuId()
                                     onPress={() => {
-                                        navigate("ServiceAgreement")
+                                        navigate("ConfirmThePassword")
                                     }}>
                                     <Text style={styles.logInTextStyle}>下一步</Text>
                                 </Button>

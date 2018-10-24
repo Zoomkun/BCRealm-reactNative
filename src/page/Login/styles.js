@@ -4,6 +4,10 @@ const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 export default {
+    backgroundStyle: {
+        width: deviceWidth / (deviceWidth / 361),
+        height: deviceWidth / (deviceWidth / 642)
+    },
     gridStyle: {
         height: deviceHeight * 0.9,
     },
@@ -13,62 +17,61 @@ export default {
         justifyContent: "center",
         alignItems: 'center',
     },
-    imageStyle: {
-        width: deviceWidth / (deviceWidth / 180),
-        height: deviceWidth / (deviceWidth / 180)
-    },
-    SegmentButtonStyle: {
+    accountPasswordStyle: {
         flexDirection: 'column',
-        height: deviceWidth / (deviceWidth / 50),
+        width: deviceWidth,
+        alignItems: 'center'
+    },
+    iconStyle: {
+        width: deviceWidth / (deviceWidth / 94),
     },
     textStyle: {
         color: '#808080'
     },
-    selectedTextStyle: {
-        color: '#FE6F06'
-    },
-    selectedViewStyle: {
-        backgroundColor: '#FE6F06',
-        height: 2,
-        width: 70,
-        marginBottom: 10
-    },
-    itemStyle: {
-        marginTop: deviceWidth / (deviceWidth / 10),
+    accountStyle: {
         width: deviceWidth * 0.8,
-        height: deviceWidth / (deviceWidth / 50),
+        height: deviceWidth / (deviceWidth / 40),
+        marginTop: deviceWidth / (deviceWidth / 50),
+        marginLeft: deviceWidth / (deviceWidth / 30),
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    PasswordStyle: {
+        width: deviceWidth * 0.8,
+        height: deviceWidth / (deviceWidth / 40),
+        marginTop: deviceWidth / (deviceWidth / 20),
+        marginLeft: deviceWidth / (deviceWidth / 30),
         justifyContent: 'center',
         alignItems: 'center',
     },
     forgetPassword: {
+        flexDirection: 'column',
         width: deviceWidth / (deviceWidth / 120),
         justifyContent: 'center',
-        marginTop: 5
+        alignSelf: 'center'
     },
-    codeStyle: {
-        borderColor: '#FE6F06',
-        borderRadius: 10,
-        marginTop: 10,
-        marginRight: 15,
-        height: deviceWidth / (deviceWidth / 30),
-        width: deviceWidth / 3.35,
+    warningStyle: {
+        width: deviceWidth / (deviceWidth / 12),
+        height: deviceWidth / (deviceWidth / 13),
     },
-    disableCodeStyle: {
-        borderColor: '#808080',
-        borderRadius: 10,
-        marginTop: 10,
-        marginRight: 15,
-        height: deviceWidth / (deviceWidth / 30),
-        width: deviceWidth / 3.35,
+    warnStyle: {
+        marginLeft: deviceWidth / (deviceWidth / 50),
+        flexDirection: 'row'
+    },
+    viewStyle: {
+        height: deviceWidth / (deviceWidth / 36),
+        flexDirection: 'row'
     },
     logInButtonStyle: {
-        backgroundColor: '#FE6F06',
+        backgroundColor: '#5A40BE',
         width: deviceWidth * 0.8,
+        borderRadius: deviceWidth / (deviceWidth / 50),
         justifyContent: 'center',
-        borderRadius: 50
+        alignSelf: 'center'
     },
     logInTextStyle: {
-        color: '#ffffff'
+        color: '#F5F4FB',
+        fontSize: 15
     },
     buttonStyle: {
         width: deviceWidth * 0.8,

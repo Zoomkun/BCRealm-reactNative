@@ -4,14 +4,18 @@ import {
     View,
     Image,
     AsyncStorage,
+    Dimensions,
+    ImageBackground,
+    PixelRatio
 } from 'react-native';
 import {
     Button,
     Container,
-    Segment,
     Content,
     Item,
-    Input
+    Input,
+    Left,
+    Body
 } from 'native-base';
 import { Grid, Row, Col } from 'react-native-easy-grid';
 import Toast, { DURATION } from 'react-native-easy-toast';
@@ -19,9 +23,9 @@ import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
 import HttpUtils from "../../api/Api";
 import { NavigationActions } from 'react-navigation';
-import DeviceInfo from 'react-native-device-info';
+// import DeviceInfo from 'react-native-device-info';
 import Getui from 'react-native-getui'
-
+import { logo, login_bg, warning } from '../../../images'
 
 resetAction = NavigationActions.reset({
     index: 0,
@@ -46,7 +50,8 @@ export default class Login extends Component {
             disable: false,
             clientId: '',
             version: '',
-            status: ''
+            status: '',
+            warning: ''
         }
         this.interval = 0
     }
@@ -77,123 +82,77 @@ export default class Login extends Component {
         const { navigate } = this.props.navigation;
         return (
             <Container style={CommonStyles.container}>
-                <Content>
-                    <Grid style={styles.gridStyle}>
-                        <Row size={2} style={styles.rowStyel}>
+
+                <ImageBackground source={login_bg}
+                    resizeMode={"contain"}
+                    style={CommonStyles.backgroundStyle}
+                >
+                    <Grid style={CommonStyles.gridStyle}>
+                        <Row size={1.25} style={CommonStyles.rowStyel}>
                             <Row>
                                 <Col size={4} />
                                 <Col>
-                                    <Button transparent onPress={() => { navigate("Registration") }} >
-                                        <Text style={{ color: '#FE6F06', fontSize: 20, }}>注册</Text>
+                                    <Button transparent onPress={() => { navigate("NewRegistration") }} >
+                                        <Text style={{ color: '#FEFEFE', fontSize: 18, }}>注册</Text>
                                     </Button>
                                 </Col>
                             </Row>
                             <Image
-                                source={require('../../../images/Icon.png')}
-                                style={styles.imageStyle}
+                                source={logo}
+                                style={styles.iconStyle}
                             />
                         </Row>
 
-                        <Row size={2.2} style={styles.rowStyel}>
-                            <View style={{ flexDirection: "row" }}>
-                                <Button transparent style={styles.SegmentButtonStyle} onPress={() => { this.setState({ pick: 0 }) }}>
-                                    <Text style={this.state.pick == 0 ? styles.selectedTextStyle : styles.textStyle}>普通登录</Text>
-                                    <View style={this.state.pick == 0 ? styles.selectedViewStyle : styles.viewStyle} />
-                                </Button>
-                                <Button transparent style={styles.SegmentButtonStyle} onPress={() => { this.setState({ pick: 1 }) }}>
-                                    <Text style={this.state.pick == 1 ? styles.selectedTextStyle : styles.textStyle}>验证码登录</Text>
-                                    <View style={this.state.pick == 1 ? styles.selectedViewStyle : styles.viewStyle} />
-                                </Button>
+                        <Row size={2} style={styles.accountPasswordStyle}>
+                            <Item last style={styles.accountStyle}>
+                                <Input placeholder="请输入手机号"
+                                    value={this.state.phone}
+                                    maxLength={11}
+                                    keyboardType={'numeric'}
+                                    placeholderTextColor={'#FEFEFE'}
+                                    onChangeText={(text) => { this.setState({ phone: text }) }}
+                                    style={{ color: 'white' }} />
+                            </Item>
+                            <Item last style={styles.PasswordStyle}>
+                                <Input placeholder="请输入密码"
+                                    value={this.state.password}
+                                    keyboardType={'numeric'}
+                                    secureTextEntry={true}
+                                    placeholderTextColor={'#FEFEFE'}
+                                    onChangeText={(text) => { this.setState({ password: text }) }}
+                                    style={{ color: 'white' }}                                        >
+                                </Input>
+                            </Item>
+
+                            <View style={styles.viewStyle}>
+                                {this.state.warning != '' &&
+                                    < Body style={styles.warnStyle}>
+                                        <Image source={warning} style={styles.warningStyle} />
+                                        <Text style={{ color: '#FFFFFF', fontSize: 13, }}>{this.state.warning}</Text>
+                                    </Body>
+                                }
                             </View>
-                            {
-                                this.state.pick == 0 ? (
-                                    <View style={{ alignItems: 'center', flexDirection: 'column' }}>
-                                        <Item rounded style={styles.itemStyle}>
-                                            <Input placeholder="请输入手机号"
-                                                value={this.state.phone}
-                                                maxLength={11}
-                                                keyboardType={'numeric'}
-                                                placeholderTextColor={'#808080'}
-                                                onChangeText={(text) => { this.setState({ phone: text }) }} />
-                                        </Item>
-
-                                        <Item rounded style={styles.itemStyle}>
-                                            <Input placeholder="请输入密码"
-                                                value={this.state.password}
-                                                keyboardType={'numeric'}
-                                                secureTextEntry={true}
-                                                placeholderTextColor={'#808080'}
-                                                onChangeText={(text) => { this.setState({ password: text }) }} >
-                                            </Input>
-                                            <Button transparent style={styles.forgetPassword}
-                                                onPress={() => { navigate("ForgetPassword") }}>
-                                                <Text>忘记密码</Text>
-                                            </Button>
-                                        </Item>
-                                    </View>
-                                ) : (
-                                        <View style={{ alignItems: 'center', flexDirection: 'column' }}>
-                                            <Item rounded style={styles.itemStyle}>
-                                                <Input placeholder="请输入手机号"
-                                                    value={this.state.phone}
-                                                    maxLength={11}
-                                                    keyboardType={'numeric'}
-                                                    placeholderTextColor={'#808080'}
-                                                    onChangeText={(text) => { this.setState({ phone: text }) }} />
-                                            </Item>
-
-                                            <Item rounded style={styles.itemStyle}>
-                                                <Input placeholder="请输入验证码"
-                                                    value={this.state.code}
-                                                    keyboardType={'numeric'}
-                                                    placeholderTextColor={'#808080'}
-                                                    onChangeText={(text) => { this.setState({ code: text }) }} >
-                                                </Input>
-                                                <Button bordered
-                                                    style={this.state.disable ? styles.disableCodeStyle : styles.codeStyle}
-                                                    onPress={() => { this._getCode(this.state.phone) }}>
-                                                    {
-                                                        this.state.disable ?
-                                                            <View style={{
-                                                                flexDirection: 'row',
-                                                                justifyContent: 'center',
-                                                                alignItems: 'center',
-                                                            }}>
-                                                                <Text style={{ color: '#999999' }} note>重新发送</Text>
-                                                                <Text style={{ color: '#999999' }} >（{this.state.seconds}）</Text>
-                                                            </View> :
-                                                            <Text style={{ color: '#FE6F06', fontSize: 14 }}>获取验证码</Text>
-                                                    }
-                                                </Button>
-                                            </Item>
-                                        </View>
-                                    )
-                            }
-                        </Row>
-
-                        <Row size={0.6} style={styles.rowStyel}>
-                            <View>
+                            <Row style={styles.rowStyel}>
                                 <Button style={styles.logInButtonStyle}
                                     onPress={() => {
-                                        this.state.pick == 0 ?
-                                            this._login(this.state.phone, this.state.password, this.state.clientId) :
-                                            this._smsLogin(this.state.phone, this.state.code, this.state.clientId)
+                                        this._oldLogin(this.state.phone, this.state.password)
                                     }}>
-                                    <Text style={styles.logInTextStyle}>登录</Text>
+                                    <Text style={styles.logInTextStyle}>立即登录</Text>
                                 </Button>
-                            </View>
+                            </Row>
                         </Row>
 
-                        <Row size={0.6} style={styles.rowStyel}>
-                            <View >
-                                <Button transparent style={styles.buttonStyle} onPress={() => { navigate("ServiceAgreement") }}>
-                                    <Text>点击登录即表示已阅读并同意</Text><Text style={{ color: '#FE6F06' }}>《服务协议》</Text>
-                                </Button>
-                            </View>
+                        <Row size={0.6} style={styles.accountPasswordStyle}>
+                            <Button transparent style={styles.forgetPassword}
+                                onPress={() => { navigate("ForgetPassword") }}>
+                                <Text style={{ color: '#FFFFFF', fontSize: 14 }}>忘记密码</Text>
+                                <View style={{ height: 1, width: 60, backgroundColor: 'white' }} />
+                            </Button>
                         </Row>
+
+                        <Row size={0.6} style={styles.rowStyel} />
                     </Grid>
-                </Content>
-
+                </ImageBackground >
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}
@@ -204,7 +163,7 @@ export default class Login extends Component {
                     opacity={0.8}
                     textStyle={{ color: '#ffffff' }}
                 />
-            </Container>
+            </Container >
         )
     }
 
@@ -276,14 +235,40 @@ export default class Login extends Component {
     }
 
     //密码登录
-    _login(phone, password, clientId) {
+    _login() {
         let self = this
-        if (phone.length > 10 && password != '') {
+        if (this.state.phone.length > 10 && this.state.password != '') {
+            this._oldLogin()
+            // HttpUtils.postRequrst(
+            //     'userUrl',
+            //     'appLogin',
+            //     {
+            //         'loginOriginAddress': 'http://world.gametest.bcrealm.com',
+            //         'userName': `${this.state.phone}`,
+            //         'password': `${this.state.password}`,
+            //     },
+            //     function (data) {
+            //         console.log(data)
+            //     }
+            // )
+        } else {
+            // self.setState({
+            //     warning: "请检查您的账号密码!"
+            // })
+            this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
+        }
+    }
+
+    //密码登录
+    _oldLogin(phone, password) {
+        console.log(phone + '___' + password)
+        let self = this
+        if (this.state.phone.length > 10 && this.state.password != '') {
             HttpUtils.postRequrst(
                 'userUrl',
                 'appLogin',
                 {
-                    'cid': `${clientId}`,
+                    'cid': '0',
                     'phoneNumber': `${phone}`,
                     'pwd': `${password}`,
                 },

@@ -56,6 +56,7 @@ export default class ConfirmThePassword extends Component {
     }
 
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <Container style={CommonStyles.container}>
 
@@ -106,10 +107,13 @@ export default class ConfirmThePassword extends Component {
                             < Row size={0.6} style={styles.rowStyle}>
                                 <Button rounded style={styles.logInButtonStyle}
                                     onPress={() => { this._changePassword(this.state.phone, this.state.password, this.state.code) }}>
-                                    <Text style={styles.logInTextStyle}>确认</Text>
+                                    <Text style={styles.logInTextStyle}>注册</Text>
+                                </Button>
+                                <Button transparent style={styles.buttonStyle} onPress={() => { navigate("ServiceAgreement") }}>
+                                    <Text style={{ color: 'white', fontSize: 13 }}>点击注册即表示已阅读并同意</Text><Text style={{ color: '#FE6F06', fontSize: 13 }}>《服务协议》</Text>
                                 </Button>
                             </Row>
-                            <Text style={{ color: 'pink', fontSize: 30 }}>{this.state.change}</Text>
+
                         </Grid>
                     </Content>
                 </ImageBackground>
