@@ -12,9 +12,9 @@ import {
 export default class CurrencyItem extends Component {
     render() {
 
-        let { currency, quantity, estimatedValue } = this.props;
+        let { currency, quantity, estimatedValue, onPress } = this.props;
         return (
-            < ListItem button style={styles.listItemStyle} >
+            < ListItem button style={styles.listItemStyle} onPress={onPress}>
                 <View style={{ backgroundColor: '#9578E4', width: 5, height: 80 }} />
                 <View style={styles.leftViewStyle}>
                     <Text style={[CommonStyles.blackText, styles.currencyStyle, { alignSelf: 'flex-start', }]}>{currency}</Text>

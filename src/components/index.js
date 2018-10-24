@@ -5,6 +5,8 @@ import CardItems from './CardItems';
 import InformationItem from './informationItem';
 import CommunityItem from './communityItem';
 import CurrencyItem from './currencyItem';
+import RecordItem from './recordItem';
+
 export {
     ThemeHeader,
     MsgItem,
@@ -12,5 +14,6 @@ export {
     CardItems,
     InformationItem,
     CommunityItem,
-    CurrencyItem
+    CurrencyItem,
+    RecordItem
 }

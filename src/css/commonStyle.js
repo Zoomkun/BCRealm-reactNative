@@ -1,6 +1,15 @@
+const React = require('react-native');
+const { Dimensions } = React;
+const deviceHeight = Dimensions.get('window').height;
+const deviceWidth = Dimensions.get('window').width;
+
 export default {
     container: {
-        backgroundColor: '#fff'
+        backgroundColor: '#EFEFF4'
+    },
+    backgroundStyle: {
+        width: deviceWidth / (deviceWidth / 361),
+        height: deviceWidth / (deviceWidth / 642)
     },
     icon: {
         width: 20,
@@ -12,7 +21,6 @@ export default {
     },
     rightIconStyle: {
         fontSize: 22,
-        color: '#020202'
     },
     title: {
         flex: 1,
@@ -21,6 +29,7 @@ export default {
         textAlign: "center"
     },
     textColor: {
+        marginLeft: 15,
         color: '#020202'
     },
     headerBodyStyle: {
@@ -28,11 +37,11 @@ export default {
         alignItems: 'center'
     },
     headertextStyle: {
-        color: '#fff',
-        fontSize: 20
+        color: '#FFFFFF',
+        fontSize: 19
     },
     headerStyle: {
-        backgroundColor: "skyblue"
+        // backgroundColor: "skyblue"
     },
     titleBodyStyle: {
         justifyContent: 'center',
@@ -57,7 +66,21 @@ export default {
         color: '#ffffff',
         fontSize: 30
     },
-    blackText: {
-        color: '#000000'
-    }
+    gridStyle: {
+        height: deviceHeight * 0.9,
+    },
+    rowStyel: {
+        flexDirection: 'column',
+        width: deviceWidth,
+        justifyContent: "center",
+        alignItems: 'center',
+    },
+    backIconStyle: {
+        color: '#FFFFFF',
+        fontSize: 28
+    },
+    titleStyle: {
+        fontSize: 19,
+        color: '#ffffff'
+    },
 }

@@ -10,8 +10,9 @@ import PersonalInfo from './src/page/Mine/personalInfo';
 import MinePage from './src/page/Mine';
 import Assets from './src/page/Mine/assets';
 import SettingName from './src/page/Mine/personalInfo/settingName';
-import Currency from './src/page/Mine/currency';
+import Currency from './src/page/Mine/assets/currency';
 import Wallet from './src/page/Mine/wallet';
+import Record from './src/page/Mine/assets/currency/record';
 import Authenticate from './src/page/Mine/authenticate';
 import AboutUs from './src/page/Mine/aboutUs';
 import CommunityInfo from './src/page/Community/communityInfo';
@@ -37,6 +38,7 @@ const routers = StackNavigator({
     SettingName: { screen: SettingName },
     Currency: { screen: Currency },
     Wallet: { screen: Wallet },
+    Record: { screen: Record },
     Authenticate: { screen: Authenticate },
     AboutUs: { screen: AboutUs },
     Notice: { screen: Notice },

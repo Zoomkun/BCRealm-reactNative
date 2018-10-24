@@ -18,16 +18,15 @@ import { CurrencyItem } from '../../../components';
 
 
 const data = [
-    { currency: "BBM", quantity: 123.123, estimatedValue: 10068 },
-    { currency: "DBEX", quantity: 35.5, estimatedValue: 9879 },
-    { currency: "HCC", quantity: 54.02, estimatedValue: 456 },
-    { currency: "BSH", quantity: 98.4, estimatedValue: 32 },
-    { currency: "VIS", quantity: 874.8, estimatedValue: 233 },
-    { currency: "BBM", quantity: 123.123, estimatedValue: 10068 },
-    { currency: "DBEX", quantity: 35.5, estimatedValue: 9879 },
-    { currency: "HCC", quantity: 54.02, estimatedValue: 456 },
-    { currency: "BSH", quantity: 98.4, estimatedValue: 32 },
-    { currency: "VIS", quantity: 874.8, estimatedValue: 233 },
+    { currency: "BBM", quantity: 123.123, estimatedValue: 10068, },
+    { currency: "DBEX", quantity: 35.5, estimatedValue: 9879, },
+    { currency: "HCC", quantity: 54.02, estimatedValue: 456, },
+    { currency: "BSH", quantity: 98.4, estimatedValue: 32, },
+    { currency: "VIS", quantity: 874.8, estimatedValue: 233, },
+    { currency: "BBM", quantity: 123.123, estimatedValue: 10068, },
+    { currency: "DBEX", quantity: 35.5, estimatedValue: 9879, },
+    { currency: "HCC", quantity: 54.02, estimatedValue: 456, },
+    { currency: "VIS", quantity: 874.8, estimatedValue: 233, },
 ]
 /**
  * 资产详情
@@ -70,7 +69,8 @@ class Assets extends Component {
                         </Body>
                     </View>
                 </ImageBackground>
-                <Text style={[CommonStyles.blackText, styles.titleStyle]}>我的资产</Text>
+                <View style={styles.viewStyle} />
+                <Text style={styles.titleStyle}>我的资产</Text>
                 <Content style={styles.contentStyle}>
                     {/* <ListItem button style={styles.listItemStyle}>
                         <View style={{ backgroundColor: '#9578E4', width: 5, height: 80 }} />
@@ -93,6 +93,7 @@ class Assets extends Component {
                                 currency={item.currency}
                                 quantity={item.quantity}
                                 estimatedValue={item.estimatedValue}
+                                onPress={() => this.props.navigation.navigate("Currency")}
                             />
                         }} />
                 </Content>
