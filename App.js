@@ -7,6 +7,7 @@ import NewRegistration from './src/page/Login/newRegistration';
 import ConfirmThePassword from './src/page/Login/newRegistration/confirmThePassword';
 import ServiceAgreement from './src/page/Login/serviceAgreement';
 import ForgetPassword from './src/page/Login/forgetPassword';
+import Confirm from './src/page/Login/forgetPassword/confirm';
 import GameWeb from './src/page/Game/gameWeb';
 import PersonalInfo from './src/page/Mine/personalInfo';
 import MinePage from './src/page/Mine';
@@ -26,14 +27,15 @@ import Content from './src/page/Discover/topicTab/content';
 import Chat from './src/page/Community/chat';
 
 const routers = StackNavigator({
-    StartPage: { screen: StartPage },
     Login: { screen: Login },
+    StartPage: { screen: StartPage },
     Main: { screen: MainPage },
     Registration: { screen: Registration },
     NewRegistration: { screen: NewRegistration },
     ConfirmThePassword: { screen: ConfirmThePassword },
     ServiceAgreement: { screen: ServiceAgreement },
     ForgetPassword: { screen: ForgetPassword },
+    Confirm: { screen: Confirm },
     CommunityInfo: { screen: CommunityInfo },
     GameWeb: { screen: GameWeb },
     PersonalInfo: { screen: PersonalInfo },

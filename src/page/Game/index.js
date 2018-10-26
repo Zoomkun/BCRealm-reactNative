@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import {
-    View,
     WebView,
-    StatusBar
+    AsyncStorage
 } from 'react-native';
 import {
-    Button,
-    Content,
     Container,
     Icon,
 } from 'native-base';
 import styles from './styles';
 import commonStyle from '../../css/commonStyle';
-import { ThemeHeader } from '../../components';
+import { ThemeHeader, DeviceStorage } from '../../components';
 import CommonStyles from "../../css/commonStyle";
 
 
 export default class GamePage extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            token: ''
+        }
+
+    }
+
     static navigationOptions = {
         header: null,
         tabBarLabel: '游戏',
@@ -30,6 +35,15 @@ export default class GamePage extends Component {
             alignSelf: 'center'
         }
     };
+
+    componentDidMount() {
+        DeviceStorage.get('user').then((data) => {
+            console.log(data)
+            console.log(111111)
+        });
+        console.log(3333)
+    }
+
     render() {
         return (
             <Container>

@@ -18,7 +18,7 @@ import {
     Icon
 } from 'native-base';
 
-import { ThemeHeader } from '../../components';
+import { ThemeHeader, DeviceStorage } from '../../components';
 import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
 import * as CacheManager from 'react-native-http-cache';
@@ -53,6 +53,7 @@ export default class Mine extends Component {
         })
     }
 
+
     componentWillMount() {
         AsyncStorage.getItem('data').then(data => {
             let datas = JSON.parse(data);
@@ -61,7 +62,10 @@ export default class Mine extends Component {
                 data: datas,
             })
         })
-        this._getUnReads(1);
+        DeviceStorage.get('user').then((data) => {
+            console.log(data)
+        });
+        console.log(3333)
     }
 
     static navigationOptions = ({ navigation }) => ({

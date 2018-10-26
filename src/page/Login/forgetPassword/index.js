@@ -36,7 +36,8 @@ export default class ForgetPassword extends Component {
             code: '',
             disable: false,
             change: false,
-            CodeUuId: ''
+            CodeUuId: '',
+            imgCodeUrl: ''
         }
         this.interval = 0
     }
@@ -50,11 +51,14 @@ export default class ForgetPassword extends Component {
     };
 
     componentWillUnmount() {
-        //  this._getCodeUuId();
         if (this.interval) {
             clearInterval(this.interval);
             this.setState({ disable: false });
         }
+    }
+
+    componentDidMount() {
+        this._getCodeUuId();
     }
 
     render() {
@@ -80,7 +84,6 @@ export default class ForgetPassword extends Component {
                                     <Button transparent />
                                 </Right>
                             </Row>
-                            <Row size={0.4} />
 
                             < View style={styles.viewStyle}>
                                 <Item style={styles.itemStyle}>
@@ -95,17 +98,18 @@ export default class ForgetPassword extends Component {
 
 
                                 <Item style={styles.itemStyle}>
-                                    <Input placeholder="输入右侧图形码"
-                                        value={this.state.code}
+                                    <Input placeholder="输入图形码"
+                                        value={this.state.imgcode}
                                         keyboardType={'numeric'}
                                         style={{ color: 'white' }}
                                         placeholderTextColor={'#FEFEFE'}
-                                        onChangeText={(text) => { this.setState({ code: text }) }} >
+                                        maxLength={8}
+                                        onChangeText={(text) => { this.setState({ imgcode: text }) }} >
                                     </Input>
-                                    <View style={{ height: 25, width: 1, backgroundColor: 'white' }} />
-
-                                    <Button onPress={() => { this._getCode(this.state.phone) }}>
-                                        <Image source={this.state.imgCode} />
+                                    <Button transparent onPress={() => { this._getCodeUuId() }}>
+                                        {this.state.imgCodeUrl != '' &&
+                                            <Image resizeMode={"contain"} source={{ uri: 'http://47.105.122.172:8023/user/imgCode?uuId=' + this.state.imgCodeUrl }} style={{ width: 100, height: 40 }} />
+                                        }
                                     </Button>
                                 </Item>
 
@@ -121,7 +125,7 @@ export default class ForgetPassword extends Component {
 
                                     <Button transparent style={this.state.disable ? styles.disableCodeStyle : styles.codeStyle}
                                         disabled={this.state.disable}
-                                        onPress={() => { this._getCode(this.state.phone) }}>
+                                        onPress={() => { this._newGetCode(this.state.imgcode, this.state.phone, this.state.imgCodeUrl) }}>
                                         {
                                             this.state.disable ?
                                                 <View style={{
@@ -139,10 +143,9 @@ export default class ForgetPassword extends Component {
                             </View>
 
                             < Row size={0.6} style={styles.rowStyle}>
-
                                 <Button style={styles.logInButtonStyle}
                                     onPress={() => {
-                                        this._getCodeUuId()
+                                        this._userBack(this.state.code, this.state.phone)
                                     }}>
                                     <Text style={styles.logInTextStyle}>下一步</Text>
                                 </Button>
@@ -165,34 +168,70 @@ export default class ForgetPassword extends Component {
         )
     }
 
-    _confirm() {
-
-    }
     _getCodeUuId() {
+        let self = this;
         HttpUtils.getRequest(
-            'userUrl',
+            'newUserUrl',
             'getCodeUuId',
             '',
             function (data) {
-                console.log(data)
                 if (data != '') {
-                    console.log(1111)
-                    HttpUtils.getRequest(
-                        'userUrl',
-                        'imgCode',
-                        {
-                            'uuId': `${data}`
-                        },
-                        function (data) {
-                            console.log(data)
-                        }
-                    )
+                    self.setState({
+                        imgCodeUrl: data
+                    })
                 }
             }
         )
     }
+
+    _newGetCode(imgCode, phone, uuId) {
+        let self = this;
+        if (imgCode == '' || phone.length != 11) {
+            this.refs.toast.show('请检查您的手机号或图形码是否正确!', DURATION.LENGTH_LONG);
+        } else {
+            HttpUtils.postRequrst(
+                'newUserUrl',
+                'changePasswordCode',
+                {
+                    "code": `${imgCode}`,
+                    "phone": `${phone}`,
+                    "uuId": `${uuId}`
+                },
+                function (data) {
+                    if (data == phone) {
+                        self.refs.toast.show("验证码已下发.请注意查收", DURATION.LENGTH_LONG);
+                    }
+                }
+            )
+        }
+    }
+
+    _userBack(code, phone) {
+        let self = this;
+        if (code == '' || phone.length != 11) {
+            this.refs.toast.show("请检查您的手机号或者验证码是否正确", DURATION.LENGTH_LONG);
+        } else {
+            HttpUtils.postRequrst(
+                'newUserUrl',
+                'userBack',
+                {
+                    'code': `${code}`,
+                    'phone': `${phone}`
+                },
+                function (data) {
+                    if (data == '') {
+                        self.props.navigation.navigate("Confirm", { code: code, phone: phone });
+                    } else {
+                        self.refs.toast.show(data, DURATION.LENGTH_LONG);
+                    }
+                }
+            )
+        }
+    }
+
+
     _getCode(phone) {
-        let slef = this
+        let self = this
         if (phone.length > 10) {
             this.state.seconds = 60
             let disable = !this.state.disable

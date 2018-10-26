@@ -22,6 +22,7 @@ import styles from "./styles";
 import HttpUtils from "../../../api/Api";
 import { login_bg } from '../../../../images'
 import { Grid, Row, Col } from 'react-native-easy-grid';
+// import { url } from 'inspector';
 
 /**
  * 注册
@@ -34,9 +35,11 @@ export default class NewRegistration extends Component {
             phone: '',
             password: '',
             code: '',
+            imgcode: '',
             disable: false,
             change: false,
-            CodeUuId: ''
+            CodeUuId: '',
+            imgCodeUrl: ''
         }
         this.interval = 0
     }
@@ -50,11 +53,14 @@ export default class NewRegistration extends Component {
     };
 
     componentWillUnmount() {
-        //  this._getCodeUuId();
         if (this.interval) {
             clearInterval(this.interval);
             this.setState({ disable: false });
         }
+    }
+
+    componentDidMount() {
+        this._getCodeUuId();
     }
 
     render() {
@@ -81,7 +87,6 @@ export default class NewRegistration extends Component {
                                     <Button transparent />
                                 </Right>
                             </Row>
-                            <Row size={0.4} />
 
                             < View style={styles.viewStyle}>
                                 <Item style={styles.itemStyle}>
@@ -97,16 +102,17 @@ export default class NewRegistration extends Component {
 
                                 <Item style={styles.itemStyle}>
                                     <Input placeholder="输入图形码"
-                                        value={this.state.code}
+                                        value={this.state.imgcode}
                                         keyboardType={'numeric'}
                                         style={{ color: 'white' }}
                                         placeholderTextColor={'#FEFEFE'}
-                                        onChangeText={(text) => { this.setState({ code: text }) }} >
+                                        maxLength={8}
+                                        onChangeText={(text) => { this.setState({ imgcode: text }) }} >
                                     </Input>
-                                    <View style={{ height: 25, width: 1, backgroundColor: 'white' }} />
-
-                                    <Button onPress={() => { this._getCode(this.state.phone) }}>
-                                        <Image source={this.state.imgCode} />
+                                    <Button transparent onPress={() => { this._getCodeUuId() }}>
+                                        {this.state.imgCodeUrl != '' &&
+                                            <Image resizeMode={"contain"} source={{ uri: 'http://47.105.122.172:8023/user/imgCode?uuId=' + this.state.imgCodeUrl }} style={{ width: 100, height: 40 }} />
+                                        }
                                     </Button>
                                 </Item>
 
@@ -122,7 +128,7 @@ export default class NewRegistration extends Component {
 
                                     <Button transparent style={this.state.disable ? styles.disableCodeStyle : styles.codeStyle}
                                         disabled={this.state.disable}
-                                        onPress={() => { this._getCode(this.state.phone) }}>
+                                        onPress={() => { this._newGetCode(this.state.imgcode, this.state.phone, this.state.imgCodeUrl) }}>
                                         {
                                             this.state.disable ?
                                                 <View style={{
@@ -140,12 +146,11 @@ export default class NewRegistration extends Component {
                             </View>
 
                             < Row size={0.6} style={styles.rowStyle}>
-
                                 <Button style={styles.logInButtonStyle}
-                                    // this._getCodeUuId()
                                     onPress={() => {
-                                        navigate("ConfirmThePassword")
-                                    }}>
+                                        this._confirmation(this.state.code, this.state.phone)
+                                    }}
+                                >
                                     <Text style={styles.logInTextStyle}>下一步</Text>
                                 </Button>
                             </Row>
@@ -168,33 +173,74 @@ export default class NewRegistration extends Component {
     }
 
     _getCodeUuId() {
+        let self = this;
         HttpUtils.getRequest(
-            'userUrl',
+            'newUserUrl',
             'getCodeUuId',
             '',
             function (data) {
-                console.log(data)
                 if (data != '') {
-                    console.log(1111)
-                    HttpUtils.getRequest(
-                        'userUrl',
-                        'imgCode',
-                        {
-                            'uuId': `${data}`
-                        },
-                        function (data) {
-                            console.log(data)
-                        }
-                    )
+                    self.setState({
+                        imgCodeUrl: data
+                    })
                 }
             }
         )
     }
+
+    _newGetCode(imgCode, phone, uuId) {
+        console.log(imgCode + '__' + phone.length)
+        let self = this;
+        if (imgCode == '' || phone.length != 11) {
+            this.refs.toast.show('请检查您的手机号或图形码是否正确!', DURATION.LENGTH_LONG);
+        } else {
+            HttpUtils.postRequrst(
+                'newUserUrl',
+                'newGetCode',
+                {
+                    "code": `${imgCode}`,
+                    "phone": `${phone}`,
+                    "uuId": `${uuId}`
+                },
+                function (data) {
+                    if (phone == data) {
+                        self.refs.toast.show("短信已下发至您的手机,请注意查收", DURATION.LENGTH_LONG);
+                    }
+                    else {
+                        self.refs.toast.show(data, DURATION.LENGTH_LONG);
+                    }
+                }
+            )
+        }
+    }
+
+    _confirmation(code, phone) {
+        let self = this;
+        if (code == '' || phone.length != 11) {
+            this.refs.toast.show("请检查您的手机号或者验证码是否正确", DURATION.LENGTH_LONG);
+        } else {
+            HttpUtils.postRequrst(
+                'newUserUrl',
+                'confirmation',
+                {
+                    'code': `${code}`,
+                    'phone': `${phone}`
+                },
+                function (data) {
+                    console.log(data)
+                    if (data == '') {
+                        self.props.navigation.navigate("ConfirmThePassword", { code: code, phone: phone });
+                    }
+                }
+            )
+        }
+    }
+
     _getCode(phone) {
-        let slef = this
+        let self = this;
         if (phone.length > 10) {
-            this.state.seconds = 60
-            let disable = !this.state.disable
+            this.state.seconds = 60;
+            let disable = !this.state.disable;
             this.setState({ disable: disable })
             console.log("yaoqingma")
             HttpUtils.getRequest(
@@ -223,7 +269,7 @@ export default class NewRegistration extends Component {
     }
 
     _changePassword(phone, password, code) {
-        let self = this
+        let self = this;
         if (phone.length > 10 && password != '' && code != '') {
             HttpUtils.putRequrst(
                 'userUrl',

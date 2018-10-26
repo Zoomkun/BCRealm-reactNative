@@ -33,11 +33,14 @@ export default class ConfirmThePassword extends Component {
             seconds: 0,
             phone: '',
             password: '',
+            pwd: '',
             code: '',
             disable: false,
             change: false
         }
         this.interval = 0
+        this.phone = props.navigation.state.params.phone
+        this.code = props.navigation.state.params.code
     }
 
     goBack = () => {
@@ -53,6 +56,7 @@ export default class ConfirmThePassword extends Component {
             clearInterval(this.interval);
             this.setState({ disable: false });
         }
+        console.log(this.code + '___' + this.phone)
     }
 
     render() {
@@ -83,30 +87,29 @@ export default class ConfirmThePassword extends Component {
 
                             < View style={styles.viewStyle}>
                                 <Item style={styles.itemStyle}>
-                                    <Input placeholder="请输入新密码"
-                                        value={this.state.phone}
+                                    <Input placeholder="请输入密码"
+                                        value={this.state.password}
                                         maxLength={11}
                                         keyboardType={'numeric'}
                                         style={{ color: 'white' }}
                                         placeholderTextColor={'#FEFEFE'}
-                                        onChangeText={(text) => { this.setState({ phone: text }) }} />
+                                        onChangeText={(text) => { this.setState({ password: text }) }} />
                                 </Item>
 
                                 <Item style={styles.itemStyle}>
-                                    <Input placeholder="再次输入新密码"
-                                        value={this.state.code}
+                                    <Input placeholder="再次输入密码"
+                                        value={this.state.pwd}
                                         keyboardType={'numeric'}
                                         style={{ color: 'white' }}
                                         placeholderTextColor={'#FEFEFE'}
-                                        onChangeText={(text) => { this.setState({ code: text }) }} >
+                                        onChangeText={(text) => { this.setState({ pwd: text }) }} >
                                     </Input>
-                                    <View style={{ height: 25, width: 1, backgroundColor: 'white' }} />
                                 </Item>
                             </View>
 
                             < Row size={0.6} style={styles.rowStyle}>
                                 <Button rounded style={styles.logInButtonStyle}
-                                    onPress={() => { this._changePassword(this.state.phone, this.state.password, this.state.code) }}>
+                                    onPress={() => { this._register(this.code, this.state.password, this.state.pwd, this.phone) }}>
                                     <Text style={styles.logInTextStyle}>注册</Text>
                                 </Button>
                                 <Button transparent style={styles.buttonStyle} onPress={() => { navigate("ServiceAgreement") }}>
@@ -131,15 +134,40 @@ export default class ConfirmThePassword extends Component {
         )
     }
 
-    _change() {
-        this.setState(
-            {
-                change: !change
+    _register(code, password, pwd, phone) {
+        let self = this;
+        console.log(code + '__' + password + '__' + pwd + '__' + phone)
+        if (password == '' && pwd == '') {
+            this.refs.toast.show('密码不能为空!', DURATION.LENGTH_LONG);
+            return;
+        } else {
+            if (password != pwd) {
+                this.refs.toast.show('两次密码不一致!', DURATION.LENGTH_LONG);
+                return;
+            } else {
+                HttpUtils.postRequrst(
+                    'newUserUrl',
+                    'register', {
+                        'code': `${code}`,
+                        'password': `${password}`,
+                        'phone': `${phone}`
+                    },
+                    function (data) {
+                        console.log(data)
+                        if (password == data.password) {
+                            self.refs.toast.show('注册成功!', DURATION.LENGTH_LONG);
+                            self.props.navigation.navigate("Login");
+                        } else {
+                            self.refs.toast.show(data, DURATION.LENGTH_LONG);
+                        }
+                    }
+                )
             }
-        )
+        }
     }
+
     _getCode(phone) {
-        let slef = this
+        let self = this
         if (phone.length > 10) {
             this.state.seconds = 60
             let disable = !this.state.disable

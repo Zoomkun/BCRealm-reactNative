@@ -4,38 +4,83 @@ import { Component } from 'react'
  * api集合
  */
 export default {
+
+    /**新用户服务地址*/
+    newUserUrl: 'http://47.105.122.172:8023/',
+    /**新登录接口 parameter:"loginOriginAddress": "http://world.gametest.bcrealm.com"*/
+    newLogin: 'user/login',
+    /**获取图片验证码唯一标识*/
+    getCodeUuId: 'user/getCodeUuId',
+    /**图形码  http://47.105.122.172:8023/user/imgCode?uuId=6000001355233411*/
+    imgCode: 'user/imgCode?',
+    /**获取短信验证码*/
+    newGetCode: 'user/send/msg',
+    /**验证码验证*/
+    confirmation: 'user/Msg/',
+    /**注册*/
+    register: 'user/register',
+    /**获取找回密码验证码*/
+    changePasswordCode: 'user/back/msg',
+    /**找回密码验证吗验证*/
+    userBack: 'user/back/',
+    /**修改密码*/
+    changePassword: 'user/back/pwd',
+
+    /**下面都是老的接口*/
+    /**线上*/
     appUrl: 'http://test.bcrealm.com:9002/api/',
     userUrl: 'http://test.bcrealm.com:9003/api/',
+    /**本地*/
     // appUrl: 'http://192.168.31.124:9002/api/',
     // userUrl: 'http://192.168.31.124:9003/api/',
 
-    register: 'user/register',//注册ok
-    sendCode: 'user/sendCode?',//获取验证码ok
-    appLogin: 'login/appLogin',// 用户登录ok
-    smsLogin: 'login/user/smsLogin',//短信登录ok
-    uppwd: 'user/uppwd',//修改密码ok
-    loginOut: 'login/loginOut',//退出登录ok
+    /**注册*/
+    register: 'user/register',
+    /**获取验证码*/
+    sendCode: 'user/sendCode?',
+    /**用户登录*/
+    appLogin: 'login/appLogin',
+    /**短信登录*/
+    smsLogin: 'login/user/smsLogin',
+    /**修改密码*/
+    uppwd: 'user/uppwd',
+    /**退出登录*/
+    loginOut: 'login/loginOut',
 
-    realNameAu: 'user/realNameAu',//实名认证ok
-    certificateType: 'certificateType?page=1&pageSize=10',//证件类型
-    nationality: 'nationality',//国籍
-    updateForApp: 'user/updateForApp',//修改用户信息(名称/性别)ok
-    changeAvatar: 'user/photo/upload',//跟换头像ok
-    letters: 'letters?page=1&pageSize=10',//获取指定用户的私信列表ok
-    unreads: 'letters/unreads',//获取指定用户的未读私信数量ok
-    upStatus: 'letters/upStatus',//修改指定用户的未读私信为已读ok
-
-    topicList: 'topic?page=1&pageSize=10',//查询审核通过的话题ok
-    sendTopic: 'topic/',//发布话题ok
-    read: 'topic/read',//阅读话题
-
-    newsList: 'news?page=1&pageSize=10',//新闻列表ok
-
-    gameList: 'game?page=1&pageSize=10',//获取游戏列表ok
-    banner: 'banner',//图集
-
-    chatGroup: 'chatGroups/list/all', // 获取所有群列表
-    joinItem: 'chatGroups/invitation/joinItem', // 加入群
-    leaveChatGroup: 'chatGroups/leave', // 退出群
-    groupInfo: 'chatGroups/details?', // 获取群详细信息
+    /**实名认证*/
+    realNameAu: 'user/realNameAu',
+    /**证件类型*/
+    certificateType: 'certificateType?page=1&pageSize=10',
+    /**国籍*/
+    nationality: 'nationality',
+    /**修改用户信息(名称/性别)*/
+    updateForApp: 'user/updateForApp',
+    /**跟换头像ok*/
+    changeAvatar: 'user/photo/upload',
+    /**获取指定用户的私信列表*/
+    letters: 'letters?page=1&pageSize=10',
+    /**获取指定用户的未读私信数量*/
+    unreads: 'letters/unreads',
+    /**修改指定用户的未读私信为已读*/
+    upStatus: 'letters/upStatus',//
+    /**查询审核通过的话题*/
+    topicList: 'topic?page=1&pageSize=10',
+    /**发布话题*/
+    sendTopic: 'topic/',
+    /**阅读话题*/
+    read: 'topic/read',
+    /**新闻列表*/
+    newsList: 'news?page=1&pageSize=10',
+    /**获取游戏列表*/
+    gameList: 'game?page=1&pageSize=10',
+    /**图集*/
+    banner: 'banner',
+    /**获取所有群列表*/
+    chatGroup: 'chatGroups/list/all',
+    /**加入群*/
+    joinItem: 'chatGroups/invitation/joinItem',
+    /**退出群*/
+    leaveChatGroup: 'chatGroups/leave',
+    /**获取群详细信息*/
+    groupInfo: 'chatGroups/details?',
 }
