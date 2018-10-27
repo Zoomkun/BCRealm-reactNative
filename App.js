@@ -27,6 +27,7 @@ import Content from './src/page/Discover/topicTab/content';
 import Chat from './src/page/Community/chat';
 
 const routers = StackNavigator({
+    Authenticate: { screen: Authenticate },
     Login: { screen: Login },
     StartPage: { screen: StartPage },
     Main: { screen: MainPage },
@@ -45,7 +46,6 @@ const routers = StackNavigator({
     Currency: { screen: Currency },
     Wallet: { screen: Wallet },
     Record: { screen: Record },
-    Authenticate: { screen: Authenticate },
     AboutUs: { screen: AboutUs },
     Notice: { screen: Notice },
     NoticeContent: { screen: NoticeContent },

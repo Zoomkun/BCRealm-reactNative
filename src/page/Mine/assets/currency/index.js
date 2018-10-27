@@ -45,7 +45,8 @@ class Currency extends Component {
 
         return (
             <Container style={styles.container}>
-                <ImageBackground resizeMode={"contain"}
+                <ImageBackground
+                    resizeMode={"contain"}
                     source={bg}
                     style={styles.imageStyle}
                 >

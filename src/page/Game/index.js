@@ -55,7 +55,7 @@ export default class GamePage extends Component {
             let datas = JSON.parse(data);
             let dataJson = JSON.stringify(datas)
             console.log(dataJson)
-            this.refs.webView.postMessage(datas.token);
+            this.refs.webView.postMessage(datas.appToken);
         })
         // DeviceStorage.get('user').then(data => {
         //     console.log(data.token)

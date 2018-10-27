@@ -2,26 +2,26 @@ import React, { Component } from "react";
 
 import {
     Container,
+    Left,
     Body,
     Right,
-    List,
-    ListItem,
     Button,
-    Header,
     Input,
-    Icon
+    Icon,
 } from 'native-base';
 import {
     Text,
     View,
-    Picker,
-    AsyncStorage
+    AsyncStorage,
+    ImageBackground,
 } from 'react-native';
 import CommonStyles from '../../../css/commonStyle';
 import styles from "./styles";
 import { Grid, Row, Col } from "react-native-easy-grid";
 import Toast, { DURATION } from 'react-native-easy-toast';
 import Http from '../../../api/Api';
+import { authenticate, bg } from '../../../../images';
+// import { url } from "inspector";
 
 /**
  * 实名认证
@@ -55,20 +55,53 @@ class Authenticate extends Component {
         this.props.navigation.goBack();
     }
 
-    componentDidMount() {
-        AsyncStorage.getItem('data').then(data => {
-            let datas = JSON.parse(data);
-            this.setState({
-                id: datas.id,
-            })
-            console.log(datas);
-        })
-    }
+    // componentDidMount() {
+    //     AsyncStorage.getItem('data').then(data => {
+    //         let datas = JSON.parse(data);
+    //         this.setState({
+    //             id: datas.id,
+    //         })
+    //         console.log(datas);
+    //     })
+    // }
 
     render() {
         return (
             <Container style={styles.container}>
-                <Header style={CommonStyles.headerStyle}>
+                <ImageBackground
+                    resizeMode={"contain"}
+                    source={authenticate}
+                    style={styles.imageBackgroundStyle}
+                >
+                    <Grid>
+                        <Row style={{ height: 60, }}>
+                            <Left>
+                                <Button transparent onPress={() => { this.goBack() }}>
+                                    <Icon name={"ios-arrow-back"} style={styles.backIconStyle} />
+                                </Button>
+                            </Left>
+                            <Body>
+                                <Text style={styles.titleStyle}>BBM</Text>
+                            </Body>
+                            <Right>
+                                <Button transparent />
+                            </Right>
+                        </Row>
+                        <Row>
+                            <Col size={1} style={styles.viewStyle}>
+                                <Text style={styles.describeStyle}>实名认证</Text>
+                                <Text style={styles.quantityStyle}>实名认证算力<Text style={{ color: '#ffffff', fontSize: 18 }}>+10</Text></Text>
+                            </Col>
+                        </Row>
+                    </Grid>
+
+                </ImageBackground>
+                <View style={styles.tipsBackgroundStyle} >
+                    <Text style={styles.tipsStyle}>确认是您本人,验证完后不可修改</Text>
+                </View>
+
+
+                {/* <Header style={CommonStyles.headerStyle}>
                     <Button transparent onPress={() => { this.goBack() }}>
                         <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
                     </Button>
@@ -76,85 +109,46 @@ class Authenticate extends Component {
                         <Text style={CommonStyles.headertextStyle}>实名认证</Text>
                     </Body>
                     <Button transparent />
-                </Header>
-                <View style={styles.viewStyle} >
-                    <Text style={styles.tipsStyle}>确认是您本人,验证完后不可修改</Text>
-                </View>
-                <List>
-                    <ListItem itemDivider style={styles.listItemStyle} >
-                        <Body style={{ justifyContent: 'flex-start', marginLeft: 20 }}>
-                            <Text style={styles.textStyle}>国籍</Text>
-                        </Body>
-                        <Right style={styles.rightStyle}>
-                            <Picker
-                                mode={'dropdown'}
-                                style={styles.pickerStyle}
-                                selectedValue={this.state.nat}
-                                onValueChange={(value) => this.onValueChange(1, value)}>
-                                {/* nationality.map((item, index) => (
-                                    <Picker.Item label={item.nationality} value={item.id} />
-                                    )) */}
-                                <Picker.Item label="大陆" value="1" />
-                                <Picker.Item label="台湾" value="2" />
-                                <Picker.Item label="香港" value="3" />
-                                <Picker.Item label="澳门" value="4" />
-                                <Picker.Item label="国外" value="5" />
-                            </Picker>
-                        </Right>
-                    </ListItem>
-                    <View style={styles.lineStyle} />
+                </Header> */}
 
-                    <View style={{ height: 50 }}>
-                        <Grid style={styles.gridStyle} >
-                            <Col style={styles.colStyle} size={2}>
-                                <Text style={{ marginLeft: 38, fontSize: 18, color: '#000000', }}>真实姓名</Text></Col>
-                            <Col style={styles.colStyle} size={1.2}>
-                                <View style={{ width: 120, height: 50, }}>
-                                    <Input placeholder="请输入名称"
-                                        value={this.state.name}
-                                        onChangeText={(text) => { this.setState({ name: text }) }} />
-                                </View></Col>
-                        </Grid>
-                    </View>
-                    <View style={styles.lineStyle} />
 
-                    <ListItem itemDivider style={styles.listItemStyle} >
-                        <Body style={styles.bodyStyle}>
-                            <Text style={styles.textStyle}>证件类型</Text>
-                        </Body>
-                        <Right style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', }}>
-                            <Picker
-                                mode={'dropdown'}
-                                style={{ width: 120 }}
-                                selectedValue={this.state.cer}
-                                onValueChange={(value) => this.onValueChange(2, value)}>
-                                <Picker.Item label="身份证" value="1" />
-                            </Picker>
-                        </Right>
-                    </ListItem>
-                    <View style={styles.lineStyle} />
-                </List>
 
-                <View style={{ height: 50 }}>
+                <View style={{ height: 50, marginTop: 30 }}>
                     <Grid style={styles.gridStyle} >
-                        <Col style={styles.colStyle} size={1.5}>
-                            <Text style={{ marginLeft: 38, fontSize: 18, color: '#000000', }}>证件号码</Text></Col>
-                        <Col style={styles.colStyle} size={2}>
-                            <View style={{ width: 200, height: 50, }}>
-                                <Input
-                                    placeholder="请输入"
-                                    keyboardType={'numeric'}
-                                    value={this.state.certificateNumber}
-                                    onChangeText={(text) => { this.setState({ certificateNumber: text }) }} />
-                            </View></Col>
+                        <Col style={styles.colStyle} size={1}>
+                            <Text style={{ marginLeft: 17, fontSize: 16, color: '#313442', }}>真实姓名:</Text>
+                        </Col>
+                        <Col size={3}>
+                            <View style={styles.inputStyle}>
+                                <Input placeholder="请输入名称"
+                                    value={this.state.name}
+                                    onChangeText={(text) => { this.setState({ name: text }) }} />
+                            </View>
+                            <View style={styles.lineStyle} />
+                        </Col>
                     </Grid>
                 </View>
-                <View style={styles.lineStyle} />
+
+                <View style={{ height: 50, marginTop: 30 }}>
+                    <Grid style={styles.gridStyle} >
+                        <Col style={styles.colStyle} size={1}>
+                            <Text style={{ marginLeft: 17, fontSize: 16, color: '#313442', }}>身份证号:</Text>
+                        </Col>
+                        <Col s size={3}>
+                            <View style={styles.inputStyle}>
+                                <Input placeholder="请输入身份证号"
+                                    value={this.state.certificateNumber}
+                                    onChangeText={(text) => { this.setState({ certificateNumber: text }) }} />
+                            </View>
+                            <View style={styles.lineStyle} />
+                        </Col>
+                    </Grid>
+                </View>
 
                 <Row size={20} style={styles.rowStyle}>
                     <View>
                         <Button style={styles.buttonStyle} onPress={() => { this._authenticate() }}>
-                            <Text style={styles.buttonTextStyle}>确认并提交</Text>
+                            <Text style={styles.buttonTextStyle}>确认</Text>
                         </Button>
                     </View>
                 </Row>

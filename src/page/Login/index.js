@@ -64,7 +64,7 @@ export default class Login extends Component {
         // let cid = DeviceInfo.getUniqueID();
         AsyncStorage.getItem('user').then(data => {
             let datas = JSON.parse(data);
-            if (datas.phone != null && datas.token != '') {
+            if (datas.phone != null && datas.appToken != '') {
                 self.setState({
                     phone: datas.phone,
                 })
@@ -252,7 +252,7 @@ export default class Login extends Component {
                         console.log(data)
                         var user = new Object();
                         user.phone = self.state.phone;
-                        user.token = data.token;
+                        user.appToken = data.token;
                         AsyncStorage.setItem('user', JSON.stringify(user));
                         //DeviceStorage.save("user", user);
                         // DeviceStorage.get('user').then(data => {
