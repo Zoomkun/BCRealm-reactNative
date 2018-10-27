@@ -27,7 +27,6 @@ import Content from './src/page/Discover/topicTab/content';
 import Chat from './src/page/Community/chat';
 
 const routers = StackNavigator({
-    Authenticate: { screen: Authenticate },
     Login: { screen: Login },
     StartPage: { screen: StartPage },
     Main: { screen: MainPage },
@@ -41,6 +40,7 @@ const routers = StackNavigator({
     GameWeb: { screen: GameWeb },
     PersonalInfo: { screen: PersonalInfo },
     MinePage: { screen: MinePage },
+    Authenticate: { screen: Authenticate },
     Assets: { screen: Assets },
     SettingName: { screen: SettingName },
     Currency: { screen: Currency },
