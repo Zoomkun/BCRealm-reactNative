@@ -35,20 +35,19 @@ export default class ForgetPassword extends Component {
             password: '',
             code: '',
             disable: false,
-            change: false,
             CodeUuId: '',
             imgCodeUrl: ''
         }
         this.interval = 0
     }
 
-    goBack = () => {
-        this.props.navigation.goBack();
-    }
-
     static navigationOptions = {
         header: null
     };
+
+    goBack = () => {
+        this.props.navigation.goBack();
+    }
 
     componentWillUnmount() {
         if (this.interval) {
@@ -64,7 +63,6 @@ export default class ForgetPassword extends Component {
     render() {
         return (
             <Container style={CommonStyles.container}>
-
                 <ImageBackground source={login_bg}
                     resizeMode={"contain"}
                     style={CommonStyles.backgroundStyle}
@@ -74,7 +72,10 @@ export default class ForgetPassword extends Component {
                             <Row style={{ height: 60, }}>
                                 <Left>
                                     <Button transparent onPress={() => { this.goBack() }}>
-                                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
+                                        <Icon
+                                            name={"ios-arrow-back"}
+                                            style={CommonStyles.backIconStyle}
+                                        />
                                     </Button>
                                 </Left>
                                 <Body>
@@ -108,7 +109,11 @@ export default class ForgetPassword extends Component {
                                     </Input>
                                     <Button transparent onPress={() => { this._getCodeUuId() }}>
                                         {this.state.imgCodeUrl != '' &&
-                                            <Image resizeMode={"contain"} source={{ uri: 'http://47.105.122.172:8023/user/imgCode?uuId=' + this.state.imgCodeUrl }} style={{ width: 100, height: 40 }} />
+                                            <Image
+                                                resizeMode={"contain"}
+                                                source={{ uri: 'http://47.105.122.172:8023/user/imgCode?uuId=' + this.state.imgCodeUrl }}
+                                                style={{ width: 100, height: 40 }}
+                                            />
                                         }
                                     </Button>
                                 </Item>
@@ -123,9 +128,13 @@ export default class ForgetPassword extends Component {
                                     </Input>
                                     <View style={{ height: 25, width: 1, backgroundColor: 'white' }} />
 
-                                    <Button transparent style={this.state.disable ? styles.disableCodeStyle : styles.codeStyle}
+                                    <Button
+                                        transparent
+                                        style={this.state.disable ? styles.disableCodeStyle : styles.codeStyle}
                                         disabled={this.state.disable}
-                                        onPress={() => { this._newGetCode(this.state.imgcode, this.state.phone, this.state.imgCodeUrl) }}>
+                                        onPress={() => {
+                                            this._newGetCode(this.state.imgcode, this.state.phone, this.state.imgCodeUrl)
+                                        }}>
                                         {
                                             this.state.disable ?
                                                 <View style={{
@@ -150,10 +159,10 @@ export default class ForgetPassword extends Component {
                                     <Text style={styles.logInTextStyle}>下一步</Text>
                                 </Button>
                             </Row>
-                            <Text style={{ color: 'pink', fontSize: 30 }}>{this.state.change}</Text>
                         </Grid>
                     </Content>
                 </ImageBackground>
+
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}
@@ -229,14 +238,12 @@ export default class ForgetPassword extends Component {
         }
     }
 
-
     _getCode(phone) {
         let self = this
         if (phone.length > 10) {
             this.state.seconds = 60
             let disable = !this.state.disable
             this.setState({ disable: disable })
-            console.log("yaoqingma")
             HttpUtils.getRequest(
                 'userUrl',
                 'sendCode',

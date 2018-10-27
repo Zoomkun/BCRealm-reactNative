@@ -19,7 +19,6 @@ export default class GamePage extends Component {
         this.state = {
             token: ''
         }
-
     }
 
     static navigationOptions = {
@@ -36,22 +35,35 @@ export default class GamePage extends Component {
         }
     };
 
-    componentDidMount() {
-        DeviceStorage.get('user').then((data) => {
-            console.log(data)
-            console.log(111111)
-        });
-        console.log(3333)
-    }
 
     render() {
         return (
             <Container>
                 <ThemeHeader title={"游戏"} />
-                <WebView source={{ uri: "http://world.gametest.bcrealm.com/" }} style={styles.webStyle} >
+                <WebView
+                    source={{ uri: "http://world.gametest.bcrealm.com" }} style={styles.webStyle}
+                    ref='webView'
+                    onLoadEnd={this._onLoadEnd}
+                >
                 </WebView>
             </Container>
         )
+    }
+
+    _onLoadEnd = (e) => {
+        AsyncStorage.getItem('user').then(data => {
+            let datas = JSON.parse(data);
+            let dataJson = JSON.stringify(datas)
+            console.log(dataJson)
+            this.refs.webView.postMessage(datas.token);
+        })
+        // DeviceStorage.get('user').then(data => {
+        //     console.log(data.token)
+        //     //let datas = JSON.parse(data.token);
+        //     // console.log(datas)
+        //     this.refs.webView.postMessage(data.token);
+        //     console.log(this.refs.webView)
+        // })
     }
 }
 

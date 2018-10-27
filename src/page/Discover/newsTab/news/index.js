@@ -41,9 +41,6 @@ export default class News extends Component {
     _onLoadEnd = (e) => {
         AsyncStorage.getItem('data').then(data => {
             let datas = JSON.parse(data);
-            this.setState({
-                token: datas.token,
-            })
             let dataJson = JSON.stringify(datas)
             this.refs.webView.postMessage(dataJson);
             console.log(dataJson)

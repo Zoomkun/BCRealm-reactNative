@@ -20,7 +20,7 @@ import Toast, { DURATION } from 'react-native-easy-toast'
 import styles from "./styles";
 import HttpUtils from "../../../../api/Api";
 import { login_bg } from '../../../../../images'
-import { Grid, Row, Col } from 'react-native-easy-grid';
+import { Grid, Row } from 'react-native-easy-grid';
 
 
 /**
@@ -36,27 +36,25 @@ export default class ConfirmThePassword extends Component {
             pwd: '',
             code: '',
             disable: false,
-            change: false
         }
         this.interval = 0
         this.phone = props.navigation.state.params.phone
         this.code = props.navigation.state.params.code
     }
 
-    goBack = () => {
-        this.props.navigation.goBack();
-    }
-
     static navigationOptions = {
         header: null
     };
+
+    goBack = () => {
+        this.props.navigation.goBack();
+    }
 
     componentWillUnmount() {
         if (this.interval) {
             clearInterval(this.interval);
             this.setState({ disable: false });
         }
-        console.log(this.code + '___' + this.phone)
     }
 
     render() {
@@ -73,7 +71,9 @@ export default class ConfirmThePassword extends Component {
                             <Row style={{ height: 60, }}>
                                 <Left>
                                     <Button transparent onPress={() => { this.goBack() }}>
-                                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
+                                        <Icon
+                                            name={"ios-arrow-back"}
+                                            style={CommonStyles.backIconStyle} />
                                     </Button>
                                 </Left>
                                 <Body>
@@ -109,17 +109,20 @@ export default class ConfirmThePassword extends Component {
 
                             < Row size={0.6} style={styles.rowStyle}>
                                 <Button rounded style={styles.logInButtonStyle}
-                                    onPress={() => { this._register(this.code, this.state.password, this.state.pwd, this.phone) }}>
+                                    onPress={() => {
+                                        this._register(this.code, this.state.password, this.state.pwd, this.phone)
+                                    }}>
                                     <Text style={styles.logInTextStyle}>注册</Text>
                                 </Button>
                                 <Button transparent style={styles.buttonStyle} onPress={() => { navigate("ServiceAgreement") }}>
-                                    <Text style={{ color: 'white', fontSize: 13 }}>点击注册即表示已阅读并同意</Text><Text style={{ color: '#FE6F06', fontSize: 13 }}>《服务协议》</Text>
+                                    <Text style={{ color: 'white', fontSize: 13 }}>点击注册即表示已阅读并同意</Text>
+                                    <Text style={{ color: '#FE6F06', fontSize: 13 }}>《服务协议》</Text>
                                 </Button>
                             </Row>
-
                         </Grid>
                     </Content>
                 </ImageBackground>
+
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}
@@ -136,7 +139,6 @@ export default class ConfirmThePassword extends Component {
 
     _register(code, password, pwd, phone) {
         let self = this;
-        console.log(code + '__' + password + '__' + pwd + '__' + phone)
         if (password == '' && pwd == '') {
             this.refs.toast.show('密码不能为空!', DURATION.LENGTH_LONG);
             return;
@@ -153,7 +155,6 @@ export default class ConfirmThePassword extends Component {
                         'phone': `${phone}`
                     },
                     function (data) {
-                        console.log(data)
                         if (password == data.password) {
                             self.refs.toast.show('注册成功!', DURATION.LENGTH_LONG);
                             self.props.navigation.navigate("Login");
@@ -172,7 +173,6 @@ export default class ConfirmThePassword extends Component {
             this.state.seconds = 60
             let disable = !this.state.disable
             this.setState({ disable: disable })
-            console.log("yaoqingma")
             HttpUtils.getRequest(
                 'userUrl',
                 'sendCode',

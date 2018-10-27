@@ -20,7 +20,7 @@ import Toast, { DURATION } from 'react-native-easy-toast'
 import styles from "./styles";
 import HttpUtils from "../../../../api/Api";
 import { login_bg } from '../../../../../images'
-import { Grid, Row, Col } from 'react-native-easy-grid';
+import { Grid, Row } from 'react-native-easy-grid';
 
 
 /**
@@ -34,7 +34,6 @@ export default class Confirm extends Component {
             password: '',
             pwd: '',
             disable: false,
-            change: false
         };
         this.interval = 0;
         this.phone = props.navigation.state.params.phone;
@@ -59,8 +58,8 @@ export default class Confirm extends Component {
     render() {
         return (
             <Container style={CommonStyles.container}>
-
-                <ImageBackground source={login_bg}
+                <ImageBackground
+                    source={login_bg}
                     resizeMode={"contain"}
                     style={CommonStyles.backgroundStyle}
                 >
@@ -69,7 +68,10 @@ export default class Confirm extends Component {
                             <Row style={{ height: 60, }}>
                                 <Left>
                                     <Button transparent onPress={() => { this.goBack() }}>
-                                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
+                                        <Icon
+                                            name={"ios-arrow-back"}
+                                            style={CommonStyles.backIconStyle}
+                                        />
                                     </Button>
                                 </Left>
                                 <Body>
@@ -104,15 +106,19 @@ export default class Confirm extends Component {
                             </View>
 
                             < Row size={0.6} style={styles.rowStyle}>
-                                <Button rounded style={styles.logInButtonStyle}
-                                    onPress={() => { this._newChangePassword(this.code, this.state.password, this.phone, this.state.pwd) }}>
+                                <Button
+                                    rounded
+                                    style={styles.logInButtonStyle}
+                                    onPress={() => {
+                                        this._newChangePassword(this.code, this.state.password, this.phone, this.state.pwd)
+                                    }}>
                                     <Text style={styles.logInTextStyle}>确认</Text>
                                 </Button>
                             </Row>
-                            <Text style={{ color: 'pink', fontSize: 30 }}>{this.state.change}</Text>
                         </Grid>
                     </Content>
                 </ImageBackground>
+
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}
@@ -133,7 +139,6 @@ export default class Confirm extends Component {
             this.state.seconds = 60
             let disable = !this.state.disable
             this.setState({ disable: disable })
-            console.log("yaoqingma")
             HttpUtils.getRequest(
                 'userUrl',
                 'sendCode',
@@ -161,7 +166,6 @@ export default class Confirm extends Component {
 
     _newChangePassword(code, password, phone, pwd) {
         let self = this;
-        console.log(code + '__' + password + '__' + pwd + '__' + phone)
         if (password == '' && pwd == '') {
             this.refs.toast.show('密码不能为空!', DURATION.LENGTH_LONG);
             return;
@@ -180,7 +184,6 @@ export default class Confirm extends Component {
                         'repeatPassword': `${pwd}`
                     },
                     function (data) {
-                        console.log(data)
                         if (data == '') {
                             self.refs.toast.show('修改成功!', DURATION.LENGTH_LONG);
                             self.props.navigation.navigate("Login");

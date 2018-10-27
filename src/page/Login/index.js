@@ -4,17 +4,13 @@ import {
     View,
     Image,
     AsyncStorage,
-    Dimensions,
     ImageBackground,
-    PixelRatio
 } from 'react-native';
 import {
     Button,
     Container,
-    Content,
     Item,
     Input,
-    Left,
     Body
 } from 'native-base';
 import { Grid, Row, Col } from 'react-native-easy-grid';
@@ -25,6 +21,7 @@ import HttpUtils from "../../api/Api";
 import { NavigationActions } from 'react-navigation';
 // import DeviceInfo from 'react-native-device-info';
 import Getui from 'react-native-getui';
+// import Cookie from 'react-native-cookie';
 import { logo, login_bg, warning } from '../../../images';
 import { DeviceStorage } from '../../components';
 
@@ -66,11 +63,13 @@ export default class Login extends Component {
         this.updateComponentInfo();
         // let cid = DeviceInfo.getUniqueID();
         AsyncStorage.getItem('user').then(data => {
-            datas = JSON.parse(data)
-            if (datas) {
+            let datas = JSON.parse(data);
+            if (datas.phone != null && datas.token != '') {
                 self.setState({
                     phone: datas.phone,
                 })
+                console.log(datas)
+                // self.props.navigation.dispatch(resetAction);
             }
         })
 
@@ -253,11 +252,15 @@ export default class Login extends Component {
                         console.log(data)
                         var user = new Object();
                         user.phone = self.state.phone;
-                        user.Token = data.token;
-
-                        DeviceStorage.save('user', user);
+                        user.token = data.token;
+                        AsyncStorage.setItem('user', JSON.stringify(user));
+                        //DeviceStorage.save("user", user);
+                        // DeviceStorage.get('user').then(data => {
+                        //     console.log(data)
+                        // })
                         self.props.navigation.dispatch(resetAction);
-                        //self._oldLogin(phone, password);
+                    } else {
+                        self.refs.toast.show(data, DURATION.LENGTH_LONG);
                     }
                 }
             )
