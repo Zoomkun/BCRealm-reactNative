@@ -58,7 +58,6 @@ export default class Login extends Component {
     componentWillMount() {
         let self = this
         this.updateComponentInfo();
-        // let cid = DeviceInfo.getUniqueID();
         AsyncStorage.getItem('user').then(data => {
             datas = JSON.parse(data)
             if (datas) {
@@ -67,10 +66,6 @@ export default class Login extends Component {
                 })
             }
         })
-
-        // self.setState({
-        //     cid: cid
-        // })
     }
 
     render() {

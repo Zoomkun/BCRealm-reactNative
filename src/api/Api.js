@@ -18,6 +18,10 @@ AsyncStorage.getItem('data').then(data => {
     }
 })
 
+// 环境判断
+let api = ''
+__DEV__ ? api =  'http://test.bcrealm.com/api/' : api = 'http://www.bcrealm.com/api/'
+
 /**
  * GET 请求时，拼接请求URL
  * @param url 请求URL
@@ -93,7 +97,7 @@ export default class HttpUtils extends Component {
      * @returns {Promise}
      */
     static getRequest = (Url, ApiName, params, success) => {
-        return timeoutFetch(fetch(handleUrl(Api[Url] + Api[ApiName])(params), {
+        return timeoutFetch(fetch(handleUrl(api + Api[ApiName])(params), {
             method: 'GET',
             headers: header
         })).then(response => {
@@ -127,7 +131,7 @@ export default class HttpUtils extends Component {
      * @returns {Promise}
      */
     static postRequrst = (Url, ApiName, params, success) => {
-        return timeoutFetch(fetch(Api[Url] + Api[ApiName], {
+        return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'POST',
             headers: header,
             body: JSON.stringify(params)
@@ -160,7 +164,7 @@ export default class HttpUtils extends Component {
     * @returns {Promise}
     */
     static formDataRequest = (Url, ApiName, params, success) => {
-        return timeoutFetch(fetch(Api[Url] + Api[ApiName], {
+        return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'POST',
             headers: headers,
             body: params
@@ -192,7 +196,7 @@ export default class HttpUtils extends Component {
      * @returns {Promise}
      */
     static putRequrst = (Url, ApiName, params, success) => {
-        return timeoutFetch(fetch(Api[Url] + Api[ApiName], {
+        return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'PUT',
             headers: header,
             body: JSON.stringify(params)
@@ -225,7 +229,7 @@ export default class HttpUtils extends Component {
      * @returns {Promise}
      */
     static deleteRequest = (Url, ApiName, params, success) => {
-        return timeoutFetch(fetch(Api[Url] + Api[ApiName], {
+        return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'DELETE',
             headers: header,
             body: JSON.stringify(params)
