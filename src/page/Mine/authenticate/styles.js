@@ -6,9 +6,56 @@ const { StyleSheet, Dimensions } = React;
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 export default {
+  imageBackgroundStyle: {
+    width: deviceWidth,
+    height: deviceWidth / (deviceWidth / 171)
+  },
+  backIconStyle: {
+    color: '#FFFFFF',
+    fontSize: 28
+  },
+  titleStyle: {
+    fontSize: 19,
+    color: '#ffffff'
+  },
+  recordStyle: {
+    color: '#ffffff',
+    fontSize: 17,
+  },
+  tipsStyle: {
+    fontSize: 13,
+    color: '#714BD9'
+  },
+  inputStyle: {
+    width: deviceWidth / (deviceWidth / 220),
+    height: deviceWidth / (deviceWidth / 50),
+  },
+
+
+
   viewStyle: {
-    backgroundColor: '#F3F3F3',
-    height: deviceWidth / 7.2,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start'
+  },
+  describeStyle: {
+    marginLeft: deviceWidth / (deviceWidth / 25),
+    color: '#ffffff',
+    fontSize: 19,
+    marginBottom: deviceWidth / (deviceWidth / 8),
+  },
+  quantityStyle: {
+    marginLeft: deviceWidth / (deviceWidth / 25),
+    color: '#ffffff',
+    fontSize: 15
+  },
+
+
+
+  tipsBackgroundStyle: {
+    backgroundColor: '#EEEDFF',
+    height: deviceWidth / (deviceWidth / 25),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -21,7 +68,7 @@ export default {
   },
   buttonStyle: {
     width: deviceWidth * 0.8,
-    backgroundColor: "#FE6F06",
+    backgroundColor: "#6649D5",
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -51,8 +98,7 @@ export default {
     backgroundColor: '#ffffff',
   },
   lineStyle: {
-    width: deviceWidth * 0.9,
-    marginLeft: deviceWidth * 0.1 / 2,
+    width: deviceWidth / (deviceWidth / 220),
     backgroundColor: '#F3F3F3',
     height: 3
   },

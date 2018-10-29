@@ -5,6 +5,7 @@ const deviceWidth = Dimensions.get('window').width;
 
 export default {
     viewStyle: {
+        marginTop: 90,
         justifyContent: 'center',
         alignItems: 'center',
     },

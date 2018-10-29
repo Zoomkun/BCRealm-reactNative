@@ -4,17 +4,13 @@ import {
     View,
     Image,
     AsyncStorage,
-    Dimensions,
     ImageBackground,
-    PixelRatio
 } from 'react-native';
 import {
     Button,
     Container,
-    Content,
     Item,
     Input,
-    Left,
     Body
 } from 'native-base';
 import { Grid, Row, Col } from 'react-native-easy-grid';
@@ -24,8 +20,10 @@ import styles from "./styles";
 import HttpUtils from "../../api/Api";
 import { NavigationActions } from 'react-navigation';
 // import DeviceInfo from 'react-native-device-info';
-import Getui from 'react-native-getui'
-import { logo, login_bg, warning } from '../../../images'
+import Getui from 'react-native-getui';
+// import Cookie from 'react-native-cookie';
+import { logo, login_bg, warning } from '../../../images';
+import { DeviceStorage } from '../../components';
 
 resetAction = NavigationActions.reset({
     index: 0,
@@ -65,11 +63,13 @@ export default class Login extends Component {
         this.updateComponentInfo();
         // let cid = DeviceInfo.getUniqueID();
         AsyncStorage.getItem('user').then(data => {
-            datas = JSON.parse(data)
-            if (datas) {
+            let datas = JSON.parse(data);
+            if (datas.phone != null && datas.appToken != '') {
                 self.setState({
                     phone: datas.phone,
                 })
+                console.log(datas)
+                // self.props.navigation.dispatch(resetAction);
             }
         })
 
@@ -135,7 +135,7 @@ export default class Login extends Component {
                             <Row style={styles.rowStyel}>
                                 <Button style={styles.logInButtonStyle}
                                     onPress={() => {
-                                        this._oldLogin(this.state.phone, this.state.password)
+                                        this._login(this.state.phone, this.state.password)
                                     }}>
                                     <Text style={styles.logInTextStyle}>立即登录</Text>
                                 </Button>
@@ -235,22 +235,35 @@ export default class Login extends Component {
     }
 
     //密码登录
-    _login() {
+    _login(phone, password) {
+        console.log(phone + '___' + password)
         let self = this
-        if (this.state.phone.length > 10 && this.state.password != '') {
-            this._oldLogin()
-            // HttpUtils.postRequrst(
-            //     'userUrl',
-            //     'appLogin',
-            //     {
-            //         'loginOriginAddress': 'http://world.gametest.bcrealm.com',
-            //         'userName': `${this.state.phone}`,
-            //         'password': `${this.state.password}`,
-            //     },
-            //     function (data) {
-            //         console.log(data)
-            //     }
-            // )
+        if (phone > 10 && password != '') {
+            HttpUtils.postRequrst(
+                'newUserUrl',
+                'newLogin',
+                {
+                    'loginOriginAddress': 'http://world.gametest.bcrealm.com',
+                    'userName': `${phone}`,
+                    'password': `${password}`,
+                },
+                function (data) {
+                    if (data.token) {
+                        console.log(data)
+                        var user = new Object();
+                        user.phone = self.state.phone;
+                        user.appToken = data.token;
+                        AsyncStorage.setItem('user', JSON.stringify(user));
+                        //DeviceStorage.save("user", user);
+                        // DeviceStorage.get('user').then(data => {
+                        //     console.log(data)
+                        // })
+                        self.props.navigation.dispatch(resetAction);
+                    } else {
+                        self.refs.toast.show(data, DURATION.LENGTH_LONG);
+                    }
+                }
+            )
         } else {
             // self.setState({
             //     warning: "请检查您的账号密码!"
@@ -276,21 +289,10 @@ export default class Login extends Component {
                     console.log(data)
                     if (data.userName) {
                         HttpUtils.setHeader({ token: data.token })
-                        AsyncStorage.setItem('data', JSON.stringify(data), (error) => {
-                            if (!error) {
-                                console.log('保存数据成功', DURATION.LENGTH_SHORT);
-                            } else {
-                                console.log('保存数据失败', DURATION.LENGTH_SHORT);
-                            }
-                        })
-                        AsyncStorage.getItem('data').then(data => {
-                            let datas = JSON.parse(data);
-                            console.log(datas.token + 'TOKEN');
-                        })
-                        var user = new Object();
-                        user.phone = self.state.phone
-                        AsyncStorage.setItem('user', JSON.stringify(user));
-
+                        DeviceStorage.save('data', data)
+                        DeviceStorage.get('data').then((data) => {
+                            console.log(data)
+                        });
                         self.props.navigation.dispatch(resetAction);
                     } else {
                         self.refs.toast.show((data), DURATION.LENGTH_LONG);

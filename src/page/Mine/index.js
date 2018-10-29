@@ -18,7 +18,7 @@ import {
     Icon
 } from 'native-base';
 
-import { ThemeHeader } from '../../components';
+import { ThemeHeader, DeviceStorage } from '../../components';
 import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
 import * as CacheManager from 'react-native-http-cache';
@@ -44,6 +44,8 @@ export default class Mine extends Component {
             accountNo: 0,
             unReads: 0,
             push: 0,
+            userName: '区世界',
+            certification: 0,
         };
     }
 
@@ -53,6 +55,7 @@ export default class Mine extends Component {
         })
     }
 
+
     componentWillMount() {
         AsyncStorage.getItem('data').then(data => {
             let datas = JSON.parse(data);
@@ -61,7 +64,10 @@ export default class Mine extends Component {
                 data: datas,
             })
         })
-        this._getUnReads(1);
+        DeviceStorage.get('user').then((data) => {
+            console.log(data)
+        });
+        console.log(3333)
     }
 
     static navigationOptions = ({ navigation }) => ({
@@ -90,11 +96,11 @@ export default class Mine extends Component {
                     >
                         <Grid size={1}>
                             <Col size={1.5} >
-                                <Thumbnail source={{ uri: data.headUrl }} style={styles.headStyle} />
+                                {/* <Thumbnail source={{ uri: data.headUrl }} style={styles.headStyle} /> */}
                             </Col>
                             <Col size={2} >
-                                <Text style={styles.userNameStyle}>{data.userName}</Text>
-                                <Text style={styles.userIdStyle}>{"区世界号 " + data.id}</Text>
+                                <Text style={styles.userNameStyle}>区世界</Text>
+                                <Text style={styles.userIdStyle}>区世界号</Text>
                             </Col>
                             <Col size={3}></Col>
                         </Grid>
@@ -150,7 +156,7 @@ export default class Mine extends Component {
                             button
                             style={styles.listItemStyle}
                             onPress={() => {
-                                data.certification > 0 ?
+                                this.state.certification > 0 ?
                                     this.refs.toast.show("您已认证", DURATION.LENGTH_LONG) :
                                     navigate('Authenticate', { returnData: this._returnData.bind(this) })
 
@@ -162,7 +168,7 @@ export default class Mine extends Component {
                                 <Text style={styles.textStyle}>实名认证</Text>
                             </Body>
                             <Right style={styles.rightStyle}>
-                                <Text style={data.certification > 0 ? styles.certifiedStyle : styles.uncertifiedStyle}>{data.certification > 0 ? "已认证 " : "未认证"}</Text>
+                                <Text style={this.state.certification > 0 ? styles.certifiedStyle : styles.uncertifiedStyle}>{this.state.certification > 0 ? "已认证 " : "未认证"}</Text>
                                 <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>
@@ -173,7 +179,7 @@ export default class Mine extends Component {
                             button
                             style={styles.listItemStyle}
                             onPress={() => {
-                                data.certification > 0 ?
+                                this.state.certification > 0 ?
                                     this.refs.toast.show("您已认证", DURATION.LENGTH_LONG) :
                                     navigate('Authenticate', { returnData: this._returnData.bind(this) })
 
@@ -186,7 +192,7 @@ export default class Mine extends Component {
                                 <Text style={styles.textStyle}>钱包认证</Text>
                             </Body>
                             <Right style={styles.rightStyle}>
-                                <Text style={data.certification > 0 ? styles.certifiedStyle : styles.uncertifiedStyle}> {data.certification > 0 ? "已认证 " : "未认证"}</Text>
+                                <Text style={this.state.certification > 0 ? styles.certifiedStyle : styles.uncertifiedStyle}> {this.state.certification > 0 ? "已认证 " : "未认证"}</Text>
                                 <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>
@@ -221,7 +227,7 @@ export default class Mine extends Component {
                     </List>
                     <Row size={20} style={styles.rowStyle}>
                         <View>
-                            <Button transparent style={styles.buttonStyle} onPress={() => { this._loginOut() }}>
+                            <Button transparent style={styles.buttonStyle} onPress={() => { this._gologin() }}>
                                 <Text style={styles.buttonTextStyle}>退出登录</Text>
                             </Button>
                         </View>

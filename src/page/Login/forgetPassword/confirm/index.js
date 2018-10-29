@@ -20,7 +20,7 @@ import Toast, { DURATION } from 'react-native-easy-toast'
 import styles from "./styles";
 import HttpUtils from "../../../../api/Api";
 import { login_bg } from '../../../../../images'
-import { Grid, Row, Col } from 'react-native-easy-grid';
+import { Grid, Row } from 'react-native-easy-grid';
 
 
 /**
@@ -31,13 +31,13 @@ export default class Confirm extends Component {
         super(props);
         this.state = {
             seconds: 0,
-            phone: '',
             password: '',
-            code: '',
+            pwd: '',
             disable: false,
-            change: false
-        }
-        this.interval = 0
+        };
+        this.interval = 0;
+        this.phone = props.navigation.state.params.phone;
+        this.code = props.navigation.state.params.code;
     }
 
     goBack = () => {
@@ -58,8 +58,8 @@ export default class Confirm extends Component {
     render() {
         return (
             <Container style={CommonStyles.container}>
-
-                <ImageBackground source={login_bg}
+                <ImageBackground
+                    source={login_bg}
                     resizeMode={"contain"}
                     style={CommonStyles.backgroundStyle}
                 >
@@ -68,7 +68,10 @@ export default class Confirm extends Component {
                             <Row style={{ height: 60, }}>
                                 <Left>
                                     <Button transparent onPress={() => { this.goBack() }}>
-                                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
+                                        <Icon
+                                            name={"ios-arrow-back"}
+                                            style={CommonStyles.backIconStyle}
+                                        />
                                     </Button>
                                 </Left>
                                 <Body>
@@ -83,36 +86,39 @@ export default class Confirm extends Component {
                             < View style={styles.viewStyle}>
                                 <Item style={styles.itemStyle}>
                                     <Input placeholder="请输入新密码"
-                                        value={this.state.phone}
+                                        value={this.state.password}
                                         maxLength={11}
                                         keyboardType={'numeric'}
                                         style={{ color: 'white' }}
                                         placeholderTextColor={'#FEFEFE'}
-                                        onChangeText={(text) => { this.setState({ phone: text }) }} />
+                                        onChangeText={(text) => { this.setState({ password: text }) }} />
                                 </Item>
 
                                 <Item style={styles.itemStyle}>
                                     <Input placeholder="再次输入新密码"
-                                        value={this.state.code}
+                                        value={this.state.pwd}
                                         keyboardType={'numeric'}
                                         style={{ color: 'white' }}
                                         placeholderTextColor={'#FEFEFE'}
-                                        onChangeText={(text) => { this.setState({ code: text }) }} >
+                                        onChangeText={(text) => { this.setState({ pwd: text }) }} >
                                     </Input>
-                                    <View style={{ height: 25, width: 1, backgroundColor: 'white' }} />
                                 </Item>
                             </View>
 
                             < Row size={0.6} style={styles.rowStyle}>
-                                <Button rounded style={styles.logInButtonStyle}
-                                    onPress={() => { this._changePassword(this.state.phone, this.state.password, this.state.code) }}>
+                                <Button
+                                    rounded
+                                    style={styles.logInButtonStyle}
+                                    onPress={() => {
+                                        this._newChangePassword(this.code, this.state.password, this.phone, this.state.pwd)
+                                    }}>
                                     <Text style={styles.logInTextStyle}>确认</Text>
                                 </Button>
                             </Row>
-                            <Text style={{ color: 'pink', fontSize: 30 }}>{this.state.change}</Text>
                         </Grid>
                     </Content>
                 </ImageBackground>
+
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}
@@ -127,20 +133,12 @@ export default class Confirm extends Component {
         )
     }
 
-    _change() {
-        this.setState(
-            {
-                change: !change
-            }
-        )
-    }
     _getCode(phone) {
-        let slef = this
+        let self = this
         if (phone.length > 10) {
             this.state.seconds = 60
             let disable = !this.state.disable
             this.setState({ disable: disable })
-            console.log("yaoqingma")
             HttpUtils.getRequest(
                 'userUrl',
                 'sendCode',
@@ -163,6 +161,38 @@ export default class Confirm extends Component {
             }, 1000)
         } else {
             this.refs.toast.show('请输入正确手机号!', DURATION.LENGTH_LONG);
+        }
+    }
+
+    _newChangePassword(code, password, phone, pwd) {
+        let self = this;
+        if (password == '' && pwd == '') {
+            this.refs.toast.show('密码不能为空!', DURATION.LENGTH_LONG);
+            return;
+        } else {
+            if (password != pwd) {
+                this.refs.toast.show('两次密码不一致!', DURATION.LENGTH_LONG);
+                return;
+            } else {
+                HttpUtils.postRequrst(
+                    'newUserUrl',
+                    'changePassword',
+                    {
+                        'code': `${code}`,
+                        'password': `${password}`,
+                        'phone': `${phone}`,
+                        'repeatPassword': `${pwd}`
+                    },
+                    function (data) {
+                        if (data == '') {
+                            self.refs.toast.show('修改成功!', DURATION.LENGTH_LONG);
+                            self.props.navigation.navigate("Login");
+                        } else {
+                            self.refs.toast.show(data, DURATION.LENGTH_LONG);
+                        }
+                    }
+                )
+            }
         }
     }
 

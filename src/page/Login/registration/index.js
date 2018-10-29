@@ -176,7 +176,7 @@ export default class Registration extends Component {
     }
 
     _register(phone, password, code) {
-        let slef = this
+        let self = this
         if (phone.length > 10 && password != '' && code != '') {
             Http.postRequrst(
                 'userUrl',
@@ -188,7 +188,7 @@ export default class Registration extends Component {
                 },
                 function (data) {
                     console.log(data)
-                    slef.refs.toast.show((data), DURATION.LENGTH_LONG);
+                    self.refs.toast.show((data), DURATION.LENGTH_LONG);
                 }
             )
         } else {

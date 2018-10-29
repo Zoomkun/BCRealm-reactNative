@@ -6,6 +6,7 @@ import InformationItem from './informationItem';
 import CommunityItem from './communityItem';
 import CurrencyItem from './currencyItem';
 import RecordItem from './recordItem';
+import DeviceStorage from './deviceStorage';
 
 export {
     ThemeHeader,
@@ -15,5 +16,6 @@ export {
     InformationItem,
     CommunityItem,
     CurrencyItem,
-    RecordItem
+    RecordItem,
+    DeviceStorage
 }
