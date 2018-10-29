@@ -4,6 +4,9 @@
           android:versionName="1.0">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <permission
@@ -28,6 +31,20 @@
             android:icon="@mipmap/ic_launcher"
             android:allowBackup="false"
             android:theme="@style/AppTheme">
+        <provider
+                android:name="android.support.v4.content.FileProvider"
+                android:authorities="${applicationId}.updateFileProvider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/update_file_provider"/>
+        </provider>
+
+        // 添加Service代码
+        <service
+                android:name=".android_upgrade.DownloadService"
+                android:exported="true"/>
 
         <meta-data
                 android:name="com.netease.nim.appKey"
@@ -53,9 +70,9 @@
                 android:exported="true"
         />
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
-        <meta-data android:name="PUSH_APPID" android:value="${GETUI_APP_ID}" />
-        <meta-data android:name="PUSH_APPKEY" android:value="${GETUI_APP_KEY}" />
-        <meta-data android:name="PUSH_APPSECRET" android:value="${GETUI_APP_SECRET}" />
+        <meta-data android:name="PUSH_APPID" android:value="${GETUI_APP_ID}"/>
+        <meta-data android:name="PUSH_APPKEY" android:value="${GETUI_APP_KEY}"/>
+        <meta-data android:name="PUSH_APPSECRET" android:value="${GETUI_APP_SECRET}"/>
     </application>
 
 </manifest>

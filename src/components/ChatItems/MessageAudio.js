@@ -10,12 +10,6 @@ export default class MessageAudio extends React.Component {
     render() {
 
         let msg = this.props.currentMessage;
-        //var playing;
-        //if (msg.playing == undefined) {
-        //    playing = 0;
-        //} else {
-        //    playing = msg.playing;
-        //}
         let image = "";
         if (msg.playing) {
             image = msg.isOutgoing ? require("./Images/senderVoicePlaying.gif") :

@@ -282,11 +282,6 @@ export default class InputToolbar extends React.Component {
         return <Animated.View style={[Styles.emojiRow, {width: width, height: EMOJI_HEIGHT}]}>
             <Carousel autoplay={false}
                       bullets
-                      bulletStyle={{
-                          position:'absolute',
-                          bottom:-60,
-                          zIndex:100
-                      }}
                       style={{width: width, height: EMOJI_HEIGHT - 35}}
             >
                 <View style={[Styles.slide, {width: width, height: EMOJI_HEIGHT - 35}]}>

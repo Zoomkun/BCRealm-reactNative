@@ -4,6 +4,10 @@ import { Component } from 'react'
  * api集合
  */
 export default {
+    /**网易云信token接口*/
+    getNeteaseToken:'wwyim/chatUser/getAccessToken',
+    /**app版本接口*/
+    appVersion:'wskdapp/skdapp/getAppInfo',
 
     /**新用户服务地址*/
     newUserUrl: 'http://test.bcrealm.com/api/',
