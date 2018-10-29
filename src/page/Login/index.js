@@ -250,6 +250,7 @@ export default class Login extends Component {
                 function (data) {
                     if (data.token) {
                         console.log(data)
+                        HttpUtils.setHeader({ token: data.token })
                         var user = new Object();
                         user.phone = self.state.phone;
                         user.appToken = data.token;

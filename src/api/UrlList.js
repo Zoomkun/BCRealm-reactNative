@@ -6,25 +6,28 @@ import { Component } from 'react'
 export default {
 
     /**新用户服务地址*/
-    newUserUrl: 'http://47.105.122.172:8023/',
+    newUserUrl: 'http://test.bcrealm.com/api/',
     /**新登录接口 parameter:"loginOriginAddress": "http://world.gametest.bcrealm.com"*/
-    newLogin: 'user/login',
+    newLogin: 'wuser/user/login',
     /**获取图片验证码唯一标识*/
-    getCodeUuId: 'user/getCodeUuId',
-    /**图形码  http://47.105.122.172:8023/user/imgCode?uuId=6000001355233411*/
-    imgCode: 'user/imgCode?',
+    getCodeUuId: 'wuser/user/getCodeUuId',
+    /**图形码  http://test.bcrealm.com/api/wuser/user/imgCode?uuId=6000001355233411*/
+    imgCode: 'wuser/user/imgCode?',
     /**获取短信验证码*/
-    newGetCode: 'user/send/msg',
+    newGetCode: 'wuser/user/send/msg',
     /**验证码验证*/
-    confirmation: 'user/Msg/',
+    confirmation: 'wuser/user/Msg/',
     /**注册*/
-    register: 'user/register',
+    register: 'wuser/user/register',
     /**获取找回密码验证码*/
-    changePasswordCode: 'user/back/msg',
+    changePasswordCode: 'wuser/user/back/msg',
     /**找回密码验证吗验证*/
-    userBack: 'user/back/',
+    userBack: 'wuser/user/back/',
     /**修改密码*/
-    changePassword: 'user/back/pwd',
+    changePassword: 'wuser/user/back/pwd',
+
+    /** 获取新闻*/
+    getNews: 'http://47.105.122.172:8017/news/list?sourceType=1',
 
     /**下面都是老的接口*/
     /**线上*/

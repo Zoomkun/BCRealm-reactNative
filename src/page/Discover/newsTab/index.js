@@ -40,12 +40,12 @@ export default class NewsTab extends Component {
                     renderItem={({ item, index }) => {
                         return <NewsItem
                             {...this.props}
-                            avatar={item.headUrl}
+                            uri={item.uri}
                             title={item.title}
-                            time={item.createDate}
-                            like={item.tsan}
-                            read={item.readVal}
-                            onPress={() => this.props.navigation.navigate("News", { url: item.html5Url })}
+                            star={item.star}
+                            read={item.read}
+                            onPress={() => this.props.navigation.navigate("News", { url: "https://www.baidu.com/" })}
+                        //onPress={() => this.props.navigation.navigate("News", { url: item.html5Url })}
                         />
                     }} />
             </View>

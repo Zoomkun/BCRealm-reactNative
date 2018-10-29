@@ -111,7 +111,7 @@ export default class ForgetPassword extends Component {
                                         {this.state.imgCodeUrl != '' &&
                                             <Image
                                                 resizeMode={"contain"}
-                                                source={{ uri: 'http://47.105.122.172:8023/user/imgCode?uuId=' + this.state.imgCodeUrl }}
+                                                source={{ uri: 'http://test.bcrealm.com/api/wuser/user/imgCode?uuId=' + this.state.imgCodeUrl }}
                                                 style={{ width: 100, height: 40 }}
                                             />
                                         }

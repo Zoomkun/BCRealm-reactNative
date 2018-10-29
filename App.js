@@ -25,6 +25,7 @@ import SendTopic from './src/page/Discover/topicTab/sendTopic';
 import News from './src/page/Discover/newsTab/news';
 import Content from './src/page/Discover/topicTab/content';
 import Chat from './src/page/Community/chat';
+import DiscoverPage from './src/page/Discover';
 
 const routers = StackNavigator({
     Login: { screen: Login },

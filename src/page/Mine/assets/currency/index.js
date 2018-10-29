@@ -11,10 +11,8 @@ import {
 } from 'native-base';
 import {
     Text,
-    Image,
     ImageBackground,
     View
-    //FlatList
 } from 'react-native';
 
 import { Grid, Row, Col } from 'react-native-easy-grid';
@@ -42,7 +40,6 @@ class Currency extends Component {
     }
 
     render() {
-
         return (
             <Container style={styles.container}>
                 <ImageBackground
@@ -51,7 +48,7 @@ class Currency extends Component {
                     style={styles.imageStyle}
                 >
                     <Grid>
-                        <Row style={{ height: 60, }}>
+                        <Row style={{ height: 30, }}>
                             <Left>
                                 <Button transparent onPress={() => { this.goBack() }}>
                                     <Icon name={"ios-arrow-back"} style={styles.backIconStyle} />

@@ -83,4 +83,8 @@ export default {
         fontSize: 19,
         color: '#ffffff'
     },
+    imageBackGroundStyle: {
+        width: deviceWidth,
+        height: deviceWidth / (deviceWidth / 164.2)
+    },
 }
