@@ -13,6 +13,7 @@
     "npm": "^6.3.0",
     "react": "16.3.1",
     "react-native": "0.55.4",
+    "react-native-app-upgrade": "^0.0.1",
     "react-native-communications": "^2.2.1",
     "react-native-device-info": "^0.22.5",
     "react-native-easy-grid": "^0.2.0",
@@ -26,7 +27,6 @@
     "react-native-parsed-text": "^0.0.20",
     "react-native-qrcode": "^0.2.7",
     "react-native-simple-toast": "^0.0.8",
-    "react-native-update": "5.x",
     "react-native-wechat": "^1.9.10",
     "react-navigation": "^1.0.0-beta.11",
     "spliddit": "^2.1.1"
