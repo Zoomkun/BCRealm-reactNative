@@ -31,9 +31,9 @@ import DiscoverPage from './src/page/Discover';
 import Mine from './src/page/Mine';
 
 const routers = StackNavigator({
-    Login: { screen: Login },
     StartPage: { screen: StartPage },
     Main: { screen: MainPage },
+    Login: { screen: Login },
     Registration: { screen: Registration },
     NewRegistration: { screen: NewRegistration },
     ConfirmThePassword: { screen: ConfirmThePassword },

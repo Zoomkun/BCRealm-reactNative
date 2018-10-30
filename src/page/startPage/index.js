@@ -46,78 +46,77 @@ export default class StartPage extends Component {
         let self = this;
         let client = ''
         Platform.OS === 'android' ? client = 'android' : client = 'iphone'
-        fetch('http://47.105.122.172:8083/skdapp/getAppInfo?client=' + client, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            }
-        }).then((response) => response.json()).then((jsonData) => {
-            let newVersion = jsonData.data.version.split('.')
-            let oldVersion = DeviceInfo.getVersion().split('.')
-            let update = false;
-            for (let i in newVersion) {
-                if (~~newVersion[i] > ~~oldVersion[i]) {
-                    update = true;
-                    break
-                } else {
-                    update = false
+        console.log(client)
+        HttpUtils.getRequest(
+            'appVersion',
+            {
+                'client': client
+            },
+            function (data) {
+                console.log(data)
+                AsyncStorage.setItem('version', JSON.stringify(data));
+                let newVersion = data.version.split('.')
+                let oldVersion = DeviceInfo.getVersion().split('.')
+                let update = false;
+                for (let i in newVersion) {
+                    if (~~newVersion[i] > ~~oldVersion[i]) {
+                        update = true;
+                        break
+                    } else {
+                        update = false
+                    }
                 }
-            }
 
-            if (update) {
-                if (Platform.OS === 'android') {
-                    Alert.alert('发现新版本', '是否下载',
-                        [
-                            {
-                                text: "确定", onPress: () => {
-                                    //apkUrl为app下载连接地址
-                                    NativeModules.upgrade.upgrade(jsonData.data.downloadUrl);
-                                }
-                            },
-                            {
-                                text: "取消", onPress: () => {
+                if (update) {
+                    if (Platform.OS === 'android') {
+                        Alert.alert('发现新版本', '是否下载',
+                            [
+                                {
+                                    text: "确定", onPress: () => {
+                                        //apkUrl为app下载连接地址
+                                        NativeModules.upgrade.upgrade(data.downloadUrl);
+                                    }
+                                },
+                                {
+                                    text: "取消", onPress: () => {
 
-                                    if (jsonData.data.needForceUpgrade === true) {
-                                        BackHandler.exitApp();
+                                        if (data.needForceUpgrade === true) {
+                                            BackHandler.exitApp();
+                                        }
                                     }
                                 }
-                            }
-                        ]
-                    );
-                } else {
+                            ]
+                        );
+                    } else {
 
-                    // todo:增加APPID
-                    NativeModules.upgrade.upgrade('AppId', (msg) => {
-                        if ('YES' == msg) {
-                            Alert.alert('发现新版本', '是否下载',
-                                [
-                                    {
-                                        text: "确定", onPress: () => {
-                                            NativeModules.upgrade.openAPPStore('AppId');
-                                        }
-                                    },
-                                    {
-                                        text: "取消", onPress: () => {
+                        // todo:增加APPID
+                        NativeModules.upgrade.upgrade('AppId', (msg) => {
+                            if ('YES' == msg) {
+                                Alert.alert('发现新版本', '是否下载',
+                                    [
+                                        {
+                                            text: "确定", onPress: () => {
+                                                NativeModules.upgrade.openAPPStore('AppId');
+                                            }
+                                        },
+                                        {
+                                            text: "取消", onPress: () => {
 
-                                            if (jsonData.data.needForceUpgrade === true) {
-                                                BackHandler.exitApp();
+                                                if (data.needForceUpgrade === true) {
+                                                    BackHandler.exitApp();
+                                                }
                                             }
                                         }
-                                    }
-                                ]
-                            );
-                        }
-                    })
+                                    ]
+                                );
+                            }
+                        })
+                    }
+
                 }
-
+                self._openApp()
             }
-            self._openApp()
-
-
-        }).catch((err) => {
-            self._openApp()
-        });
-
+        )
     }
 
     // 打开App
