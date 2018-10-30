@@ -9,6 +9,14 @@ import { NewsItem } from '../../../components';
 import HttpUtils from "../../../api/Api";
 //import styles from "./styles";
 
+
+
+const data = [
+    { uri: "www.baidu.com", title: '哎呦', star: 111, read: 111 },
+    { uri: "www.baidu.com", title: '哎呦', star: 111, read: 111 },
+    { uri: "www.baidu.com", title: '哎呦', star: 111, read: 111 },
+    { uri: "www.baidu.com", title: '哎呦', star: 111, read: 111 },
+]
 /**
  * 新闻
  */
@@ -25,7 +33,9 @@ export default class NewsTab extends Component {
         header: null
     };
 
+
     componentDidMount() {
+        console.log(11121)
         this._getNewsList();
     }
 
@@ -40,12 +50,11 @@ export default class NewsTab extends Component {
                     renderItem={({ item, index }) => {
                         return <NewsItem
                             {...this.props}
-                            avatar={item.headUrl}
+                            uri={item.uri}
                             title={item.title}
-                            time={item.createDate}
-                            like={item.tsan}
-                            read={item.readVal}
-                            onPress={() => this.props.navigation.navigate("News", { url: item.html5Url })}
+                            star={item.star}
+                            read={item.read}
+                            onPress={() => this.props.navigation.navigate("News", { id: item.uri })}
                         />
                     }} />
             </View>
@@ -55,13 +64,12 @@ export default class NewsTab extends Component {
     _getNewsList() {
         let self = this
         HttpUtils.getRequest(
-            'appUrl',
-            'newsList',
+            'getNews',
             '',
             function (data) {
                 console.log(data)
                 self.setState({
-                    data: data.list
+                    data: data.newsList
                 })
             }
         )

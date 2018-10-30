@@ -148,7 +148,6 @@ export default class ConfirmThePassword extends Component {
                 return;
             } else {
                 HttpUtils.postRequrst(
-                    'newUserUrl',
                     'register', {
                         'code': `${code}`,
                         'password': `${password}`,

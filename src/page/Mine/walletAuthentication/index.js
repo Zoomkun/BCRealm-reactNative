@@ -26,7 +26,7 @@ import { authenticate, bg } from '../../../../images';
 /**
  * 实名认证
  */
-class Authenticate extends Component {
+class WalletAuthenticate extends Component {
 
     constructor(props) {
         super(props)
@@ -240,4 +240,4 @@ class Authenticate extends Component {
     }
 }
 
-export default Authenticate
+export default WalletAuthenticate

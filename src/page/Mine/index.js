@@ -25,6 +25,7 @@ import * as CacheManager from 'react-native-http-cache';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import HttpUtils from "../../api/Api";
 import { Grid, Row, Col } from 'react-native-easy-grid';
+import { my_top_bg2 } from '../../../images';
 
 const menus = [
     { icon: require('../../../images/wallet.png'), text: "钱包", arrows: require('../../../images/goIn.png'), uri: 'Wallet', line: true },
@@ -88,10 +89,9 @@ export default class Mine extends Component {
         let data = this.state.data;
         return (
             <Container style={CommonStyles.container}>
-                <ThemeHeader title={"我"} />
                 <Content>
                     <ImageBackground resizeMode={"contain"}
-                        source={require('../../../images/aboutme_bg.png')}
+                        source={my_top_bg2}
                         style={styles.imageStyle}
                     >
                         <Grid size={1}>
@@ -181,7 +181,7 @@ export default class Mine extends Component {
                             onPress={() => {
                                 this.state.certification > 0 ?
                                     this.refs.toast.show("您已认证", DURATION.LENGTH_LONG) :
-                                    navigate('Authenticate', { returnData: this._returnData.bind(this) })
+                                    navigate('WalletAuthenticate', { returnData: this._returnData.bind(this) })
 
                             }}>
                             {/* <Icon name={"wallet"} type={"SimpleLineIcons"} fontSize={5} style={CommonStyles.rightIconStyle} /> */}
