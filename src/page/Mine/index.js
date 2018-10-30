@@ -18,19 +18,14 @@ import {
     Icon
 } from 'native-base';
 
-import { ThemeHeader, DeviceStorage } from '../../components';
+import { DeviceStorage } from '../../components';
 import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
 import * as CacheManager from 'react-native-http-cache';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import HttpUtils from "../../api/Api";
 import { Grid, Row, Col } from 'react-native-easy-grid';
-import { my_top_bg2 } from '../../../images';
-
-const menus = [
-    { icon: require('../../../images/wallet.png'), text: "钱包", arrows: require('../../../images/goIn.png'), uri: 'Wallet', line: true },
-    { icon: require('../../../images/currency.png'), text: "货币", arrows: require('../../../images/goIn.png'), uri: 'Currency', line: true },
-];
+import { my_top_bg, photo_01, photo_02, photo_03, photo_04 } from '../../../images';
 
 /**
  * 主页四:我
@@ -45,8 +40,9 @@ export default class Mine extends Component {
             accountNo: 0,
             unReads: 0,
             push: 0,
-            userName: '区世界',
+            userName: '',
             certification: 0,
+            headeIcon: ''
         };
     }
 
@@ -58,23 +54,14 @@ export default class Mine extends Component {
 
 
     componentWillMount() {
-        AsyncStorage.getItem('data').then(data => {
-            let datas = JSON.parse(data);
-            console.log(datas)
-            this.setState({
-                data: datas,
-            })
-        })
-        DeviceStorage.get('user').then((data) => {
-            console.log(data)
-        });
+        this._getPlayerInfo()
         console.log(3333)
     }
 
     static navigationOptions = ({ navigation }) => ({
         header: null,
         headerStyle: {
-            "backgroundColor": "#FE6F06",
+            "backgroundColor": "#714BD9",
         },
         tabBarLabel: '我',
         tabBarIcon: ({ tintColor }) => (
@@ -90,40 +77,33 @@ export default class Mine extends Component {
         return (
             <Container style={CommonStyles.container}>
                 <Content>
-                    <ImageBackground resizeMode={"contain"}
-                        source={my_top_bg2}
-                        style={styles.imageStyle}
+                    <ImageBackground
+                        resizeMode={"cover"}
+                        source={my_top_bg}
+                        style={styles.imageBackgroundStyle}
                     >
-                        <Grid size={1}>
-                            <Col size={1.5} >
-                                {/* <Thumbnail source={{ uri: data.headUrl }} style={styles.headStyle} /> */}
+                        <Row style={{ height: 60, }}>
+                            <Body>
+                                <Text style={styles.titleStyle}>我的</Text>
+                            </Body>
+                        </Row>
+                        <Grid size={1} style={{ flexDirection: 'row', }}>
+                            <Col size={1.5} style={{ justifyContent: 'center' }} >
+                                {/* {
+                                    data.headIcon != '' &&
+                                    < Thumbnail source={this.state.headeIcon} style={styles.headStyle} />
+                                } */}
                             </Col>
-                            <Col size={2} >
-                                <Text style={styles.userNameStyle}>区世界</Text>
-                                <Text style={styles.userIdStyle}>区世界号</Text>
+                            <Col size={2} style={{ flexDirection: 'column', justifyContent: 'center' }}>
+                                <Text style={styles.userNameStyle}>{data.nickName}</Text>
+                                <Text style={styles.userIdStyle}></Text>
                             </Col>
                             <Col size={3}></Col>
                         </Grid>
                     </ImageBackground>
 
                     <List>
-                        {/* 修改用户信息入口 */}
-                        {/* <ListItem itemDivider style={{ height: 100, justifyContent: 'center', backgroundColor: '#ffffff' }}
-                            button onPress={() => {
-                                navigate("PersonalInfo", { returnData: this._returnData.bind(this), data: this.state.data })
-                            }}>
-                            <Thumbnail source={{ uri: data.headUrl }} />
-                            <Body style={{ justifyContent: 'flex-start', paddingLeft: 10 }}>
-                                <Text style={CommonStyles.textColor}>{data.userName}</Text>
-                                <Text note>{data.accountNo}</Text>
-                            </Body>
-                            <Right>
-                                <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
-                            </Right>
-                        </ListItem> */}
-                        {/* <View style={{ backgroundColor: '#F3F3F3', height: 20 }} /> */}
-
-                        <ListItem itemDivider style={styles.startlistItemStyle} button onPress={() => { navigate('Assets') }}>
+                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('Assets') }}>
                             <Image style={{ width: 18, height: 18 }}
                                 source={require('../../../images/assetsIcon.png')}>
                             </Image>
@@ -184,7 +164,6 @@ export default class Mine extends Component {
                                     navigate('WalletAuthenticate', { returnData: this._returnData.bind(this) })
 
                             }}>
-                            {/* <Icon name={"wallet"} type={"SimpleLineIcons"} fontSize={5} style={CommonStyles.rightIconStyle} /> */}
                             <Image style={{ width: 18, height: 18 }}
                                 source={require('../../../images/walletIcon.png')}>
                             </Image>
@@ -260,6 +239,21 @@ export default class Mine extends Component {
 
     }
 
+
+    _getPlayerInfo() {
+        let self = this
+        HttpUtils.getRequest(
+            'getPlayerInfo',
+            '',
+            function (data) {
+                console.log(data)
+                self.setState({
+                    data: data,
+                })
+            }
+        )
+    }
+
     _returnData(data) {
         this.setState({
             data: data
@@ -288,10 +282,6 @@ export default class Mine extends Component {
                 })
             }
         )
-    }
-
-    _getImageSize() {
-
     }
 
     _loginOut() {

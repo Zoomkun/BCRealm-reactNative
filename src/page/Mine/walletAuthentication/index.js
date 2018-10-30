@@ -6,23 +6,31 @@ import {
     Body,
     Right,
     Button,
-    Input,
     Icon,
+    Input
 } from 'native-base';
 import {
     Text,
     View,
     AsyncStorage,
     ImageBackground,
+    FlatList
 } from 'react-native';
-import CommonStyles from '../../../css/commonStyle';
-import styles from "./styles";
 import { Grid, Row, Col } from "react-native-easy-grid";
 import Toast, { DURATION } from 'react-native-easy-toast';
+import CommonStyles from '../../../css/commonStyle';
+import styles from "./styles";
 import Http from '../../../api/Api';
-import { authenticate, bg } from '../../../../images';
+import { wallet_renzheng_top_bg } from '../../../../images';
 // import { url } from "inspector";
 
+
+const data = [
+    { a: 1 },
+    { a: 1 },
+    { a: 1 },
+    { a: 1 },
+]
 /**
  * 实名认证
  */
@@ -69,8 +77,8 @@ class WalletAuthenticate extends Component {
         return (
             <Container style={styles.container}>
                 <ImageBackground
-                    resizeMode={"contain"}
-                    source={authenticate}
+                    resizeMode={"cover"}
+                    source={wallet_renzheng_top_bg}
                     style={styles.imageBackgroundStyle}
                 >
                     <Grid>
@@ -81,7 +89,7 @@ class WalletAuthenticate extends Component {
                                 </Button>
                             </Left>
                             <Body>
-                                <Text style={styles.titleStyle}>实名认证</Text>
+                                <Text style={styles.titleStyle}>钱包认证</Text>
                             </Body>
                             <Right>
                                 <Button transparent />
@@ -89,69 +97,47 @@ class WalletAuthenticate extends Component {
                         </Row>
                         <Row>
                             <Col size={1} style={styles.viewStyle}>
-                                <Text style={styles.describeStyle}>实名认证</Text>
-                                <Text style={styles.quantityStyle}>实名认证算力<Text style={{ color: '#ffffff', fontSize: 18 }}>+10</Text></Text>
+                                <Text style={styles.describeStyle}>钱包认证</Text>
+                                <Text style={styles.quantityStyle}>认证一个地址算力<Text style={{ color: '#ffffff', fontSize: 18 }}>+10</Text></Text>
                             </Col>
                         </Row>
                     </Grid>
 
                 </ImageBackground>
                 <View style={styles.tipsBackgroundStyle} >
-                    <Text style={styles.tipsStyle}>确认是您本人,验证完后不可修改</Text>
+                    <Text style={styles.tipsStyle}>认证钱包后,部分数字货币可以直接打入钱包地址</Text>
                 </View>
 
-
-                {/* <Header style={CommonStyles.headerStyle}>
-                    <Button transparent onPress={() => { this.goBack() }}>
-                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
-                    </Button>
-                    <Body style={CommonStyles.titleBodyStyle}>
-                        <Text style={CommonStyles.headertextStyle}>实名认证</Text>
-                    </Body>
-                    <Button transparent />
-                </Header> */}
-
-
-
-                <View style={{ height: 50, marginTop: 30 }}>
+                <View style={styles.bgStyle}>
+                    <Text style={{ color: '#313442', fontSize: 16, marginLeft: 5 }}>ETH地址</Text>
                     <Grid style={styles.gridStyle} >
-                        <Col style={styles.colStyle} size={1}>
-                            <Text style={{ marginLeft: 17, fontSize: 16, color: '#313442', }}>真实姓名:</Text>
-                        </Col>
-                        <Col size={3}>
-                            <View style={styles.inputStyle}>
-                                <Input placeholder="请输入名称"
-                                    value={this.state.name}
-                                    onChangeText={(text) => { this.setState({ name: text }) }} />
-                            </View>
-                            <View style={styles.lineStyle} />
-                        </Col>
+                        <View style={styles.packageStyle}>
+                            <Input
+                                multiline
+                                style={{ textAlignVertical: 'top' }}
+                                placeholder="请填写正确地址码"
+                                keyboardType='decimal-pad'
+                                value={this.state.name}
+                                style={styles.inputStyle}
+                                onChangeText={(text) => { this.setState({ name: text }) }} />
+
+                            <Button style={styles.buttonStyle} onPress={() => { this._authenticate() }}>
+                                <Text style={styles.buttonTextStyle}>确认</Text>
+                            </Button>
+                        </View>
                     </Grid>
+                    <View style={styles.lineStyle} />
                 </View>
 
-                <View style={{ height: 50, marginTop: 30 }}>
-                    <Grid style={styles.gridStyle} >
-                        <Col style={styles.colStyle} size={1}>
-                            <Text style={{ marginLeft: 17, fontSize: 16, color: '#313442', }}>身份证号:</Text>
-                        </Col>
-                        <Col s size={3}>
-                            <View style={styles.inputStyle}>
-                                <Input placeholder="请输入身份证号"
-                                    value={this.state.certificateNumber}
-                                    onChangeText={(text) => { this.setState({ certificateNumber: text }) }} />
-                            </View>
-                            <View style={styles.lineStyle} />
-                        </Col>
-                    </Grid>
-                </View>
-
-                <Row size={20} style={styles.rowStyle}>
-                    <View>
-                        <Button style={styles.buttonStyle} onPress={() => { this._authenticate() }}>
-                            <Text style={styles.buttonTextStyle}>确认</Text>
+                <View style={{ height: 80, marginLeft: 25, }}>
+                    <View style={{ flexDirection: 'row', flex: 1 }}>
+                        <Text style={{ color: '#313442', fontSize: 16, alignSelf: 'center' }}>ETH地址</Text>
+                        <Button style={styles.addressStyle} >
+                            <Text style={styles.buttonTextStyle}>已认证</Text>
                         </Button>
                     </View>
-                </Row>
+                    <View style={styles.lineStyle} />
+                </View>
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}
@@ -174,39 +160,7 @@ class WalletAuthenticate extends Component {
         }
     };
 
-    /**
-     * 国籍
-     */
-    _getNationality() {
-        self = this
-        Http.getRequest(
-            'userUrl',
-            'nationality',
-            '',
-            function (data) {
-                self.setState({
-                    nationality: data
-                })
-            }
-        )
-    }
 
-    /**
-    * 证件类型
-    */
-    _getController() {
-        self = this
-        Http.getRequest(
-            'userUrl',
-            'certificateType',
-            '',
-            function (data) {
-                self.setState({
-                    certificate: data
-                });
-            }
-        )
-    }
 
     /**
      * 实名认证

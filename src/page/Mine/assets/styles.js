@@ -3,9 +3,12 @@ const { StyleSheet, Dimensions } = React;
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 export default {
+  backIconStyle: {
+    color: '#ffffff'
+  },
   imageStyle: {
     width: deviceWidth,
-    height: deviceWidth / (deviceWidth / 126)
+    height: deviceWidth / (deviceWidth / 164.2)
   },
   viewStyle: {
     backgroundColor: '#F3F3F3'
@@ -19,11 +22,8 @@ export default {
     alignItems: 'center'
   },
   titleStyle: {
-    color: '#313442',
-    fontSize: 16,
-    marginLeft: deviceWidth / (deviceWidth / 18),
-    marginBottom: deviceWidth / (deviceWidth / 10),
-    marginTop: deviceWidth / (deviceWidth / 10)
+    color: '#ffffff',
+    fontSize: 17,
   },
   contentStyle: {
     marginTop: deviceWidth / (deviceWidth / 10)

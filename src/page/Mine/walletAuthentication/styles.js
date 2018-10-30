@@ -6,9 +6,12 @@ const { StyleSheet, Dimensions } = React;
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 export default {
+  container: {
+    backgroundColor: '#ffffff'
+  },
   imageBackgroundStyle: {
     width: deviceWidth,
-    height: deviceWidth / (deviceWidth / 171)
+    height: deviceWidth / (deviceWidth / 165.9),
   },
   backIconStyle: {
     color: '#FFFFFF',
@@ -26,13 +29,6 @@ export default {
     fontSize: 13,
     color: '#714BD9'
   },
-  inputStyle: {
-    width: deviceWidth / (deviceWidth / 220),
-    height: deviceWidth / (deviceWidth / 50),
-  },
-
-
-
   viewStyle: {
     flex: 1,
     flexDirection: 'column',
@@ -50,63 +46,52 @@ export default {
     color: '#ffffff',
     fontSize: 15
   },
-
-
-
   tipsBackgroundStyle: {
     backgroundColor: '#EEEDFF',
     height: deviceWidth / (deviceWidth / 25),
     alignItems: 'center',
     justifyContent: 'center',
   },
-  textStyle: {
-    fontSize: 18,
-    color: '#000000',
+
+
+  bgStyle: {
+    height: deviceWidth / (deviceWidth / 105),
+    marginTop: 30,
+    marginLeft: 20,
   },
-  pickerStyle: {
-    width: deviceWidth / 3.6,
+  packageStyle: {
+    flexDirection: 'row',
+    width: deviceWidth * 0.9,
+    height: deviceWidth / (deviceWidth / 80),
+    justifyContent: 'center'
+  },
+  inputStyle: {
+    justifyContent: 'center',
+    width: deviceWidth / (deviceWidth / 280),
   },
   buttonStyle: {
-    width: deviceWidth * 0.8,
-    backgroundColor: "#6649D5",
+    width: deviceWidth / (deviceWidth / 80),
+    height: deviceWidth / (deviceWidth / 35),
     justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonTextStyle: {
-    color: '#ffffff'
-  },
-  rowStyle: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: deviceWidth / 2.4,
-  },
-  bodyStyle: {
-    justifyContent: 'flex-start',
-    marginLeft: deviceWidth / 18
-  },
-  rightStyle: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
-  container: {
-    backgroundColor: '#ffffff'
-  },
-  listItemStyle: {
-    height: deviceWidth / 7.2,
-    backgroundColor: '#ffffff',
-  },
-  lineStyle: {
-    width: deviceWidth / (deviceWidth / 220),
-    backgroundColor: '#F3F3F3',
-    height: 3
+    alignSelf: 'center',
   },
   gridStyle: {
     height: deviceWidth / 36,
     width: deviceWidth,
   },
-  colStyle: {
-    justifyContent: 'center'
+  buttonTextStyle: {
+    color: '#ffffff'
   },
+  lineStyle: {
+    width: deviceWidth / (deviceWidth / 320),
+    backgroundColor: '#F3F3F3',
+    height: 3,
+  },
+
+  addressStyle: {
+    alignSelf: 'center',
+    width: deviceWidth / (deviceWidth / 80),
+    height: deviceWidth / (deviceWidth / 35),
+    marginLeft: 180
+  }
 }

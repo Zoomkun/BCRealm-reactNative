@@ -29,6 +29,7 @@ class Currency extends Component {
         this.state = {
             quantity: ''
         }
+        this.data = props.navigation.state.params.data;
     }
 
     static navigationOptions = {
@@ -43,19 +44,19 @@ class Currency extends Component {
         return (
             <Container style={styles.container}>
                 <ImageBackground
-                    resizeMode={"contain"}
+                    resizeMode={"cover"}
                     source={bg}
                     style={styles.imageStyle}
                 >
                     <Grid>
-                        <Row style={{ height: 30, }}>
+                        <Row style={{ height: 60, }}>
                             <Left>
                                 <Button transparent onPress={() => { this.goBack() }}>
                                     <Icon name={"ios-arrow-back"} style={styles.backIconStyle} />
                                 </Button>
                             </Left>
                             <Body>
-                                <Text style={styles.titleStyle}>BBM</Text>
+                                <Text style={styles.titleStyle}>{this.data.assetName}</Text>
                             </Body>
                             <Right>
                                 <Button transparent onPress={() => this.props.navigation.navigate("Record")}>
@@ -66,11 +67,11 @@ class Currency extends Component {
                         <Row>
                             <Col size={1} style={styles.viewStyle}>
                                 <Text style={styles.describeStyle}>数量(个)</Text>
-                                <Text style={styles.quantityStyle}>720</Text>
+                                <Text style={styles.quantityStyle}>{this.data.gameAmount}</Text>
                             </Col>
                             <Col size={1} style={styles.viewStyle}>
                                 <Text style={styles.describeStyle}>预估价值(元)</Text>
-                                <Text style={styles.quantityStyle}>7200.00</Text>
+                                <Text style={styles.quantityStyle}>{this.data.gameAssessValue}</Text>
                             </Col>
                         </Row>
                     </Grid>
@@ -83,25 +84,25 @@ class Currency extends Component {
                                 <Text style={styles.extractQuantityStyle}>剩余可提取数量(个)</Text>
                             </Left>
                             <Right>
-                                <Text style={styles.surplusStyle}>700</Text>
+                                <Text style={styles.surplusStyle}>{this.data.walletAmount}</Text>
                             </Right>
                         </Row>
                         <View style={styles.line} />
                         <Row size={2} >
                             <Body>
                                 <Text style={{ color: '#313442', fontSize: 16 }}>提取数量</Text>
-                                <ImageBackground resizeMode={"contain"}
+                                <ImageBackground resizeMode={"cover"}
                                     source={tip_bg}
                                     style={styles.tipsStyle}
                                 >
-                                    <Text style={{ color: '#9699A5', fontSize: 13, marginTop: 5 }}>每日最大提现<Text style={{ color: '#FF801A', fontSize: 13 }}> 50DBEX</Text></Text>
+                                    <Text style={{ color: '#9699A5', fontSize: 13, marginTop: 5 }}>每日最大提现<Text style={{ color: '#FF801A', fontSize: 13 }}>{20 + this.data.assetName}</Text></Text>
                                 </ImageBackground>
                             </Body>
                         </Row>
                         <Row size={3}>
                             <View style={styles.inputWidth}>
                                 <Input
-                                    placeholder='0000'
+                                    placeholder={this.data.gameAmount + ''}
                                     placeholderTextColor='#DCDCDC'
                                     keyboardType='numeric'
                                     style={styles.inputStyle}

@@ -39,7 +39,7 @@ export default class GamePage extends Component {
     render() {
         return (
             <Container>
-                <ThemeHeader title={"游戏"} />
+                <ThemeHeader title={"区世界"} />
                 <WebView
                     source={{ uri: "http://world.gametest.bcrealm.com" }} style={styles.webStyle}
                     ref='webView'

@@ -41,7 +41,7 @@ const mainPage = TabNavigator({
         swipeEnabled: false, // 是否左右滑动,如果有DrawerNavigator,最好设置为false避免手势冲突
         backBehavior: 'none', // 按 back 键是否跳转到第一个 Tab， none 为不跳转
         tabBarOptions: {
-            activeTintColor: '#FE6F06', // 文字和图片选中颜色
+            activeTintColor: '#714BD9', // 文字和图片选中颜色
             inactiveTintColor: '#9f9f9f', // 文字和图片默认颜色
             showIcon: true, // android 默认不显示 icon, 需要设置为 true 才会显示
             indicatorStyle: { height: 0 }, // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了， 不知道还有没有其它方法隐藏？？？

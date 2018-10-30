@@ -12,10 +12,10 @@ import HttpUtils from "../../../api/Api";
 
 
 const data = [
-    { uri: "www.baidu.com", title: '哎呦', star: 111, read: 111 },
-    { uri: "www.baidu.com", title: '哎呦', star: 111, read: 111 },
-    { uri: "www.baidu.com", title: '哎呦', star: 111, read: 111 },
-    { uri: "www.baidu.com", title: '哎呦', star: 111, read: 111 },
+    { gameUrl: "www.baidu.com", title: '哎呦', star: 111, read: 111 },
+    { gameUrl: "www.baidu.com", title: '哎呦', star: 111, read: 111 },
+    { gameUrl: "www.baidu.com", title: '哎呦', star: 111, read: 111 },
+    { gameUrl: "www.baidu.com", title: '哎呦', star: 111, read: 111 },
 ]
 /**
  * 新闻
@@ -43,7 +43,7 @@ export default class NewsTab extends Component {
         let items = this.state.data;
         return (
             <View>
-                <FlatList data={items}
+                <FlatList data={data}
                     enableEmptySections={true}
                     onEndReachedThreshold={10}
                     keyExtractor={(item, index) => index.toString()}
@@ -54,7 +54,7 @@ export default class NewsTab extends Component {
                             title={item.title}
                             star={item.star}
                             read={item.read}
-                            onPress={() => this.props.navigation.navigate("News", { id: item.uri })}
+                            onPress={() => this.props.navigation.navigate("GameWeb", { id: item })}
                         />
                     }} />
             </View>

@@ -5,8 +5,9 @@ const { StyleSheet, Dimensions } = React;
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 export default {
-    headStyle: {
-        marginLeft: deviceWidth / 2
+    titleStyle: {
+        color: '#fefefe',
+        fontSize: 18
     },
     textStyle: {
         marginLeft: 10,
@@ -49,26 +50,23 @@ export default {
         justifyContent: 'flex-end',
         alignItems: 'center',
     },
-    imageStyle: {
+    imageBackgroundStyle: {
         width: deviceWidth,
         height: deviceWidth / (deviceWidth / 140)
     },
     headStyle: {
-        width: 57,
-        height: 57,
-        borderRadius: 28.5,
-        marginTop: deviceWidth / (deviceWidth / 25),
-        marginLeft: deviceWidth / (deviceWidth / 10)
+        width: deviceWidth / (deviceWidth / 57),
+        height: deviceWidth / (deviceWidth / 57),
+        alignSelf: 'center',
     },
     userNameStyle: {
-        marginTop: deviceWidth / (deviceWidth / 30),
         color: '#FFFFFF',
         fontSize: 17
     },
     userIdStyle: {
-        marginTop: 1,
         color: '#FFFFFF',
-        fontSize: 15
+        fontSize: 15,
+        marginBottom: 10
     },
     certifiedStyle: {
         alignItems: 'center',

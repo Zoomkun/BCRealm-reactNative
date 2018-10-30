@@ -63,7 +63,7 @@ export default class ConfirmThePassword extends Component {
             <Container style={CommonStyles.container}>
 
                 <ImageBackground source={login_bg}
-                    resizeMode={"contain"}
+                    resizeMode={"cover"}
                     style={CommonStyles.backgroundStyle}
                 >
                     <Content>
