@@ -240,7 +240,6 @@ export default class Login extends Component {
         let self = this
         if (phone > 10 && password != '') {
             HttpUtils.postRequrst(
-                'newUserUrl',
                 'newLogin',
                 {
                     'loginOriginAddress': 'http://world.gametest.bcrealm.com',
@@ -250,7 +249,7 @@ export default class Login extends Component {
                 function (data) {
                     if (data.token) {
                         console.log(data)
-                        HttpUtils.setHeader({ token: data.token })
+                        HttpUtils.setHeader({ Authorization: data.token })
                         var user = new Object();
                         user.phone = self.state.phone;
                         user.appToken = data.token;

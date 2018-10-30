@@ -7,12 +7,15 @@ import Api from './UrlList'
  * fetch 网络请求的header，可自定义header 内容
  * @type {{Accept: string, Content-Type: string, accessToken: *}}
  */
-let head = { 'Content-Type': 'application/json;charset=UTF-8' }
 let header = { 'Content-Type': 'application/json;charset=UTF-8' }
 let headers = {}
+let token = '';
+
 AsyncStorage.getItem('data').then(data => {
     let datas = JSON.parse(data);
+    console.log(datas);
     if (datas) {
+        token = datas.token;
         header.token = datas.token;
         headers.token = datas.token;
     }
@@ -20,7 +23,7 @@ AsyncStorage.getItem('data').then(data => {
 
 // 环境判断
 let api = ''
-__DEV__ ? api =  'http://test.bcrealm.com/api/' : api = 'http://www.bcrealm.com/api/'
+__DEV__ ? api = 'http://test.bcrealm.com/api/' : api = 'http://www.bcrealm.com/api/'
 
 /**
  * GET 请求时，拼接请求URL
@@ -96,7 +99,7 @@ export default class HttpUtils extends Component {
      * @param success 成功回调
      * @returns {Promise}
      */
-    static getRequest = (Url, ApiName, params, success) => {
+    static getRequest = (ApiName, params, success) => {
         return timeoutFetch(fetch(handleUrl(api + Api[ApiName])(params), {
             method: 'GET',
             headers: header
@@ -115,7 +118,7 @@ export default class HttpUtils extends Component {
                 success(response.data);
             } else {
                 // 非 200，错误处理
-                // alert(response.message)
+                alert(response.message)
                 return response
             }
         }).catch(error => {
@@ -130,7 +133,7 @@ export default class HttpUtils extends Component {
      * @param success 成功回调
      * @returns {Promise}
      */
-    static postRequrst = (Url, ApiName, params, success) => {
+    static postRequrst = (ApiName, params, success) => {
         return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'POST',
             headers: header,
@@ -163,7 +166,7 @@ export default class HttpUtils extends Component {
     * @param success 成功回调
     * @returns {Promise}
     */
-    static formDataRequest = (Url, ApiName, params, success) => {
+    static formDataRequest = (ApiName, params, success) => {
         return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'POST',
             headers: headers,
@@ -182,7 +185,7 @@ export default class HttpUtils extends Component {
                 success(response.msg)
             }
         }).catch(error => {
-            console.log(error)
+            // console.log(error)
             alert(error)
         })
     }
@@ -195,7 +198,7 @@ export default class HttpUtils extends Component {
      * @param success 成功回调
      * @returns {Promise}
      */
-    static putRequrst = (Url, ApiName, params, success) => {
+    static putRequrst = (ApiName, params, success) => {
         return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'PUT',
             headers: header,
@@ -216,7 +219,7 @@ export default class HttpUtils extends Component {
             //     return response
             // }
         }).catch(error => {
-            console.log(error)
+            // console.log(error)
             alert(error)
         })
     }
@@ -228,7 +231,7 @@ export default class HttpUtils extends Component {
      * @param success 成功回调
      * @returns {Promise}
      */
-    static deleteRequest = (Url, ApiName, params, success) => {
+    static deleteRequest = (ApiName, params, success) => {
         return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'DELETE',
             headers: header,

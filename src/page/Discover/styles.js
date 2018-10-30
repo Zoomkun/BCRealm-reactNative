@@ -7,7 +7,7 @@ const deviceWidth = Dimensions.get("window").width;
 export default {
     imageBackGroundStyle: {
         width: deviceWidth,
-        height: deviceWidth / (deviceWidth / 164.2)
+        height: deviceWidth / (deviceWidth / 101)
     },
     titleStyle: {
         fontSize: 19,

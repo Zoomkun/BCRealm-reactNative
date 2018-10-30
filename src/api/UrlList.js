@@ -5,9 +5,9 @@ import { Component } from 'react'
  */
 export default {
     /**网易云信token接口*/
-    getNeteaseToken:'wwyim/chatUser/getAccessToken',
+    getNeteaseToken: 'wwyim/chatUser/getAccessToken',
     /**app版本接口*/
-    appVersion:'wskdapp/skdapp/getAppInfo',
+    appVersion: 'wskdapp/skdapp/getAppInfo',
 
     /**新用户服务地址*/
     newUserUrl: 'http://test.bcrealm.com/api/',
@@ -29,9 +29,10 @@ export default {
     userBack: 'wuser/user/back/',
     /**修改密码*/
     changePassword: 'wuser/user/back/pwd',
-
     /** 获取新闻*/
-    getNews: 'http://47.105.122.172:8017/news/list?sourceType=1',
+    getNews: 'wnews/news/list?sourceType=1',
+    /**获取评级列表 */
+    getSteefanKors: 'wnews/news/list?sourceType=2',
 
     /**下面都是老的接口*/
     /**线上*/

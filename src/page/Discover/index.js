@@ -17,7 +17,7 @@ import CommonStyles from '../../css/commonStyle';
 import { Grid, Row, Col } from 'react-native-easy-grid';
 import NewsTab from './newsTab';
 import TopicTab from './topicTab';
-import { bg } from '../../../images';
+import { find_top_bg } from '../../../images';
 import styles from './styles';
 
 import { NewsItem } from '../../components';
@@ -72,7 +72,7 @@ export default class Discover extends Component {
             <Container>
                 <ImageBackground
                     resizeMode={"contain"}
-                    source={bg}
+                    source={find_top_bg}
                     style={styles.imageBackGroundStyle}
                 >
                     {/* <Tabs tabBarUnderlineStyle={CommonStyles.tabsStyle}>

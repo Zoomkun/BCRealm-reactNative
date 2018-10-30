@@ -3,13 +3,13 @@ import {
     Dimensions,
     View,
     Image,
-    TouchableOpacity,
+    TouchableOpacity
 } from "react-native";
 import {
     Text,
     ListItem
 } from "native-base";
-import { Grid, Row, Col } from 'react-native-easy-grid';
+import { Row, Col } from 'react-native-easy-grid';
 
 /**
  * 新闻/话题组件
@@ -20,7 +20,7 @@ export default class NewsItem extends Component {
         let { uri, onPress, title, star, read } = this.props;
         return (
             <View >
-                <ListItem itemDivider style={styles.listItem} onPress={onPress}>
+                <ListItem button itemDivider style={styles.listItem} onPress={onPress}>
 
                     <Row style={styles.rowStyle}>
                         <Col size={1.1} >

@@ -30,11 +30,10 @@ export default class TopicTab extends Component {
     };
 
     componentDidMount() {
-        this._getTopic();
+        this._getSteefanKors();
     }
 
     render() {
-        const { navigate } = this.props.navigation;
         let items = this.state.data;
         console.log(items)
         return (
@@ -54,22 +53,19 @@ export default class TopicTab extends Component {
                             onPress={() => this.props.navigation.navigate("Content", { url: item.html5Url })}
                         />
                     }} />
-                <Button style={styles.addButtonStyle} onPress={() => { navigate("SendTopic") }}>
-                    <Icon name="md-add" style={{ color: 'white', }} />
-                </Button>
             </Container>
         );
     }
 
-    _getTopic() {
+    _getSteefanKors() {
         let self = this
         HttpUtils.getRequest(
-            'appUrl',
-            'topicList',
+            'getSteefanKors',
             '',
             function (data) {
+                console.log(data)
                 self.setState({
-                    data: data.list
+                    data: data.newsList
                 })
             }
         )

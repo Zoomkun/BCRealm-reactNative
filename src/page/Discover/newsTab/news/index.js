@@ -26,8 +26,9 @@ export default class News extends Component {
             showInput: false,
             webViewData: []
         }
-        this.url = this.props.navigation.state.params.url;
+        this.newsId = this.props.navigation.state.params.id;
         WeChat.registerApp('wx7663cfeaaf1ee1fb');
+        console.log(this.newsId)
     }
 
     static navigationOptions = {
@@ -49,7 +50,7 @@ export default class News extends Component {
 
     render() {
         //const { navigate } = this.props.navigation;
-        let url = this.url
+        let newsId = this.newsId
 
         return (
             <Container style={styles.container}>
@@ -70,7 +71,7 @@ export default class News extends Component {
                                             description: '区世界',
                                             thumbImage: 'www.baidu.com',
                                             type: 'news',
-                                            webpageUrl: 'http://qsj.bcrealm.com/static/' + url
+                                            webpageUrl: 'http://qsj.bcrealm.com/static/' + newsId
                                         })
                                             .then((error) => {
                                                 alert(error);
@@ -83,11 +84,11 @@ export default class News extends Component {
                         <Icon name={"md-share-alt"} style={CommonStyles.backIconStyle} />
                     </Button>
                 </Header>
-                {/* <WebView source={{ uri: "http://192.168.31.124:8092/qsj/" + url }} */}
-                <WebView source={{ uri: "http://qsj.bcrealm.com/static/" + url }}
-                    {...console.log('http://qsj.bcrealm.com/static/' + url)}
-                    ref='webView'
-                    onLoadEnd={this._onLoadEnd}
+                {/* http://test.bcrealm.com/api/wnews/news/info/ */}
+                <WebView source={{ uri: "http://www.baidu.com" }}
+                    {...console.log('http://test.bcrealm.com/api/')}
+                    //ref='webView'
+                    // onLoadEnd={this._onLoadEnd}
                     style={styles.webStyle} >
                 </WebView>
 

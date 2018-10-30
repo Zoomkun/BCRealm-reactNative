@@ -18,14 +18,17 @@ import Wallet from './src/page/Mine/wallet';
 import Record from './src/page/Mine/assets/currency/record';
 import Authenticate from './src/page/Mine/authenticate';
 import AboutUs from './src/page/Mine/aboutUs';
+import WalletAuthenticate from './src/page/Mine/walletAuthentication';
 import CommunityInfo from './src/page/Community/communityInfo';
 import Notice from "./src/page/Mine/notice";
 import NoticeContent from "./src/page/Mine/notice/noticeContent"
 import SendTopic from './src/page/Discover/topicTab/sendTopic';
+import NewsTab from './src/page/Discover/newsTab';
 import News from './src/page/Discover/newsTab/news';
 import Content from './src/page/Discover/topicTab/content';
 import Chat from './src/page/Community/chat';
 import DiscoverPage from './src/page/Discover';
+import Mine from './src/page/Mine';
 
 const routers = StackNavigator({
     Login: { screen: Login },
@@ -48,9 +51,11 @@ const routers = StackNavigator({
     Wallet: { screen: Wallet },
     Record: { screen: Record },
     AboutUs: { screen: AboutUs },
+    WalletAuthenticate: { screen: WalletAuthenticate },
     Notice: { screen: Notice },
     NoticeContent: { screen: NoticeContent },
     SendTopic: { screen: SendTopic },
+    NewsTab: { screen: NewsTab },
     News: { screen: News },
     Content: { screen: Content },
     Chat: { screen: Chat },

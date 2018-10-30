@@ -112,7 +112,7 @@ export default class NewRegistration extends Component {
                                         {this.state.imgCodeUrl != '' &&
                                             <Image
                                                 resizeMode={"contain"}
-                                                source={{ uri: 'http://47.105.122.172:8023/user/imgCode?uuId=' + this.state.imgCodeUrl }}
+                                                source={{ uri: 'http://test.bcrealm.com/api/wuser/user/imgCode?uuId=' + this.state.imgCodeUrl }}
                                                 style={{ width: 100, height: 40 }}
                                             />
                                         }
@@ -181,7 +181,6 @@ export default class NewRegistration extends Component {
     _getCodeUuId() {
         let self = this;
         HttpUtils.getRequest(
-            'newUserUrl',
             'getCodeUuId',
             '',
             function (data) {
@@ -200,7 +199,6 @@ export default class NewRegistration extends Component {
             this.refs.toast.show('请检查您的手机号或图形码是否正确!', DURATION.LENGTH_LONG);
         } else {
             HttpUtils.postRequrst(
-                'newUserUrl',
                 'newGetCode',
                 {
                     "code": `${imgCode}`,
@@ -225,7 +223,6 @@ export default class NewRegistration extends Component {
             this.refs.toast.show("请检查您的手机号或者验证码是否正确", DURATION.LENGTH_LONG);
         } else {
             HttpUtils.postRequrst(
-                'newUserUrl',
                 'confirmation',
                 {
                     'code': `${code}`,

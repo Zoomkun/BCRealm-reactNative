@@ -180,10 +180,10 @@ export default class ForgetPassword extends Component {
     _getCodeUuId() {
         let self = this;
         HttpUtils.getRequest(
-            'newUserUrl',
             'getCodeUuId',
             '',
             function (data) {
+                console.log(data)
                 if (data != '') {
                     self.setState({
                         imgCodeUrl: data
@@ -199,7 +199,6 @@ export default class ForgetPassword extends Component {
             this.refs.toast.show('请检查您的手机号或图形码是否正确!', DURATION.LENGTH_LONG);
         } else {
             HttpUtils.postRequrst(
-                'newUserUrl',
                 'changePasswordCode',
                 {
                     "code": `${imgCode}`,
@@ -221,7 +220,6 @@ export default class ForgetPassword extends Component {
             this.refs.toast.show("请检查您的手机号或者验证码是否正确", DURATION.LENGTH_LONG);
         } else {
             HttpUtils.postRequrst(
-                'newUserUrl',
                 'userBack',
                 {
                     'code': `${code}`,

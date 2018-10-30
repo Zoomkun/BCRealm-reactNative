@@ -175,7 +175,6 @@ export default class Confirm extends Component {
                 return;
             } else {
                 HttpUtils.postRequrst(
-                    'newUserUrl',
                     'changePassword',
                     {
                         'code': `${code}`,

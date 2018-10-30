@@ -51,7 +51,7 @@ export default {
     },
     imageStyle: {
         width: deviceWidth,
-        height: deviceWidth / (deviceWidth / 126)
+        height: deviceWidth / (deviceWidth / 140)
     },
     headStyle: {
         width: 57,
