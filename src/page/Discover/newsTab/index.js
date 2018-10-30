@@ -43,7 +43,7 @@ export default class NewsTab extends Component {
         let items = this.state.data;
         return (
             <View>
-                <FlatList data={data}
+                <FlatList data={items}
                     enableEmptySections={true}
                     onEndReachedThreshold={10}
                     keyExtractor={(item, index) => index.toString()}
