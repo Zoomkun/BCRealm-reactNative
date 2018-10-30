@@ -80,11 +80,11 @@ export default {
     /**图集*/
     banner: 'banner',
     /**获取所有群列表*/
-    chatGroup: 'chatGroups/list/all',
+    chatGroup: 'wwyim/chatGroups/list/all',
     /**加入群*/
-    joinItem: 'chatGroups/invitation/joinItem',
+    joinItem: 'wwyim/chatGroup/join',
     /**退出群*/
-    leaveChatGroup: 'chatGroups/leave',
+    leaveChatGroup: 'wwyim/chatGroup/leave',
     /**获取群详细信息*/
-    groupInfo: 'chatGroups/details?',
+    groupInfo: 'wwyim/chatGroup/info?',
 }

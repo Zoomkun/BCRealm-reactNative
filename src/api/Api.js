@@ -96,7 +96,7 @@ export default class HttpUtils extends Component {
      * @param success 成功回调
      * @returns {Promise}
      */
-    static getRequest = (Url, ApiName, params, success) => {
+    static getRequest = (ApiName, params, success) => {
         return timeoutFetch(fetch(handleUrl(api + Api[ApiName])(params), {
             method: 'GET',
             headers: header
@@ -130,7 +130,7 @@ export default class HttpUtils extends Component {
      * @param success 成功回调
      * @returns {Promise}
      */
-    static postRequrst = (Url, ApiName, params, success) => {
+    static postRequrst = (ApiName, params, success) => {
         return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'POST',
             headers: header,
@@ -163,7 +163,7 @@ export default class HttpUtils extends Component {
     * @param success 成功回调
     * @returns {Promise}
     */
-    static formDataRequest = (Url, ApiName, params, success) => {
+    static formDataRequest = (ApiName, params, success) => {
         return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'POST',
             headers: headers,
@@ -195,7 +195,7 @@ export default class HttpUtils extends Component {
      * @param success 成功回调
      * @returns {Promise}
      */
-    static putRequrst = (Url, ApiName, params, success) => {
+    static putRequrst = (ApiName, params, success) => {
         return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'PUT',
             headers: header,
@@ -228,7 +228,7 @@ export default class HttpUtils extends Component {
      * @param success 成功回调
      * @returns {Promise}
      */
-    static deleteRequest = (Url, ApiName, params, success) => {
+    static deleteRequest = (ApiName, params, success) => {
         return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'DELETE',
             headers: header,

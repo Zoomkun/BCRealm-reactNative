@@ -27,9 +27,9 @@ import Content from './src/page/Discover/topicTab/content';
 import Chat from './src/page/Community/chat';
 
 const routers = StackNavigator({
-    Login: { screen: Login },
     StartPage: { screen: StartPage },
     Main: { screen: MainPage },
+    Login: { screen: Login },
     Registration: { screen: Registration },
     NewRegistration: { screen: NewRegistration },
     ConfirmThePassword: { screen: ConfirmThePassword },
