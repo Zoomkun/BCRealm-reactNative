@@ -47,7 +47,7 @@ export default class Content extends Component {
                         <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
                     </Button>
                     <Body style={CommonStyles.titleBodyStyle}>
-                        <Text style={CommonStyles.headertextStyle}>话题</Text>
+                        <Text style={CommonStyles.headertextStyle}>评级</Text>
                     </Body>
                     <Button transparent />
                 </Header>
