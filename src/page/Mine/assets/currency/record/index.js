@@ -13,14 +13,7 @@ import { Text, FlatList } from 'react-native';
 import styles from "./styles";
 import RecordItem from '../../../../../components/recordItem';
 import { Grid, Col } from 'react-native-easy-grid';
-
-
-const data = [
-    { date: "2018.09.10", quantity: 2000000, state: 1 },
-    { date: "2018.09.10", quantity: 50, state: 0 },
-    { date: "2018.09.10", quantity: 500, state: 1 },
-    { date: "2018.09.10", quantity: 450, state: 0 },
-]
+import HttpUtils from '../../../../../api/Api';
 
 /**
  * 提现记录
@@ -29,6 +22,10 @@ class Record extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            data: []
+        }
+        this.assets = props.navigation.state.params.assets;
     }
 
     static navigationOptions = {
@@ -39,8 +36,12 @@ class Record extends Component {
         this.props.navigation.goBack();
     }
 
+    componentWillMount() {
+        this._getAssetCheckout();
+    }
+
     render() {
-        let items = data
+        let items = this.state.data
         return (
             <Container style={styles.containerStyle}>
                 <View style={{ flexDirection: 'row' }}>
@@ -76,13 +77,29 @@ class Record extends Component {
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item, index }) => {
                         return <RecordItem
-                            date={item.date}
-                            quantity={item.quantity}
-                            state={item.state}
+                            date={item.createTimestamp}
+                            quantity={item.amount}
+                            state={item.transStatus}
                         />
                     }} />
             </Container >
         );
+    }
+
+    _getAssetCheckout() {
+        let self = this
+        HttpUtils.post(
+            'getAssetCheckout',
+            {
+                'coinId': `${this.assets.assetId}`
+            },
+            function (data) {
+                console.log(data)
+                self.setState({
+                    data: data
+                })
+            }
+        )
     }
 }
 export default Record

@@ -4,32 +4,32 @@ import { Component } from 'react'
  * api集合
  */
 export default {
-    /**网易云信token接口*/
+    /**网易云信token接口 */
     getNeteaseToken: 'wwyim/chatUser/getAccessToken',
-    /**app版本接口*/
+    /**app版本接口 */
     appVersion: 'wskdapp/skdapp/getAppInfo',
 
-    /**新用户服务地址*/
+    /**新用户服务地址 */
     newUserUrl: 'http://test.bcrealm.com/api/',
     /**新登录接口 parameter:"loginOriginAddress": "http://world.gametest.bcrealm.com"*/
     newLogin: 'wuser/user/login',
-    /**获取图片验证码唯一标识*/
+    /**获取图片验证码唯一标识 */
     getCodeUuId: 'wuser/user/getCodeUuId',
     /**图形码  http://test.bcrealm.com/api/wuser/user/imgCode?uuId=6000001355233411*/
     imgCode: 'wuser/user/imgCode?',
-    /**获取短信验证码*/
+    /**获取短信验证码 */
     newGetCode: 'wuser/user/send/msg',
-    /**验证码验证*/
+    /**验证码验证 */
     confirmation: 'wuser/user/Msg/',
-    /**注册*/
+    /**注册 */
     register: 'wuser/user/register',
-    /**获取找回密码验证码*/
+    /**获取找回密码验证码 */
     changePasswordCode: 'wuser/user/back/msg',
-    /**找回密码验证吗验证*/
+    /**找回密码验证吗验证 */
     userBack: 'wuser/user/back/',
-    /**修改密码*/
+    /**修改密码 */
     changePassword: 'wuser/user/back/pwd',
-    /** 获取新闻*/
+    /** 获取新闻 */
     getNews: 'wnews/news/list?sourceType=1',
     /**获取评级列表 */
     getSteefanKors: 'wnews/news/list?sourceType=2',
@@ -37,7 +37,14 @@ export default {
     getPlayerInfo: 'wuser/player/info?inviteCode=',
     /**获取钱包资产列表 */
     getAssetList: 'wwallet/wallet/asset/list',
-
+    /**获取提现记录 */
+    getAssetCheckout: 'wexchange/checkout/list?',
+    /**实名认证 */
+    authenticate: 'wuser/user/submitIdentity',
+    /**查询钱包地址 */
+    getWalletAddressList: 'wwallet/wallet/address/list',
+    /**钱包地址认证 */
+    WalletAddressSubmit: 'wwallet/wallet/address/submit',
 
     /**下面都是老的接口*/
     /**线上*/

@@ -1,6 +1,7 @@
 import ThemeHeader from './themeHeader';
 import MsgItem from './msgItem';
 import NewsItem from './newsItem';
+import OldNewsItem from './oldNewsItem';
 import CardItems from './CardItems';
 import InformationItem from './informationItem';
 import CommunityItem from './communityItem';
@@ -11,6 +12,7 @@ export {
     ThemeHeader,
     MsgItem,
     NewsItem,
+    OldNewsItem,
     CardItems,
     InformationItem,
     CommunityItem,

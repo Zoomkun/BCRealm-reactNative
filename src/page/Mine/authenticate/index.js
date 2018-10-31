@@ -15,13 +15,11 @@ import {
     AsyncStorage,
     ImageBackground,
 } from 'react-native';
-import CommonStyles from '../../../css/commonStyle';
 import styles from "./styles";
 import { Grid, Row, Col } from "react-native-easy-grid";
 import Toast, { DURATION } from 'react-native-easy-toast';
 import Http from '../../../api/Api';
-import { authenticate, bg } from '../../../../images';
-// import { url } from "inspector";
+import { authenticate, } from '../../../../images';
 
 /**
  * 实名认证
@@ -31,14 +29,9 @@ class Authenticate extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            certificateNumber: '',
-            selected: '',
-            nat: '1',
-            cer: '1',
+            idName: '',
+            idNo: '',
             id: 0,
-            nationality: [],
-            certificate: []
         }
     }
 
@@ -47,23 +40,13 @@ class Authenticate extends Component {
     };
 
     goBack = () => {
-        AsyncStorage.getItem('data').then(data => {
-            let datas = JSON.parse(data);
-            console.log(datas);
-            this.props.navigation.state.params.returnData(datas);
-        })
+        // AsyncStorage.getItem('data').then(data => {
+        //     let datas = JSON.parse(data);
+        //     console.log(datas);
+        //     this.props.navigation.state.params.returnData(datas);
+        // })
         this.props.navigation.goBack();
     }
-
-    // componentDidMount() {
-    //     AsyncStorage.getItem('data').then(data => {
-    //         let datas = JSON.parse(data);
-    //         this.setState({
-    //             id: datas.id,
-    //         })
-    //         console.log(datas);
-    //     })
-    // }
 
     render() {
         return (
@@ -100,19 +83,6 @@ class Authenticate extends Component {
                     <Text style={styles.tipsStyle}>确认是您本人,验证完后不可修改</Text>
                 </View>
 
-
-                {/* <Header style={CommonStyles.headerStyle}>
-                    <Button transparent onPress={() => { this.goBack() }}>
-                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
-                    </Button>
-                    <Body style={CommonStyles.titleBodyStyle}>
-                        <Text style={CommonStyles.headertextStyle}>实名认证</Text>
-                    </Body>
-                    <Button transparent />
-                </Header> */}
-
-
-
                 <View style={{ height: 50, marginTop: 30 }}>
                     <Grid style={styles.gridStyle} >
                         <Col style={styles.colStyle} size={1}>
@@ -121,8 +91,8 @@ class Authenticate extends Component {
                         <Col size={3}>
                             <View style={styles.inputStyle}>
                                 <Input placeholder="请输入名称"
-                                    value={this.state.name}
-                                    onChangeText={(text) => { this.setState({ name: text }) }} />
+                                    value={this.state.idName}
+                                    onChangeText={(text) => { this.setState({ idName: text }) }} />
                             </View>
                             <View style={styles.lineStyle} />
                         </Col>
@@ -137,8 +107,8 @@ class Authenticate extends Component {
                         <Col s size={3}>
                             <View style={styles.inputStyle}>
                                 <Input placeholder="请输入身份证号"
-                                    value={this.state.certificateNumber}
-                                    onChangeText={(text) => { this.setState({ certificateNumber: text }) }} />
+                                    value={this.state.idNo}
+                                    onChangeText={(text) => { this.setState({ idNo: text }) }} />
                             </View>
                             <View style={styles.lineStyle} />
                         </Col>
@@ -147,11 +117,12 @@ class Authenticate extends Component {
 
                 <Row size={20} style={styles.rowStyle}>
                     <View>
-                        <Button style={styles.buttonStyle} onPress={() => { this._authenticate() }}>
+                        <Button style={styles.buttonStyle} onPress={() => { this._authenticate(this.state.idName, this.state.idNo) }}>
                             <Text style={styles.buttonTextStyle}>确认</Text>
                         </Button>
                     </View>
                 </Row>
+
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}
@@ -166,69 +137,22 @@ class Authenticate extends Component {
         );
     };
 
-    onValueChange = (flag, value) => {
-        if (flag == 1) {
-            this.setState({ nat: value });
-        } else {
-            this.setState({ cer: value });
-        }
-    };
-
-    /**
-     * 国籍
-     */
-    _getNationality() {
-        self = this
-        Http.getRequest(
-            'userUrl',
-            'nationality',
-            '',
-            function (data) {
-                self.setState({
-                    nationality: data
-                })
-            }
-        )
-    }
-
-    /**
-    * 证件类型
-    */
-    _getController() {
-        self = this
-        Http.getRequest(
-            'userUrl',
-            'certificateType',
-            '',
-            function (data) {
-                self.setState({
-                    certificate: data
-                });
-            }
-        )
-    }
-
     /**
      * 实名认证
      */
-    _authenticate() {
+    _authenticate(idName, idNo) {
         let self = this
-        if (this.state.name != '' && this.state.certificateNumber != '') {
+        if (idName != '' && idNo != '') {
             Http.postRequrst(
-                'userUrl',
-                'realNameAu',
+                'authenticate',
                 {
-                    "certificateNumber": `${this.state.certificateNumber}`,
-                    "certificateTypeId": `${this.state.cer}`,
-                    "id": `${this.state.id}`,
-                    "nationalityId": `${this.state.nat}`,
-                    "realName": `${this.state.name}`
+                    "idNo": `${this.state.idNo}`,
+                    "idName": `${this.state.idName}`
                 },
                 function (data) {
-                    console.log(data)
-                    if (data.userName) {
-                        AsyncStorage.setItem('data', JSON.stringify(data));
-                        self.refs.toast.show("成功", DURATION.LENGTH_LONG);
+                    if (data == '') {
+
+                        self.refs.toast.show("认证成功", DURATION.LENGTH_LONG);
                     } else {
                         self.refs.toast.show(data, DURATION.LENGTH_LONG);
                     }

@@ -45,7 +45,7 @@ export default class GamePage extends Component {
     componentWillMount() {
         this._getBannerList();
         this._getGameList();
-        this.updateComponentInfo();
+        // this.updateComponentInfo();
     }
 
     render() {

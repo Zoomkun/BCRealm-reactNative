@@ -22,8 +22,10 @@ export default {
     alignItems: 'center'
   },
   titleStyle: {
-    color: '#ffffff',
-    fontSize: 17,
+    marginLeft: deviceWidth / (deviceWidth / 20),
+    marginTop: deviceWidth / (deviceWidth / 5),
+    color: '#313442',
+    fontSize: 16,
   },
   contentStyle: {
     marginTop: deviceWidth / (deviceWidth / 10)

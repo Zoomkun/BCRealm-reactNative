@@ -9,12 +9,6 @@ import {
     ListItem,
     Icon,
 } from 'native-base';
-
-import { } from 'react-native';
-import { Grid, Row, Col } from 'react-native-easy-grid';
-import CommonStyles from '../../../css/commonStyle';
-import { aboutus_top_bg } from '../../../../images';
-import styles from "./styles";
 import {
     AsyncStorage,
     NativeModules,
@@ -24,6 +18,11 @@ import {
     BackHandler,
     ImageBackground
 } from 'react-native';
+import { } from 'react-native';
+import { Grid, Row, Col } from 'react-native-easy-grid';
+import CommonStyles from '../../../css/commonStyle';
+import { aboutus_top_bg } from '../../../../images';
+import styles from "./styles";
 import DeviceInfo from "react-native-device-info";
 
 

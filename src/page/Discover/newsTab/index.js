@@ -3,9 +3,10 @@ import {
     View
 } from 'native-base';
 import {
-    FlatList
+    FlatList,
+    Text
 } from 'react-native';
-import { NewsItem } from '../../../components';
+import { NewsItem, OldNewsItem } from '../../../components';
 import HttpUtils from "../../../api/Api";
 //import styles from "./styles";
 
@@ -42,18 +43,17 @@ export default class NewsTab extends Component {
         let items = this.state.data;
         return (
             <View>
-                <FlatList data={data}
+                <FlatList data={items}
                     enableEmptySections={true}
                     onEndReachedThreshold={10}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item, index }) => {
-                        return <NewsItem
+                        return <OldNewsItem
                             {...this.props}
-                            uri={item.uri}
                             title={item.title}
-                            star={item.star}
-                            read={item.read}
-                            onPress={() => this.props.navigation.navigate("GameWeb", { id: item })}
+                            time={item.createTimestamp}
+                            read={item.readQuantity}
+                            onPress={() => this.props.navigation.navigate("News", { id: item.id })}
                         />
                     }} />
             </View>

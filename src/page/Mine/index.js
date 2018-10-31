@@ -89,10 +89,18 @@ export default class Mine extends Component {
                         </Row>
                         <Grid size={1} style={{ flexDirection: 'row', }}>
                             <Col size={1.5} style={{ justifyContent: 'center' }} >
-                                {/* {
+                                {
                                     data.headIcon != '' &&
-                                    < Thumbnail source={this.state.headeIcon} style={styles.headStyle} />
-                                } */}
+                                    < Thumbnail source={
+                                        data.headIcon == "1"
+                                            ? photo_01
+                                            : data.headeIcon == "2"
+                                                ? photo_02
+                                                : data.headeIcon == "3"
+                                                    ? photo_03
+                                                    : photo_04
+                                    } style={styles.headStyle} />
+                                }
                             </Col>
                             <Col size={2} style={{ flexDirection: 'column', justifyContent: 'center' }}>
                                 <Text style={styles.userNameStyle}>{data.nickName}</Text>
@@ -136,9 +144,9 @@ export default class Mine extends Component {
                             button
                             style={styles.listItemStyle}
                             onPress={() => {
-                                this.state.certification > 0 ?
-                                    this.refs.toast.show("您已认证", DURATION.LENGTH_LONG) :
-                                    navigate('Authenticate', { returnData: this._returnData.bind(this) })
+                                data.realIdStatus == 2
+                                    ? this.refs.toast.show("您已认证", DURATION.LENGTH_LONG)
+                                    : navigate('Authenticate', { returnData: this._returnData.bind(this) })
 
                             }}>
                             <Image style={{ width: 18, height: 18 }}
@@ -148,7 +156,16 @@ export default class Mine extends Component {
                                 <Text style={styles.textStyle}>实名认证</Text>
                             </Body>
                             <Right style={styles.rightStyle}>
-                                <Text style={this.state.certification > 0 ? styles.certifiedStyle : styles.uncertifiedStyle}>{this.state.certification > 0 ? "已认证 " : "未认证"}</Text>
+                                <Text style={
+                                    data.realIdStatus == 2
+                                        ? styles.certifiedStyle
+                                        : styles.uncertifiedStyle}>
+                                    {
+                                        data.realIdStatus == 2
+                                            ? "已认证 " :
+                                            "未认证"
+                                    }
+                                </Text>
                                 <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>
@@ -159,11 +176,9 @@ export default class Mine extends Component {
                             button
                             style={styles.listItemStyle}
                             onPress={() => {
-                                this.state.certification > 0 ?
-                                    this.refs.toast.show("您已认证", DURATION.LENGTH_LONG) :
-                                    navigate('WalletAuthenticate', { returnData: this._returnData.bind(this) })
-
-                            }}>
+                                navigate('WalletAuthenticate', { returnData: this._returnData.bind(this) })
+                            }}
+                        >
                             <Image style={{ width: 18, height: 18 }}
                                 source={require('../../../images/walletIcon.png')}>
                             </Image>
@@ -171,7 +186,7 @@ export default class Mine extends Component {
                                 <Text style={styles.textStyle}>钱包认证</Text>
                             </Body>
                             <Right style={styles.rightStyle}>
-                                <Text style={this.state.certification > 0 ? styles.certifiedStyle : styles.uncertifiedStyle}> {this.state.certification > 0 ? "已认证 " : "未认证"}</Text>
+                                <Text style={this.state.certification > 0 ? styles.certifiedStyle : styles.uncertifiedStyle}> </Text>
                                 <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>

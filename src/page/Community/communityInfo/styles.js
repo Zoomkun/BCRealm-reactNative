@@ -99,7 +99,6 @@ export default {
         paddingRight:20,
         justifyContent:'center',
         alignItems: 'center',
-        flex:1
         marginBottom: 150,
     },
     marginB150: {
