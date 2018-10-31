@@ -31,9 +31,8 @@ class Authenticate extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            certificateNumber: '',
-            selected: '',
+            idName: '',
+            idNo: '',
             nat: '1',
             cer: '1',
             id: 0,
@@ -54,16 +53,6 @@ class Authenticate extends Component {
         })
         this.props.navigation.goBack();
     }
-
-    // componentDidMount() {
-    //     AsyncStorage.getItem('data').then(data => {
-    //         let datas = JSON.parse(data);
-    //         this.setState({
-    //             id: datas.id,
-    //         })
-    //         console.log(datas);
-    //     })
-    // }
 
     render() {
         return (
@@ -100,19 +89,6 @@ class Authenticate extends Component {
                     <Text style={styles.tipsStyle}>确认是您本人,验证完后不可修改</Text>
                 </View>
 
-
-                {/* <Header style={CommonStyles.headerStyle}>
-                    <Button transparent onPress={() => { this.goBack() }}>
-                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
-                    </Button>
-                    <Body style={CommonStyles.titleBodyStyle}>
-                        <Text style={CommonStyles.headertextStyle}>实名认证</Text>
-                    </Body>
-                    <Button transparent />
-                </Header> */}
-
-
-
                 <View style={{ height: 50, marginTop: 30 }}>
                     <Grid style={styles.gridStyle} >
                         <Col style={styles.colStyle} size={1}>
@@ -122,7 +98,7 @@ class Authenticate extends Component {
                             <View style={styles.inputStyle}>
                                 <Input placeholder="请输入名称"
                                     value={this.state.name}
-                                    onChangeText={(text) => { this.setState({ name: text }) }} />
+                                    onChangeText={(text) => { this.setState({ idName: text }) }} />
                             </View>
                             <View style={styles.lineStyle} />
                         </Col>
@@ -138,7 +114,7 @@ class Authenticate extends Component {
                             <View style={styles.inputStyle}>
                                 <Input placeholder="请输入身份证号"
                                     value={this.state.certificateNumber}
-                                    onChangeText={(text) => { this.setState({ certificateNumber: text }) }} />
+                                    onChangeText={(text) => { this.setState({ idNo: text }) }} />
                             </View>
                             <View style={styles.lineStyle} />
                         </Col>
@@ -152,6 +128,7 @@ class Authenticate extends Component {
                         </Button>
                     </View>
                 </Row>
+
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}
@@ -175,54 +152,16 @@ class Authenticate extends Component {
     };
 
     /**
-     * 国籍
-     */
-    _getNationality() {
-        self = this
-        Http.getRequest(
-            'userUrl',
-            'nationality',
-            '',
-            function (data) {
-                self.setState({
-                    nationality: data
-                })
-            }
-        )
-    }
-
-    /**
-    * 证件类型
-    */
-    _getController() {
-        self = this
-        Http.getRequest(
-            'userUrl',
-            'certificateType',
-            '',
-            function (data) {
-                self.setState({
-                    certificate: data
-                });
-            }
-        )
-    }
-
-    /**
      * 实名认证
      */
     _authenticate() {
         let self = this
         if (this.state.name != '' && this.state.certificateNumber != '') {
             Http.postRequrst(
-                'userUrl',
-                'realNameAu',
+                'authenticate',
                 {
-                    "certificateNumber": `${this.state.certificateNumber}`,
-                    "certificateTypeId": `${this.state.cer}`,
-                    "id": `${this.state.id}`,
-                    "nationalityId": `${this.state.nat}`,
-                    "realName": `${this.state.name}`
+                    "idNo": `${this.state.id}`,
+                    "idName": `${this.state.name}`
                 },
                 function (data) {
                     console.log(data)
