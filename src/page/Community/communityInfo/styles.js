@@ -44,7 +44,7 @@ export default {
     ListItem: {
         marginRight: 15,
     },
-    announcement: {
+    description: {
         paddingRight: 15,
         paddingLeft: 15,
         fontSize: 14,

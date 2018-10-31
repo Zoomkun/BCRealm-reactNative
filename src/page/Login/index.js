@@ -248,11 +248,10 @@ export default class Login extends Component {
                 },
                 function (data) {
                     if (data.token) {
-                        console.log(data)
                         HttpUtils.setHeader({ Authorization: data.token })
                         var user = new Object();
                         user.phone = self.state.phone;
-                        user.appToken = data.token;
+                        user.token = data.token;
                         AsyncStorage.setItem('user', JSON.stringify(user));
                         //DeviceStorage.save("user", user);
                         // DeviceStorage.get('user').then(data => {
@@ -271,7 +270,6 @@ export default class Login extends Component {
             this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
         }
     }
-
 
     _goMainPage() {
         let { navigate } = this.props.navigation;

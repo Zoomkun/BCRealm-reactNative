@@ -96,11 +96,13 @@ export default {
     /**图集*/
     banner: 'banner',
     /**获取所有群列表*/
-    chatGroup: 'wwyim/chatGroups/list/all',
+    chatGroup: 'wwyim/chatGroup/list',
     /**加入群*/
     joinItem: 'wwyim/chatGroup/join',
     /**退出群*/
     leaveChatGroup: 'wwyim/chatGroup/leave',
     /**获取群详细信息*/
     groupInfo: 'wwyim/chatGroup/info?',
+    /**获取网易云信登录接口*/
+    getAccessToken:'wwyim/chatUser/getAccessToken',
 }

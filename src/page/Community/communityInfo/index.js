@@ -37,7 +37,7 @@ class CommunityInfo extends Component {
         super(props)
         this.state = {
             chatGroupInfo: {}, // 当前
-            userInfo: {},
+            accessToken: {},
             visible: false,
         }
     }
@@ -54,10 +54,10 @@ class CommunityInfo extends Component {
             self._getGroupInfo()
         })
 
-        AsyncStorage.getItem('data').then(data => {
-            let userInfo = JSON.parse(data);
+        AsyncStorage.getItem('accessToken').then(data => {
+            let accessToken = JSON.parse(data);
             self.setState({
-                userInfo: userInfo
+                accessToken: accessToken
             })
         })
     }
@@ -66,9 +66,8 @@ class CommunityInfo extends Component {
     _getGroupInfo() {
         let self = this
         Http.getRequest(
-            'appUrl',
             'groupInfo',
-            {'id': self.state.chatGroupInfo.chatGroupId},
+            {groupId: self.state.chatGroupInfo.id},
             function (data) {
                 let newChatGroupInfo = Object.assign(self.state.chatGroupInfo, data)
                 self.setState({
@@ -91,8 +90,8 @@ class CommunityInfo extends Component {
         let session = {
             ...groupInfo,
             sessionType: '1',
-            imToken: data.userInfo.imToken,
-            account: data.userInfo.accountNo,
+            imToken: data.accessToken.token,
+            account: data.accessToken.account,
         };
         navigation.popToTop()
         navigation.navigate('Chat', {session: session})
@@ -102,15 +101,11 @@ class CommunityInfo extends Component {
     _leaveChat() {
         let self = this
         let groupInfo = self.state.chatGroupInfo
-        let userInfo = self.state.userInfo
-        Http.deleteRequest(
-            'appUrl',
+        Http.formDataRequest(
             'leaveChatGroup',
             {
-                "accountNo": userInfo.accountNo,
-                "chatGroupId": groupInfo.chatGroupId,
-                "chatGroupNo": groupInfo.chatGroupNo,
-                "userId": userInfo.userId
+
+                groupId: groupInfo.id
             },
             function (data) {
                 self.props.navigation.state.params.refresh();
@@ -151,70 +146,24 @@ class CommunityInfo extends Component {
                 </Header>
                 <Content style={styles.content}>
                     <View style={styles.top}>
-                        <Thumbnail large style={styles.image} source={{uri: data.icon}}/>
-                        <Text style={{color: '#333', paddingBottom: 20}}>{data.chatGroupName}</Text>
+                        <Thumbnail large style={styles.image} source={{uri: data.groupIcon}}/>
+                        <Text style={{color: '#333', paddingBottom: 20}}>{data.groupName}</Text>
                     </View>
 
-                    {
-                        data.admin === true ?
-                            <View>
-                                <ListItem icon style={styles.ListItem}>
-                                    <Body>
-                                    <Text>群成员</Text>
-                                    </Body>
-                                    <Right>
-                                        <Icon name={'navigate-next'} type="MaterialIcons"/>
-                                    </Right>
-                                </ListItem>
-                                <ListItem icon style={styles.ListItem} onPress={() => this._toggleModal()}>
-                                    <Body>
-                                    <Text>群二维码</Text>
-                                    </Body>
-                                    <Right>
-                                        <Icon name={'qrcode'} type="FontAwesome"/>
-                                        <Icon name={'navigate-next'} type="MaterialIcons"/>
-                                    </Right>
-                                </ListItem>
-                            </View>
-                            : null
-                    }
                     <Text style={styles.title}>群公告</Text>
-                    <Text style={styles.announcement}>
-                        {data.announcement}
+                    <Text style={styles.description}>
+                        {data.description}
                     </Text>
-                    {
-                        data.admin === true ?
-                            <FlatList data={unJoinsUser}
-                                      enableEmptySections={true}
-                                      onEndReachedThreshold={10}
-                                      keyExtractor={(item, index) => index.toString()}
-                                      renderItem={({item, index}) => {
-                                          return (<ListItem button style={styles.ListItem}>
-                                              <Image source={{uri: item.headUrl}} style={styles.itemImage}/>
-                                              <Body style={{justifyContent: 'flex-start',}}>
-                                              <Text>{item.userName}</Text>
-                                              </Body>
-                                              <Right>
-                                                  <Button small style={styles.invitationBtnIn}>
-                                                      <Text style={styles.colorWhite}>邀请</Text>
-                                                  </Button>
-                                              </Right>
-                                          </ListItem>)
-                                      }}/>
-                            : null
-                    }
-                    <Button full style={[styles.loginGroup, data.admin === true ? styles.marginB150 : '']}
+
+                    <Button full style={[styles.loginGroup]}
                             onPress={() => this._toChat()}>
                         <Text style={styles.colorWhite}>进入该群</Text>
                     </Button>
-                    {
-                        data.admin !== true ?
-                            <Button full style={styles.exitGroup}
-                                    onPress={() => this._leaveChat()}>
-                                <Text style={styles.colorWhite}>退出该群</Text>
-                            </Button>
-                            : null
-                    }
+
+                    <Button full style={styles.exitGroup}
+                            onPress={() => this._leaveChat()}>
+                        <Text style={styles.colorWhite}>退出该群</Text>
+                    </Button>
 
                     <View style={{flex: 1}}>
                         <Modal

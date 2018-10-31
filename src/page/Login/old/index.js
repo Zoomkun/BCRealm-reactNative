@@ -275,7 +275,6 @@ export default class Login extends Component {
         let self = this
         if (phone.length > 10 && password != '') {
             HttpUtils.postRequrst(
-                'userUrl',
                 'appLogin',
                 {
                     'cid': `${clientId}`,
@@ -285,7 +284,7 @@ export default class Login extends Component {
                 function (data) {
                     console.log(data)
                     if (data.userName) {
-                        HttpUtils.setHeader({ token: data.token })
+                        HttpUtils.setHeader({ Auhtorization: data.token })
                         AsyncStorage.setItem('data', JSON.stringify(data), (error) => {
                             if (!error) {
                                 console.log('保存数据成功', DURATION.LENGTH_SHORT);
@@ -331,7 +330,7 @@ export default class Login extends Component {
                 },
                 function (data) {
                     if (data.userName) {
-                        HttpUtils.setHeader({ token: data.token })
+                        HttpUtils.setHeader({ Auhtorization: data.token })
                         AsyncStorage.setItem('data', JSON.stringify(data));
                         self._goMainPage();
                         self.props.navigation.dispatch(resetAction);

@@ -11,12 +11,11 @@ import {
 //import styles from './styles';
 import {NimTeam, NimSession} from 'react-native-netease-im';
 import {InformationItem} from '../../../components';
+import Http from "../../../api/Api";
 
 /**
  * 信息
  */
-
-
 
 export default class InformationTab extends Component {
 
@@ -24,7 +23,7 @@ export default class InformationTab extends Component {
         super(props)
         this.state = {
             teamList: [],
-            userInfo: {}
+            accessToken: {}
         }
     }
 
@@ -34,22 +33,29 @@ export default class InformationTab extends Component {
 
     componentWillMount() {
         let self = this
-        AsyncStorage.getItem('data').then(data => {
-            let userInfo = JSON.parse(data)
-            self.setState({
-                userInfo: userInfo
-            });
 
-            NimSession.login(userInfo.accountNo, userInfo.imToken).then((data) => {
-                self.sessionListener = NativeAppEventEmitter.addListener("observeRecentContact", (data) => {
+        Http.getRequest(
+            'getAccessToken',
+            {
+            },
+            function (data) {
+                AsyncStorage.setItem('accessToken',data)
+                NimSession.login(data.account, data.token).then((data) => {
                     self.setState({
-                        teamList: data.recents || data.sessionList
+                        accessToken:data
+                    })
+
+                    self.sessionListener = NativeAppEventEmitter.addListener("observeRecentContact", (data) => {
+                        console.log(data)
+                        self.setState({
+                            teamList: data.recents || data.sessionList
+                        });
                     });
-                });
-            }, (err) => {
-                console.warn(err);
-            })
-        })
+                }, (err) => {
+                    console.warn(err);
+                })
+            }
+        )
     }
 
     componentWillUnmount() {
@@ -65,8 +71,8 @@ export default class InformationTab extends Component {
         let session = {
             ...chatInfo,
             sessionType: '1',
-            imToken: data.userInfo.imToken,
-            account: data.userInfo.accountNo,
+            imToken: data.accessToken.token,
+            account: data.accessToken.account,
         };
         navigation.popToTop()
         navigation.navigate('Chat', {session: session})

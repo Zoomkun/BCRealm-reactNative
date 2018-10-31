@@ -38,18 +38,20 @@ export default class CommunityTab extends Component {
     _getGroupList() {
         let self = this
         Http.getRequest(
-            'appUrl',
             'chatGroup',
-            '',
+            {
+                pageNo: 1,
+                pageSize: 100
+            },
             function (data) {
-                console.log(data)
+                let groupData = data.result
                 let chatGroupIn = [];
                 let chatGroupOut = [];
-                for (let i in data) {
-                    if (data[i].join) {
-                        chatGroupIn.push(data[i])
+                for (let i in groupData) {
+                    if (groupData[i].joinStatus === 1) {
+                        chatGroupIn.push(groupData[i])
                     } else {
-                        chatGroupOut.push(data[i])
+                        chatGroupOut.push(groupData[i])
                     }
                 }
 
@@ -99,7 +101,7 @@ export default class CommunityTab extends Component {
                             return <CommunityItem
                                 {...this.props}
                                 item={item}
-                                methods={() =>this._getGroupList()}
+                                methods={() => this._getGroupList()}
                             />
                         }
                         }>

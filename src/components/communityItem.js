@@ -18,37 +18,21 @@ export default class CommunityItem extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            userInfo:{}
         }
     }
 
-    componentWillMount(){
-        let self = this
-        AsyncStorage.getItem('data').then(data => {
-            let userInfo = JSON.parse(data);
-            self.setState({
-                userInfo:userInfo
-            })
-        })
-    }
+
 
     _joinChatGroup(){
         let self = this
         let groupInfo = self.props.item
-        let userInfo = self.state.userInfo
-        HttpUtils.postRequrst(
-            'appUrl',
+        HttpUtils.formDataRequest(
             'joinItem',
             {
-                "accountNo": userInfo.accountNo,
-                "chatGroupId": groupInfo.chatGroupId,
-                "chatGroupNo":groupInfo.chatGroupNo,
-                "owner": groupInfo.owner,
-                "userId": userInfo.id
+                "groupId": groupInfo.id
             },
             function (data) {
                 self.props.methods()
-                // self.props.params.refresh();
             }
         )
     }
@@ -58,14 +42,14 @@ export default class CommunityItem extends Component {
         return (
             <ListItem  button style={styles.listItemStyle} onPress={onPress} avatar>
                 <Left>
-                    <Thumbnail square source={{uri: item.icon}} style={styles.avatarStyle}/>
+                    <Thumbnail square source={{uri: item.groupIcon}} style={styles.avatarStyle}/>
                 </Left>
                 <Body style={styles.listItemStyle}>
-                <Text>{item.chatGroupName}</Text>
+                <Text>{item.groupName}</Text>
                 </Body>
                 <Right style={styles.listItemStyle}>
                     {
-                        item.join === false ?
+                        item.joinStatus === 2 ?
                         <Button small bordered style={styles.borderStyle} onPress={()=>this._joinChatGroup()}>
                         <Text style={styles.text}>加入社群</Text>
                     </Button>
