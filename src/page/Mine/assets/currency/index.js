@@ -59,7 +59,7 @@ class Currency extends Component {
                                 <Text style={styles.titleStyle}>{this.data.assetName}</Text>
                             </Body>
                             <Right>
-                                <Button transparent onPress={() => this.props.navigation.navigate("Record")}>
+                                <Button transparent onPress={() => this.props.navigation.navigate("Record", { assets: this.data })}>
                                     <Text style={styles.recordStyle}>提现记录</Text>
                                 </Button>
                             </Right>

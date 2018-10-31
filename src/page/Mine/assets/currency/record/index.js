@@ -13,6 +13,7 @@ import { Text, FlatList } from 'react-native';
 import styles from "./styles";
 import RecordItem from '../../../../../components/recordItem';
 import { Grid, Col } from 'react-native-easy-grid';
+import HttpUtils from '../../../../../api/Api';
 
 
 const data = [
@@ -29,6 +30,7 @@ class Record extends Component {
 
     constructor(props) {
         super(props)
+        this.assets = props.navigation.state.params.assets;
     }
 
     static navigationOptions = {
@@ -39,6 +41,10 @@ class Record extends Component {
         this.props.navigation.goBack();
     }
 
+    componentWillMount() {
+        console.log(this.assets)
+        //  this._getAssetCheckout();
+    }
     render() {
         let items = data
         return (
@@ -83,6 +89,22 @@ class Record extends Component {
                     }} />
             </Container >
         );
+    }
+
+    _getAssetCheckout() {
+        let self = this
+        HttpUtils.post(
+            'getAssetCheckout',
+            {
+                'assetId': `${this.assets.assetId}`
+            },
+            function (data) {
+                console.log(data)
+                self.setState({
+                    data: data
+                })
+            }
+        )
     }
 }
 export default Record
