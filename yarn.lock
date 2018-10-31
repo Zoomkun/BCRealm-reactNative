@@ -5484,9 +5484,9 @@ react-native-getui@^1.1.24:
   version "0.2.0"
   resolved "git+https://github.com/ujff888/react-native-http-cache.git#de75708c00c1821cdd7cdd0ee98708cbbb0f47d3"
 
-react-native-image-picker@^0.26.10:
-  version "0.26.10"
-  resolved "http://registry.npm.taobao.org/react-native-image-picker/download/react-native-image-picker-0.26.10.tgz#0bb9ab928984948c67aee0b9e64216bee007a9fc"
+react-native-image-picker@^0.27.1:
+  version "0.27.1"
+  resolved "http://registry.npm.taobao.org/react-native-image-picker/download/react-native-image-picker-0.27.1.tgz#32877c667e8c2713466fe178a6c7dd648e6cb5d3"
 
 react-native-iphone-x-helper@^1.0.1:
   version "1.0.3"
