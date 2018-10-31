@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import {
     Container,
     Left,
@@ -12,25 +11,15 @@ import {
 import {
     Text,
     View,
-    AsyncStorage,
     ImageBackground,
     FlatList
 } from 'react-native';
 import { Grid, Row, Col } from "react-native-easy-grid";
 import Toast, { DURATION } from 'react-native-easy-toast';
-import CommonStyles from '../../../css/commonStyle';
 import styles from "./styles";
-import Http from '../../../api/Api';
+import HttpUtils from '../../../api/Api';
 import { wallet_renzheng_top_bg } from '../../../../images';
-// import { url } from "inspector";
 
-
-const data = [
-    { a: 1 },
-    { a: 1 },
-    { a: 1 },
-    { a: 1 },
-]
 /**
  * 实名认证
  */
@@ -39,14 +28,8 @@ class WalletAuthenticate extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            certificateNumber: '',
-            selected: '',
-            nat: '1',
-            cer: '1',
-            id: 0,
-            nationality: [],
-            certificate: []
+            address: '',
+            type: 1
         }
     }
 
@@ -55,23 +38,17 @@ class WalletAuthenticate extends Component {
     };
 
     goBack = () => {
-        AsyncStorage.getItem('data').then(data => {
-            let datas = JSON.parse(data);
-            console.log(datas);
-            this.props.navigation.state.params.returnData(datas);
-        })
+        // AsyncStorage.getItem('data').then(data => {
+        //     let datas = JSON.parse(data);
+        //     console.log(datas);
+        //     this.props.navigation.state.params.returnData(datas);
+        // })
         this.props.navigation.goBack();
     }
 
-    // componentDidMount() {
-    //     AsyncStorage.getItem('data').then(data => {
-    //         let datas = JSON.parse(data);
-    //         this.setState({
-    //             id: datas.id,
-    //         })
-    //         console.log(datas);
-    //     })
-    // }
+    componentDidMount() {
+        this._getWalletAddressList();
+    }
 
     render() {
         return (
@@ -117,11 +94,11 @@ class WalletAuthenticate extends Component {
                                 style={{ textAlignVertical: 'top' }}
                                 placeholder="请填写正确地址码"
                                 keyboardType='decimal-pad'
-                                value={this.state.name}
+                                value={this.state.address}
                                 style={styles.inputStyle}
-                                onChangeText={(text) => { this.setState({ name: text }) }} />
+                                onChangeText={(text) => { this.setState({ address: text }) }} />
 
-                            <Button style={styles.buttonStyle} onPress={() => { this._authenticate() }}>
+                            <Button style={styles.buttonStyle} onPress={() => { this._walletAddressSubmit(this.state.address) }}>
                                 <Text style={styles.buttonTextStyle}>确认</Text>
                             </Button>
                         </View>
@@ -129,7 +106,7 @@ class WalletAuthenticate extends Component {
                     <View style={styles.lineStyle} />
                 </View>
 
-                <View style={{ height: 80, marginLeft: 25, }}>
+                {/* <View style={{ height: 80, marginLeft: 25, }}>
                     <View style={{ flexDirection: 'row', flex: 1 }}>
                         <Text style={{ color: '#313442', fontSize: 16, alignSelf: 'center' }}>ETH地址</Text>
                         <Button style={styles.addressStyle} >
@@ -137,7 +114,7 @@ class WalletAuthenticate extends Component {
                         </Button>
                     </View>
                     <View style={styles.lineStyle} />
-                </View>
+                </View> */}
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}
@@ -152,36 +129,20 @@ class WalletAuthenticate extends Component {
         );
     };
 
-    onValueChange = (flag, value) => {
-        if (flag == 1) {
-            this.setState({ nat: value });
-        } else {
-            this.setState({ cer: value });
-        }
-    };
-
-
-
     /**
-     * 实名认证
+     * 钱包认证
      */
-    _authenticate() {
+    _walletAddressSubmit(address) {
         let self = this
-        if (this.state.name != '' && this.state.certificateNumber != '') {
-            Http.postRequrst(
-                'userUrl',
-                'realNameAu',
+        if (address != '') {
+            HttpUtils.postRequrst(
+                'WalletAddressSubmit',
                 {
-                    "certificateNumber": `${this.state.certificateNumber}`,
-                    "certificateTypeId": `${this.state.cer}`,
-                    "id": `${this.state.id}`,
-                    "nationalityId": `${this.state.nat}`,
-                    "realName": `${this.state.name}`
+                    "address": `${address}`,
+                    "type": 1
                 },
                 function (data) {
-                    console.log(data)
-                    if (data.userName) {
-                        AsyncStorage.setItem('data', JSON.stringify(data));
+                    if (data == '') {
                         self.refs.toast.show("成功", DURATION.LENGTH_LONG);
                     } else {
                         self.refs.toast.show(data, DURATION.LENGTH_LONG);
@@ -191,6 +152,19 @@ class WalletAuthenticate extends Component {
         } else {
             this.refs.toast.show("真实姓名或证件号码不可为空", DURATION.LENGTH_LONG);
         }
+    }
+
+    /**
+     * 获取钱包地址列表
+     */
+    _getWalletAddressList() {
+        HttpUtils.postRequrst(
+            'getWalletAddressList',
+            '',
+            function (data) {
+                console.log(data)
+            }
+        )
     }
 }
 

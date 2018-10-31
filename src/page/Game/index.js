@@ -51,11 +51,13 @@ export default class GamePage extends Component {
     }
 
     _onLoadEnd = (e) => {
+        console.log("transmit")
         AsyncStorage.getItem('user').then(data => {
             let datas = JSON.parse(data);
             let dataJson = JSON.stringify(datas)
             console.log(dataJson)
             this.refs.webView.postMessage(datas.appToken);
+            console.log(this.refs.webView)
         })
         // DeviceStorage.get('user').then(data => {
         //     console.log(data.token)

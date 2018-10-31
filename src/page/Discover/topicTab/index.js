@@ -5,7 +5,7 @@ import {
 import {
     FlatList
 } from 'react-native';
-import { NewsItem } from '../../../components';
+import { NewsItem, OldNewsItem } from '../../../components';
 import styles from "./styles";
 import HttpUtils from "../../../api/Api";
 
@@ -41,14 +41,12 @@ export default class TopicTab extends Component {
                     onEndReachedThreshold={10}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item, index }) => {
-                        return <NewsItem
+                        return <OldNewsItem
                             {...this.props}
-                            avatar={item.headUrl}
                             title={item.title}
-                            time={item.sendDate}
-                            like={item.tsan}
-                            read={item.readVal}
-                            onPress={() => this.props.navigation.navigate("Content", { url: item.html5Url })}
+                            time={item.createTimestamp}
+                            read={item.readQuantity}
+                            onPress={() => this.props.navigation.navigate("Content", { id: item.id })}
                         />
                     }} />
             </Container>

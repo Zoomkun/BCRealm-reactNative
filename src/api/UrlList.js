@@ -41,6 +41,10 @@ export default {
     getAssetCheckout: 'wexchange/checkout/list?',
     /**实名认证 */
     authenticate: 'wuser/user/submitIdentity',
+    /**查询钱包地址 */
+    getWalletAddressList: 'wwallet/wallet/address/list',
+    /**钱包地址认证 */
+    WalletAddressSubmit: 'wwallet/wallet/address/submit',
 
     /**下面都是老的接口*/
     /**线上*/

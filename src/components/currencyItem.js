@@ -11,7 +11,6 @@ import {
  */
 export default class CurrencyItem extends Component {
     render() {
-
         let { currency, quantity, estimatedValue, onPress } = this.props;
         return (
             < ListItem button style={styles.listItemStyle} onPress={onPress}>

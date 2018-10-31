@@ -40,11 +40,13 @@ export default class News extends Component {
     }
 
     _onLoadEnd = (e) => {
-        AsyncStorage.getItem('data').then(data => {
+        console.log(111)
+        AsyncStorage.getItem('user').then(data => {
+            console.log(222)
             let datas = JSON.parse(data);
             let dataJson = JSON.stringify(datas)
             this.refs.webView.postMessage(dataJson);
-            console.log(dataJson)
+            console.log(datas)
         })
     }
 
@@ -85,10 +87,9 @@ export default class News extends Component {
                     </Button>
                 </Header>
                 {/* http://test.bcrealm.com/api/wnews/news/info/ */}
-                <WebView source={{ uri: "http://www.baidu.com" }}
-                    {...console.log('http://test.bcrealm.com/api/')}
-                    //ref='webView'
-                    // onLoadEnd={this._onLoadEnd}
+                <WebView source={{ uri: "http://world.gametest.bcrealm.com/static/worldnews.html?newsId=" + newsId }}
+                    ref='webView'
+                    onLoadEnd={this._onLoadEnd}
                     style={styles.webStyle} >
                 </WebView>
 

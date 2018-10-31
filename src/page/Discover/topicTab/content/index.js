@@ -20,7 +20,7 @@ import CommonStyles from '../../../../css/commonStyle';
 export default class Content extends Component {
     constructor(props) {
         super(props)
-        this.url = this.props.navigation.state.params.url;
+        this.id = this.props.navigation.state.params.id;
         this.keyboardDidShowListener = null;
         this.keyboardDidHideListener = null;
         this.state = {
@@ -54,7 +54,7 @@ export default class Content extends Component {
                 <WebView
                     // source={{ uri: "http://qsj.bcrealm.com/qsj/" + url }}
                     {...console.log('http://qsj.bcrealm.com/static/' + url)}
-                    source={{ uri: "http://qsj.bcrealm.com/static/" + url }}
+                    source={{ uri: "http://world.game.bcrealm.com/static/article.html?newsId=" + this.id }}
                     ref='webView'
                     onLoadEnd={this._onLoadEnd}
                     onMessage={(e) => {

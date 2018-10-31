@@ -117,7 +117,7 @@ export default class Discover extends Component {
                         </Row>
                     </Grid>
                 </ImageBackground>
-                {this.state.pick == 0 ? < NewsTab /> : <TopicTab />}
+                {this.state.pick == 0 ? < NewsTab  {...this.props} /> : <TopicTab {...this.props} />}
             </Container >
         )
     }
