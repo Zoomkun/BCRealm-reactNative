@@ -106,7 +106,6 @@ class CommunityInfo extends Component {
         Http.formDataRequest(
             'leaveChatGroup',
             {
-
                 groupId: groupInfo.id
             },
             function (data) {
@@ -167,7 +166,7 @@ class CommunityInfo extends Component {
                         {data.description}
                     </Text>
 
-                    <Button style={[styles.loginGroup]}
+                    <Button full style={[styles.loginGroup]}
                             onPress={() => this._toChat()}>
                         <Text style={styles.colorWhite}>进入群聊天室</Text>
                     </Button>

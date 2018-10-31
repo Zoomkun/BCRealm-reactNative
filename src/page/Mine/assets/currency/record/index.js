@@ -88,10 +88,10 @@ class Record extends Component {
 
     _getAssetCheckout() {
         let self = this
-        HttpUtils.post(
+        HttpUtils.formDataRequest(
             'getAssetCheckout',
             {
-                'coinId': `${this.assets.assetId}`
+                coinId: `${this.assets.assetId}`
             },
             function (data) {
                 console.log(data)

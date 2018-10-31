@@ -97,8 +97,6 @@ export default {
         marginTop: 20,
         paddingLeft:20,
         paddingRight:20,
-        justifyContent:'center',
-        alignItems: 'center',
         marginBottom: 150,
     },
     marginB150: {

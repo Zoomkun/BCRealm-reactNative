@@ -7,8 +7,8 @@ import Api from './UrlList'
  * fetch 网络请求的header，可自定义header 内容
  * @type {{Accept: string, Content-Type: string, accessToken: *}}
  */
-let header = { 'Content-Type': 'application/json;charset=UTF-8' }
-let headers = {}
+let header = {'Content-Type': 'application/json;charset=UTF-8'}
+let headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 let token = '';
 
 AsyncStorage.getItem('data').then(data => {
@@ -42,6 +42,22 @@ const handleUrl = url => params => {
         }
     }
     return url
+}
+
+/**
+ *
+ * @param params 请求参数
+ * @returns {*}
+ */
+const paramFormat = params => {
+    let param = ''
+    let paramsArray = []
+    Object.keys(params).forEach(key => paramsArray.push(key + '=' + encodeURIComponent(params[key])))
+
+    param += paramsArray.join('&')
+
+    console.log(param)
+    return param
 }
 
 /**
@@ -160,35 +176,6 @@ export default class HttpUtils extends Component {
     }
 
     /**
-     * post 键值对提交
-     */
-    static post = (ApiName, params, success) => {
-        return timeoutFetch(fetch(handleUrl(api + Api[ApiName])(params), {
-            method: 'POST',
-            headers: header,
-            body: JSON.stringify(params)
-        })).then(response => {
-            console.log(response)
-            console.log(JSON.stringify(params))
-            if (response.ok) {
-                return response.json()
-            } else {
-                alert('服务器繁忙，请稍后再试；\r\nCode:' + response.status)
-            }
-        }).then(response => {
-            console.log(response)
-            // response.code：是与服务器端约定code：200表示请求成功，非200表示请求失败，message：请求失败内容
-            if (response && response.code === 1) {
-                success(response.data)
-            } else {
-                success(response.msg)
-            }
-        }).catch(error => {
-            alert(error)
-        })
-    }
-
-    /**
     * 基于fetch 的 POSTformData 请求
     * @param url 请求的URL
     * @param params 请求参数
@@ -199,7 +186,7 @@ export default class HttpUtils extends Component {
         return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'POST',
             headers: headers,
-            body: params
+            body: paramFormat(params)
         })).then(response => {
             if (response.ok) {
                 return response.json()

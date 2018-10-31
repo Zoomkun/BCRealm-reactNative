@@ -73,9 +73,9 @@ const styles = {
     borderStyle: {
         height: 30,
         borderRadius: 6,
-        borderColor: '#FF6109',
+        borderColor: '#694BDB',
     },
     text: {
-        color: "#FF6109"
+        color: "#714BD9"
     }
 };
