@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
     Container,
     Body,
@@ -9,12 +9,27 @@ import {
     ListItem,
     Icon,
 } from 'native-base';
-import {AsyncStorage, NativeModules, Platform, Text,Alert,BackHandler} from 'react-native';
-import styles from "./styles";
+
+import { } from 'react-native';
+import { Grid, Row, Col } from 'react-native-easy-grid';
 import CommonStyles from '../../../css/commonStyle';
+import { aboutus_top_bg } from '../../../../images';
+import styles from "./styles";
+import {
+    AsyncStorage,
+    NativeModules,
+    Platform,
+    Text,
+    Alert,
+    BackHandler,
+    Text,
+    ImageBackground
+} from 'react-native';
+import styles from "./styles";
 import DeviceInfo from "react-native-device-info";
 
-const about = [{v: "v1.0"}];
+
+const about = [{ v: "v1.0" }];
 
 /**
  * 关于我们
@@ -26,7 +41,7 @@ class AboutUs extends Component {
         this.state = {
             version: '',
             update: false,
-            versionData:null
+            versionData: null
         }
     }
 
@@ -66,9 +81,9 @@ class AboutUs extends Component {
     }
 
     // 版本升级
-    _update(){
+    _update() {
         let data = this.state.versionData
-console.log(this.state.update)
+        console.log(this.state.update)
         if (this.state.update) {
             console.log(111)
             if (Platform.OS === 'android') {
@@ -80,7 +95,7 @@ console.log(this.state.update)
                                 NativeModules.upgrade.upgrade(data.downloadUrl);
                             }
                         },
-                        {text: "取消",}
+                        { text: "取消", }
                     ]
                 );
             } else {
@@ -95,7 +110,7 @@ console.log(this.state.update)
                                         NativeModules.upgrade.openAPPStore('AppId');
                                     }
                                 },
-                                {text: "取消",}
+                                { text: "取消", }
                             ]
                         );
                     }
@@ -109,27 +124,35 @@ console.log(this.state.update)
         console.log(update)
         return (
             <Container style={CommonStyles.container}>
-                <Header style={CommonStyles.headerStyle}>
-                    <Button transparent onPress={() => {
-                        this.goBack()
-                    }}>
-                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle}/>
-                    </Button>
-                    <Body style={CommonStyles.titleBodyStyle}>
-                    <Text style={CommonStyles.headertextStyle}>关于区世界</Text>
-                    </Body>
-                    <Button transparent/>
-                </Header>
+
+                <ImageBackground
+                    resizeMode={"cover"}
+                    source={aboutus_top_bg}
+                    style={styles.imageBackgroundStyle}
+                >
+                    <Row style={{ height: 60, }}>
+                        <Left>
+                            <Button transparent onPress={() => { this.goBack() }}>
+                                <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
+                            </Button>
+                        </Left>
+                        <Body>
+                            <Text style={styles.titleStyle}>BBM</Text>
+                        </Body>
+                        <Right>
+                            <Button transparent />
+                        </Right>
+                    </Row>
+                </ImageBackground>
 
                 <ListItem itemDivider style={CommonStyles.container}>
                     <Left><Text style={styles.textStyle}>版本号</Text></Left>
                     <Body><Text>{this.state.version}</Text></Body>
                     {
                         update === true ? <Right><Button small onPress={() => {
-                                this._update()
-                            }}><Text style={style.text}>升级</Text></Button></Right>
+                            this._update()
+                        }}><Text style={style.text}>升级</Text></Button></Right>
                             : null
-
                     }
                 </ListItem>
             </Container>

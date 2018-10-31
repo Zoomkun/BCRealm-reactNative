@@ -33,6 +33,11 @@ export default {
     getNews: 'wnews/news/list?sourceType=1',
     /**获取评级列表 */
     getSteefanKors: 'wnews/news/list?sourceType=2',
+    /**获取用户信息 */
+    getPlayerInfo: 'wuser/player/info?inviteCode=',
+    /**获取钱包资产列表 */
+    getAssetList: 'wwallet/wallet/asset/list',
+
 
     /**下面都是老的接口*/
     /**线上*/

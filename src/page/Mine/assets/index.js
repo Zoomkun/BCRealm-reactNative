@@ -4,9 +4,7 @@ import {
     Body,
     Left,
     Right,
-    Header,
     Button,
-    ListItem,
     Icon,
     View,
     Content
@@ -15,6 +13,9 @@ import { Text, ImageBackground, FlatList } from 'react-native';
 import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle';
 import { CurrencyItem } from '../../../components';
+import { Grid, Row, Col } from 'react-native-easy-grid';
+import { bg } from '../../../../images';
+import HttpUtils from "../../../api/Api";
 
 
 const data = [
@@ -35,6 +36,9 @@ class Assets extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            data: []
+        }
     }
 
     static navigationOptions = {
@@ -45,27 +49,35 @@ class Assets extends Component {
         this.props.navigation.goBack();
     }
 
+    componentWillMount() {
+        this._getAssetList()
+    }
+
     render() {
-        let items = data
+        let items = this.state.data
         return (
             <Container style={CommonStyles.container}>
-                <Header style={CommonStyles.headerStyle}>
-                    <Button transparent onPress={() => { this.goBack() }}>
-                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
-                    </Button>
-                    <Body style={CommonStyles.titleBodyStyle}>
-                        <Text style={CommonStyles.headertextStyle}>资产</Text>
-                    </Body>
-                    <Button transparent />
-                </Header>
-                <ImageBackground resizeMode={"contain"}
-                    source={require('../../../../images/aboutme_bg.png')}
+                <ImageBackground resizeMode={"cover"}
+                    source={bg}
                     style={styles.imageStyle}
                 >
+                    <Row style={{ height: 60, }}>
+                        <Left>
+                            <Button transparent onPress={() => { this.goBack() }}>
+                                <Icon name={"ios-arrow-back"} style={styles.backIconStyle} />
+                            </Button>
+                        </Left>
+                        <Body>
+                            <Text style={styles.titleStyle}>资产</Text>
+                        </Body>
+                        <Right>
+                            <Button transparent />
+                        </Right>
+                    </Row>
                     <View style={{ flex: 1, flexDirection: 'column', }}>
                         <Body style={styles.bodyStyle}>
                             <Text style={styles.textStyle}>我的资产总价值约(元)</Text>
-                            <Text style={styles.textStyle}>7200.00</Text>
+                            <Text style={styles.textStyle}>{items.totalValue}</Text>
                         </Body>
                     </View>
                 </ImageBackground>
@@ -84,21 +96,36 @@ class Assets extends Component {
                         </View>
                     </ListItem> */}
 
-                    <FlatList data={items}
+                    <FlatList data={items.assets}
                         enableEmptySections={true}
                         onEndReachedThreshold={10}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item, index }) => {
                             return <CurrencyItem
-                                currency={item.currency}
-                                quantity={item.quantity}
-                                estimatedValue={item.estimatedValue}
-                                onPress={() => this.props.navigation.navigate("Currency")}
+                                currency={item.assetName}
+                                quantity={item.gameAmount}
+                                estimatedValue={(item.gameAmount).toFixed(4)}
+                                onPress={() => this.props.navigation.navigate("Currency", { data: item })}
                             />
                         }} />
                 </Content>
             </Container>
         );
+    }
+
+
+    _getAssetList() {
+        let self = this
+        HttpUtils.postRequrst(
+            'getAssetList',
+            '',
+            function (data) {
+                console.log(data)
+                self.setState({
+                    data: data
+                })
+            }
+        )
     }
 }
 export default Assets

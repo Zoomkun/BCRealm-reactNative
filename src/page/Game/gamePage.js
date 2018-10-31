@@ -35,7 +35,7 @@ export default class GamePage extends Component {
             < Icon name={"gamepad-variant"} type={"MaterialCommunityIcons"} fontSize={5} style={CommonStyles.iconStyle} />
         ),
         headerStyle: {
-            "backgroundColor": "#FE6F06",
+            "backgroundColor": "#714BD9",
         },
         headerTitleStyle: {
             alignSelf: 'center'

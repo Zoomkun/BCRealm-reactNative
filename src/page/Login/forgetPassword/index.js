@@ -64,7 +64,7 @@ export default class ForgetPassword extends Component {
         return (
             <Container style={CommonStyles.container}>
                 <ImageBackground source={login_bg}
-                    resizeMode={"contain"}
+                    resizeMode={"cover"}
                     style={CommonStyles.backgroundStyle}
                 >
                     <Content>
@@ -110,7 +110,7 @@ export default class ForgetPassword extends Component {
                                     <Button transparent onPress={() => { this._getCodeUuId() }}>
                                         {this.state.imgCodeUrl != '' &&
                                             <Image
-                                                resizeMode={"contain"}
+                                                resizeMode={"cover"}
                                                 source={{ uri: 'http://test.bcrealm.com/api/wuser/user/imgCode?uuId=' + this.state.imgCodeUrl }}
                                                 style={{ width: 100, height: 40 }}
                                             />

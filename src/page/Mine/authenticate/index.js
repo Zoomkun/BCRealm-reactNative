@@ -69,7 +69,7 @@ class Authenticate extends Component {
         return (
             <Container style={styles.container}>
                 <ImageBackground
-                    resizeMode={"contain"}
+                    resizeMode={"cover"}
                     source={authenticate}
                     style={styles.imageBackgroundStyle}
                 >

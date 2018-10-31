@@ -7,7 +7,6 @@ import CommunityItem from './communityItem';
 import CurrencyItem from './currencyItem';
 import RecordItem from './recordItem';
 import DeviceStorage from './deviceStorage';
-
 export {
     ThemeHeader,
     MsgItem,
@@ -17,5 +16,5 @@ export {
     CommunityItem,
     CurrencyItem,
     RecordItem,
-    DeviceStorage
+    DeviceStorage,
 }

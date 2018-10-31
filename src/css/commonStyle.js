@@ -17,7 +17,7 @@ export default {
     },
     iconStyle: {
         fontSize: 18,
-        color: '#FE6F06'
+        color: '#714BD9'
     },
     rightIconStyle: {
         fontSize: 22,
@@ -41,7 +41,7 @@ export default {
         fontSize: 19
     },
     headerStyle: {
-        // backgroundColor: "skyblue"
+        backgroundColor: "#1C127A"
     },
     titleBodyStyle: {
         justifyContent: 'center',

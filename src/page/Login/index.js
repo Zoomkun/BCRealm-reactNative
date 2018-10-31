@@ -84,7 +84,7 @@ export default class Login extends Component {
             <Container style={CommonStyles.container}>
 
                 <ImageBackground source={login_bg}
-                    resizeMode={"contain"}
+                    resizeMode={"cover"}
                     style={CommonStyles.backgroundStyle}
                 >
                     <Grid style={CommonStyles.gridStyle}>
@@ -274,33 +274,5 @@ export default class Login extends Component {
     _goMainPage() {
         let { navigate } = this.props.navigation;
         navigate("Main");
-    }
-
-    //短信登录
-    _smsLogin(phone, code, clientId) {
-        let self = this
-        if (phone.length > 10 && code != '') {
-            HttpUtils.postRequrst(
-                'userUrl',
-                'smsLogin',
-                {
-                    'cid': `${clientId}`,
-                    'phoneNumber': `${phone}`,
-                    'code': `${code}`,
-                },
-                function (data) {
-                    if (data.userName) {
-                        HttpUtils.setHeader({ Auhtorization: data.token })
-                        AsyncStorage.setItem('data', JSON.stringify(data));
-                        self._goMainPage();
-                        self.props.navigation.dispatch(resetAction);
-                    } else {
-                        self.refs.toast.show((data), DURATION.LENGTH_LONG);
-                    }
-                }
-            )
-        } else {
-            this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
-        }
     }
 }

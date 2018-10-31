@@ -71,7 +71,7 @@ export default class Discover extends Component {
         return (
             <Container>
                 <ImageBackground
-                    resizeMode={"contain"}
+                    resizeMode={"cover"}
                     source={find_top_bg}
                     style={styles.imageBackGroundStyle}
                 >

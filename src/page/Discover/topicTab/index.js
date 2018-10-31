@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import {
-    Icon,
-    Button,
     Container,
 } from 'native-base';
 import {
