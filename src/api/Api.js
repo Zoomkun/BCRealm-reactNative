@@ -1,5 +1,5 @@
-import { Component } from 'react'
-import { AsyncStorage } from "react-native"
+import {Component} from 'react'
+import {AsyncStorage} from "react-native"
 import Api from './UrlList'
 
 
@@ -7,8 +7,8 @@ import Api from './UrlList'
  * fetch 网络请求的header，可自定义header 内容
  * @type {{Accept: string, Content-Type: string, accessToken: *}}
  */
-let header = { 'Content-Type': 'application/json;charset=UTF-8' }
-let headers = {}
+let header = {'Content-Type': 'application/json;charset=UTF-8'}
+let headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 let token = '';
 
 AsyncStorage.getItem('data').then(data => {
@@ -41,7 +41,24 @@ const handleUrl = url => params => {
             url += paramsArray.join('&')
         }
     }
+
+    console.log(url)
     return url
+}
+
+/**
+ *
+ * @param params 请求参数格式化
+ * @returns {*}
+ */
+const paramFormat = params => {
+    let param = ''
+    let paramsArray = []
+    Object.keys(params).forEach(key => paramsArray.push(key + '=' + encodeURIComponent(params[key])))
+
+    param += paramsArray.join('&')
+
+    return param
 }
 
 /**
@@ -51,7 +68,8 @@ const handleUrl = url => params => {
  * @returns {Promise.<*>}
  */
 const timeoutFetch = (original_fetch, timeout = 30000) => {
-    let timeoutBlock = () => { }
+    let timeoutBlock = () => {
+    }
     let timeout_promise = new Promise((resolve, reject) => {
         timeoutBlock = () => {
             // 请求超时处理
@@ -95,7 +113,7 @@ export default class HttpUtils extends Component {
      * @param url 请求URL
      * @param ApiName api
      * @param params 请求参数
-     * @param 
+     * @param
      * @param success 成功回调
      * @returns {Promise}
      */
@@ -160,17 +178,17 @@ export default class HttpUtils extends Component {
     }
 
     /**
-    * 基于fetch 的 POSTformData 请求
-    * @param url 请求的URL
-    * @param params 请求参数
-    * @param success 成功回调
-    * @returns {Promise}
-    */
+     * 基于fetch 的 POSTformData 请求
+     * @param url 请求的URL
+     * @param params 请求参数
+     * @param success 成功回调
+     * @returns {Promise}
+     */
     static formDataRequest = (ApiName, params, success) => {
         return timeoutFetch(fetch(api + Api[ApiName], {
             method: 'POST',
             headers: headers,
-            body: params
+            body: paramFormat(params)
         })).then(response => {
             if (response.ok) {
                 return response.json()

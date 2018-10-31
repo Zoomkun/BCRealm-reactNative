@@ -122,12 +122,14 @@ export default class StartPage extends Component {
     // 打开App
     _openApp() {
         let self = this
-        AsyncStorage.getItem('data').then(data => {
+        AsyncStorage.getItem('user').then(data => {
             let datas = JSON.parse(data)
             if (datas) {
                 self.setState({
                     token: datas.token,
                 })
+
+                HttpUtils.setHeader({Authorization: datas.token})
             }
         })
 

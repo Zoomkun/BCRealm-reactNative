@@ -248,11 +248,10 @@ export default class Login extends Component {
                 },
                 function (data) {
                     if (data.token) {
-                        console.log(data)
                         HttpUtils.setHeader({ Authorization: data.token })
                         var user = new Object();
                         user.phone = self.state.phone;
-                        user.appToken = data.token;
+                        user.token = data.token;
                         AsyncStorage.setItem('user', JSON.stringify(user));
                         //DeviceStorage.save("user", user);
                         // DeviceStorage.get('user').then(data => {
@@ -268,38 +267,6 @@ export default class Login extends Component {
             // self.setState({
             //     warning: "请检查您的账号密码!"
             // })
-            this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
-        }
-    }
-
-    //密码登录
-    _oldLogin(phone, password) {
-        console.log(phone + '___' + password)
-        let self = this
-        if (this.state.phone.length > 10 && this.state.password != '') {
-            HttpUtils.postRequrst(
-                'userUrl',
-                'appLogin',
-                {
-                    'cid': '0',
-                    'phoneNumber': `${phone}`,
-                    'pwd': `${password}`,
-                },
-                function (data) {
-                    console.log(data)
-                    if (data.userName) {
-                        HttpUtils.setHeader({ token: data.token })
-                        DeviceStorage.save('data', data)
-                        DeviceStorage.get('data').then((data) => {
-                            console.log(data)
-                        });
-                        self.props.navigation.dispatch(resetAction);
-                    } else {
-                        self.refs.toast.show((data), DURATION.LENGTH_LONG);
-                    }
-                }
-            )
-        } else {
             this.refs.toast.show('请检查您的账号密码!', DURATION.LENGTH_LONG);
         }
     }
@@ -323,7 +290,7 @@ export default class Login extends Component {
                 },
                 function (data) {
                     if (data.userName) {
-                        HttpUtils.setHeader({ token: data.token })
+                        HttpUtils.setHeader({ Auhtorization: data.token })
                         AsyncStorage.setItem('data', JSON.stringify(data));
                         self._goMainPage();
                         self.props.navigation.dispatch(resetAction);
