@@ -30,6 +30,9 @@ class Record extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            data: []
+        }
         this.assets = props.navigation.state.params.assets;
     }
 
@@ -43,10 +46,10 @@ class Record extends Component {
 
     componentWillMount() {
         console.log(this.assets)
-        this._getAssetCheckout();
+        //this._getAssetCheckout();
     }
     render() {
-        let items = data
+        let items = this.state.data
         return (
             <Container style={styles.containerStyle}>
                 <View style={{ flexDirection: 'row' }}>

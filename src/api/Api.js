@@ -160,7 +160,7 @@ export default class HttpUtils extends Component {
     }
 
     /**
-     * 
+     * post 键值对提交
      */
     static post = (ApiName, params, success) => {
         return timeoutFetch(fetch(handleUrl(api + Api[ApiName])(params), {
