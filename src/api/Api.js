@@ -160,6 +160,35 @@ export default class HttpUtils extends Component {
     }
 
     /**
+     * 
+     */
+    static post = (ApiName, params, success) => {
+        return timeoutFetch(fetch(handleUrl(api + Api[ApiName])(params), {
+            method: 'POST',
+            headers: header,
+            body: JSON.stringify(params)
+        })).then(response => {
+            console.log(response)
+            console.log(JSON.stringify(params))
+            if (response.ok) {
+                return response.json()
+            } else {
+                alert('服务器繁忙，请稍后再试；\r\nCode:' + response.status)
+            }
+        }).then(response => {
+            console.log(response)
+            // response.code：是与服务器端约定code：200表示请求成功，非200表示请求失败，message：请求失败内容
+            if (response && response.code === 1) {
+                success(response.data)
+            } else {
+                success(response.msg)
+            }
+        }).catch(error => {
+            alert(error)
+        })
+    }
+
+    /**
     * 基于fetch 的 POSTformData 请求
     * @param url 请求的URL
     * @param params 请求参数

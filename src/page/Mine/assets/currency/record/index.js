@@ -43,7 +43,7 @@ class Record extends Component {
 
     componentWillMount() {
         console.log(this.assets)
-        //  this._getAssetCheckout();
+        this._getAssetCheckout();
     }
     render() {
         let items = data
