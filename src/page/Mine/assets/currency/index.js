@@ -18,6 +18,8 @@ import {
 import { Grid, Row, Col } from 'react-native-easy-grid';
 import styles from "./styles";
 import { bg, tip_bg } from '../../../../../images'
+import Toast, { DURATION } from 'react-native-easy-toast';
+
 
 /**
  * 货币页面
@@ -128,7 +130,9 @@ class Currency extends Component {
                             width: 126,
                             justifyContent: 'center',
                             alignItems: 'center',
-                        }}>
+                        }}
+                            onPress={() => { this._downloadTips() }}
+                        >
                             <Text style={{
                                 justifyContent: 'center',
                                 alignItems: 'center',
@@ -142,13 +146,33 @@ class Currency extends Component {
                             justifyContent: 'center',
                             alignItems: 'center',
                             marginRight: 17
-                        }}>
+                        }}
+                            onPress={() => { this._recordTips() }}
+                        >
                             <Text>提取至钱包</Text>
                         </Button>
                     </View>
                 </Content>
+                <Toast
+                    ref="toast"
+                    style={{ backgroundColor: '#434343' }}
+                    position='center'
+                    positionValue={200}
+                    fadeInDuration={750}
+                    fadeOutDuration={1000}
+                    opacity={0.8}
+                    textStyle={{ color: '#ffffff' }}
+                />
             </Container >
         );
+    }
+
+    _downloadTips() {
+        this.refs.toast.show("钱包正在搭建中,敬请期待", DURATION.LENGTH_LONG);
+    }
+
+    _recordTips() {
+        this.refs.toast.show("请实名认证后提现", DURATION.LENGTH_LONG);
     }
 }
 export default Currency

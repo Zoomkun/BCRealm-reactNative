@@ -89,10 +89,18 @@ export default class Mine extends Component {
                         </Row>
                         <Grid size={1} style={{ flexDirection: 'row', }}>
                             <Col size={1.5} style={{ justifyContent: 'center' }} >
-                                {/* {
+                                {
                                     data.headIcon != '' &&
-                                    < Thumbnail source={this.state.headeIcon} style={styles.headStyle} />
-                                } */}
+                                    < Thumbnail source={
+                                        data.headIcon == "1"
+                                            ? photo_01
+                                            : data.headeIcon == "2"
+                                                ? photo_02
+                                                : data.headeIcon == "3"
+                                                    ? photo_03
+                                                    : photo_04
+                                    } style={styles.headStyle} />
+                                }
                             </Col>
                             <Col size={2} style={{ flexDirection: 'column', justifyContent: 'center' }}>
                                 <Text style={styles.userNameStyle}>{data.nickName}</Text>

@@ -84,18 +84,6 @@ class Assets extends Component {
                 <View style={styles.viewStyle} />
                 <Text style={styles.titleStyle}>我的资产</Text>
                 <Content style={styles.contentStyle}>
-                    {/* <ListItem button style={styles.listItemStyle}>
-                        <View style={{ backgroundColor: '#9578E4', width: 5, height: 80 }} />
-                        <View style={styles.leftViewStyle}>
-                            <Text style={[CommonStyles.blackText, styles.currencyStyle]}>BBM</Text>
-                            <Text style={CommonStyles.blackText}>持有数量 <Text style={styles.quantityStyle}>241.2333</Text></Text>
-                        </View>
-                        <View style={styles.viewStyle}>
-                            <Text style={[styles.estimatedValueStyle, styles.currencyStyle]}>118.79</Text>
-                            <Text style={[styles.estimateStyle]}>预估价值(元)</Text>
-                        </View>
-                    </ListItem> */}
-
                     <FlatList data={items.assets}
                         enableEmptySections={true}
                         onEndReachedThreshold={10}

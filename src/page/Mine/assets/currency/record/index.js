@@ -15,14 +15,6 @@ import RecordItem from '../../../../../components/recordItem';
 import { Grid, Col } from 'react-native-easy-grid';
 import HttpUtils from '../../../../../api/Api';
 
-
-const data = [
-    { date: "2018.09.10", quantity: 2000000, state: 1 },
-    { date: "2018.09.10", quantity: 50, state: 0 },
-    { date: "2018.09.10", quantity: 500, state: 1 },
-    { date: "2018.09.10", quantity: 450, state: 0 },
-]
-
 /**
  * 提现记录
  */
@@ -45,9 +37,9 @@ class Record extends Component {
     }
 
     componentWillMount() {
-        console.log(this.assets)
-        //this._getAssetCheckout();
+        this._getAssetCheckout();
     }
+
     render() {
         let items = this.state.data
         return (
@@ -85,9 +77,9 @@ class Record extends Component {
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item, index }) => {
                         return <RecordItem
-                            date={item.date}
-                            quantity={item.quantity}
-                            state={item.state}
+                            date={item.createTimestamp}
+                            quantity={item.amount}
+                            state={item.transStatus}
                         />
                     }} />
             </Container >
@@ -99,7 +91,7 @@ class Record extends Component {
         HttpUtils.post(
             'getAssetCheckout',
             {
-                'assetId': `${this.assets.assetId}`
+                'coinId': `${this.assets.assetId}`
             },
             function (data) {
                 console.log(data)

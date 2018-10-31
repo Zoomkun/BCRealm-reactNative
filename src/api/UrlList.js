@@ -38,7 +38,7 @@ export default {
     /**获取钱包资产列表 */
     getAssetList: 'wwallet/wallet/asset/list',
     /**获取提现记录 */
-    getAssetCheckout: '/checkout/list',
+    getAssetCheckout: 'wexchange/checkout/list?',
 
 
     /**下面都是老的接口*/
