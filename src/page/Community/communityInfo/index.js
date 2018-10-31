@@ -3,8 +3,6 @@ import React, {Component} from "react";
 import {
     Container,
     Content,
-    Body,
-    Right,
     List,
     Left,
     ListItem,
@@ -12,6 +10,8 @@ import {
     View,
     Thumbnail,
     Button,
+    Body,
+    Right,
     Header,
 } from 'native-base';
 import {
@@ -19,6 +19,7 @@ import {
     TouchableOpacity,
     FlatList,
     AsyncStorage,
+    ImageBackground,
     Modal,
     Text,
 } from 'react-native';
@@ -27,6 +28,7 @@ import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle';
 import QRCode from 'react-native-qrcode';
 import Http from "../../../api/Api";
+import {find_top_bg} from "../../../../images";
 
 /**
  * 社群信息页面
@@ -134,37 +136,41 @@ class CommunityInfo extends Component {
         let defaultImage = require('../../../../images/mine.png')
         return (
             <Container data={data}>
-                <Header style={CommonStyles.headerStyle}>
-                    <Button transparent onPress={() => {
-                        this.goBack()
-                    }}>
-                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle}/>
-                    </Button>
-                    <Body style={CommonStyles.titleBodyStyle}>
-                    <Text style={CommonStyles.headertextStyle}>社区详情</Text>
-                    </Body>
-                </Header>
-                <Content style={styles.content}>
-                    <View style={styles.top}>
-                        <Thumbnail large style={styles.image} source={{uri: data.groupIcon}}/>
-                        <Text style={{color: '#333', paddingBottom: 20}}>{data.groupName}</Text>
-                    </View>
+                <ImageBackground
+                    resizeMode={"cover"}
+                    source={find_top_bg}
+                    style={styles.imageBackGroundStyle}
+                >
+                        <Button style={{height:40}} transparent onPress={() => {
+                            this.goBack()
+                        }}>
+                            <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle}/>
+                        </Button>
+                    <ListItem avatar style={styles.groupInfo}>
+                        <Left>
+                            <Thumbnail style={styles.image} square source={{uri: data.groupIcon}} />
+                        </Left>
+                        <Body style={styles.borderNone}>
+                        <Text style={styles.groupName}>{data.groupName}</Text>
+                        </Body>
+                        <Right style={styles.borderNone}>
 
+                            <Button small bordered style={styles.escBtnColor}  onPress={() => this._leaveChat()}>
+                                <Text style={styles.escBtn}>退出</Text>
+                            </Button>
+                        </Right>
+                    </ListItem>
+                </ImageBackground>
+                <Content style={styles.content}>
                     <Text style={styles.title}>群公告</Text>
                     <Text style={styles.description}>
                         {data.description}
                     </Text>
 
-                    <Button full style={[styles.loginGroup]}
+                    <Button style={[styles.loginGroup]}
                             onPress={() => this._toChat()}>
-                        <Text style={styles.colorWhite}>进入该群</Text>
+                        <Text style={styles.colorWhite}>进入群聊天室</Text>
                     </Button>
-
-                    <Button full style={styles.exitGroup}
-                            onPress={() => this._leaveChat()}>
-                        <Text style={styles.colorWhite}>退出该群</Text>
-                    </Button>
-
                     <View style={{flex: 1}}>
                         <Modal
                             style={{flexDirection: 'row'}}

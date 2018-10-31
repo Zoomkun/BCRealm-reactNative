@@ -5,6 +5,7 @@ import {
     ListItem,
     Text,
     Left,
+    Right,
     Thumbnail,
 } from "native-base";
 
@@ -15,15 +16,17 @@ export default class InformationItem extends Component {
     render() {
         let {data,onPress} = this.props;
         return (
-            <ListItem onPress={onPress} button style={{paddingBottom: 5,}}>
+            <ListItem onPress={onPress} avatar>
                 <Left>
                     <Thumbnail square source={{uri: data.imagePath}} style={styles.avatarStyle}/>
-                    <Body>
-                        <Text>{data.name}</Text>
-                        <Text note>{data.time}</Text>
-                        <Text note numberOfLines={1}>{data.content}</Text>
-                    </Body>
                 </Left>
+                <Body style={{marginTop:10}}>
+                    <Text>{data.name}</Text>
+                    <Text note numberOfLines={1}>{data.content}</Text>
+                </Body>
+                <Right >
+                    <Text note>{data.time}</Text>
+                </Right>
             </ListItem>
         );
     }
@@ -31,11 +34,11 @@ export default class InformationItem extends Component {
 const {width, height} = Dimensions.get("window")
 const styles = {
     listItemStyle: {
-        height: 80,
+        height: 70,
     },
     avatarStyle: {
-        width: 60,
-        height: 60,
+        width: 48,
+        height: 48,
     },
     bodyViewStyle: {
         flex: 1,

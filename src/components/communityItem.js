@@ -63,12 +63,12 @@ export default class CommunityItem extends Component {
 const {width, height} = Dimensions.get("window")
 const styles = {
     listItemStyle: {
-        height: 80,
+        height: 50,
         justifyContent: 'center',
     },
     avatarStyle: {
-        height: 40,
-        width: 40,
+        height: 30,
+        width: 30,
     },
     borderStyle: {
         height: 30,

@@ -22,10 +22,8 @@ import {
     Text,
     Alert,
     BackHandler,
-    Text,
     ImageBackground
 } from 'react-native';
-import styles from "./styles";
 import DeviceInfo from "react-native-device-info";
 
 
@@ -121,7 +119,6 @@ class AboutUs extends Component {
 
     render() {
         let update = this.state.update
-        console.log(update)
         return (
             <Container style={CommonStyles.container}>
 

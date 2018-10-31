@@ -35,7 +35,6 @@ export default class NewsTab extends Component {
 
 
     componentDidMount() {
-        console.log(11121)
         this._getNewsList();
     }
 

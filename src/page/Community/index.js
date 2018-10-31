@@ -4,25 +4,33 @@ import {
     Image,
     Dimensions,
     TouchableOpacity,
+    ImageBackground,
 } from 'react-native';
+import { Grid, Row, Col } from 'react-native-easy-grid';
 import {
     Tab,
     Tabs,
     Icon,
     View,
+    Left,
+    Right,
     Container,
+    Body,
 } from 'native-base';
 import CommonStyles from '../../css/commonStyle';
 import InformationTab from './informationTab';
 import CommunityTab from './communityTab';
 import {ThemeHeader} from '../../components';
+import {find_top_bg} from "../../../images";
+import styles from "../Discover/styles";
 
 export default class CommunityPage extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            plugIng: false
+            plugIng: false,
+            pick:0
         }
     }
 
@@ -39,83 +47,43 @@ export default class CommunityPage extends Component {
         headerTintColor: '#fff',
     })
 
-    _plugToggle() {
-        this.state.plugIng === true
-            ?
-            this.setState({
-                plugIng: false
-            })
-            :
-            this.setState({
-                plugIng: true
-            })
-    }
 
-    // 跳转扫描
-    _scanCode(){
-        this.setState({
-            plugIng: true
-        })
-        this.props.navigation.navigate("scanCode");
-    }
-
-//qrcode FontAwesome
     render() {
         return (
-            <Container onPress={() => {
-                this._plugToggle()
-            }}>
-                <ThemeHeader
-                    title={"社区"}
-                    buttonIconName={'dots-horizontal'}
-                    buttonIconType={'MaterialCommunityIcons'}
-                    onRightPress={() => {
-                        this._plugToggle()
-                    }}
-                />
-                {
-                    this.state.plugIng === true &&
-                    <TouchableOpacity onPress={() => {
-                        this._scanCode()
-                    }} style={{
-                        position: 'absolute',
-                        top: 55,
-                        padding: 10,
-                        backgroundColor: 'rgba(0,0,0,0.5)',
-                        right: 10,
-                        zIndex: 99
-                    }}>
-                        <View
-                            style={{
-                                flexWrap: 'nowrap',
+            <Container>
+                <ImageBackground
+                    resizeMode={"cover"}
+                    source={find_top_bg}
+                    style={styles.imageBackGroundStyle}
+                >
+                    <Grid>
+                        <Row style={styles.titleRowStyle}>
+                            <Body >
+                            <Text style={styles.titleFontStyle}>社区</Text>
+                            </Body>
+                        </Row>
+
+                        <Row style={styles.sessionStyle}>
+                            <Left />
+                            <Body style={{
                                 flexDirection: 'row',
-                            }}
-                        >
-                            <Icon style={{color: '#fff', fontSize: 22,}} name={'qrcode'} type={'FontAwesome'}></Icon>
-                            <Text style={{color: '#fff', paddingLeft: 10, fontSize: 15}}>扫描</Text>
+                                alignItems: 'center',
+                                justifyContent: 'space-around'
+                            }}>
+                            <TouchableOpacity onPress={() => { this.setState({ pick: 0 }) }}>
+                                <Text style={this.state.pick == 0 ? [styles.tabActiveStyle ,styles.tabActiveBorderStyle] : styles.tabStyle}>消息</Text>
+                            </TouchableOpacity>
 
-                        </View>
-                    </TouchableOpacity>
-
-                }
-                <Tabs tabBarUnderlineStyle={CommonStyles.tabsStyle}>
-                    <Tab heading="信息" tabStyle={CommonStyles.tabStyle}
-                         activeTabStyle={CommonStyles.tabActiveTabStyle}
-                         activeTextStyle={CommonStyles.tabActiveTextStyle}
-                         textStyle={CommonStyles.tabtextStyle}
-                    >
-                        <InformationTab navigation={this.props.navigation}/>
-                    </Tab>
-                    <Tab heading="社群" tabStyle={CommonStyles.tabStyle}
-                         activeTabStyle={CommonStyles.tabActiveTabStyle}
-                         activeTextStyle={CommonStyles.tabActiveTextStyle}
-                         textStyle={CommonStyles.tabtextStyle}
-                    >
-                        <CommunityTab navigation={this.props.navigation}/>
-                    </Tab>
-                </Tabs>
+                            <TouchableOpacity onPress={() => { this.setState({ pick: 1 }) }}>
+                                <Text style={this.state.pick == 1 ? [styles.tabActiveStyle,styles.tabActiveBorderStyle] : styles.tabStyle}>社群</Text>
+                            </TouchableOpacity >
+                            </Body>
+                            <Right />
+                        </Row>
+                    </Grid>
+                </ImageBackground>
+                {this.state.pick == 0 ? < InformationTab navigation={this.props.navigation}/> : <CommunityTab navigation={this.props.navigation}/>}
             </Container>
         )
-            ;
     }
 }

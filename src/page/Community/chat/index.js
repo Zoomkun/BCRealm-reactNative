@@ -132,7 +132,7 @@ export default class Index extends React.Component {
 
     componentDidMount() {
         const {session = {}} = this.props.navigation.state.params;
-        NimSession.startSession(session.chatGroupNo ||session.contactId, session.sessionType);
+        NimSession.startSession(session.groupNo ||session.contactId, session.sessionType);
         this.sessionListener = NativeAppEventEmitter.addListener("observeReceiveMessage", (data) => {
             console.info('新消息通知', data)
             let messages = this.formatData(data);

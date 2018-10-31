@@ -75,30 +75,14 @@ export default class Discover extends Component {
                     source={find_top_bg}
                     style={styles.imageBackGroundStyle}
                 >
-                    {/* <Tabs tabBarUnderlineStyle={CommonStyles.tabsStyle}>
-                        <Tab heading="新闻" tabStyle={CommonStyles.tabStyle}
-                            activeTabStyle={CommonStyles.tabActiveTabStyle}
-                            activeTextStyle={CommonStyles.tabActiveTextStyle}
-                            textStyle={CommonStyles.tabtextStyle}
-                        >
-                            <NewsTab navigation={this.props.navigation} />
-                        </Tab>
-                        <Tab heading="话题" tabStyle={CommonStyles.tabStyle}
-                            activeTabStyle={CommonStyles.tabActiveTabStyle}
-                            activeTextStyle={CommonStyles.tabActiveTextStyle}
-                            textStyle={CommonStyles.tabtextStyle}
-                        >
-                            <TopicTab navigation={this.props.navigation} />
-                        </Tab>
-                    </Tabs> */}
                     <Grid>
-                        <Row style={{ height: 30 }}>
+                        <Row style={styles.titleRowStyle}>
                             <Body >
-                                <Text style={styles.titleStyle}>发现</Text>
+                                <Text style={styles.titleFontStyle}>发现</Text>
                             </Body>
                         </Row>
 
-                        <Row style={{ height: 50, }}>
+                        <Row style={styles.sessionStyle}>
                             <Left />
                             <Body style={{
                                 flexDirection: 'row',

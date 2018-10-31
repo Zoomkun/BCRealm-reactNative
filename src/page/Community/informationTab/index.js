@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {
     View,
     Text,
+    Content,
+    List,
 } from 'native-base';
 import {
     FlatList,
@@ -39,7 +41,7 @@ export default class InformationTab extends Component {
             {
             },
             function (data) {
-                AsyncStorage.setItem('accessToken',data)
+                AsyncStorage.setItem('accessToken',JSON.stringify(data))
                 NimSession.login(data.account, data.token).then((data) => {
                     self.setState({
                         accessToken:data
@@ -81,7 +83,7 @@ export default class InformationTab extends Component {
     render() {
         let items = this.state.teamList;
         return (
-            <View>
+            <Content>
                 <FlatList data={items}
                           enableEmptySections={true}
                           onEndReachedThreshold={10}
@@ -98,7 +100,7 @@ export default class InformationTab extends Component {
                                   onPress={() => this._chatRoom(item)}
                               />
                           }}/>
-            </View>
+            </Content>
         );
     }
 }

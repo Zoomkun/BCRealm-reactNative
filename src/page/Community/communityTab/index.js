@@ -80,7 +80,14 @@ export default class CommunityTab extends Component {
         return (
             <Container>
                 <Content padder>
-                    <Text style={styles.text}>已加入</Text>
+                    {
+                        chatGroupIn.length > 0 ?
+                            <View style={styles.joinTitle}>
+                                <Text style={styles.text}>已加入</Text>
+                            </View>
+                            : null
+                    }
+
                     <FlatList
                         data={chatGroupIn}
                         keyExtractor={(item, index) => index.toString()}
@@ -93,7 +100,13 @@ export default class CommunityTab extends Component {
                         }
                         }>
                     </FlatList>
-                    <Text style={styles.text}>未加入</Text>
+                    {
+                        chatGroupOut.length > 0 ?
+                            <View style={styles.joinTitle}>
+                                <Text style={styles.text}>未加入</Text>
+                            </View>
+                            : null
+                    }
                     <FlatList
                         data={chatGroupOut}
                         keyExtractor={(item, index) => index.toString()}
@@ -114,6 +127,16 @@ export default class CommunityTab extends Component {
 
 const styles = {
     text: {
-        marginTop: 20,
+        color: '#fff',
+        fontSize: 16,
+        lineHeight: 45
     },
+    joinTitle: {
+        marginTop: 20,
+        paddingLeft: 20,
+        height: 45,
+        backgroundColor: '#5146D1',
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+    }
 };

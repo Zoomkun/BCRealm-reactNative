@@ -7,8 +7,32 @@ const deviceWidth = Dimensions.get("window").width;
 
 export default {
     image: {
-        marginTop: 20,
-        marginBottom: 10,
+        width: 36,
+        height: 36,
+    },
+    escBtnColor: {
+        backgroundColor: '#4C3BC7',
+        paddingLeft:20,
+        paddingRight:20,
+        height:30,
+        borderWidth:0,
+        marginTop:5,
+    },
+    groupName:{
+        color:'#fff',fontSize:16
+    },
+    borderNone:{
+        borderBottomWidth:0
+    },
+    groupInfo:{
+        height:60,
+    },
+    escBtn: {
+        color: '#f3f3f3'
+    },
+    imageBackGroundStyle: {
+        width: deviceWidth,
+        height: deviceWidth / (deviceWidth / 101)
     },
     content: {
         width: deviceWidth,
@@ -36,19 +60,17 @@ export default {
     title: {
         color: '#000',
         fontSize: 16,
-        paddingBottom: 15,
-        paddingTop: 15,
-        paddingRight: 15,
-        paddingLeft: 15,
+        lineHeight: 45,
+        borderBottomWidth: 1,
+        borderColor: '#eee'
     },
     ListItem: {
         marginRight: 15,
     },
     description: {
-        paddingRight: 15,
-        paddingLeft: 15,
-        fontSize: 14,
-        lineHeight: 18
+        marginTop: 10,
+        fontSize: 15,
+        lineHeight: 24
     },
     button: {},
     itemImage: {
@@ -71,11 +93,16 @@ export default {
         marginTop: 20,
     },
     loginGroup: {
-        backgroundColor: '#FE6F06',
+        backgroundColor: '#624FD8',
         marginTop: 20,
+        paddingLeft:20,
+        paddingRight:20,
+        justifyContent:'center',
+        alignItems: 'center',
+        flex:1
+        marginBottom: 150,
     },
     marginB150: {
-        marginBottom: 150,
     },
     TouchableOpacity: {
         flex: 1,
