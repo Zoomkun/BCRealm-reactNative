@@ -55,8 +55,9 @@ export default class GamePage extends Component {
         AsyncStorage.getItem('user').then(data => {
             let datas = JSON.parse(data);
             let dataJson = JSON.stringify(datas)
+            console.log(datas)
             console.log(dataJson)
-            this.refs.webView.postMessage(datas.appToken);
+            this.refs.webView.postMessage(datas.token);
             console.log(this.refs.webView)
         })
         // DeviceStorage.get('user').then(data => {
