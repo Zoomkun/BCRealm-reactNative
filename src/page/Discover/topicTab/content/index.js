@@ -52,9 +52,7 @@ export default class Content extends Component {
                     <Button transparent />
                 </Header>
                 <WebView
-                    // source={{ uri: "http://qsj.bcrealm.com/qsj/" + url }}
-                    {...console.log('http://qsj.bcrealm.com/static/' + url)}
-                    source={{ uri: "http://world.game.bcrealm.com/static/article.html?newsId=" + this.id }}
+                    source={{ uri: "http://world.gametest.bcrealm.com/static/worldnews.html?fromapp=true&newsId=" + this.id }}
                     ref='webView'
                     onLoadEnd={this._onLoadEnd}
                     onMessage={(e) => {

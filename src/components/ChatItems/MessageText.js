@@ -33,16 +33,16 @@ export default class MessageText extends React.Component {
       options,
       cancelButtonIndex,
     },
-    (buttonIndex) => {
-      switch (buttonIndex) {
-        case 0:
-          Communications.phonecall(phone, true);
-          break;
-        case 1:
-          Communications.text(phone);
-          break;
-      }
-    });
+      (buttonIndex) => {
+        switch (buttonIndex) {
+          case 0:
+            Communications.phonecall(phone, true);
+            break;
+          case 1:
+            Communications.text(phone);
+            break;
+        }
+      });
   }
 
   onEmailPress(email) {
@@ -55,9 +55,9 @@ export default class MessageText extends React.Component {
         <ParsedText
           style={[styles[this.props.position].text, this.props.textStyle[this.props.position]]}
           parse={[
-            {type: 'url', style: StyleSheet.flatten([styles[this.props.position].link, this.props.linkStyle[this.props.position]]), onPress: this.onUrlPress},
-            {type: 'phone', style: StyleSheet.flatten([styles[this.props.position].link, this.props.linkStyle[this.props.position]]), onPress: this.onPhonePress},
-            {type: 'email', style: StyleSheet.flatten([styles[this.props.position].link, this.props.linkStyle[this.props.position]]), onPress: this.onEmailPress},
+            { type: 'url', style: StyleSheet.flatten([styles[this.props.position].link, this.props.linkStyle[this.props.position]]), onPress: this.onUrlPress },
+            { type: 'phone', style: StyleSheet.flatten([styles[this.props.position].link, this.props.linkStyle[this.props.position]]), onPress: this.onPhonePress },
+            { type: 'email', style: StyleSheet.flatten([styles[this.props.position].link, this.props.linkStyle[this.props.position]]), onPress: this.onEmailPress },
           ]}
         >
           {this.props.currentMessage.text}
@@ -121,8 +121,8 @@ MessageText.propTypes = {
   position: PropTypes.oneOf(['left', 'right']),
   currentMessage: PropTypes.object,
   containerStyle: PropTypes.shape({
-    left: View.propTypes.style,
-    right: View.propTypes.style,
+    left: PropTypes.style,
+    right: PropTypes.style,
   }),
   textStyle: PropTypes.shape({
     left: Text.propTypes.style,

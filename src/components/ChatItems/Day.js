@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
+    StyleSheet,
+    Text,
+    View,
 } from 'react-native';
 
-import {showTime} from './utils';
+import { showTime } from './utils';
 import PropTypes from 'prop-types';
 export default class Day extends React.Component {
     render() {
@@ -25,26 +25,26 @@ export default class Day extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 5,
-    marginBottom: 10,
-  },
-  wrapper: {
-     backgroundColor: '#cecece',
-     borderRadius: 5,
-     paddingLeft: 5,
-     paddingRight: 5,
-     paddingTop: 3,
-     paddingBottom: 3,
-  },
-  text: {
-    backgroundColor: 'transparent',
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: '400',
-  },
+    container: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 5,
+        marginBottom: 10,
+    },
+    wrapper: {
+        backgroundColor: '#cecece',
+        borderRadius: 5,
+        paddingLeft: 5,
+        paddingRight: 5,
+        paddingTop: 3,
+        paddingBottom: 3,
+    },
+    text: {
+        backgroundColor: 'transparent',
+        color: '#fff',
+        fontSize: 12,
+        fontWeight: '400',
+    },
 });
 
 Day.contextTypes = {
@@ -52,22 +52,22 @@ Day.contextTypes = {
 };
 
 Day.defaultProps = {
-  isSameDay: () => {},
-  currentMessage: {
-    // TODO test if crash when createdAt === null
-    createdAt: null,
-  },
-  previousMessage: {},
-  containerStyle: {},
-  wrapperStyle: {},
-  textStyle: {},
+    isSameDay: () => { },
+    currentMessage: {
+        // TODO test if crash when createdAt === null
+        createdAt: null,
+    },
+    previousMessage: {},
+    containerStyle: {},
+    wrapperStyle: {},
+    textStyle: {},
 };
 
 Day.propTypes = {
-  isSameDay: PropTypes.func,
-  currentMessage: PropTypes.object,
-  previousMessage: PropTypes.object,
-  containerStyle: View.propTypes.style,
-  wrapperStyle: View.propTypes.style,
-  textStyle: Text.propTypes.style,
+    isSameDay: PropTypes.func,
+    currentMessage: PropTypes.object,
+    previousMessage: PropTypes.object,
+    containerStyle: PropTypes.style,
+    wrapperStyle: PropTypes.style,
+    textStyle: Text.propTypes.style,
 };

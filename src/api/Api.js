@@ -7,9 +7,9 @@ import Api from './UrlList'
  * fetch 网络请求的header，可自定义header 内容
  * @type {{Accept: string, Content-Type: string, accessToken: *}}
  */
-let header = {'Content-Type': 'application/json;charset=UTF-8'}
-let headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-let token = '';
+let header = { 'Content-Type': 'application/json;charset=UTF-8' }
+let headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
+let token = {}
 
 AsyncStorage.getItem('data').then(data => {
     let datas = JSON.parse(data);
@@ -23,7 +23,7 @@ AsyncStorage.getItem('data').then(data => {
 
 // 环境判断
 let api = ''
-__DEV__ ? api = 'http://test.bcrealm.com/api/' : api = 'http://www.bcrealm.com/api/'
+__DEV__ ? api = 'http://test.bcrealm.com/api/' : api = 'http://test.bcrealm.com/api/'
 
 /**
  * GET 请求时，拼接请求URL
@@ -102,8 +102,13 @@ export default class HttpUtils extends Component {
         if (typeof obj !== 'object') {
             return false
         }
+        Object.assign(token, obj)
         Object.assign(headers, obj)
         Object.assign(header, obj)
+    }
+
+    static getToken() {
+        return token;
     }
 
     /**

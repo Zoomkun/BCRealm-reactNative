@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.bcrealmapp"
           android:versionCode="1"
-          android:versionName="1.0">
+          >
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
@@ -21,7 +21,6 @@
     <uses-permission android:name="com.im.bcrealmapp.permission.MIPUSH_RECEIVE"/>
 
     <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-sdk
             android:minSdkVersion="16"
             android:targetSdkVersion="22"/>

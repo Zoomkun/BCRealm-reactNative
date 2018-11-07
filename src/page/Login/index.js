@@ -64,7 +64,7 @@ export default class Login extends Component {
         // let cid = DeviceInfo.getUniqueID();
         AsyncStorage.getItem('user').then(data => {
             let datas = JSON.parse(data);
-            if (datas.phone != null && datas.appToken != '') {
+            if (datas) {
                 self.setState({
                     phone: datas.phone,
                 })
@@ -72,10 +72,6 @@ export default class Login extends Component {
                 // self.props.navigation.dispatch(resetAction);
             }
         })
-
-        // self.setState({
-        //     cid: cid
-        // })
     }
 
     render() {

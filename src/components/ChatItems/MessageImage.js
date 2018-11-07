@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 
 export default class MessageImage extends React.Component {
     render() {
-        const {extend} = this.props.currentMessage;
-        const {imageHeight, imageWidth} = extend;
+        const { extend } = this.props.currentMessage;
+        const { imageHeight, imageWidth } = extend;
         return (
             <View style={[styles.container, this.props.containerStyle]}>
                 <Image
@@ -17,7 +17,7 @@ export default class MessageImage extends React.Component {
                         width: 150,
                         height: 150 * (imageHeight / imageWidth)
                     }]}
-                    source={{uri: extend.url}}
+                    source={{ uri: extend.url }}
                 />
             </View>
         );
@@ -41,6 +41,6 @@ MessageImage.defaultProps = {
 
 MessageImage.propTypes = {
     currentMessage: PropTypes.object,
-    containerStyle: View.propTypes.style,
+    containerStyle: PropTypes.style,
     imageStyle: Image.propTypes.style,
 };

@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
     Image,
     StatusBar,
@@ -14,7 +14,7 @@ import {
     View,
 } from "native-base";
 import styles from "./styles";
-import {NavigationActions} from 'react-navigation';
+import { NavigationActions } from 'react-navigation';
 import HttpUtils from "../../api/Api";
 import DeviceInfo from 'react-native-device-info';
 
@@ -22,7 +22,7 @@ import DeviceInfo from 'react-native-device-info';
 resetAction = NavigationActions.reset({
     index: 0,
     actions: [
-        NavigationActions.navigate({routeName: 'Main'})
+        NavigationActions.navigate({ routeName: 'Main' })
     ]
 });
 
@@ -129,17 +129,17 @@ export default class StartPage extends Component {
                     token: datas.token,
                 })
 
-                HttpUtils.setHeader({Authorization: datas.token})
+                HttpUtils.setHeader({ Authorization: datas.token })
             }
         })
 
         this.timer = setTimeout(() => {
-                if (this.state.token != '') {
-                    self.props.navigation.dispatch(resetAction);
-                } else {
-                    this.props.navigation.navigate("Login");
-                }
-            },
+            if (this.state.token != '') {
+                self.props.navigation.dispatch(resetAction);
+            } else {
+                this.props.navigation.navigate("Login");
+            }
+        },
             2000
         );
     }
@@ -151,13 +151,13 @@ export default class StartPage extends Component {
     render() {
         return (
             <Container>
-                <StatusBar hidden={true}/>
+                <StatusBar hidden={true} />
                 {/* <Button transparent style={styles.buttonStyle}
                 onPress={() => { this.props.navigation.navigate("Login") }}
                 > */}
                 <View style={styles.buttonStyle}>
                     <Image source={require('../../../images/Icon.png')}
-                           style={styles.image}/>
+                        style={styles.image} />
                 </View>
                 {/* </Button> */}
             </Container>

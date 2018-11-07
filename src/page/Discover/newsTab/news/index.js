@@ -70,7 +70,7 @@ export default class News extends Component {
                                             description: '区世界',
                                             thumbImage: 'www.baidu.com',
                                             type: 'news',
-                                            webpageUrl: 'http://qsj.bcrealm.com/static/' + newsId
+                                            webpageUrl: 'http://world.gametest.bcrealm.com/static/worldnews.html?fromapp=true&newsId=' + newsId
                                         })
                                             .then((error) => {
                                                 alert(error);
@@ -84,7 +84,7 @@ export default class News extends Component {
                     </Button>
                 </Header>
                 {/* http://test.bcrealm.com/api/wnews/news/info/ */}
-                <WebView source={{ uri: "http://world.gametest.bcrealm.com/static/worldnews.html?newsId=" + newsId }}
+                <WebView source={{ uri: "http://world.gametest.bcrealm.com/static/worldnews.html?fromapp=true&newsId=" + newsId }}
                     ref='webView'
                     onLoadEnd={this._onLoadEnd}
                     style={styles.webStyle} >

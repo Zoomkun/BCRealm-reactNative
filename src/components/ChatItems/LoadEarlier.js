@@ -20,8 +20,8 @@ export default class LoadEarlier extends React.Component {
     return (
       <View>
         <Text style={[styles.text, this.props.textStyle, {
-            opacity: 0,
-          }]}>
+          opacity: 0,
+        }]}>
           {this.props.label}
         </Text>
         <ActivityIndicator
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
 });
 
 LoadEarlier.defaultProps = {
-  onLoadEarlier: () => {},
+  onLoadEarlier: () => { },
   isLoadingEarlier: false,
   label: '查看历史消息',
   containerStyle: {},
@@ -93,8 +93,8 @@ LoadEarlier.propTypes = {
   onLoadEarlier: PropTypes.func,
   isLoadingEarlier: PropTypes.bool,
   label: PropTypes.string,
-  containerStyle: View.propTypes.style,
-  wrapperStyle: View.propTypes.style,
+  containerStyle: PropTypes.style,
+  wrapperStyle: PropTypes.style,
   textStyle: Text.propTypes.style,
-  activityIndicatorStyle: View.propTypes.style,
+  activityIndicatorStyle: PropTypes.style,
 };

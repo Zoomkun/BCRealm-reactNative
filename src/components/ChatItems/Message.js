@@ -2,7 +2,7 @@ import React from 'react';
 import {
     View,
     Image,
-    StyleSheet,Text
+    StyleSheet, Text
 } from 'react-native';
 
 import moment from 'moment';
@@ -21,9 +21,9 @@ export default class Message extends React.Component {
             diff = currentMessage.createdAt.getTime() - diffMessage.createdAt.getTime();
             //console.info(diff)
         } else {
-            diff = 7000*6;
+            diff = 7000 * 6;
         }
-        if (diff < 7000*6) {
+        if (diff < 7000 * 6) {
             return true;
         }
         return false;
@@ -40,7 +40,7 @@ export default class Message extends React.Component {
 
     renderDay() {
         if (this.props.currentMessage.createdAt) {
-            const {containerStyle, ...other} = this.props;
+            const { containerStyle, ...other } = this.props;
             const dayProps = {
                 ...other,
                 isSameUser: this.isSameUser,
@@ -49,37 +49,37 @@ export default class Message extends React.Component {
             if (this.props.renderDay) {
                 return this.props.renderDay(dayProps);
             }
-            return <Day {...dayProps}/>;
+            return <Day {...dayProps} />;
         }
         return null;
     }
 
     renderBubble() {
-        const {containerStyle, ...other} = this.props;
+        const { containerStyle, ...other } = this.props;
         const bubbleProps = {
             ...other,
             isSameUser: this.isSameUser,
             isSameDay: this.isSameDay,
         };
-        return <Bubble {...bubbleProps}/>;
+        return <Bubble {...bubbleProps} />;
     }
 
     renderAvatar() {
-        const {containerStyle, ...other} = this.props;
+        const { containerStyle, ...other } = this.props;
         const avatarProps = {
             ...other,
             isSameUser: this.isSameUser,
             isSameDay: this.isSameDay,
         };
 
-        return <Avatar {...avatarProps}/>;
+        return <Avatar {...avatarProps} />;
     }
-    renderName(){
-        const {currentMessage,session} = this.props;
-        if(session.sessionType === '1' && this.props.position === 'left'){
+    renderName() {
+        const { currentMessage, session } = this.props;
+        if (session.sessionType === '1' && this.props.position === 'left') {
             return (
-                <View style={{flexDirection:'column'}}>
-                    <Text style={{color:'#666666',fontSize:10,marginBottom:3}}>{currentMessage.fromUser.name}</Text>
+                <View style={{ flexDirection: 'column' }}>
+                    <Text style={{ color: '#666666', fontSize: 10, marginBottom: 3 }}>{currentMessage.fromUser.name}</Text>
                     {this.renderBubble()}
                 </View>
             )
@@ -91,8 +91,8 @@ export default class Message extends React.Component {
             <View>
                 {this.renderDay()}
                 <View style={[styles[this.props.position].container, {
-                        marginBottom: this.isSameUser(this.props.currentMessage, this.props.nextMessage) ? 12 : 12,
-                    }, this.props.containerStyle[this.props.position]]}>
+                    marginBottom: this.isSameUser(this.props.currentMessage, this.props.nextMessage) ? 12 : 12,
+                }, this.props.containerStyle[this.props.position]]}>
                     {this.props.position === 'left' ? this.renderAvatar() : null}
                     {this.renderName()}
                     {this.props.position === 'right' ? this.renderAvatar() : null}
@@ -152,7 +152,7 @@ Message.propTypes = {
     previousMessage: PropTypes.object,
     user: PropTypes.object,
     containerStyle: PropTypes.shape({
-        left: View.propTypes.style,
-         right: View.propTypes.style,
+        left: PropTypes.style,
+        right: PropTypes.style,
     }),
 };
