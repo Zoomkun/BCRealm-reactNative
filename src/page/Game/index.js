@@ -57,16 +57,16 @@ export default class GamePage extends Component {
     }
 
     _onLoadEnd = (e) => {
-        if (this.state.token == '') {
-            console.log("transmit")
+        console.log("transmit")
+        if (this.state.token == '' || this.state.token == undefined) {
             AsyncStorage.getItem('user').then(data => {
                 let datas = JSON.parse(data);
                 this.refs.webView.postMessage(datas.token);
-                console.log(datas)
+                console.log(datas.token + "/Storage")
             })
         } else {
             this.refs.webView.postMessage(this.state.token);
-            console.log(this.state.token)
+            console.log(this.state.token + "/state")
         }
     }
 }

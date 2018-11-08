@@ -90,25 +90,25 @@ export default class ConfirmThePassword extends Component {
                                     <Input placeholder="请输入密码"
                                         value={this.state.password}
                                         maxLength={11}
-                                        keyboardType={'numeric'}
                                         style={{ color: 'white' }}
-                                        placeholderTextColor={'#FEFEFE'}
+                                        secureTextEntry={true}
+                                        placeholderTextColor={'#FEFEFE70'}
                                         onChangeText={(text) => { this.setState({ password: text }) }} />
                                 </Item>
 
                                 <Item style={styles.itemStyle}>
                                     <Input placeholder="再次输入密码"
                                         value={this.state.pwd}
-                                        keyboardType={'numeric'}
                                         style={{ color: 'white' }}
-                                        placeholderTextColor={'#FEFEFE'}
+                                        secureTextEntry={true}
+                                        placeholderTextColor={'#FEFEFE70'}
                                         onChangeText={(text) => { this.setState({ pwd: text }) }} >
                                     </Input>
                                 </Item>
                             </View>
 
                             < Row size={0.6} style={styles.rowStyle}>
-                                <Button rounded style={styles.logInButtonStyle}
+                                <Button style={styles.logInButtonStyle}
                                     onPress={() => {
                                         this._register(this.code, this.state.password, this.state.pwd, this.phone)
                                     }}>
@@ -116,7 +116,7 @@ export default class ConfirmThePassword extends Component {
                                 </Button>
                                 <Button transparent style={styles.buttonStyle} onPress={() => { navigate("ServiceAgreement") }}>
                                     <Text style={{ color: 'white', fontSize: 13 }}>点击注册即表示已阅读并同意</Text>
-                                    <Text style={{ color: '#FE6F06', fontSize: 13 }}>《服务协议》</Text>
+                                    <Text style={{ color: '#FE6F06', fontSize: 13 }}>《区世界用户服务协议》</Text>
                                 </Button>
                             </Row>
                         </Grid>
@@ -154,66 +154,15 @@ export default class ConfirmThePassword extends Component {
                         'phone': `${phone}`
                     },
                     function (data) {
-                        if (password == data.password) {
-                            self.refs.toast.show('注册成功!', DURATION.LENGTH_LONG);
-                            self.props.navigation.navigate("Login");
+                        if (data.status == "success") {
+                            self.refs.toast.show('注册成功!', DURATION.LENGTH_LONG)
+                            self.props.navigation.navigate("Login")
                         } else {
-                            self.refs.toast.show(data, DURATION.LENGTH_LONG);
+                            self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
                         }
                     }
                 )
             }
-        }
-    }
-
-    _getCode(phone) {
-        let self = this
-        if (phone.length > 10) {
-            this.state.seconds = 60
-            let disable = !this.state.disable
-            this.setState({ disable: disable })
-            HttpUtils.getRequest(
-                'userUrl',
-                'sendCode',
-                {
-                    '': `${phone}`
-                },
-                function (data) {
-                    console.log(data)
-                }
-            )
-            this.interval = setInterval(() => {
-                let seconds = --this.state.seconds
-                if (seconds <= 0) {
-                    clearInterval(this.interval);
-                    this.setState({ disable: false })
-                }
-                else {
-                    this.setState({ seconds: seconds })
-                }
-            }, 1000)
-        } else {
-            this.refs.toast.show('请输入正确手机号!', DURATION.LENGTH_LONG);
-        }
-    }
-
-    _changePassword(phone, password, code) {
-        let self = this
-        if (phone.length > 10 && password != '' && code != '') {
-            HttpUtils.putRequrst(
-                'userUrl',
-                'uppwd',
-                {
-                    'checkNum': `${code}`,
-                    'phoneNumber': `${phone}`,
-                    'pwd': `${password}`,
-                },
-                function (data) {
-                    self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
-                }
-            )
-        } else {
-            this.refs.toast.show('请检查您的账号、新密码、验证码是否正确!', DURATION.LENGTH_LONG);
         }
     }
 }

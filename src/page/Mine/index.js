@@ -25,7 +25,19 @@ import * as CacheManager from 'react-native-http-cache';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import HttpUtils from "../../api/Api";
 import { Grid, Row, Col } from 'react-native-easy-grid';
-import { my_top_bg, photo_01, photo_02, photo_03, photo_04 } from '../../../images';
+import {
+    my_top_bg,
+    photo_01,
+    photo_02,
+    photo_03,
+    photo_04,
+    assetsIcon,
+    authenticateIcon,
+    walletIcon,
+    wipeCacheIcon,
+    image_gx1,
+    image_ts1
+} from '../../../images';
 
 /**
  * 主页四:我
@@ -55,7 +67,6 @@ export default class Mine extends Component {
 
     componentWillMount() {
         this._getPlayerInfo()
-        console.log(3333)
     }
 
     static navigationOptions = ({ navigation }) => ({
@@ -113,7 +124,7 @@ export default class Mine extends Component {
                     <List>
                         <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('Assets') }}>
                             <Image style={{ width: 18, height: 18 }}
-                                source={require('../../../images/assetsIcon.png')}>
+                                source={assetsIcon}>
                             </Image>
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text style={styles.textStyle}>资产</Text>
@@ -150,7 +161,7 @@ export default class Mine extends Component {
 
                             }}>
                             <Image style={{ width: 18, height: 18 }}
-                                source={require('../../../images/authenticateIcon.png')}>
+                                source={authenticateIcon}>
                             </Image>
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text style={styles.textStyle}>实名认证</Text>
@@ -180,7 +191,7 @@ export default class Mine extends Component {
                             }}
                         >
                             <Image style={{ width: 18, height: 18 }}
-                                source={require('../../../images/walletIcon.png')}>
+                                source={walletIcon}>
                             </Image>
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text style={styles.textStyle}>钱包认证</Text>
@@ -194,19 +205,24 @@ export default class Mine extends Component {
 
                         <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { this._cleanCache() }}>
                             <Image style={{ width: 18, height: 18 }}
-                                source={require('../../../images/wipeCacheIcon.png')}>
+                                source={wipeCacheIcon}>
                             </Image>
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text style={CommonStyles.textColor}>清除缓存</Text>
                             </Body>
                             <Right style={styles.rightStyle}>
-                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{0.15 >= (Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100) ? 0 : (Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100)}M</Text>
+                                <Text style={{ alignItems: 'center', marginRight: 10 }}>
+                                    {
+                                        0.15 >= (Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100)
+                                            ? 0
+                                            : (Math.round((this.state.cacheSize / 1024 / 1024) * 100) / 100)}M
+                                    </Text>
                                 <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>
                         <View style={styles.line} />
 
-                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('AboutUs') }}>
+                        {/* <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('AboutUs') }}>
                             <Image style={{ width: 18, height: 18 }}
                                 source={require('../../../images/aboutUsIcon.png')}>
                             </Image>
@@ -217,8 +233,35 @@ export default class Mine extends Component {
                                 <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>
+                        <View style={{ backgroundColor: '#F3F3F3', height: 10 }} /> */}
+
+                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('AboutUs') }}>
+                            <Image style={{ width: 18, height: 18 }}
+                                source={image_gx1}>
+                            </Image>
+                            <Body style={{ justifyContent: 'flex-start', }}>
+                                <Text style={CommonStyles.textColor}>检查更新</Text>
+                            </Body>
+                            <Right>
+                                <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
+                            </Right>
+                        </ListItem>
+                        <View style={styles.line} />
+
+                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('ComplaintsAndSuggestions', { returnData: this._showToast.bind(this) }) }}>
+                            <Image style={{ width: 18, height: 18 }}
+                                source={image_ts1}>
+                            </Image>
+                            <Body style={{ justifyContent: 'flex-start', }}>
+                                <Text style={CommonStyles.textColor}>投诉与建议</Text>
+                            </Body>
+                            <Right>
+                                <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
+                            </Right>
+                        </ListItem>
                         <View style={{ backgroundColor: '#F3F3F3', height: 10 }} />
                     </List>
+
                     <Row size={20} style={styles.rowStyle}>
                         <View>
                             <Button transparent style={styles.buttonStyle} onPress={() => { this._gologin() }}>
@@ -273,6 +316,10 @@ export default class Mine extends Component {
         this.setState({
             data: data
         });
+    }
+
+    _showToast(data) {
+        this.refs.toast.show(data, DURATION.LENGTH_LONG);
     }
 
     _upDataUnReads() {

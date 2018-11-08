@@ -20,10 +20,11 @@ export default {
     accountPasswordStyle: {
         flexDirection: 'column',
         width: deviceWidth,
-        alignItems: 'center'
+        alignSelf: 'center'
     },
     iconStyle: {
         width: deviceWidth / (deviceWidth / 94),
+        alignSelf: 'center'
     },
     textStyle: {
         color: '#808080'
@@ -48,7 +49,8 @@ export default {
         flexDirection: 'column',
         width: deviceWidth / (deviceWidth / 120),
         justifyContent: 'center',
-        alignSelf: 'center'
+        alignSelf: 'flex-end',
+        marginRight: deviceWidth / (deviceWidth / 20)
     },
     warningStyle: {
         width: deviceWidth / (deviceWidth / 12),
@@ -59,22 +61,33 @@ export default {
         flexDirection: 'row'
     },
     viewStyle: {
-        height: deviceWidth / (deviceWidth / 36),
+        height: deviceWidth / (deviceWidth / 20),
         flexDirection: 'row'
     },
     logInButtonStyle: {
-        backgroundColor: '#5A40BE',
+        backgroundColor: '#ffffff',
         width: deviceWidth * 0.8,
         borderRadius: deviceWidth / (deviceWidth / 50),
         justifyContent: 'center',
         alignSelf: 'center'
     },
     logInTextStyle: {
-        color: '#F5F4FB',
+        color: '#714BD9',
         fontSize: 15
     },
     buttonStyle: {
         width: deviceWidth * 0.8,
         justifyContent: 'center',
+    },
+    rowStyle: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: deviceWidth / (deviceWidth / 50)
+    },
+    btnStyle: {
+        width: deviceWidth * 0.8,
+        justifyContent: 'center',
+        alignSelf: 'center'
     }
 }

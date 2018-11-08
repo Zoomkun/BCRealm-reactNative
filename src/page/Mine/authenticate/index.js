@@ -150,11 +150,11 @@ class Authenticate extends Component {
                     "idName": `${this.state.idName}`
                 },
                 function (data) {
-                    if (data == '') {
+                    if (data.status == "success") {
 
                         self.refs.toast.show("认证成功", DURATION.LENGTH_LONG);
                     } else {
-                        self.refs.toast.show(data, DURATION.LENGTH_LONG);
+                        self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
                     }
                 }
             )

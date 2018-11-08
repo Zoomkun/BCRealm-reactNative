@@ -11,10 +11,17 @@ export default {
     height: deviceWidth / (deviceWidth / 164.2)
   },
   viewStyle: {
-    backgroundColor: '#F3F3F3'
+    height: 45,
+    justifyContent: 'center'
+  },
+  currencyTextStyle: {
+    marginTop: deviceWidth / (deviceWidth / 10),
+    marginLeft: deviceWidth / (deviceWidth / 15),
+    color: '#313442',
+    fontSize: 16,
   },
   textStyle: {
-    color: 'white',
+    color: '#ffffff65',
     fontSize: 15
   },
   bodyStyle: {
@@ -24,8 +31,8 @@ export default {
   titleStyle: {
     marginLeft: deviceWidth / (deviceWidth / 20),
     marginTop: deviceWidth / (deviceWidth / 5),
-    color: '#313442',
-    fontSize: 16,
+    color: '#ffffff',
+    fontSize: 19,
   },
   contentStyle: {
     marginTop: deviceWidth / (deviceWidth / 10)

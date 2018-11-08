@@ -51,6 +51,10 @@ export default class NewRegistration extends Component {
         this.props.navigation.goBack();
     }
 
+    componentDidMount() {
+        this._getCodeUuId();
+    }
+
     componentWillUnmount() {
         if (this.interval) {
             clearInterval(this.interval);
@@ -58,9 +62,7 @@ export default class NewRegistration extends Component {
         }
     }
 
-    componentDidMount() {
-        this._getCodeUuId();
-    }
+
 
     render() {
         return (
@@ -95,16 +97,15 @@ export default class NewRegistration extends Component {
                                         maxLength={11}
                                         keyboardType={'numeric'}
                                         style={{ color: 'white' }}
-                                        placeholderTextColor={'#FEFEFE'}
+                                        placeholderTextColor={'#FEFEFE70'}
                                         onChangeText={(text) => { this.setState({ phone: text }) }} />
                                 </Item>
 
                                 <Item style={styles.itemStyle}>
                                     <Input placeholder="输入图形码"
                                         value={this.state.imgcode}
-                                        keyboardType={'numeric'}
                                         style={{ color: 'white' }}
-                                        placeholderTextColor={'#FEFEFE'}
+                                        placeholderTextColor={'#FEFEFE70'}
                                         maxLength={8}
                                         onChangeText={(text) => { this.setState({ imgcode: text }) }} >
                                     </Input>
@@ -124,16 +125,17 @@ export default class NewRegistration extends Component {
                                         value={this.state.code}
                                         keyboardType={'numeric'}
                                         style={{ color: 'white' }}
-                                        placeholderTextColor={'#FEFEFE'}
+                                        placeholderTextColor={'#FEFEFE70'}
                                         onChangeText={(text) => { this.setState({ code: text }) }} >
                                     </Input>
                                     <View style={{ height: 25, width: 1, backgroundColor: 'white' }} />
 
                                     <Button transparent
-                                        style={this.state.disable ? styles.disableCodeStyle : styles.codeStyle}
-                                        disabled={this.state.disable}
+                                        style={styles.disableCodeStyle}
                                         onPress={() => {
-                                            this._newGetCode(this.state.imgcode, this.state.phone, this.state.imgCodeUrl)
+                                            this.state.disable
+                                                ? null
+                                                : this._newGetCode(this.state.imgcode, this.state.phone, this.state.imgCodeUrl)
                                         }}>
                                         {
                                             this.state.disable ?
@@ -198,6 +200,9 @@ export default class NewRegistration extends Component {
         if (imgCode == '' || phone.length != 11) {
             this.refs.toast.show('请检查您的手机号或图形码是否正确!', DURATION.LENGTH_LONG);
         } else {
+            this.state.seconds = 60
+            let disable = !this.state.disable
+            this.setState({ disable: disable })
             HttpUtils.postRequrst(
                 'newGetCode',
                 {
@@ -206,14 +211,34 @@ export default class NewRegistration extends Component {
                     "uuId": `${uuId}`
                 },
                 function (data) {
-                    if (phone == data) {
+                    if (phone == data.phone) {
                         self.refs.toast.show("短信已下发至您的手机,请注意查收", DURATION.LENGTH_LONG);
                     }
                     else {
-                        self.refs.toast.show(data, DURATION.LENGTH_LONG);
+                        if (data.phone == phone) {
+                            self.refs.toast.show("验证码已下发.请注意查收", DURATION.LENGTH_LONG);
+                        } else {
+                            if (data.msg == "验证码输入错误" || data.msg == "发送短信失败") {
+                                self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
+                                clearInterval(self.interval);
+                                self.setState({ disable: false })
+                            } else {
+                                self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
+                            }
+                        }
                     }
                 }
             )
+            this.interval = setInterval(() => {
+                let seconds = --this.state.seconds
+                if (seconds <= 0) {
+                    clearInterval(this.interval);
+                    this.setState({ disable: false })
+                }
+                else {
+                    this.setState({ seconds: seconds })
+                }
+            }, 1000)
         }
     }
 
@@ -229,61 +254,13 @@ export default class NewRegistration extends Component {
                     'phone': `${phone}`
                 },
                 function (data) {
-                    if (data == '') {
+                    if (data.status != "error") {
                         self.props.navigation.navigate("ConfirmThePassword", { code: code, phone: phone });
+                    } else {
+                        self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
                     }
                 }
             )
-        }
-    }
-
-    _getCode(phone) {
-        if (phone.length > 10) {
-            this.state.seconds = 60;
-            let disable = !this.state.disable;
-            this.setState({ disable: disable })
-            HttpUtils.getRequest(
-                'userUrl',
-                'sendCode',
-                {
-                    '': `${phone}`
-                },
-                function (data) {
-                    console.log(data)
-                }
-            )
-            this.interval = setInterval(() => {
-                let seconds = --this.state.seconds
-                if (seconds <= 0) {
-                    clearInterval(this.interval);
-                    this.setState({ disable: false })
-                }
-                else {
-                    this.setState({ seconds: seconds })
-                }
-            }, 1000)
-        } else {
-            this.refs.toast.show('请输入正确手机号!', DURATION.LENGTH_LONG);
-        }
-    }
-
-    _changePassword(phone, password, code) {
-        let self = this;
-        if (phone.length > 10 && password != '' && code != '') {
-            HttpUtils.putRequrst(
-                'userUrl',
-                'uppwd',
-                {
-                    'checkNum': `${code}`,
-                    'phoneNumber': `${phone}`,
-                    'pwd': `${password}`,
-                },
-                function (data) {
-                    self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
-                }
-            )
-        } else {
-            this.refs.toast.show('请检查您的账号、新密码、验证码是否正确!', DURATION.LENGTH_LONG);
         }
     }
 }

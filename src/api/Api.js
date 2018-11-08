@@ -168,13 +168,9 @@ export default class HttpUtils extends Component {
                 alert('服务器繁忙，请稍后再试；\r\nCode:' + response.status)
             }
         }).then(response => {
-            console.log(response)
             // response.code：是与服务器端约定code：200表示请求成功，非200表示请求失败，message：请求失败内容
-            if (response && response.code === 1) {
-                success(response.data)
-            } else {
-                success(response.msg)
-            }
+            console.log(response)
+            success(response)
         }).catch(error => {
             alert(error)
         })

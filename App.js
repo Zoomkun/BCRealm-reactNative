@@ -27,8 +27,7 @@ import NewsTab from './src/page/Discover/newsTab';
 import News from './src/page/Discover/newsTab/news';
 import Content from './src/page/Discover/topicTab/content';
 import Chat from './src/page/Community/chat';
-import DiscoverPage from './src/page/Discover';
-import Mine from './src/page/Mine';
+import ComplaintsAndSuggestions from './src/page/Mine/complaintsAndSuggestions';
 
 const routers = StackNavigator({
     StartPage: { screen: StartPage },
@@ -59,6 +58,7 @@ const routers = StackNavigator({
     News: { screen: News },
     Content: { screen: Content },
     Chat: { screen: Chat },
+    ComplaintsAndSuggestions: { screen: ComplaintsAndSuggestions }
 });
 
 export default routers;

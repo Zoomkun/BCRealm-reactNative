@@ -31,7 +31,7 @@ const NAVIGATIONBAR_HEIGHT = 0;
 
 export default class Index extends React.Component {
     static navigationOptions = ({navigation}) => ({
-        title: navigation.state.params.session.chatGroupName ||  navigation.state.params.session.name,
+        title: navigation.state.params.session.groupName ||  navigation.state.params.session.name,
         headerRight: (
             <View style={{flexDirection: 'row', paddingRight: 8, alignItems: 'center', justifyContent: 'center'}}>
                 <TouchableOpacity onPress={() => {

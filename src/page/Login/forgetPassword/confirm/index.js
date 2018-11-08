@@ -88,18 +88,18 @@ export default class Confirm extends Component {
                                     <Input placeholder="请输入新密码"
                                         value={this.state.password}
                                         maxLength={11}
-                                        keyboardType={'numeric'}
+                                        secureTextEntry={true}
                                         style={{ color: 'white' }}
-                                        placeholderTextColor={'#FEFEFE'}
+                                        placeholderTextColor={'#FEFEFE70'}
                                         onChangeText={(text) => { this.setState({ password: text }) }} />
                                 </Item>
 
                                 <Item style={styles.itemStyle}>
                                     <Input placeholder="再次输入新密码"
                                         value={this.state.pwd}
-                                        keyboardType={'numeric'}
+                                        secureTextEntry={true}
                                         style={{ color: 'white' }}
-                                        placeholderTextColor={'#FEFEFE'}
+                                        placeholderTextColor={'#FEFEFE70'}
                                         onChangeText={(text) => { this.setState({ pwd: text }) }} >
                                     </Input>
                                 </Item>
@@ -107,7 +107,6 @@ export default class Confirm extends Component {
 
                             < Row size={0.6} style={styles.rowStyle}>
                                 <Button
-                                    rounded
                                     style={styles.logInButtonStyle}
                                     onPress={() => {
                                         this._newChangePassword(this.code, this.state.password, this.phone, this.state.pwd)
@@ -183,35 +182,15 @@ export default class Confirm extends Component {
                         'repeatPassword': `${pwd}`
                     },
                     function (data) {
-                        if (data == '') {
-                            self.refs.toast.show('修改成功!', DURATION.LENGTH_LONG);
-                            self.props.navigation.navigate("Login");
+                        if (data.status == "success") {
+                            self.refs.toast.show('修改成功!', DURATION.LENGTH_LONG)
+                            self.props.navigation.navigate("Login")
                         } else {
                             self.refs.toast.show(data, DURATION.LENGTH_LONG);
                         }
                     }
                 )
             }
-        }
-    }
-
-    _changePassword(phone, password, code) {
-        let self = this
-        if (phone.length > 10 && password != '' && code != '') {
-            HttpUtils.putRequrst(
-                'userUrl',
-                'uppwd',
-                {
-                    'checkNum': `${code}`,
-                    'phoneNumber': `${phone}`,
-                    'pwd': `${password}`,
-                },
-                function (data) {
-                    self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
-                }
-            )
-        } else {
-            this.refs.toast.show('请检查您的账号、新密码、验证码是否正确!', DURATION.LENGTH_LONG);
         }
     }
 }

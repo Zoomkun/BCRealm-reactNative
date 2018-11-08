@@ -46,7 +46,9 @@ export default class StartPage extends Component {
         let self = this;
         let client = ''
         Platform.OS === 'android' ? client = 'android' : client = 'iphone'
-        console.log(client)
+        console.log(client);
+        let obj = HttpUtils.getToken()
+        console.log(obj);
         HttpUtils.getRequest(
             'appVersion',
             {

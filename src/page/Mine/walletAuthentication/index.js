@@ -142,10 +142,10 @@ class WalletAuthenticate extends Component {
                     "type": 1
                 },
                 function (data) {
-                    if (data == '') {
+                    if (data.status == "success") {
                         self.refs.toast.show("成功", DURATION.LENGTH_LONG);
                     } else {
-                        self.refs.toast.show(data, DURATION.LENGTH_LONG);
+                        self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
                     }
                 }
             )

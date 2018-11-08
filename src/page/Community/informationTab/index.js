@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
     View,
     Text,
@@ -11,8 +11,8 @@ import {
     AsyncStorage,
 } from 'react-native';
 //import styles from './styles';
-import {NimTeam, NimSession} from 'react-native-netease-im';
-import {InformationItem} from '../../../components';
+import { NimTeam, NimSession } from 'react-native-netease-im';
+import { InformationItem } from '../../../components';
 import Http from "../../../api/Api";
 
 /**
@@ -41,10 +41,10 @@ export default class InformationTab extends Component {
             {
             },
             function (data) {
-                AsyncStorage.setItem('accessToken',JSON.stringify(data))
+                AsyncStorage.setItem('accessToken', JSON.stringify(data))
                 NimSession.login(data.account, data.token).then((data) => {
                     self.setState({
-                        accessToken:data
+                        accessToken: data
                     })
 
                     self.sessionListener = NativeAppEventEmitter.addListener("observeRecentContact", (data) => {
@@ -67,7 +67,7 @@ export default class InformationTab extends Component {
     // 进入聊天室
     _chatRoom(item) {
         let self = this
-        const {navigation} = this.props;
+        const { navigation } = this.props;
         const data = self.state;
         let chatInfo = item
         let session = {
@@ -77,7 +77,7 @@ export default class InformationTab extends Component {
             account: data.accessToken.account,
         };
         navigation.popToTop()
-        navigation.navigate('Chat', {session: session})
+        navigation.navigate('Chat', { session: session })
     }
 
     render() {
@@ -85,21 +85,22 @@ export default class InformationTab extends Component {
         return (
             <Content>
                 <FlatList data={items}
-                          enableEmptySections={true}
-                          onEndReachedThreshold={10}
-                          keyExtractor={(item, index) => index.toString()}
-                          renderItem={({item, index}) => {
-                              return <InformationItem
-                                  {...this.props}
-                                  data={item}
-                                  name={item.name}
-                                  time={item.time}
-                                  msg={item.content}
-                                  image={item.imagePath}
-                                  id={item.contactId}
-                                  onPress={() => this._chatRoom(item)}
-                              />
-                          }}/>
+                    {...console.log(items)}
+                    enableEmptySections={true}
+                    onEndReachedThreshold={10}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item, index }) => {
+                        return <InformationItem
+                            {...this.props}
+                            data={item}
+                            name={item.name}
+                            time={item.time}
+                            msg={item.content}
+                            image={item.imagePath}
+                            id={item.contactId}
+                            onPress={() => this._chatRoom(item)}
+                        />
+                    }} />
             </Content>
         );
     }

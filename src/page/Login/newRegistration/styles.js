@@ -17,17 +17,12 @@ export default {
         width: deviceWidth * 0.8,
         justifyContent: 'center',
         borderRadius: deviceWidth / (deviceWidth / 50),
+        backgroundColor: '#ffffff',
     },
     rowStyle: {
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: deviceWidth / (deviceWidth / 50)
-    },
-    codeStyle: {
-        marginRight: 15,
-        height: 30,
-        width: deviceWidth / 3.35,
-        alignSelf: 'center'
     },
     disableCodeStyle: {
         marginRight: 15,
@@ -36,7 +31,7 @@ export default {
         alignSelf: 'center'
     },
     logInTextStyle: {
-        color: 'white',
+        color: '#714BD9',
         fontSize: 15
     }
 }

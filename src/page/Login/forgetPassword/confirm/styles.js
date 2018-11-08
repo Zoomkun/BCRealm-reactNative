@@ -13,8 +13,10 @@ export default {
         height: deviceWidth / (deviceWidth / 50),
     },
     logInButtonStyle: {
+        borderRadius: deviceWidth / (deviceWidth / 50),
         width: deviceWidth * 0.8,
         justifyContent: 'center',
+        backgroundColor: '#ffffff'
     },
     rowStyle: {
         justifyContent: 'center',
@@ -34,7 +36,7 @@ export default {
         alignSelf: 'center'
     },
     logInTextStyle: {
-        color: 'white',
+        color: '#714BD9',
         fontSize: 15
     }
 }

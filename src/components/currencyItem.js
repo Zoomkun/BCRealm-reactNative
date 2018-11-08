@@ -1,6 +1,12 @@
 import React, { Component } from "react";
-import { Dimensions, View, } from "react-native";
+import {
+    Dimensions,
+    View,
+    ImageBackground,
+    TouchableOpacity
+} from "react-native";
 import CommonStyles from '../css/commonStyle';
+import { my_item_bg1 } from '../../images';
 import {
     ListItem,
     Text,
@@ -13,47 +19,53 @@ export default class CurrencyItem extends Component {
     render() {
         let { currency, quantity, estimatedValue, onPress } = this.props;
         return (
-            < ListItem button style={styles.listItemStyle} onPress={onPress}>
-                <View style={{ backgroundColor: '#9578E4', width: 5, height: 80 }} />
-                <View style={styles.leftViewStyle}>
-                    <Text style={[CommonStyles.blackText, styles.currencyStyle, { alignSelf: 'flex-start', }]}>{currency}</Text>
-                    <Text style={{ alignSelf: 'flex-start' }}>持有数量<Text style={[CommonStyles.blackText, styles.quantityStyle]}>{quantity}</Text></Text>
-                </View>
-                <View style={styles.viewStyle}>
-                    <Text style={[styles.estimatedValueStyle, styles.currencyStyle]}>{estimatedValue}</Text>
-                    <Text style={[styles.estimateStyle]}>预估价值(元)</Text>
-                </View>
-            </ListItem >
+            <TouchableOpacity style={styles.listItemStyle} onPress={onPress}>
+                <ImageBackground
+                    resizeMode={"cover"}
+                    source={my_item_bg1}
+                    style={styles.imageBackgroundStyle}
+                >
+                    <View style={styles.leftViewStyle}>
+                        <Text style={{ alignSelf: 'flex-start', fontSize: 19, color: '#313442' }}>{currency}</Text>
+                        <Text style={{ alignSelf: 'flex-start' }}>持有数量<Text style={[CommonStyles.blackText, styles.quantityStyle]}>{quantity}</Text></Text>
+                    </View>
+                    <View style={styles.viewStyle}>
+                        <Text style={styles.estimatedValueStyle}>{estimatedValue}</Text>
+                        <Text style={[styles.estimateStyle]}>预估价值(元)</Text>
+                    </View>
+                </ImageBackground>
+            </TouchableOpacity>
         );
     }
 }
+
 const { width, height } = Dimensions.get("window")
 const styles = {
     listItemStyle: {
+        width: width,
+        height: width / (width / 97),
+    },
+    imageBackgroundStyle: {
+        width: width * 0.95,
+        height: width / (width / 97),
         flexDirection: 'row',
-        backgroundColor: '#F5F5F5',
-        height: 80,
-        width: width * 0.9,
-        marginBottom: width / (width / 10)
+        alignSelf: 'center'
     },
     leftViewStyle: {
         flexDirection: 'column',
         width: width * 0.45,
-        paddingLeft: 10
+        paddingLeft: 10,
+        justifyContent: 'center',
     },
     viewStyle: {
         flexDirection: 'column',
-        width: width * 0.4,
-    },
-    startTextStyle: {
-        paddingLeft: width / (width / 10)
-    },
-    currencyStyle: {
-        fontSize: 30
+        width: width * 0.45,
+        justifyContent: 'center',
     },
     estimatedValueStyle: {
         color: '#7A55D9',
         alignSelf: 'flex-end',
+        fontSize: 23
     },
     quantityStyle: {
         color: '#FF7F1A',

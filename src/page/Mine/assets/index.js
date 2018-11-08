@@ -17,18 +17,6 @@ import { Grid, Row, Col } from 'react-native-easy-grid';
 import { bg } from '../../../../images';
 import HttpUtils from "../../../api/Api";
 
-
-const data = [
-    { currency: "BBM", quantity: 123.123, estimatedValue: 10068, },
-    { currency: "DBEX", quantity: 35.5, estimatedValue: 9879, },
-    { currency: "HCC", quantity: 54.02, estimatedValue: 456, },
-    { currency: "BSH", quantity: 98.4, estimatedValue: 32, },
-    { currency: "VIS", quantity: 874.8, estimatedValue: 233, },
-    { currency: "BBM", quantity: 123.123, estimatedValue: 10068, },
-    { currency: "DBEX", quantity: 35.5, estimatedValue: 9879, },
-    { currency: "HCC", quantity: 54.02, estimatedValue: 456, },
-    { currency: "VIS", quantity: 874.8, estimatedValue: 233, },
-]
 /**
  * 资产详情
  */
@@ -77,12 +65,13 @@ class Assets extends Component {
                     <View style={{ flex: 1, flexDirection: 'column', }}>
                         <Body style={styles.bodyStyle}>
                             <Text style={styles.textStyle}>我的资产总价值约(元)</Text>
-                            <Text style={styles.textStyle}>{items.totalValue}</Text>
+                            <Text style={{ fontSize: 23, color: '#ffffff' }}>{items.totalValue}</Text>
                         </Body>
                     </View>
                 </ImageBackground>
-                <View style={styles.viewStyle} />
-                <Text style={styles.titleStyle}>我的资产</Text>
+                <View style={styles.viewStyle} >
+                    <Text style={styles.currencyTextStyle}>我的资产</Text>
+                </View>
                 <Content style={styles.contentStyle}>
                     <FlatList data={items.assets}
                         enableEmptySections={true}
@@ -92,7 +81,7 @@ class Assets extends Component {
                             return <CurrencyItem
                                 currency={item.assetName}
                                 quantity={item.gameAmount}
-                                estimatedValue={(item.gameAmount).toFixed(4)}
+                                estimatedValue={(item.gameAssessValue).toFixed(4)}
                                 onPress={() => this.props.navigation.navigate("Currency", { data: item })}
                             />
                         }} />
@@ -109,9 +98,11 @@ class Assets extends Component {
             '',
             function (data) {
                 console.log(data)
-                self.setState({
-                    data: data
-                })
+                if (data.status != "error") {
+                    self.setState({
+                        data: data.data
+                    })
+                }
             }
         )
     }
