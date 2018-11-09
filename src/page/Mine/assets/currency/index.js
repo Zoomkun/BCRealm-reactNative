@@ -12,14 +12,15 @@ import {
 import {
     Text,
     ImageBackground,
-    View
+    View,
+    TouchableOpacity
 } from 'react-native';
 
 import { Grid, Row, Col } from 'react-native-easy-grid';
 import styles from "./styles";
 import { bg, tip_bg } from '../../../../../images'
 import Toast, { DURATION } from 'react-native-easy-toast';
-
+import HttpUtils from '../../../../api/Api';
 
 /**
  * 货币页面
@@ -125,32 +126,30 @@ class Currency extends Component {
                         flex: 1,
                         justifyContent: 'space-between',
                     }}>
-                        <Button bordered style={{
-                            marginLeft: 17,
-                            width: 126,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
+                        <Button bordered style={styles.leftButtonStyle}
                             onPress={() => { this._downloadTips() }}
                         >
                             <Text style={{
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                color: '#714BD9'
+                                color: '#714BD9',
+                                fontSize: 19
                             }}>下载钱包</Text>
                         </Button>
 
-                        <Button style={{
-                            backgroundColor: '#6056DD',
-                            width: 126,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginRight: 17
-                        }}
-                            onPress={() => { this._recordTips() }}
+                        <Button style={styles.rightButtonStyle}
+                            onPress={() => { this._checkoutSubmit(this.state.quantity) }}
                         >
-                            <Text>提取至钱包</Text>
+                            <Text style={{ fontSize: 19, color: '#ffffff' }}>提取至钱包</Text>
                         </Button>
+                    </View>
+                    <View style={{ marginTop: 20, justifyContent: 'center' }}>
+                        <TouchableOpacity
+                            style={{ alignSelf: 'flex-end', marginRight: 20 }}
+                            onPress={() => { this._findUserAccount() }}
+                        >
+                            <Text style={{ fontSize: 19, color: 'red' }}>＜创建账号须知＞</Text>
+                        </TouchableOpacity>
                     </View>
                 </Content>
                 <Toast
@@ -171,8 +170,45 @@ class Currency extends Component {
         this.refs.toast.show("钱包正在搭建中,敬请期待", DURATION.LENGTH_LONG);
     }
 
-    _recordTips() {
-        this.refs.toast.show("请实名认证后提现", DURATION.LENGTH_LONG);
+    _checkoutSubmit(amount) {
+        if (amount < 1) {
+            this.refs.toast.show("提取数量必须大于1", DURATION.LENGTH_LONG);
+            return;
+        }
+        let self = this
+        let { navigate } = this.props.navigation;
+        HttpUtils.formDataRequest(
+            'checkoutSubmit',
+            {
+                assetId: `${self.data.assetId}`,
+                amount: `${amount}`,
+                createAccount: ''
+            },
+            function (data) {
+                console.log(data)
+                if (data.code == 119001) {
+                    navigate("CheckOut", { data: self.data, type: 0, account: data, amount: amount });
+                } else {
+                    self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
+                }
+            }
+        )
     }
+
+    _findUserAccount() {
+        let self = this
+        let { navigate } = this.props.navigation;
+        HttpUtils.formDataRequest(
+            'findUserAccount',
+            {
+                assetId: `${self.data.assetId}`,
+            },
+            function (data) {
+                console.log(data)
+                navigate("CheckOut", { account: data, type: 1 });
+            }
+        )
+    }
+
 }
 export default Currency

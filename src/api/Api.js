@@ -139,7 +139,7 @@ export default class HttpUtils extends Component {
                 success(response.data);
             } else {
                 // 非 200，错误处理
-                alert(response.message)
+                alert(response.msg)
                 return response
             }
         }).catch(error => {
@@ -196,11 +196,7 @@ export default class HttpUtils extends Component {
             }
         }).then(response => {
             // response.code：是与服务器端约定code：200表示请求成功，非200表示请求失败，message：请求失败内容
-            if (response && response.code === 1) {
-                success(response.data)
-            } else {
-                success(response.msg)
-            }
+            success(response)
         }).catch(error => {
             // console.log(error)
             alert(error)

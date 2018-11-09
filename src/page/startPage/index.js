@@ -39,6 +39,7 @@ export default class StartPage extends Component {
         super(props);
         this.state = {
             token: '',
+            data: []
         }
     }
 
@@ -130,20 +131,30 @@ export default class StartPage extends Component {
                 self.setState({
                     token: datas.token,
                 })
-
                 HttpUtils.setHeader({ Authorization: datas.token })
+                HttpUtils.getRequest(
+                    'getPlayerInfo',
+                    '',
+                    function (data) {
+                        console.log(data)
+                        if (data) {
+                            self.setState({
+                                data: data,
+                            })
+                        }
+                    }
+                )
+                this.timer = setTimeout(() => {
+                    if (self.state.data.nickName != undefined) {
+                        self.props.navigation.dispatch(resetAction);
+                    } else {
+                        this.props.navigation.navigate("Login");
+                    }
+                },
+                    2000
+                );
             }
         })
-
-        this.timer = setTimeout(() => {
-            if (this.state.token != '') {
-                self.props.navigation.dispatch(resetAction);
-            } else {
-                this.props.navigation.navigate("Login");
-            }
-        },
-            2000
-        );
     }
 
     componentWillUnmount() {

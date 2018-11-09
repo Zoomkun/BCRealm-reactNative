@@ -44,29 +44,6 @@ export default class Discover extends Component {
         ),
     })
 
-    data = [
-        {
-            uri: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540795651595&di=85478ff5860cdc47627714b0c25b891a&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171201%2F13fbc2e53a2949ce85dd5a169d8e5a71.jpeg",
-            title: "震惊某电竞选手2017年为了进决赛竟然对队友做了这件事", star: 233, read: 366
-        },
-        {
-            uri: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540795651595&di=85478ff5860cdc47627714b0c25b891a&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171201%2F13fbc2e53a2949ce85dd5a169d8e5a71.jpeg",
-            title: "震惊某电竞选手2017年为了进决赛竟然对队友做了这件事", star: 233, read: 366
-        },
-        {
-            uri: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540795651595&di=85478ff5860cdc47627714b0c25b891a&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171201%2F13fbc2e53a2949ce85dd5a169d8e5a71.jpeg",
-            title: "震惊某电竞选手2017年为了进决赛竟然对队友做了这件事", star: 233, read: 366
-        },
-        {
-            uri: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540795651595&di=85478ff5860cdc47627714b0c25b891a&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171201%2F13fbc2e53a2949ce85dd5a169d8e5a71.jpeg",
-            title: "震惊某电竞选手2017年为了进决赛竟然对队友做了这件事", star: 233, read: 366
-        },
-        {
-            uri: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540795651595&di=85478ff5860cdc47627714b0c25b891a&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171201%2F13fbc2e53a2949ce85dd5a169d8e5a71.jpeg",
-            title: "震惊某电竞选手2017年为了进决赛竟然对队友做了这件事", star: 233, read: 366
-        },
-    ]
-
     render() {
         return (
             <Container>

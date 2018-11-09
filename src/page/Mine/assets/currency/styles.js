@@ -1,3 +1,5 @@
+import { Left } from 'native-base';
+
 const React = require('react-native');
 
 const { StyleSheet, Dimensions } = React;
@@ -73,6 +75,19 @@ export default {
     inputStyle: {
         fontSize: 49,
         height: 80,
+    },
+    leftButtonStyle: {
+        marginLeft: deviceWidth / (deviceWidth / 17),
+        width: deviceWidth / (deviceWidth / 148),
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    rightButtonStyle: {
+        backgroundColor: '#6056DD',
+        width: deviceWidth / (deviceWidth / 148),
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: deviceWidth / (deviceWidth / 17)
     }
 
 }

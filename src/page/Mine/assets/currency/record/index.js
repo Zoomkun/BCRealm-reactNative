@@ -71,17 +71,19 @@ class Record extends Component {
                         </Col>
                     </Grid>
                 </ListItem >
-                <FlatList data={items}
-                    enableEmptySections={true}
-                    onEndReachedThreshold={10}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item, index }) => {
-                        return <RecordItem
-                            date={item.createTimestamp}
-                            quantity={item.amount}
-                            state={item.transStatus}
-                        />
-                    }} />
+                {items.data != undefined &&
+                    < FlatList data={items.data}
+                        enableEmptySections={true}
+                        onEndReachedThreshold={10}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item, index }) => {
+                            return <RecordItem
+                                date={item.createTimestamp}
+                                quantity={item.amount}
+                                state={item.transStatus}
+                            />
+                        }} />
+                }
             </Container >
         );
     }

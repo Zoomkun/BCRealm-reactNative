@@ -45,6 +45,10 @@ export default {
     getWalletAddressList: 'wwallet/wallet/address/list',
     /**钱包地址认证 */
     WalletAddressSubmit: 'wwallet/wallet/address/submit',
+    /**提交提现请求 */
+    checkoutSubmit: 'wexchange/checkout/submit',
+    /**交易所账号密码 */
+    findUserAccount: 'wexchange/checkout/findUserAccount',
 
     /**下面都是老的接口*/
     /**线上*/
@@ -104,5 +108,5 @@ export default {
     /**获取群详细信息*/
     groupInfo: 'wwyim/chatGroup/info?',
     /**获取网易云信登录接口*/
-    getAccessToken:'wwyim/chatUser/getAccessToken',
+    getAccessToken: 'wwyim/chatUser/getAccessToken',
 }
