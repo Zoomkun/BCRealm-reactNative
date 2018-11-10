@@ -71,7 +71,8 @@ class Record extends Component {
                         </Col>
                     </Grid>
                 </ListItem >
-                {items.data != undefined &&
+                {
+                    items.data != undefined &&
                     < FlatList data={items.data}
                         enableEmptySections={true}
                         onEndReachedThreshold={10}
