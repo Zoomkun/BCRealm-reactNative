@@ -25,6 +25,12 @@ import * as CacheManager from 'react-native-http-cache';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import HttpUtils from "../../api/Api";
 import { Grid, Row, Col } from 'react-native-easy-grid';
+
+import Dialog, {
+    DialogTitle,
+    DialogContent,
+    DialogButton,
+} from 'react-native-popup-dialog';
 import {
     my_top_bg,
     photo_01,
@@ -54,7 +60,8 @@ export default class Mine extends Component {
             push: 0,
             userName: '',
             certification: 0,
-            headeIcon: ''
+            headeIcon: '',
+            defaultAnimationDialog: false,
         };
     }
 
@@ -235,7 +242,15 @@ export default class Mine extends Component {
                         </ListItem>
                         <View style={{ backgroundColor: '#F3F3F3', height: 10 }} /> */}
 
-                        <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('AboutUs') }}>
+                        <ListItem itemDivider style={styles.listItemStyle} button
+                            onPress={() => {
+                                this.setState({
+                                    defaultAnimationDialog: true,
+                                });
+                            }}
+                        >
+                            {/* <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('AboutUs') }}> */}
+
                             <Image style={{ width: 18, height: 18 }}
                                 source={image_gx1}>
                             </Image>
@@ -270,6 +285,48 @@ export default class Mine extends Component {
                         </View>
                     </Row>
                 </Content>
+
+                <Dialog
+                    onDismiss={() => {
+                        this.setState({ defaultAnimationDialog: false });
+                    }}
+                    width={0.9}
+                    visible={this.state.defaultAnimationDialog}
+                    rounded
+                    dialogTitle={
+                        <ImageBackground
+                            style={{ width: 330, height: 80, justifyContent: 'center' }}
+                            source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541852443450&di=629394d5009c530ff24f5665e23fe708&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F01%2F20160601104059_YNz8P.jpeg' }}>
+                            <Text style={{ color: '#FF00FF', alignSelf: 'center', justifyContent: 'center' }}>我是标题啊啊啊啊啊啊啊</Text>
+                        </ImageBackground>
+
+                    }
+                    actions={[
+                        <DialogButton
+                            text="取消"
+                            onPress={() => {
+                                this.setState({ defaultAnimationDialog: false });
+                            }}
+                            key="button-1"
+                        />,
+                        <DialogButton
+                            text="确认"
+                            onPress={() => {
+                                this.setState({ defaultAnimationDialog: false });
+                            }}
+                            key="button-2"
+                        />,
+                    ]}
+                >
+                    <DialogContent
+                        style={{
+                            backgroundColor: '#F7F7F8',
+                        }}
+                    >
+                        <Text>LOL</Text>
+                        <Text>喜迎世界冠军IG</Text>
+                    </DialogContent>
+                </Dialog>
                 <Toast
                     ref="toast"
                     style={{ backgroundColor: '#434343' }}

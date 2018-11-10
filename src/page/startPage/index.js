@@ -153,6 +153,8 @@ export default class StartPage extends Component {
                 },
                     2000
                 );
+            } else {
+                this.props.navigation.navigate("Login");
             }
         })
     }

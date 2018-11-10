@@ -26,6 +26,7 @@
     "react-native-looped-carousel": "^0.1.13",
     "react-native-netease-im": "https://github.com/reactnativecomponent/react-native-netease-im",
     "react-native-parsed-text": "^0.0.20",
+    "react-native-popup-dialog": "^0.16.3",
     "react-native-qrcode": "^0.2.7",
     "react-native-simple-toast": "^0.0.8",
     "react-native-wechat": "^1.9.10",
