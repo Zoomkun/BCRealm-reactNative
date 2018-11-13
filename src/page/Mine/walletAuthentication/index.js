@@ -47,7 +47,7 @@ class WalletAuthenticate extends Component {
     }
 
     componentDidMount() {
-        this._getWalletAddressList();
+        // this._getWalletAddressList();
     }
 
     render() {

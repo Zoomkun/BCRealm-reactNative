@@ -68,7 +68,7 @@ export default class NewRegistration extends Component {
         return (
             <Container style={CommonStyles.container}>
                 <ImageBackground source={login_bg}
-                    resizeMode={"cover"}
+                    //resizeMode={"cover"}
                     style={CommonStyles.backgroundStyle}
                 >
                     <Content>

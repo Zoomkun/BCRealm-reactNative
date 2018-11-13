@@ -115,6 +115,9 @@ class CheckOut extends Component {
                     <View style={styles.lineStyle} />
                 </View>
 
+                <View style={{ justifyContent: 'center', marginTop: 30 }}>
+                    <Text style={{ fontSize: 14, color: '#ff4647', alignSelf: 'center' }}>(请直接至交易所执行忘记密码的操作设置新的密码)</Text>
+                </View>
                 {this.type == 0 &&
                     < View style={styles.buttonViewStyle}>
                         <Button bordered style={styles.cancelStyle}>

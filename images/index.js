@@ -24,4 +24,5 @@ export const wipeCacheIcon = require("./wipeCacheIcon.png")
 export const image_gx1 = require("./image_gx1.png")
 export const image_ts1 = require("./image_ts1.png")
 export const my_top_bg3 = require("./my_top_bg3.png")
+export const updateTop = require("./updateTop.png")
 

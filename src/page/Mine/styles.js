@@ -7,7 +7,7 @@ const deviceWidth = Dimensions.get("window").width;
 export default {
     titleStyle: {
         color: '#fefefe',
-        fontSize: 18
+        fontSize: 19
     },
     textStyle: {
         marginLeft: 10,

@@ -1,5 +1,4 @@
-const React = require('react-native');
-const { Dimensions } = React;
+import { Dimensions, PixelRatio } from 'react-native';
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
@@ -8,8 +7,7 @@ export default {
         backgroundColor: '#EFEFF4'
     },
     backgroundStyle: {
-        width: deviceWidth / (deviceWidth / 361),
-        height: deviceWidth / (deviceWidth / 642)
+        flex: 1
     },
     icon: {
         width: 20,

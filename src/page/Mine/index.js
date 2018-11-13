@@ -4,7 +4,9 @@ import {
     View,
     Image,
     AsyncStorage,
-    ImageBackground
+    ImageBackground,
+    Platform,
+    NativeModules,
 } from 'react-native';
 import {
     Container,
@@ -25,6 +27,7 @@ import * as CacheManager from 'react-native-http-cache';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import HttpUtils from "../../api/Api";
 import { Grid, Row, Col } from 'react-native-easy-grid';
+import DeviceInfo from 'react-native-device-info';
 
 import Dialog, {
     DialogTitle,
@@ -42,7 +45,8 @@ import {
     walletIcon,
     wipeCacheIcon,
     image_gx1,
-    image_ts1
+    image_ts1,
+    updateTop
 } from '../../../images';
 
 /**
@@ -62,19 +66,24 @@ export default class Mine extends Component {
             certification: 0,
             headeIcon: '',
             defaultAnimationDialog: false,
+            appInfo: [],
+            appUpdate: false
         };
     }
-
-    componentDidMount() {
-        CacheManager.getCacheSize().then((size) => {
-            this.setState({ cacheSize: size })
-        })
-    }
-
 
     componentWillMount() {
         this._getPlayerInfo()
     }
+
+    componentDidMount() {
+        CacheManager.getCacheSize().then((size) => {
+            this.setState({
+                cacheSize: size,
+            })
+        })
+    }
+
+
 
     static navigationOptions = ({ navigation }) => ({
         header: null,
@@ -244,9 +253,7 @@ export default class Mine extends Component {
 
                         <ListItem itemDivider style={styles.listItemStyle} button
                             onPress={() => {
-                                this.setState({
-                                    defaultAnimationDialog: true,
-                                });
+                                this._getAppInfo();
                             }}
                         >
                             {/* <ListItem itemDivider style={styles.listItemStyle} button onPress={() => { navigate('AboutUs') }}> */}
@@ -295,9 +302,9 @@ export default class Mine extends Component {
                     rounded
                     dialogTitle={
                         <ImageBackground
-                            style={{ width: 330, height: 80, justifyContent: 'center' }}
-                            source={{ uri: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541852443450&di=629394d5009c530ff24f5665e23fe708&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201606%2F01%2F20160601104059_YNz8P.jpeg' }}>
-                            <Text style={{ color: '#FF00FF', alignSelf: 'center', justifyContent: 'center' }}>我是标题啊啊啊啊啊啊啊</Text>
+                            style={{ width: 330, height: 60, justifyContent: 'center' }}
+                            source={updateTop}>
+                            <Text style={{ color: '#ffffff', alignSelf: 'center', justifyContent: 'center', fontSize: 19 }}>检查更新</Text>
                         </ImageBackground>
 
                     }
@@ -305,14 +312,29 @@ export default class Mine extends Component {
                         <DialogButton
                             text="取消"
                             onPress={() => {
-                                this.setState({ defaultAnimationDialog: false });
+                                if (data.needForceUpgrade === true) {
+                                    BackHandler.exitApp();
+                                } else {
+                                    this.setState({ defaultAnimationDialog: false });
+                                }
                             }}
                             key="button-1"
                         />,
                         <DialogButton
                             text="确认"
                             onPress={() => {
-                                this.setState({ defaultAnimationDialog: false });
+                                if (Platform.OS === 'android') {
+                                    this.setState({ defaultAnimationDialog: false });
+                                    NativeModules.upgrade.upgrade(this.state.appInfo.downloadUrl);
+                                } else {
+                                    NativeModules.upgrade.openAPPStore('AppId');
+                                    // todo:增加APPID
+                                    NativeModules.upgrade.upgrade('AppId', (msg) => {
+                                        if ('YES' == msg) {
+                                            NativeModules.upgrade.openAPPStore('AppId');
+                                        }
+                                    })
+                                }
                             }}
                             key="button-2"
                         />,
@@ -321,10 +343,12 @@ export default class Mine extends Component {
                     <DialogContent
                         style={{
                             backgroundColor: '#F7F7F8',
+                            height: 120,
+                            justifyContent: 'center'
                         }}
                     >
-                        <Text>LOL</Text>
-                        <Text>喜迎世界冠军IG</Text>
+                        <Text style={{ fontSize: 13, alignSelf: 'center', color: '#313442' }}>{"请问是否更新" + this.state.appInfo.description}</Text>
+                        <Text style={{ fontSize: 13, alignSelf: 'center' }}>{"预计将下载" + this.state.appInfo.packageSize}</Text>
                     </DialogContent>
                 </Dialog>
                 <Toast
@@ -369,6 +393,47 @@ export default class Mine extends Component {
         )
     }
 
+    _getAppInfo() {
+        let self = this;
+        let client = ''
+        Platform.OS === 'android' ? client = 'android' : client = 'iphone'
+        console.log(client);
+        let obj = HttpUtils.getToken()
+        console.log(obj);
+        HttpUtils.getRequest(
+            'appVersion',
+            {
+                'client': client
+            },
+            function (data) {
+                console.log(data)
+                self.setState({
+                    appInfo: data
+                })
+                AsyncStorage.setItem('version', JSON.stringify(data));
+                let newVersion = data.version.split('.')
+                let oldVersion = DeviceInfo.getVersion().split('.')
+                let update = false;
+                for (let i in newVersion) {
+                    if (~~newVersion[i] > ~~oldVersion[i]) {
+                        update = true;
+                        break
+                    } else {
+                        update = false
+                    }
+                }
+                if (update) {
+                    self.setState({
+                        defaultAnimationDialog: true,
+                        appUpdate: update
+                    });
+                } else {
+                    self.refs.toast.show('您已是最新版!', DURATION.LENGTH_LONG);
+                }
+            }
+        )
+    }
+
     _returnData(data) {
         this.setState({
             data: data
@@ -377,48 +442,6 @@ export default class Mine extends Component {
 
     _showToast(data) {
         this.refs.toast.show(data, DURATION.LENGTH_LONG);
-    }
-
-    _upDataUnReads() {
-        this.setState({
-            push: 0
-        })
-        this._getUnReads();
-    }
-
-    /**
-     * 获取指定用户的未读私信数量
-     */
-    _getUnReads() {
-        let self = this
-        HttpUtils.getRequest(
-            'userUrl',
-            'unreads',
-            '',
-            function (data) {
-                self.setState({
-                    unReads: data,
-                })
-            }
-        )
-    }
-
-    _loginOut() {
-        let self = this
-        HttpUtils.deleteRequest(
-            'userUrl',
-            'loginOut',
-            '',
-            function (data) {
-                if (data.msg == '成功') {
-                    self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
-                    self._gologin();
-                } else {
-                    self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
-                }
-
-            }
-        )
     }
 
     _gologin() {

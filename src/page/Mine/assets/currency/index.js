@@ -194,10 +194,11 @@ class Currency extends Component {
             }
         )
     }
-
     _findUserAccount() {
         let self = this
+
         let { navigate } = this.props.navigation;
+        console.log(self.data.assetId)
         HttpUtils.formDataRequest(
             'findUserAccount',
             {

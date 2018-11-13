@@ -124,9 +124,11 @@ export default class StartPage extends Component {
 
     // 打开App
     _openApp() {
+        console.log(111)
         let self = this
         AsyncStorage.getItem('user').then(data => {
             let datas = JSON.parse(data)
+            console.log(data)
             if (datas) {
                 self.setState({
                     token: datas.token,
@@ -144,19 +146,18 @@ export default class StartPage extends Component {
                         }
                     }
                 )
-                this.timer = setTimeout(() => {
-                    if (self.state.data.nickName != undefined) {
-                        self.props.navigation.dispatch(resetAction);
-                    } else {
-                        this.props.navigation.navigate("Login");
-                    }
-                },
-                    2000
-                );
+            }
+        })
+        this.timer = setTimeout(() => {
+            console.log(self.state.data.nickName)
+            if (self.state.data.nickName != undefined) {
+                self.props.navigation.dispatch(resetAction);
             } else {
                 this.props.navigation.navigate("Login");
             }
-        })
+        },
+            2000
+        );
     }
 
     componentWillUnmount() {

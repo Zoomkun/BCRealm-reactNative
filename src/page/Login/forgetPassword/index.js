@@ -64,7 +64,6 @@ export default class ForgetPassword extends Component {
         return (
             <Container style={CommonStyles.container}>
                 <ImageBackground source={login_bg}
-                    resizeMode={"cover"}
                     style={CommonStyles.backgroundStyle}
                 >
                     <Content>
