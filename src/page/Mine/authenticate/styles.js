@@ -79,7 +79,7 @@ export default {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: deviceWidth / 2.4,
+    marginBottom: deviceWidth / 2,
   },
   bodyStyle: {
     justifyContent: 'flex-start',

@@ -61,26 +61,28 @@ export default class News extends Component {
                         <Text style={CommonStyles.headertextStyle}>新闻</Text>
                     </Body>
                     <Button transparent
-                        onPress={() => {
-                            WeChat.isWXAppInstalled()
-                                .then((isInstalled) => {
-                                    if (isInstalled) {
-                                        WeChat.shareToSession({
-                                            title: '区世界分享',
-                                            description: '区世界',
-                                            thumbImage: 'www.baidu.com',
-                                            type: 'news',
-                                            webpageUrl: 'http://world.gametest.bcrealm.com/static/worldnews.html?fromapp=true&newsId=' + newsId
-                                        })
-                                            .then((error) => {
-                                                alert(error);
-                                            });
-                                    } else {
-                                        alert('没有安装微信软件，请您安装微信之后再试');
-                                    }
-                                });
-                        }}  >
-                        <Icon name={"md-share-alt"} style={CommonStyles.backIconStyle} />
+                    //分享
+                    // onPress={() => {
+                    //     WeChat.isWXAppInstalled()
+                    //         .then((isInstalled) => {
+                    //             if (isInstalled) {
+                    //                 WeChat.shareToSession({
+                    //                     title: '区世界分享',
+                    //                     description: '区世界',
+                    //                     thumbImage: 'www.baidu.com',
+                    //                     type: 'news',
+                    //                     webpageUrl: 'http://world.gametest.bcrealm.com/static/worldnews.html?fromapp=true&newsId=' + newsId
+                    //                 })
+                    //                     .then((error) => {
+                    //                         alert(error);
+                    //                     });
+                    //             } else {
+                    //                 alert('没有安装微信软件，请您安装微信之后再试');
+                    //             }
+                    //         });
+                    // }}  
+                    >
+                        {/* <Icon name={"md-share-alt"} style={CommonStyles.backIconStyle} /> */}
                     </Button>
                 </Header>
                 {/* http://test.bcrealm.com/api/wnews/news/info/ */}

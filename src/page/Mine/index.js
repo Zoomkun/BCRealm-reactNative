@@ -264,7 +264,8 @@ export default class Mine extends Component {
                             <Body style={{ justifyContent: 'flex-start', }}>
                                 <Text style={CommonStyles.textColor}>检查更新</Text>
                             </Body>
-                            <Right>
+                            <Right style={styles.rightStyle}>
+                                <Text style={{ alignItems: 'center', marginRight: 10 }}>{DeviceInfo.getVersion()}</Text>
                                 <Icon name={"chevron-thin-right"} type={"Entypo"} fontSize={5} style={CommonStyles.rightIconStyle} />
                             </Right>
                         </ListItem>
@@ -410,7 +411,6 @@ export default class Mine extends Component {
                 self.setState({
                     appInfo: data
                 })
-                AsyncStorage.setItem('version', JSON.stringify(data));
                 let newVersion = data.version.split('.')
                 let oldVersion = DeviceInfo.getVersion().split('.')
                 let update = false;

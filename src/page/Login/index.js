@@ -11,7 +11,8 @@ import {
     Container,
     Item,
     Input,
-    Body
+    Body,
+    Content
 } from 'native-base';
 import { Grid, Row, Col } from 'react-native-easy-grid';
 import Toast, { DURATION } from 'react-native-easy-toast';
@@ -83,74 +84,76 @@ export default class Login extends Component {
                     resizeMode={"cover"}
                     style={CommonStyles.backgroundStyle}
                 >
-                    <Grid style={CommonStyles.gridStyle}>
-                        <Row size={1.25} style={CommonStyles.rowStyel}>
-                            <Row>
-                                <Col size={4} />
-                                <Col>
-                                    <Button transparent onPress={() => { navigate("NewRegistration") }} >
-                                        <Text style={{ color: '#FEFEFE', fontSize: 18, }}>注册</Text>
+                    <Content>
+                        <Grid style={CommonStyles.gridStyle}>
+                            <Row size={1.25} style={CommonStyles.rowStyel}>
+                                <Row>
+                                    <Col size={4} />
+                                    <Col>
+                                        <Button transparent onPress={() => { navigate("NewRegistration") }} >
+                                            <Text style={{ color: '#FEFEFE', fontSize: 18, }}>注册</Text>
+                                        </Button>
+                                    </Col>
+                                </Row>
+                                <Image
+                                    source={logo}
+                                    style={styles.iconStyle}
+                                />
+                            </Row>
+
+                            <Row size={2} style={styles.accountPasswordStyle}>
+                                <Item last style={styles.accountStyle}>
+                                    <Input placeholder="请输入区世界账号"
+                                        value={this.state.phone}
+                                        maxLength={11}
+                                        placeholderTextColor={'#FEFEFE70'}
+                                        onChangeText={(text) => { this.setState({ phone: text }) }}
+                                        style={{ color: 'white' }} />
+                                </Item>
+                                <Item last style={styles.PasswordStyle}>
+                                    <Input placeholder="请输入密码"
+                                        value={this.state.password}
+                                        secureTextEntry={true}
+                                        placeholderTextColor={'#FEFEFE70'}
+                                        onChangeText={(text) => { this.setState({ password: text }) }}
+                                        style={{ color: 'white' }}                                        >
+                                    </Input>
+                                </Item>
+
+                                <View style={styles.viewStyle}>
+                                    {this.state.warning != '' &&
+                                        < Body style={styles.warnStyle}>
+                                            <Image source={warning} style={styles.warningStyle} />
+                                            <Text style={{ color: '#FFFFFF', fontSize: 13, }}>{this.state.warning}</Text>
+                                        </Body>
+                                    }
+                                </View>
+
+                                <Row size={0.5} style={styles.accountPasswordStyle}>
+                                    <Button transparent style={styles.forgetPassword}
+                                        onPress={() => { navigate("ForgetPassword") }}>
+                                        <Text style={{ color: '#FFFFFF', fontSize: 14 }}>忘记密码</Text>
+                                        <View style={{ height: 1, width: 60, backgroundColor: 'white' }} />
                                     </Button>
-                                </Col>
-                            </Row>
-                            <Image
-                                source={logo}
-                                style={styles.iconStyle}
-                            />
-                        </Row>
+                                </Row>
 
-                        <Row size={2} style={styles.accountPasswordStyle}>
-                            <Item last style={styles.accountStyle}>
-                                <Input placeholder="请输入区世界账号"
-                                    value={this.state.phone}
-                                    maxLength={11}
-                                    placeholderTextColor={'#FEFEFE70'}
-                                    onChangeText={(text) => { this.setState({ phone: text }) }}
-                                    style={{ color: 'white' }} />
-                            </Item>
-                            <Item last style={styles.PasswordStyle}>
-                                <Input placeholder="请输入密码"
-                                    value={this.state.password}
-                                    secureTextEntry={true}
-                                    placeholderTextColor={'#FEFEFE70'}
-                                    onChangeText={(text) => { this.setState({ password: text }) }}
-                                    style={{ color: 'white' }}                                        >
-                                </Input>
-                            </Item>
-
-                            <View style={styles.viewStyle}>
-                                {this.state.warning != '' &&
-                                    < Body style={styles.warnStyle}>
-                                        <Image source={warning} style={styles.warningStyle} />
-                                        <Text style={{ color: '#FFFFFF', fontSize: 13, }}>{this.state.warning}</Text>
-                                    </Body>
-                                }
-                            </View>
-
-                            <Row size={0.5} style={styles.accountPasswordStyle}>
-                                <Button transparent style={styles.forgetPassword}
-                                    onPress={() => { navigate("ForgetPassword") }}>
-                                    <Text style={{ color: '#FFFFFF', fontSize: 14 }}>忘记密码</Text>
-                                    <View style={{ height: 1, width: 60, backgroundColor: 'white' }} />
-                                </Button>
+                                <Row style={styles.rowStyel}>
+                                    <Button style={styles.logInButtonStyle}
+                                        onPress={() => {
+                                            this._login(this.state.phone, this.state.password)
+                                        }}>
+                                        <Text style={styles.logInTextStyle}>立即登录</Text>
+                                    </Button>
+                                    <Button transparent style={styles.btnStyle} onPress={() => { navigate("ServiceAgreement") }}>
+                                        <Text style={{ color: 'white', fontSize: 13 }}>点击注册即表示已阅读并同意</Text>
+                                        <Text style={{ color: '#FE6F06', fontSize: 13 }}>《区世界服务协议》</Text>
+                                    </Button>
+                                </Row>
                             </Row>
 
-                            <Row style={styles.rowStyel}>
-                                <Button style={styles.logInButtonStyle}
-                                    onPress={() => {
-                                        this._login(this.state.phone, this.state.password)
-                                    }}>
-                                    <Text style={styles.logInTextStyle}>立即登录</Text>
-                                </Button>
-                                <Button transparent style={styles.btnStyle} onPress={() => { navigate("ServiceAgreement") }}>
-                                    <Text style={{ color: 'white', fontSize: 13 }}>点击注册即表示已阅读并同意</Text>
-                                    <Text style={{ color: '#FE6F06', fontSize: 13 }}>《区世界服务协议》</Text>
-                                </Button>
-                            </Row>
-                        </Row>
-
-                        <Row size={0.6} style={styles.rowStyel} />
-                    </Grid>
+                            <Row size={0.6} style={styles.rowStyel} />
+                        </Grid>
+                    </Content>
                 </ImageBackground >
                 <Toast
                     ref="toast"

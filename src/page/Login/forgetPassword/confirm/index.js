@@ -80,38 +80,44 @@ export default class Confirm extends Component {
                                     <Button transparent />
                                 </Right>
                             </Row>
-                            <Row size={0.4} />
+                            <Row size={3}
+                                style={{
+                                    flexDirection: 'column',
+                                    alignSelf: 'center',
+                                }}>
+                                <Row size={0.8} />
 
-                            < View style={styles.viewStyle}>
-                                <Item style={styles.itemStyle}>
-                                    <Input placeholder="请输入新密码"
-                                        value={this.state.password}
-                                        maxLength={11}
-                                        secureTextEntry={true}
-                                        style={{ color: 'white' }}
-                                        placeholderTextColor={'#FEFEFE70'}
-                                        onChangeText={(text) => { this.setState({ password: text }) }} />
-                                </Item>
+                                < View style={styles.viewStyle}>
+                                    <Item style={styles.itemStyle}>
+                                        <Input placeholder="请输入新密码"
+                                            value={this.state.password}
+                                            maxLength={11}
+                                            secureTextEntry={true}
+                                            style={{ color: 'white' }}
+                                            placeholderTextColor={'#FEFEFE70'}
+                                            onChangeText={(text) => { this.setState({ password: text }) }} />
+                                    </Item>
 
-                                <Item style={styles.itemStyle}>
-                                    <Input placeholder="再次输入新密码"
-                                        value={this.state.pwd}
-                                        secureTextEntry={true}
-                                        style={{ color: 'white' }}
-                                        placeholderTextColor={'#FEFEFE70'}
-                                        onChangeText={(text) => { this.setState({ pwd: text }) }} >
-                                    </Input>
-                                </Item>
-                            </View>
+                                    <Item style={styles.itemStyle}>
+                                        <Input placeholder="再次输入新密码"
+                                            value={this.state.pwd}
+                                            secureTextEntry={true}
+                                            style={{ color: 'white' }}
+                                            placeholderTextColor={'#FEFEFE70'}
+                                            onChangeText={(text) => { this.setState({ pwd: text }) }} >
+                                        </Input>
+                                    </Item>
+                                </View>
 
-                            < Row size={0.6} style={styles.rowStyle}>
-                                <Button
-                                    style={styles.logInButtonStyle}
-                                    onPress={() => {
-                                        this._newChangePassword(this.code, this.state.password, this.phone, this.state.pwd)
-                                    }}>
-                                    <Text style={styles.logInTextStyle}>确认</Text>
-                                </Button>
+                                < Row size={0.6} style={styles.rowStyle}>
+                                    <Button
+                                        style={styles.logInButtonStyle}
+                                        onPress={() => {
+                                            this._newChangePassword(this.code, this.state.password, this.phone, this.state.pwd)
+                                        }}>
+                                        <Text style={styles.logInTextStyle}>确认</Text>
+                                    </Button>
+                                </Row>
                             </Row>
                         </Grid>
                     </Content>

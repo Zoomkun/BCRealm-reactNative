@@ -12,7 +12,6 @@ import {
 import {
     Text,
     View,
-    AsyncStorage,
     ImageBackground,
 } from 'react-native';
 import styles from "./styles";
@@ -137,9 +136,6 @@ class Authenticate extends Component {
         );
     };
 
-    /**
-     * 实名认证
-     */
     _authenticate(idName, idNo) {
         let self = this
         if (idName != '' && idNo != '') {
@@ -151,7 +147,6 @@ class Authenticate extends Component {
                 },
                 function (data) {
                     if (data.status == "success") {
-
                         self.refs.toast.show("认证成功", DURATION.LENGTH_LONG);
                     } else {
                         self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);

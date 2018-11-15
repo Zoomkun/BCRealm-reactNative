@@ -82,41 +82,46 @@ export default class ConfirmThePassword extends Component {
                                     <Button transparent />
                                 </Right>
                             </Row>
-                            <Row size={0.4} />
+                            <Row size={3}
+                                style={{
+                                    flexDirection: 'column',
+                                    alignSelf: 'center',
+                                }}>
+                                <Row size={0.8} />
+                                < View style={styles.viewStyle}>
+                                    <Item style={styles.itemStyle}>
+                                        <Input placeholder="请输入密码"
+                                            value={this.state.password}
+                                            maxLength={11}
+                                            style={{ color: 'white' }}
+                                            secureTextEntry={true}
+                                            placeholderTextColor={'#FEFEFE70'}
+                                            onChangeText={(text) => { this.setState({ password: text }) }} />
+                                    </Item>
 
-                            < View style={styles.viewStyle}>
-                                <Item style={styles.itemStyle}>
-                                    <Input placeholder="请输入密码"
-                                        value={this.state.password}
-                                        maxLength={11}
-                                        style={{ color: 'white' }}
-                                        secureTextEntry={true}
-                                        placeholderTextColor={'#FEFEFE70'}
-                                        onChangeText={(text) => { this.setState({ password: text }) }} />
-                                </Item>
+                                    <Item style={styles.itemStyle}>
+                                        <Input placeholder="再次输入密码"
+                                            value={this.state.pwd}
+                                            style={{ color: 'white' }}
+                                            secureTextEntry={true}
+                                            placeholderTextColor={'#FEFEFE70'}
+                                            onChangeText={(text) => { this.setState({ pwd: text }) }} >
+                                        </Input>
+                                    </Item>
+                                </View>
 
-                                <Item style={styles.itemStyle}>
-                                    <Input placeholder="再次输入密码"
-                                        value={this.state.pwd}
-                                        style={{ color: 'white' }}
-                                        secureTextEntry={true}
-                                        placeholderTextColor={'#FEFEFE70'}
-                                        onChangeText={(text) => { this.setState({ pwd: text }) }} >
-                                    </Input>
-                                </Item>
-                            </View>
-
-                            < Row size={0.6} style={styles.rowStyle}>
-                                <Button style={styles.logInButtonStyle}
-                                    onPress={() => {
-                                        this._register(this.code, this.state.password, this.state.pwd, this.phone)
-                                    }}>
-                                    <Text style={styles.logInTextStyle}>注册</Text>
-                                </Button>
-                                <Button transparent style={styles.buttonStyle} onPress={() => { navigate("ServiceAgreement") }}>
-                                    <Text style={{ color: 'white', fontSize: 13 }}>点击注册即表示已阅读并同意</Text>
-                                    <Text style={{ color: '#FE6F06', fontSize: 13 }}>《区世界用户服务协议》</Text>
-                                </Button>
+                                < Row size={0.6} style={styles.rowStyle}>
+                                    <Button style={styles.logInButtonStyle}
+                                        onPress={() => {
+                                            this._register(this.code, this.state.password, this.state.pwd, this.phone)
+                                        }}>
+                                        <Text style={styles.logInTextStyle}>注册</Text>
+                                    </Button>
+                                    <Button transparent style={styles.buttonStyle} onPress={() => { navigate("ServiceAgreement") }}>
+                                        <Text style={{ color: 'white', fontSize: 13 }}>点击注册即表示已阅读并同意</Text>
+                                        <Text style={{ color: '#FE6F06', fontSize: 13 }}>《区世界用户服务协议》</Text>
+                                    </Button>
+                                </Row>
                             </Row>
                         </Grid>
                     </Content>

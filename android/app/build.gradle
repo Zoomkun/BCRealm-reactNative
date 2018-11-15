@@ -107,7 +107,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0.0"
+        //DeviceInfo.getVersion()获取的版本号
+        versionName "1.0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

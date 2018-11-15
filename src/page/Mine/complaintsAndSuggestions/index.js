@@ -39,8 +39,8 @@ class ComplaintsAndSuggestions extends Component {
         this.props.navigation.goBack();
     }
 
-    componentWillMount() {
-
+    componentWillUnmount() {
+        this.timer && clearTimeout(this.timer);
     }
 
     render() {
@@ -100,8 +100,12 @@ class ComplaintsAndSuggestions extends Component {
         if (this.state.content.length < 10) {
             this.refs.toast.show("请输入不少于10个字的描述", DURATION.LENGTH_LONG);
         } else {
-            this.props.navigation.state.params.returnData("您的投诉建议反馈成功");
-            this.props.navigation.goBack();
+            this.refs.toast.show("您的投诉建议反馈成功", DURATION.LENGTH_LONG);
+            this.timer = setTimeout(() => {
+                this.props.navigation.goBack();
+            },
+                2000
+            );
         }
     }
 }

@@ -84,80 +84,87 @@ export default class ForgetPassword extends Component {
                                     <Button transparent />
                                 </Right>
                             </Row>
+                            <Row size={3}
+                                style={{
+                                    flexDirection: 'column',
+                                    alignSelf: 'center',
+                                }}>
+                                <Row size={0.6} />
+                                < View style={styles.viewStyle}>
+                                    <Item style={styles.itemStyle}>
+                                        <Input placeholder="请输入手机号"
+                                            value={this.state.phone}
+                                            maxLength={11}
+                                            keyboardType={'numeric'}
+                                            style={{ color: 'white' }}
+                                            placeholderTextColor={'#FEFEFE70'}
+                                            onChangeText={(text) => { this.setState({ phone: text }) }} />
+                                    </Item>
 
-                            < View style={styles.viewStyle}>
-                                <Item style={styles.itemStyle}>
-                                    <Input placeholder="请输入手机号"
-                                        value={this.state.phone}
-                                        maxLength={11}
-                                        keyboardType={'numeric'}
-                                        style={{ color: 'white' }}
-                                        placeholderTextColor={'#FEFEFE70'}
-                                        onChangeText={(text) => { this.setState({ phone: text }) }} />
-                                </Item>
 
+                                    <Item style={styles.itemStyle}>
+                                        <Input placeholder="输入图形码"
+                                            value={this.state.imgcode}
+                                            style={{ color: 'white' }}
+                                            placeholderTextColor={'#FEFEFE70'}
+                                            maxLength={8}
+                                            onChangeText={(text) => { this.setState({ imgcode: text }) }} >
+                                        </Input>
+                                        <Button transparent onPress={() => { this._getCodeUuId() }}>
+                                            {this.state.imgCodeUrl != '' &&
+                                                <Image
+                                                    resizeMode={"cover"}
+                                                    source={{ uri: 'http://test.bcrealm.com/api/wuser/user/imgCode?uuId=' + this.state.imgCodeUrl }}
+                                                    style={{ width: 100, height: 40 }}
+                                                />
+                                            }
+                                        </Button>
+                                    </Item>
 
-                                <Item style={styles.itemStyle}>
-                                    <Input placeholder="输入图形码"
-                                        value={this.state.imgcode}
-                                        style={{ color: 'white' }}
-                                        placeholderTextColor={'#FEFEFE70'}
-                                        maxLength={8}
-                                        onChangeText={(text) => { this.setState({ imgcode: text }) }} >
-                                    </Input>
-                                    <Button transparent onPress={() => { this._getCodeUuId() }}>
-                                        {this.state.imgCodeUrl != '' &&
-                                            <Image
-                                                resizeMode={"cover"}
-                                                source={{ uri: 'http://test.bcrealm.com/api/wuser/user/imgCode?uuId=' + this.state.imgCodeUrl }}
-                                                style={{ width: 100, height: 40 }}
-                                            />
-                                        }
-                                    </Button>
-                                </Item>
+                                    <Item style={styles.itemStyle}>
+                                        <Input placeholder="请输入验证码"
+                                            value={this.state.code}
+                                            keyboardType={'numeric'}
+                                            style={{ color: 'white' }}
+                                            placeholderTextColor={'#FEFEFE70'}
+                                            onChangeText={(text) => { this.setState({ code: text }) }} >
+                                        </Input>
+                                        <View style={{ height: 25, width: 1, backgroundColor: 'white' }} />
 
-                                <Item style={styles.itemStyle}>
-                                    <Input placeholder="请输入验证码"
-                                        value={this.state.code}
-                                        keyboardType={'numeric'}
-                                        style={{ color: 'white' }}
-                                        placeholderTextColor={'#FEFEFE70'}
-                                        onChangeText={(text) => { this.setState({ code: text }) }} >
-                                    </Input>
-                                    <View style={{ height: 25, width: 1, backgroundColor: 'white' }} />
+                                        <Button
+                                            transparent
+                                            style={styles.disableCodeStyle}
+                                            onPress={() => {
+                                                this.state.disable
+                                                    ? null
+                                                    : this._newGetCode(this.state.imgcode, this.state.phone, this.state.imgCodeUrl)
+                                            }}>
+                                            {
+                                                this.state.disable ?
+                                                    <View style={{
+                                                        flexDirection: 'row',
+                                                        justifyContent: 'center',
+                                                        alignItems: 'center',
+                                                    }}>
+                                                        <Text style={{ color: '#999999' }} note>重新发送</Text>
+                                                        <Text style={{ color: '#999999' }} >（{this.state.seconds}）</Text>
+                                                    </View> :
+                                                    <Text style={{ color: 'white', fontSize: 14 }}>获取验证码</Text>
+                                            }
+                                        </Button>
+                                    </Item>
+                                </View>
 
-                                    <Button
-                                        transparent
-                                        style={styles.disableCodeStyle}
+                                < Row size={0.6} style={styles.rowStyle}>
+                                    <Button style={styles.logInButtonStyle}
                                         onPress={() => {
-                                            this.state.disable
-                                                ? null
-                                                : this._newGetCode(this.state.imgcode, this.state.phone, this.state.imgCodeUrl)
+                                            this._userBack(this.state.code, this.state.phone)
                                         }}>
-                                        {
-                                            this.state.disable ?
-                                                <View style={{
-                                                    flexDirection: 'row',
-                                                    justifyContent: 'center',
-                                                    alignItems: 'center',
-                                                }}>
-                                                    <Text style={{ color: '#999999' }} note>重新发送</Text>
-                                                    <Text style={{ color: '#999999' }} >（{this.state.seconds}）</Text>
-                                                </View> :
-                                                <Text style={{ color: 'white', fontSize: 14 }}>获取验证码</Text>
-                                        }
+                                        <Text style={styles.logInTextStyle}>下一步</Text>
                                     </Button>
-                                </Item>
-                            </View>
-
-                            < Row size={0.6} style={styles.rowStyle}>
-                                <Button style={styles.logInButtonStyle}
-                                    onPress={() => {
-                                        this._userBack(this.state.code, this.state.phone)
-                                    }}>
-                                    <Text style={styles.logInTextStyle}>下一步</Text>
-                                </Button>
+                                </Row>
                             </Row>
+                            <Row size={0.3} style={styles.rowStyel} />
                         </Grid>
                     </Content>
                 </ImageBackground>

@@ -57,9 +57,9 @@ export default class StartPage extends Component {
             },
             function (data) {
                 console.log(data)
-                AsyncStorage.setItem('version', JSON.stringify(data));
                 let newVersion = data.version.split('.')
                 let oldVersion = DeviceInfo.getVersion().split('.')
+                console.log(DeviceInfo.getVersion())
                 let update = false;
                 for (let i in newVersion) {
                     if (~~newVersion[i] > ~~oldVersion[i]) {
@@ -69,7 +69,6 @@ export default class StartPage extends Component {
                         update = false
                     }
                 }
-
                 if (update) {
                     if (Platform.OS === 'android') {
                         Alert.alert('发现新版本', '是否下载',
@@ -91,7 +90,6 @@ export default class StartPage extends Component {
                             ]
                         );
                     } else {
-
                         // todo:增加APPID
                         NativeModules.upgrade.upgrade('AppId', (msg) => {
                             if ('YES' == msg) {
@@ -115,7 +113,6 @@ export default class StartPage extends Component {
                             }
                         })
                     }
-
                 }
                 self._openApp()
             }

@@ -21,7 +21,7 @@ import HttpUtils from '../../../api/Api';
 import { wallet_renzheng_top_bg } from '../../../../images';
 
 /**
- * 实名认证
+ * 钱包认证
  */
 class WalletAuthenticate extends Component {
 

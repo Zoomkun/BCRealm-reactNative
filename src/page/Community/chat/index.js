@@ -1,4 +1,4 @@
-import {Container, Icon} from 'native-base';
+import { Container, Icon, Button } from 'native-base';
 import React from 'react';
 import {
     Platform,
@@ -18,11 +18,12 @@ import {
     Easing,
     UIManager,
     Animated,
-    NativeAppEventEmitter
+    NativeAppEventEmitter,
+    NativeModules
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
-import {NimSession, NimFriend, NimUtils} from 'react-native-netease-im';
-import InputToolbar, {MIN_INPUT_TOOLBAR_HEIGHT} from '../../../components/ChatItems/InputToolbar';
+import { NimSession, NimFriend, NimUtils } from 'react-native-netease-im';
+import InputToolbar, { MIN_INPUT_TOOLBAR_HEIGHT } from '../../../components/ChatItems/InputToolbar';
 import MessageContainer from '../../../components/ChatItems/MessageContainer';
 import ImagePicker from 'react-native-image-picker';
 import PropTypes from 'prop-types';
@@ -30,21 +31,25 @@ import PropTypes from 'prop-types';
 const NAVIGATIONBAR_HEIGHT = 0;
 
 export default class Index extends React.Component {
-    static navigationOptions = ({navigation}) => ({
-        title: navigation.state.params.session.groupName ||  navigation.state.params.session.name,
+    static navigationOptions = ({ navigation }) => ({
+        title: navigation.state.params.session.groupName || navigation.state.params.session.name,
         headerRight: (
-            <View style={{flexDirection: 'row', paddingRight: 8, alignItems: 'center', justifyContent: 'center'}}>
-                <TouchableOpacity onPress={() => {
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', }}>
+                {/* <TouchableOpacity onPress={() => {
                     if (navigation.state.params.session.sessionType === '1')
-                        navigation.navigate("SessionTeamDetail", {session: navigation.state.params.session})
+                        navigation.navigate("SessionTeamDetail", { session: navigation.state.params.session })
                     else
-                        
-                        navigation.navigate("SessionUserDetail", {session: navigation.state.params.session})
+
+                        navigation.navigate("SessionUserDetail", { session: navigation.state.params.session })
 
                 }}>
                     <Image
-                        source={navigation.state.params.session.sessionType === '1' ? require('../../../components/ChatItems/Images/session_team.png') : require('../../../components/ChatItems/Images/session_user.png')}/>
-                </TouchableOpacity>
+                        source={navigation.state.params.session.sessionType === '1' ? require('../../../components/ChatItems/Images/session_team.png') : require('../../../components/ChatItems/Images/session_user.png')} />
+                </TouchableOpacity> */}
+
+                <Button transparent onPress={() => { navigation.navigate('ComplaintsAndSuggestions') }}>
+                    <Icon name='ios-more' style={{ color: 'black', fontSize: 28 }} />
+                </Button>
             </View>
         )
     });
@@ -62,7 +67,7 @@ export default class Index extends React.Component {
             showMenuBar: false,
             menuBarOrigin: {},
             menuItems: [],
-            isLoadingEarlier:false
+            isLoadingEarlier: false
         };
         this._keyboardHeight = 0;
         this._bottomOffset = 0;
@@ -98,6 +103,8 @@ export default class Index extends React.Component {
         };
     }
 
+
+
     //时间格式化
     getLocalTime(nS) {
         return new Date(parseInt(nS) * 1000);
@@ -131,8 +138,8 @@ export default class Index extends React.Component {
     }
 
     componentDidMount() {
-        const {session = {}} = this.props.navigation.state.params;
-        NimSession.startSession(session.groupNo ||session.contactId, session.sessionType);
+        const { session = {} } = this.props.navigation.state.params;
+        NimSession.startSession(session.groupNo || session.contactId, session.sessionType);
         this.sessionListener = NativeAppEventEmitter.addListener("observeReceiveMessage", (data) => {
             console.info('新消息通知', data)
             let messages = this.formatData(data);
@@ -165,7 +172,7 @@ export default class Index extends React.Component {
                 //to [0, 20]
                 var t = 20 * (metering - (-160)) / 160;
                 t = Math.floor(t);
-                this.setState({currentMetering: t});
+                this.setState({ currentMetering: t });
                 this.recordTime = data.currentTime;
                 console.log(t)
             }
@@ -188,7 +195,7 @@ export default class Index extends React.Component {
     }
 
     dispatchPlaying(id, playing) {
-        const {messages} = this.state;
+        const { messages } = this.state;
         let newmsgs = []
         var index = messages.findIndex((m) => {
             return m.msgId == id;
@@ -196,7 +203,7 @@ export default class Index extends React.Component {
         if (index === -1) {
             return;
         } else {
-            var m = Object.assign({}, messages[index], {playing: playing});
+            var m = Object.assign({}, messages[index], { playing: playing });
             newmsgs = [...messages.slice(0, index), m, ...messages.slice(index + 1, messages.length)];
         }
         this.setState({
@@ -223,15 +230,15 @@ export default class Index extends React.Component {
     }
 
     setRecording(recording) {
-        this.setState({recording: recording});
+        this.setState({ recording: recording });
     }
 
     setRecordingText(text) {
-        this.setState({recordingText: text});
+        this.setState({ recordingText: text });
     }
 
     setRecordingColor(color) {
-        this.setState({recordingColor: color});
+        this.setState({ recordingColor: color });
     }
 
     sendTextMessage(text) {
@@ -285,7 +292,7 @@ export default class Index extends React.Component {
                 console.log('User tapped custom button: ', response.customButton);
             }
             else {
-                NimSession.sendImageMessages( response.uri, "myName");
+                NimSession.sendImageMessages(response.uri, "myName");
             }
         });
     }
@@ -321,7 +328,7 @@ export default class Index extends React.Component {
     }
 
     onMessagePress(message) {
-        const {navigator} = this.props;
+        const { navigator } = this.props;
         if (message.msgType === 'voice' && message.extend) {
             //停止正在播放的消息
             if (this.playingMessage && this.playingMessage === message.msgId) {
@@ -508,7 +515,7 @@ export default class Index extends React.Component {
             return;
         }
         this.setState({
-            isLoadingEarlier:true
+            isLoadingEarlier: true
         })
         return NimSession.queryMessageListEx(last.msgId, 20).then((data) => {
             console.info('历史记录', data)
@@ -519,28 +526,28 @@ export default class Index extends React.Component {
             messages = this.state.messages.concat(messages);
             this.setState({
                 messages: messages,
-                isLoadingEarlier:false
+                isLoadingEarlier: false
             });
 
-        },()=>{
+        }, () => {
             this.setState({
                 canLoadMoreContent: false,
-                isLoadingEarlier:false
+                isLoadingEarlier: false
             });
 
         }).then((err) => {
             this.setState({
                 canLoadMoreContent: false,
-                isLoadingEarlier:false
+                isLoadingEarlier: false
             });
 
         });
     }
 
     renderMessages() {
-        const {session = {}} = this.props.navigation.state.params;
+        const { session = {} } = this.props.navigation.state.params;
         return (
-            <Animated.View style={{height: this.state.messagesContainerHeight}}>
+            <Animated.View style={{ height: this.state.messagesContainerHeight }}>
                 <MessageContainer
                     canLoadMore={this.state.canLoadMoreContent}
                     onLoadMoreAsync={this._loadMoreContentAsync}
@@ -570,14 +577,25 @@ export default class Index extends React.Component {
             <InputToolbar
                 ref={(input) => this.inputToolbar = input}
                 {...inputToolbarProps}
+                onLayout={(e) => this._onLayout(e)}
             />
         );
     }
+    _onLayout = (e) => {
 
+        NativeModules.UIManager.measure(e.target, (x, y, width, height, pageX, pageY) => {
+            this.currentPosY = pageY;
+
+            // pageY是组件在当前屏幕上的绝对位置
+            console.log(x, y);
+            console.log(pageX, pageY);
+        });
+
+    }
     renderRecordView() {
-        const {width, height} = Dimensions.get('window');
+        const { width, height } = Dimensions.get('window');
         var left = this.state.recording ? 0 : width;
-        const {recordingText, recordingColor, currentMetering} = this.state;
+        const { recordingText, recordingColor, currentMetering } = this.state;
         return (
             <Animated.View style={{
                 position: "absolute",
@@ -594,8 +612,8 @@ export default class Index extends React.Component {
                     alignItems: "center",
                     borderRadius: 4
                 }}>
-                    <Image source={require('../../../components/ChatItems/Images/VoiceSearchFeedback020.png')}/>
-                    <Text style={{margin: 4, padding: 4, backgroundColor: recordingColor, color: '#fff'}}>
+                    <Image source={require('../../../components/ChatItems/Images/VoiceSearchFeedback020.png')} />
+                    <Text style={{ margin: 4, padding: 4, backgroundColor: recordingColor, color: '#fff' }}>
                         {recordingText}
                     </Text>
                 </View>
@@ -603,9 +621,13 @@ export default class Index extends React.Component {
 
 
     }
+    //
+    _showToast(data) {
+        Toast.show(data);
+    }
 
     render() {
-        const {showMenuBar, menuBarOrigin, menuItems} = this.state
+        const { showMenuBar, menuBarOrigin, menuItems } = this.state
         if (this.state.isInitialized === true) {
             let onViewLayout = (e) => {
                 if (this.getIsFirstLayout() === true) {
@@ -614,7 +636,7 @@ export default class Index extends React.Component {
             };
             return (
                 <View
-                    style={{marginTop: NAVIGATIONBAR_HEIGHT, flex: 1, backgroundColor: "#f7f7f7"}}
+                    style={{ marginTop: NAVIGATIONBAR_HEIGHT, flex: 1, backgroundColor: "#f7f7f7" }}
                     onLayout={onViewLayout}>
                     {this.renderMessages()}
                     {this.renderRecordView()}
@@ -640,8 +662,8 @@ export default class Index extends React.Component {
             });
         };
         return (
-            <View style={{marginTop: NAVIGATIONBAR_HEIGHT, flex: 1, backgroundColor: "transparent"}}
-                  onLayout={onViewLayout}>
+            <View style={{ marginTop: NAVIGATIONBAR_HEIGHT, flex: 1, backgroundColor: "transparent" }}
+                onLayout={onViewLayout}>
             </View>
         );
     }

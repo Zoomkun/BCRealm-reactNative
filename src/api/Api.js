@@ -21,7 +21,7 @@ AsyncStorage.getItem('data').then(data => {
     }
 })
 
-// 环境判断
+// 环境判断  正式服地址:http://api.bcrealm.com/api/
 let api = ''
 __DEV__ ? api = 'http://test.bcrealm.com/api/' : api = 'http://test.bcrealm.com/api/'
 
@@ -139,11 +139,12 @@ export default class HttpUtils extends Component {
                 success(response.data);
             } else {
                 // 非 200，错误处理
-                alert(response.msg)
+                console.log(response.msg)
                 return response
             }
         }).catch(error => {
-            alert(error)
+            //alert(error)
+            console.log(error)
         })
     }
 

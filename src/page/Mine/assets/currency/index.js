@@ -206,7 +206,11 @@ class Currency extends Component {
             },
             function (data) {
                 console.log(data)
-                navigate("CheckOut", { account: data, type: 1 });
+                if (data.status == "error") {
+                    self.refs.toast.show(data.msg, DURATION.LENGTH_LONG);
+                } else {
+                    navigate("CheckOut", { account: data, type: 1 });
+                }
             }
         )
     }

@@ -100,11 +100,11 @@ class CheckOut extends Component {
 
                 <View style={styles.bgStyle}>
                     <Text style={styles.accountPasswordStyle}>密码</Text>
-                    <View style={styles.packageStyle}>
+                    <View style={styles.packageStyle}>password
                         <Input
                             multiline
                             style={{ textAlignVertical: 'top', fontSize: 16 }}
-                            placeholder="身份证后6位"
+                            placeholder={this.account != null ? this.account.data.password + '' : "身份证后6位"}
                             placeholderTextColor={'#AAAAAA'}
                             keyboardType='decimal-pad'
                             editable={false}

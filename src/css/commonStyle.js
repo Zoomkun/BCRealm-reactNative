@@ -60,10 +60,6 @@ export default {
     tabtextStyle: {
         color: '#808080'
     },
-    backIconStyle: {
-        color: '#ffffff',
-        fontSize: 30
-    },
     gridStyle: {
         height: deviceHeight * 0.9,
     },

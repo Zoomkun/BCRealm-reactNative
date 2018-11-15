@@ -44,6 +44,7 @@ const styles = {
     listItemStyle: {
         width: width,
         height: width / (width / 97),
+        marginTop: 5
     },
     imageBackgroundStyle: {
         width: width * 0.95,
