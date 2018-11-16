@@ -303,17 +303,16 @@ export default class Mine extends Component {
                     rounded
                     dialogTitle={
                         <ImageBackground
-                            style={{ width: 330, height: 60, justifyContent: 'center' }}
+                            style={styles.dialogTopStyle}
                             source={updateTop}>
                             <Text style={{ color: '#ffffff', alignSelf: 'center', justifyContent: 'center', fontSize: 19 }}>检查更新</Text>
                         </ImageBackground>
-
                     }
                     actions={[
                         <DialogButton
                             text="取消"
                             onPress={() => {
-                                if (data.needForceUpgrade === true) {
+                                if (this.state.appInfo.needForceUpgrade === true) {
                                     BackHandler.exitApp();
                                 } else {
                                     this.setState({ defaultAnimationDialog: false });

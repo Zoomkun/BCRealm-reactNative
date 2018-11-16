@@ -70,6 +70,8 @@ export default class InformationTab extends Component {
         const { navigation } = this.props;
         const data = self.state;
         let chatInfo = item
+
+        console.log(chatInfo)
         let session = {
             ...chatInfo,
             sessionType: '1',

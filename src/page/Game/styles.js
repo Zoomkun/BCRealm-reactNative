@@ -44,5 +44,9 @@ export default {
         marginTop: 12,
         marginBottom: 9,
     },
-
+    dialogTopStyle: {
+        width: '100%',
+        height: deviceWidth / (deviceWidth / 60),
+        justifyContent: 'center'
+    }
 }

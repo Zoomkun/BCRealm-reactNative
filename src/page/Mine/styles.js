@@ -77,5 +77,10 @@ export default {
         alignItems: 'center',
         marginRight: 10,
         color: '#9699A5'
+    },
+    dialogTopStyle: {
+        width: '100%',
+        height: deviceWidth / (deviceWidth / 60),
+        justifyContent: 'center',
     }
 }

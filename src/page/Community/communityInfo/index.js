@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 import {
     Container,
@@ -23,12 +23,12 @@ import {
     Modal,
     Text,
 } from 'react-native';
-import {NimSession, NimFriend, NimUtils} from 'react-native-netease-im';
+import { NimSession, NimFriend, NimUtils } from 'react-native-netease-im';
 import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle';
 import QRCode from 'react-native-qrcode';
 import Http from "../../../api/Api";
-import {find_top_bg} from "../../../../images";
+import { find_top_bg } from "../../../../images";
 
 /**
  * 社群信息页面
@@ -69,7 +69,7 @@ class CommunityInfo extends Component {
         let self = this
         Http.getRequest(
             'groupInfo',
-            {groupId: self.state.chatGroupInfo.id},
+            { groupId: self.state.chatGroupInfo.id },
             function (data) {
                 let newChatGroupInfo = Object.assign(self.state.chatGroupInfo, data)
                 self.setState({
@@ -86,9 +86,10 @@ class CommunityInfo extends Component {
     // 进入聊天室
     _toChat() {
         let self = this
-        const {navigation} = this.props;
+        const { navigation } = this.props;
         const data = self.state
         const groupInfo = data.chatGroupInfo
+        console.log(groupInfo)
         let session = {
             ...groupInfo,
             sessionType: '1',
@@ -96,7 +97,7 @@ class CommunityInfo extends Component {
             account: data.accessToken.account,
         };
         navigation.popToTop()
-        navigation.navigate('Chat', {session: session})
+        navigation.navigate('Chat', { session: session })
     }
 
     // 退群
@@ -126,7 +127,7 @@ class CommunityInfo extends Component {
             this.setState({
                 visible: true
             })
-        ;
+            ;
     }
 
     render() {
@@ -140,21 +141,21 @@ class CommunityInfo extends Component {
                     source={find_top_bg}
                     style={styles.imageBackGroundStyle}
                 >
-                        <Button style={{height:40}} transparent onPress={() => {
-                            this.goBack()
-                        }}>
-                            <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle}/>
-                        </Button>
+                    <Button style={{ height: 40 }} transparent onPress={() => {
+                        this.goBack()
+                    }}>
+                        <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
+                    </Button>
                     <ListItem avatar style={styles.groupInfo}>
                         <Left>
-                            <Thumbnail style={styles.image} square source={{uri: data.groupIcon}} />
+                            <Thumbnail style={styles.image} square source={{ uri: data.groupIcon }} />
                         </Left>
                         <Body style={styles.borderNone}>
-                        <Text style={styles.groupName}>{data.groupName}</Text>
+                            <Text style={styles.groupName}>{data.groupName}</Text>
                         </Body>
                         <Right style={styles.borderNone}>
 
-                            <Button small bordered style={styles.escBtnColor}  onPress={() => this._leaveChat()}>
+                            <Button small bordered style={styles.escBtnColor} onPress={() => this._leaveChat()}>
                                 <Text style={styles.escBtn}>退出</Text>
                             </Button>
                         </Right>
@@ -167,12 +168,12 @@ class CommunityInfo extends Component {
                     </Text>
 
                     <Button full style={[styles.loginGroup]}
-                            onPress={() => this._toChat()}>
+                        onPress={() => this._toChat()}>
                         <Text style={styles.colorWhite}>进入群聊天室</Text>
                     </Button>
-                    <View style={{flex: 1}}>
+                    <View style={{ flex: 1 }}>
                         <Modal
-                            style={{flexDirection: 'row'}}
+                            style={{ flexDirection: 'row' }}
                             animationType={'fade'}
                             onRequestClose={this._toggleModal.bind(this)}
                             visible={this.state.visible}
@@ -181,12 +182,12 @@ class CommunityInfo extends Component {
                             <TouchableOpacity
                                 onPress={() => this._toggleModal()}
                                 style={styles.TouchableOpacity}>
-                                <View style={{height: 200, width: 200}}>
+                                <View style={{ height: 200, width: 200 }}>
                                     <QRCode
                                         value={'12313132'}
                                         size={200}
                                         bgColor='black'
-                                        fgColor='white'/>
+                                        fgColor='white' />
                                 </View>
 
                             </TouchableOpacity>
