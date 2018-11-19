@@ -76,7 +76,7 @@ export default class InformationTab extends Component {
             ...chatInfo,
             sessionType: '1',
             imToken: data.accessToken.token,
-            account: data.accessToken.account,
+            account: data.accessToken,
         };
         navigation.popToTop()
         navigation.navigate('Chat', { session: session })
