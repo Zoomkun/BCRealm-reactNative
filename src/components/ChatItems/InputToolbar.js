@@ -16,12 +16,12 @@ import {
     TouchableHighlight
 
 } from 'react-native';
-import {Icon} from 'native-base';
+import { Icon } from 'native-base';
 import Emoji from 'react-native-emoji'
 import Carousel from 'react-native-looped-carousel';
-import Styles from './Styles/MessageScreenStyle'
-
-import {NimUtils} from 'react-native-netease-im';
+import Styles from './Styles/MessageScreenStyle';
+import Warnings from '../warnings';
+import { NimUtils } from 'react-native-netease-im';
 
 var spliddit = require('spliddit');
 var emoji = require("./emoji");
@@ -70,14 +70,14 @@ export default class InputToolbar extends React.Component {
     }
 
     dismiss() {
-        const {isEmoji, actionVisible} = this.state;
+        const { isEmoji, actionVisible } = this.state;
         this.setState({
             isEmoji: false,
             actionVisible: false,
         });
         Animated.timing(
             this.state.actionAnim,
-            {toValue: 0}
+            { toValue: 0 }
         ).start();
 
         if (isEmoji || actionVisible) {
@@ -87,12 +87,12 @@ export default class InputToolbar extends React.Component {
     }
 
     handleSend() {
-        this.props.onSend(this.state.value);
+        this.props.onSend(Warnings._filterMethod(this.state.value));
         if (this.composerHeight != MIN_COMPOSER_HEIGHT) {
             this.composerHeight = MIN_COMPOSER_HEIGHT;
             this.onHeightChange();
         }
-        this.setState({value: ''});
+        this.setState({ value: '' });
     }
 
     onActionsPress() {
@@ -103,7 +103,7 @@ export default class InputToolbar extends React.Component {
             }
             Animated.timing(
                 this.state.actionAnim,
-                {toValue: 0}
+                { toValue: 0 }
             ).start();
             return;
         }
@@ -111,14 +111,14 @@ export default class InputToolbar extends React.Component {
             this.search.blur();
         }
         actionVisible = !actionVisible;
-        this.setState({actionVisible: actionVisible, isEmoji: false});
+        this.setState({ actionVisible: actionVisible, isEmoji: false });
         if (actionVisible) {
             this.actionBarHeight = ACTION_BUTTON_HEIGHT;
             this.onHeightChange();
         }
         Animated.timing(
             this.state.actionAnim,
-            {toValue: 1}
+            { toValue: 1 }
         ).start();
     }
 
@@ -144,7 +144,7 @@ export default class InputToolbar extends React.Component {
         });
         Animated.timing(          // Uses easing functions
             this.state.actionAnim,    // The value to drive
-            {toValue: 1}           // Configuration
+            { toValue: 1 }           // Configuration
         ).start();
     }
 
@@ -175,12 +175,12 @@ export default class InputToolbar extends React.Component {
         });
         Animated.timing(
             this.state.actionAnim,
-            {toValue: 1}
+            { toValue: 1 }
         ).start();
     }
 
     handleBlurSearch() {
-        this.setState({focused: false});
+        this.setState({ focused: false });
     }
 
     handleChangeText(v) {
@@ -190,7 +190,7 @@ export default class InputToolbar extends React.Component {
                 this.composerHeight = MIN_COMPOSER_HEIGHT;
                 this.onHeightChange();
             }
-            this.setState({value: ''});
+            this.setState({ value: '' });
         } else {
             this.setState({
                 value: v,
@@ -240,7 +240,7 @@ export default class InputToolbar extends React.Component {
     }
 
     handleRecordMode() {
-        const {isEmoji, actionVisible} = this.state;
+        const { isEmoji, actionVisible } = this.state;
         if (this.state.mode == MODE_RECORD) {
             return;
         }
@@ -261,12 +261,12 @@ export default class InputToolbar extends React.Component {
         if (this.state.mode == MODE_TEXT) {
             return;
         }
-        this.setState({mode: MODE_TEXT, focused: true,});
+        this.setState({ mode: MODE_TEXT, focused: true, });
 
     }
 
     _renderEmoji() {
-        const {isEmoji, focused} = this.state;
+        const { isEmoji, focused } = this.state;
         const emojiStyle = [];
         const rowIconNum = 7;
         const emojis = Object.keys(emoji.map).map((v, k) => {
@@ -275,16 +275,16 @@ export default class InputToolbar extends React.Component {
                 <TouchableOpacity key={v + k} onPress={() => {
                     this.handleEmojiClick(v)
                 }}>
-                    <Text style={[Styles.emoji, emojiStyle]}><Emoji name={name}/></Text>
+                    <Text style={[Styles.emoji, emojiStyle]}><Emoji name={name} /></Text>
                 </TouchableOpacity>
             )
         });
-        return <Animated.View style={[Styles.emojiRow, {width: width, height: EMOJI_HEIGHT}]}>
+        return <Animated.View style={[Styles.emojiRow, { width: width, height: EMOJI_HEIGHT }]}>
             <Carousel autoplay={false}
-                      bullets
-                      style={{width: width, height: EMOJI_HEIGHT - 35}}
+                bullets
+                style={{ width: width, height: EMOJI_HEIGHT - 35 }}
             >
-                <View style={[Styles.slide, {width: width, height: EMOJI_HEIGHT - 35}]}>
+                <View style={[Styles.slide, { width: width, height: EMOJI_HEIGHT - 35 }]}>
                     <View style={Styles.slideRow}>
                         {emojis.slice(0, rowIconNum)}
                     </View>
@@ -294,11 +294,11 @@ export default class InputToolbar extends React.Component {
                     <View style={Styles.slideRow}>
                         {emojis.slice(2 * rowIconNum, rowIconNum * 3 - 1)}
                         <TouchableOpacity onPress={this.handleEmojiCancel.bind(this)}>
-                            <Text><Icon style={[Styles.emoji, emojiStyle]} name="ios-backspace-outline"/></Text>
+                            <Text><Icon style={[Styles.emoji, emojiStyle]} name="ios-backspace-outline" /></Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={[Styles.slide, {width: width, height: EMOJI_HEIGHT - 35}]}>
+                <View style={[Styles.slide, { width: width, height: EMOJI_HEIGHT - 35 }]}>
                     <View style={Styles.slideRow}>
                         {emojis.slice(3 * rowIconNum - 1, rowIconNum * 4 - 1)}
                     </View>
@@ -308,23 +308,23 @@ export default class InputToolbar extends React.Component {
                     <View style={Styles.slideRow}>
                         {emojis.slice(5 * rowIconNum - 1, rowIconNum * 6 - 1)}
                         <TouchableOpacity onPress={this.handleEmojiCancel.bind(this)}>
-                            <Text><Icon style={[Styles.emoji, emojiStyle]} name="ios-backspace-outline"/></Text>
+                            <Text><Icon style={[Styles.emoji, emojiStyle]} name="ios-backspace-outline" /></Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </Carousel>
-            <View style={{height: 35, flexDirection: 'row'}}>
-                <View style={{flex: 1}}>
+            <View style={{ height: 35, flexDirection: 'row' }}>
+                <View style={{ flex: 1 }}>
 
                 </View>
                 <TouchableOpacity onPress={() => this.handleSend()}
-                                  style={{
-                                      backgroundColor: '#d82614',
-                                      justifyContent: 'center',
-                                      alignItems: 'center',
-                                      width: 55
-                                  }}>
-                    <Text style={{color: '#fff'}}>发送</Text>
+                    style={{
+                        backgroundColor: '#d82614',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: 55
+                    }}>
+                    <Text style={{ color: '#fff' }}>发送</Text>
                 </TouchableOpacity>
             </View>
         </Animated.View>
@@ -332,7 +332,7 @@ export default class InputToolbar extends React.Component {
 
     _renderActions() {
         return (
-            <Animated.View style={[Styles.iconRow, {height: ACTION_BUTTON_HEIGHT}, {
+            <Animated.View style={[Styles.iconRow, { height: ACTION_BUTTON_HEIGHT }, {
                 opacity: this.state.actionAnim, transform: [{
                     translateY: this.state.actionAnim.interpolate({
                         inputRange: [0, 1],
@@ -342,22 +342,22 @@ export default class InputToolbar extends React.Component {
             }]}>
 
                 {/*<View style={{alignItems: "center", marginRight: 20}}>*/}
-                    {/*<TouchableOpacity style={Styles.iconTouch} onPress={this.handleCameraPicker.bind(this)}>*/}
-                        {/*<Icon name="ios-image-outline"/>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<Text style={{marginTop: 6, fontSize: 12}}>拍照</Text>*/}
+                {/*<TouchableOpacity style={Styles.iconTouch} onPress={this.handleCameraPicker.bind(this)}>*/}
+                {/*<Icon name="ios-image-outline"/>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<Text style={{marginTop: 6, fontSize: 12}}>拍照</Text>*/}
                 {/*</View>*/}
-                <View style={{alignItems: "center", marginRight: 20}}>
+                <View style={{ alignItems: "center", marginRight: 20 }}>
                     <TouchableOpacity style={Styles.iconTouch} onPress={this.handleImagePicker.bind(this)}>
-                        <Icon name="ios-image-outline"/>
+                        <Icon name="ios-image-outline" />
                     </TouchableOpacity>
-                    <Text style={{marginTop: 6, fontSize: 12}}>图片</Text>
+                    <Text style={{ marginTop: 6, fontSize: 12 }}>图片</Text>
                 </View>
                 {/*<View style={{alignItems: "center"}}>*/}
-                    {/*<TouchableOpacity style={Styles.iconTouch} onPress={this.handleLocationClick.bind(this)}>*/}
-                        {/*<Icon name="ios-image-outline"/>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<Text style={{marginTop: 6, fontSize: 12}}>位置</Text>*/}
+                {/*<TouchableOpacity style={Styles.iconTouch} onPress={this.handleLocationClick.bind(this)}>*/}
+                {/*<Icon name="ios-image-outline"/>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<Text style={{marginTop: 6, fontSize: 12}}>位置</Text>*/}
                 {/*</View>*/}
             </Animated.View>
         );
@@ -383,13 +383,13 @@ export default class InputToolbar extends React.Component {
     }
 
     renderTextInput() {
-        const {value = '', isEmoji, mode} = this.state;
+        const { value = '', isEmoji, mode } = this.state;
         var height = this.composerHeight + (MIN_INPUT_TOOLBAR_HEIGHT - MIN_COMPOSER_HEIGHT);
         return (
-            <View style={[Styles.inputRow, {height: height}]}>
-                <TouchableOpacity style={{alignSelf: "stretch", justifyContent: "center", paddingLeft: 8}}
-                                  onPress={this.handleRecordMode.bind(this)}>
-                    <Image source={require('./Images/chatBar_record.png')}/>
+            <View style={[Styles.inputRow, { height: height }]}>
+                <TouchableOpacity style={{ alignSelf: "stretch", justifyContent: "center", paddingLeft: 8 }}
+                    onPress={this.handleRecordMode.bind(this)}>
+                    <Image source={require('./Images/chatBar_record.png')} />
                 </TouchableOpacity>
 
                 <View style={Styles.searchRow}>
@@ -397,7 +397,7 @@ export default class InputToolbar extends React.Component {
                         ref={(search) => {
                             this.search = search
                         }}
-                        style={[Styles.searchInput, {height: this.composerHeight}]}
+                        style={[Styles.searchInput, { height: this.composerHeight }]}
                         value={value}
                         autoFocus={this.state.focused}
                         editable={true}
@@ -429,14 +429,14 @@ export default class InputToolbar extends React.Component {
     }
 
     renderReocrdInput() {
-        const {value = '', isEmoji, mode, opacity} = this.state;
+        const { value = '', isEmoji, mode, opacity } = this.state;
         var height = this.composerHeight + (MIN_INPUT_TOOLBAR_HEIGHT - MIN_COMPOSER_HEIGHT);
         //android bug: https://github.com/facebook/react-native/issues/7221
         var responder = {
             onStartShouldSetResponder: (evt) => true,
             onMoveShouldSetResponder: (evt) => true,
             onResponderGrant: (evt) => {
-                this.setState({opacity: "#c9c9c9"});
+                this.setState({ opacity: "#c9c9c9" });
                 this.props.giftedChat.setRecording(true);
                 this.props.giftedChat.setRecordingText("手指上滑, 取消发送");
                 this.props.giftedChat.setRecordingColor("transparent");
@@ -455,7 +455,7 @@ export default class InputToolbar extends React.Component {
                 }
             },
             onResponderRelease: (evt) => {
-                this.setState({opacity: "#fff"});
+                this.setState({ opacity: "#fff" });
                 this.props.giftedChat.setRecording(false);
                 var canceled;
                 if (evt.nativeEvent.locationY < 0 ||
@@ -473,13 +473,13 @@ export default class InputToolbar extends React.Component {
 
         };
         return (
-            <View style={[Styles.inputRow, {height: height}]}>
-                <TouchableOpacity style={{alignSelf: "stretch", justifyContent: "center", paddingLeft: 8}}
-                                  onPress={this.handleTextMode.bind(this)}>
-                    <Image source={require('./Images/chatBar_keyboard.png')}/>
+            <View style={[Styles.inputRow, { height: height }]}>
+                <TouchableOpacity style={{ alignSelf: "stretch", justifyContent: "center", paddingLeft: 8 }}
+                    onPress={this.handleTextMode.bind(this)}>
+                    <Image source={require('./Images/chatBar_keyboard.png')} />
                 </TouchableOpacity>
 
-                <View style={[Styles.searchRow, {padding: 4}]}>
+                <View style={[Styles.searchRow, { padding: 4 }]}>
                     <View
                         ref="record"
                         {...responder}
@@ -504,7 +504,7 @@ export default class InputToolbar extends React.Component {
     }
 
     _renderEmojiButton() {
-        const {isEmoji} = this.state;
+        const { isEmoji } = this.state;
         return (
             <TouchableOpacity style={{
                 paddingLeft: 5,
@@ -512,39 +512,39 @@ export default class InputToolbar extends React.Component {
                 alignSelf: "stretch",
                 justifyContent: "center"
             }}
-                              onPress={this.handleEmojiOpen.bind(this)}>
+                onPress={this.handleEmojiOpen.bind(this)}>
                 {
-                    isEmoji ? <Image source={require('./Images/chatBar_keyboard.png')}/>
-                        : <Icon name="ios-happy-outline"/>
+                    isEmoji ? <Image source={require('./Images/chatBar_keyboard.png')} />
+                        : <Icon name="ios-happy-outline" />
                 }
             </TouchableOpacity>
         )
     }
 
     _renderSendButton() {
-        const {focused, value} = this.state;
+        const { focused, value } = this.state;
 
         return ((focused && value.length > 0) && Platform.OS === 'android') ? (
-            <TouchableOpacity style={{alignSelf: "stretch", justifyContent: "center", paddingRight: 8}}
-                              onPress={this.handleSend.bind(this)}>
-                <Text style={Styles.sendText}>{'发送'}</Text>
+            <TouchableOpacity style={{ alignSelf: "stretch", justifyContent: "center", paddingRight: 8 }}
+                onPress={this.handleSend.bind(this)}>
+                <Text style={Styles.sendText}>{'发 送'}</Text>
             </TouchableOpacity>
 
         ) : (
-            <TouchableOpacity style={{alignSelf: "stretch", justifyContent: "center", paddingRight: 8}}
-                              onPress={this.onActionsPress.bind(this)}>
-                <Icon name="ios-add-circle-outline"/>
-            </TouchableOpacity>
-        );
+                <TouchableOpacity style={{ alignSelf: "stretch", justifyContent: "center", paddingRight: 8 }}
+                    onPress={this.onActionsPress.bind(this)}>
+                    <Icon name="ios-add-circle-outline" />
+                </TouchableOpacity>
+            );
     }
 
 
     render() {
-        const {value = '', isEmoji, mode} = this.state;
+        const { value = '', isEmoji, mode } = this.state;
         return (
             <View style={Styles.search}>
                 {mode == MODE_TEXT ? this.renderTextInput() : this.renderReocrdInput()}
-                <View style={{flexGrow: 1, height: 1, backgroundColor: "lightgray"}}/>
+                <View style={{ flexGrow: 1, height: 1, backgroundColor: "lightgray" }} />
                 {isEmoji ? this._renderEmoji() : this._renderActions()}
             </View>
         )

@@ -3,7 +3,6 @@ import {
     Text,
     View,
     Image,
-    AsyncStorage,
     ImageBackground,
     Platform,
     NativeModules,
@@ -20,7 +19,6 @@ import {
     Icon
 } from 'native-base';
 
-import { DeviceStorage } from '../../components';
 import CommonStyles from '../../css/commonStyle';
 import styles from "./styles";
 import * as CacheManager from 'react-native-http-cache';
@@ -30,7 +28,6 @@ import { Grid, Row, Col } from 'react-native-easy-grid';
 import DeviceInfo from 'react-native-device-info';
 
 import Dialog, {
-    DialogTitle,
     DialogContent,
     DialogButton,
 } from 'react-native-popup-dialog';

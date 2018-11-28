@@ -49,7 +49,11 @@ export default {
     checkoutSubmit: 'wexchange/checkout/submit',
     /**交易所账号密码 */
     findUserAccount: 'wexchange/checkout/findUserAccount',
+    /**屏蔽字库 */
+    harmonious: 'wskdapp/skdapp/loadSensors?',
 
+
+    
     /**下面都是老的接口*/
     /**线上*/
     appUrl: 'http://test.bcrealm.com:9002/api/',

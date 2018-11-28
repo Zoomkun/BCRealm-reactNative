@@ -8,6 +8,7 @@ import CommunityItem from './communityItem';
 import CurrencyItem from './currencyItem';
 import RecordItem from './recordItem';
 import DeviceStorage from './deviceStorage';
+import Warnings from './warnings';
 export {
     ThemeHeader,
     MsgItem,
@@ -19,4 +20,5 @@ export {
     CurrencyItem,
     RecordItem,
     DeviceStorage,
+    Warnings
 }

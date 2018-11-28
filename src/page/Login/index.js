@@ -24,7 +24,8 @@ import { NavigationActions } from 'react-navigation';
 import Getui from 'react-native-getui';
 // import Cookie from 'react-native-cookie';
 import { logo, login_bg, warning } from '../../../images';
-import { DeviceStorage } from '../../components';
+import { Warnings } from '../../components';
+
 
 resetAction = NavigationActions.reset({
     index: 0,
@@ -73,6 +74,8 @@ export default class Login extends Component {
                 // self.props.navigation.dispatch(resetAction);
             }
         })
+
+        Warnings._getHarmonious();
     }
 
     render() {

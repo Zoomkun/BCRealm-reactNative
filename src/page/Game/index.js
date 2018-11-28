@@ -13,7 +13,6 @@ import {
 } from 'native-base';
 import styles from './styles';
 import commonStyle from '../../css/commonStyle';
-import { ThemeHeader, DeviceStorage } from '../../components';
 import CommonStyles from "../../css/commonStyle";
 import HttpUtils from '../../api/Api';
 import { updateTop } from '../../../images';
