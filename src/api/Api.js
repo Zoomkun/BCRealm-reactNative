@@ -23,7 +23,7 @@ AsyncStorage.getItem('data').then(data => {
 
 // 环境判断  正式服地址:http://api.bcrealm.com/api/
 let api = ''
-__DEV__ ? api = 'http://test.bcrealm.com/api/' : api = 'http://test.bcrealm.com/api/'
+__DEV__ ? api = 'http://test.bcrealm.com/api/' : api = 'http://api.bcrealm.com/api/'
 
 /**
  * GET 请求时，拼接请求URL
