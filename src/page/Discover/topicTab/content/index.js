@@ -38,6 +38,8 @@ export default class Content extends Component {
 
     render() {
         let url = this.url
+        let webpageUrl = ''
+        __DEV__ ? webpageUrl = 'http://world.gametest.bcrealm.com/static/worldnews.html?fromapp=true&newsId=' : webpageUrl = 'http://world.game.bcrealm.com/static/worldnews.html?fromapp=true&newsId='
         return (
             <Container>
                 <Header style={CommonStyles.headerStyle}>
@@ -52,7 +54,7 @@ export default class Content extends Component {
                     <Button transparent />
                 </Header>
                 <WebView
-                    source={{ uri: "http://world.gametest.bcrealm.com/static/worldnews.html?fromapp=true&newsId=" + this.id }}
+                    source={{ uri: webpageUrl + this.id }}
                     ref='webView'
                     onLoadEnd={this._onLoadEnd}
                     onMessage={(e) => {

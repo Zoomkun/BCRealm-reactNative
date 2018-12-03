@@ -56,10 +56,12 @@ export default class GamePage extends Component {
     }
 
     render() {
+        let gameUrl = ''
+        __DEV__ ? gameUrl = 'http://world.gametest.bcrealm.com' : gameUrl = 'http://world.game.bcrealm.com'
         return (
             <Container>
                 <WebView
-                    source={{ uri: "http://world.gametest.bcrealm.com" }} style={styles.webStyle}
+                    source={{ uri: gameUrl }} style={styles.webStyle}
                     ref='webView'
                     onLoadEnd={this._onLoadEnd}
                 >
@@ -129,6 +131,7 @@ export default class GamePage extends Component {
 
     _onLoadEnd = (e) => {
         console.log("transmit")
+        this._getAppInfo();
         if (this.state.token == '' || this.state.token == undefined) {
             AsyncStorage.getItem('user').then(data => {
                 let datas = JSON.parse(data);
@@ -139,7 +142,6 @@ export default class GamePage extends Component {
             this.refs.webView.postMessage(this.state.token);
             console.log(this.state.token + "/state")
         }
-        this._getAppInfo();
     }
 
     _getAppInfo() {
