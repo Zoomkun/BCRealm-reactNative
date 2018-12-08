@@ -50,7 +50,8 @@ export default class News extends Component {
     render() {
         //const { navigate } = this.props.navigation;
         let newsId = this.newsId
-
+        let webpageUrl = ''
+        __DEV__ ? webpageUrl = 'http://world.gametest.bcrealm.com/static/worldnews.html?fromapp=true&newsId=' : webpageUrl = 'http://world.game.bcrealm.com/static/worldnews.html?fromapp=true&newsId='
         return (
             <Container style={styles.container}>
                 <Header style={CommonStyles.headerStyle}>
@@ -69,9 +70,9 @@ export default class News extends Component {
                                         WeChat.shareToSession({
                                             title: '区世界分享',
                                             description: '区世界',
-                                            thumbImage: 'www.baidu.com',
+                                            thumbImage: 'http://world.game.bcrealm.com',
                                             type: 'news',
-                                            webpageUrl: 'http://world.gametest.bcrealm.com/static/worldnews.html?fromapp=true&newsId=' + newsId
+                                            webpageUrl: webpageUrl + newsId
                                         })
                                             .then((error) => {
                                                 alert(error);
@@ -86,7 +87,7 @@ export default class News extends Component {
                     </Button>
                 </Header>
                 {/* http://test.bcrealm.com/api/wnews/news/info/ */}
-                <WebView source={{ uri: "http://world.gametest.bcrealm.com/static/worldnews.html?fromapp=true&newsId=" + newsId }}
+                <WebView source={{ uri: webpageUrl + newsId }}
                     ref='webView'
                     onLoadEnd={this._onLoadEnd}
                     style={styles.webStyle} >

@@ -25,6 +25,7 @@ import Getui from 'react-native-getui';
 // import Cookie from 'react-native-cookie';
 import { logo, login_bg, warning } from '../../../images';
 import { Warnings } from '../../components';
+// import { url } from 'inspector';
 
 
 resetAction = NavigationActions.reset({
@@ -76,6 +77,14 @@ export default class Login extends Component {
         })
 
         Warnings._getHarmonious();
+    }
+
+
+    componentWillUnmount() {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.setState({ disable: false });
+        }
     }
 
     render() {
@@ -172,12 +181,6 @@ export default class Login extends Component {
         )
     }
 
-    componentWillUnmount() {
-        if (this.interval) {
-            clearInterval(this.interval);
-            this.setState({ disable: false });
-        }
-    }
 
     updateComponentInfo() {
 
@@ -242,12 +245,14 @@ export default class Login extends Component {
     //密码登录
     _login(phone, password) {
         console.log(phone + '___' + password)
+        let gameUrl = ''
+        __DEV__ ? gameUrl = 'http://world.gametest.bcrealm.com' : gameUrl = 'http://world.game.bcrealm.com'
         let self = this
         if (phone > 10 && password != '') {
             HttpUtils.postRequrst(
                 'newLogin',
                 {
-                    'loginOriginAddress': 'http://world.gametest.bcrealm.com',
+                    'loginOriginAddress': `${gameUrl}`,
                     'userName': `${phone}`,
                     'password': `${password}`,
                 },
