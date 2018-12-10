@@ -38,6 +38,7 @@ class Warnings {
                 value = result;
             }
         }
+        console.log("替换")
         console.log(value)
         return value;
     }

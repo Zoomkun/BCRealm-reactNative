@@ -25,7 +25,6 @@ import { NavigationActions } from 'react-navigation';
 import Getui from 'react-native-getui';
 // import Cookie from 'react-native-cookie';
 import { logo, login_bg, warning } from '../../../images';
-import { Warnings } from '../../components';
 // import { url } from 'inspector';
 
 
@@ -76,8 +75,6 @@ export default class Login extends Component {
                 // self.props.navigation.dispatch(resetAction);
             }
         })
-
-        Warnings._getHarmonious();
     }
 
 

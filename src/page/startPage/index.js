@@ -17,7 +17,7 @@ import styles from "./styles";
 import { NavigationActions } from 'react-navigation';
 import HttpUtils from "../../api/Api";
 import DeviceInfo from 'react-native-device-info';
-
+import { Warnings } from '../../components';
 //重置路由
 resetAction = NavigationActions.reset({
     index: 0,
@@ -44,6 +44,7 @@ export default class StartPage extends Component {
     }
 
     componentWillMount() {
+        Warnings._getHarmonious();
         this._openApp()
     }
 

@@ -27,6 +27,7 @@ import InputToolbar, { MIN_INPUT_TOOLBAR_HEIGHT } from '../../../components/Chat
 import MessageContainer from '../../../components/ChatItems/MessageContainer';
 import ImagePicker from 'react-native-image-picker';
 import PropTypes from 'prop-types';
+import Warnings from '../../../components/warnings';
 
 const NAVIGATIONBAR_HEIGHT = 0;
 
@@ -255,7 +256,7 @@ export default class Index extends React.Component {
         }
         console.log("send text:", text);
         text = text.trim();
-        this.sendTextMessage(text);
+        this.sendTextMessage(Warnings._filterMethod(text));
     }
 
     handleImagePicker() {
