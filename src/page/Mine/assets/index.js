@@ -9,7 +9,12 @@ import {
     View,
     Content
 } from 'native-base';
-import { Text, ImageBackground, FlatList } from 'react-native';
+import {
+    Text,
+    ImageBackground,
+    FlatList,
+    Platform
+} from 'react-native';
 import styles from "./styles";
 import CommonStyles from '../../../css/commonStyle';
 import { CurrencyItem } from '../../../components';
@@ -49,7 +54,7 @@ class Assets extends Component {
                     source={bg}
                     style={styles.imageStyle}
                 >
-                    <Row style={{ height: 60, }}>
+                    <Row style={Platform.OS !== 'android' ? { height: 60, marginTop: 10 } : { height: 60 }}>
                         <Left>
                             <Button transparent onPress={() => { this.goBack() }}>
                                 <Icon name={"ios-arrow-back"} style={styles.backIconStyle} />

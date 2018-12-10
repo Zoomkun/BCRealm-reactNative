@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
     Text,
     View,
-    ImageBackground
+    ImageBackground,
+    Platform
 } from 'react-native';
 import {
     Button,
@@ -64,7 +65,7 @@ export default class Confirm extends Component {
                 >
                     <Content>
                         <Grid style={CommonStyles.gridStyle}>
-                            <Row style={{ height: 60, }}>
+                            <Row style={Platform.OS !== 'android' ? { height: 60, marginTop: 10 } : { height: 60 }}>
                                 <Left>
                                     <Button transparent onPress={() => { this.goBack() }}>
                                         <Icon

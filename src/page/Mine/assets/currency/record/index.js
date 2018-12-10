@@ -9,7 +9,11 @@ import {
     Icon,
     View
 } from 'native-base';
-import { Text, FlatList } from 'react-native';
+import {
+    Text,
+    FlatList,
+    Platform
+} from 'react-native';
 import styles from "./styles";
 import RecordItem from '../../../../../components/recordItem';
 import { Grid, Col } from 'react-native-easy-grid';
@@ -44,7 +48,8 @@ class Record extends Component {
         let items = this.state.data
         return (
             <Container style={styles.containerStyle}>
-                <View style={{ flexDirection: 'row' }}>
+
+                <View style={Platform.OS !== 'android' ? { flexDirection: 'row', marginTop: 20 } : { flexDirection: 'row' }}>
                     <Left>
                         <Button transparent onPress={() => { this.goBack() }}>
                             <Icon name={"ios-arrow-back"} style={styles.backIconStyle} />

@@ -4,6 +4,7 @@ import {
     ImageBackground,
     Text,
     TouchableOpacity,
+    Platform
 } from 'react-native';
 import {
     Container,
@@ -53,13 +54,13 @@ export default class Discover extends Component {
                     style={styles.imageBackGroundStyle}
                 >
                     <Grid>
-                        <Row style={styles.titleRowStyle}>
+                        <Row style={Platform.OS !== 'android' ? styles.titleRowStyles : styles.titleRowStyle} >
                             <Body >
                                 <Text style={styles.titleFontStyle}>发现</Text>
                             </Body>
                         </Row>
 
-                        <Row style={styles.sessionStyle}>
+                        <Row style={Platform.OS !== 'android' ? styles.sessionStyles : styles.sessionStyle}>
                             <Left />
                             <Body style={{
                                 flexDirection: 'row',

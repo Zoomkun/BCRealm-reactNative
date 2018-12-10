@@ -5,6 +5,7 @@ import {
     Image,
     AsyncStorage,
     ImageBackground,
+    Platform
 } from 'react-native';
 import {
     Button,
@@ -102,7 +103,8 @@ export default class Login extends Component {
                                 <Row>
                                     <Col size={4} />
                                     <Col>
-                                        <Button transparent onPress={() => { navigate("NewRegistration") }} >
+                                        <Button transparent onPress={() => { navigate("NewRegistration") }}
+                                            style={Platform.OS !== 'android' ? { marginTop: 10 } : null}>
                                             <Text style={{ color: '#FEFEFE', fontSize: 18, }}>注册</Text>
                                         </Button>
                                     </Col>

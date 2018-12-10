@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     Text,
     Image,
     Dimensions,
     TouchableOpacity,
     ImageBackground,
+    Platform
 } from 'react-native';
 import { Grid, Row, Col } from 'react-native-easy-grid';
 import {
@@ -20,8 +21,8 @@ import {
 import CommonStyles from '../../css/commonStyle';
 import InformationTab from './informationTab';
 import CommunityTab from './communityTab';
-import {ThemeHeader} from '../../components';
-import {find_top_bg} from "../../../images";
+import { ThemeHeader } from '../../components';
+import { find_top_bg } from "../../../images";
 import styles from "../Discover/styles";
 
 export default class CommunityPage extends Component {
@@ -30,11 +31,11 @@ export default class CommunityPage extends Component {
         super(props)
         this.state = {
             plugIng: false,
-            pick:0
+            pick: 0
         }
     }
 
-    static navigationOptions = ({navigation}) => ({
+    static navigationOptions = ({ navigation }) => ({
         header: null,
         headerStyle: {
             "backgroundColor": "#FE6F06",
@@ -57,32 +58,32 @@ export default class CommunityPage extends Component {
                     style={styles.imageBackGroundStyle}
                 >
                     <Grid>
-                        <Row style={styles.titleRowStyle}>
+                        <Row style={Platform.OS !== 'android' ? styles.titleRowStyles : styles.titleRowStyle} >
                             <Body >
-                            <Text style={styles.titleFontStyle}>社区</Text>
+                                <Text style={styles.titleFontStyle}>社区</Text>
                             </Body>
                         </Row>
 
-                        <Row style={styles.sessionStyle}>
+                        <Row style={Platform.OS !== 'android' ? styles.sessionStyles : styles.sessionStyle}>
                             <Left />
                             <Body style={{
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 justifyContent: 'space-around'
                             }}>
-                            <TouchableOpacity onPress={() => { this.setState({ pick: 0 }) }}>
-                                <Text style={this.state.pick == 0 ? [styles.tabActiveStyle ,styles.tabActiveBorderStyle] : styles.tabStyle}>消息</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => { this.setState({ pick: 1 }) }}>
-                                <Text style={this.state.pick == 1 ? [styles.tabActiveStyle,styles.tabActiveBorderStyle] : styles.tabStyle}>社群</Text>
-                            </TouchableOpacity >
+                                <TouchableOpacity onPress={() => { this.setState({ pick: 0 }) }}>
+                                    <Text style={this.state.pick == 0 ? [styles.tabActiveStyle, styles.tabActiveBorderStyle] : styles.tabStyle}>消息</Text>
+                                </TouchableOpacity>
+                                <View style={{ height: 15, width: 2, backgroundColor: '#ffffff' }} />
+                                <TouchableOpacity onPress={() => { this.setState({ pick: 1 }) }}>
+                                    <Text style={this.state.pick == 1 ? [styles.tabActiveStyle, styles.tabActiveBorderStyle] : styles.tabStyle}>社群</Text>
+                                </TouchableOpacity >
                             </Body>
                             <Right />
                         </Row>
                     </Grid>
                 </ImageBackground>
-                {this.state.pick == 0 ? < InformationTab navigation={this.props.navigation}/> : <CommunityTab navigation={this.props.navigation}/>}
+                {this.state.pick == 0 ? < InformationTab navigation={this.props.navigation} /> : <CommunityTab navigation={this.props.navigation} />}
             </Container>
         )
     }

@@ -13,6 +13,9 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
     },
+    webStyle: {
+        marginTop: 20
+    },
     buttonStyle: {
         width: deviceWidth,
         height: 480 * (deviceWidth / 750),

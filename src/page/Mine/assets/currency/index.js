@@ -13,7 +13,8 @@ import {
     Text,
     ImageBackground,
     View,
-    TouchableOpacity
+    TouchableOpacity,
+    Platform
 } from 'react-native';
 
 import { Grid, Row, Col } from 'react-native-easy-grid';
@@ -52,7 +53,7 @@ class Currency extends Component {
                     style={styles.imageStyle}
                 >
                     <Grid>
-                        <Row style={{ height: 60, }}>
+                        <Row style={Platform.OS !== 'android' ? { height: 60, marginTop: 10 } : { height: 60 }}>
                             <Left>
                                 <Button transparent onPress={() => { this.goBack() }}>
                                     <Icon name={"ios-arrow-back"} style={styles.backIconStyle} />

@@ -1,6 +1,6 @@
 const React = require('react-native');
 
-const {StyleSheet, Dimensions} = React;
+const { StyleSheet, Dimensions } = React;
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
@@ -16,6 +16,10 @@ export default {
     titleRowStyle: {
         height: 30
     },
+    titleRowStyles: {
+        marginTop: 20,
+        height: 30
+    },
     tabActiveStyle: {
         fontSize: 18,
         color: '#ffffff',
@@ -28,10 +32,14 @@ export default {
     },
     tabActiveBorderStyle: {
         borderBottomWidth: 1,
-        borderBottomColor:'#fff'
+        borderBottomColor: '#fff'
     },
     sessionStyle: {
         height: 50,
         marginTop: 20
+    },
+    sessionStyles: {
+        height: 50,
     }
 }
+

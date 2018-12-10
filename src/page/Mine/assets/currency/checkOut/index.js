@@ -13,7 +13,8 @@ import {
     Text,
     View,
     ImageBackground,
-    FlatList
+    FlatList,
+    Platform
 } from 'react-native';
 import { Grid, Row, Col } from "react-native-easy-grid";
 import Toast, { DURATION } from 'react-native-easy-toast';
@@ -60,7 +61,7 @@ class CheckOut extends Component {
                     style={styles.imageBackgroundStyle}
                 >
                     <Grid>
-                        <Row style={{ height: 60, }}>
+                        <Row style={Platform.OS !== 'android' ? { height: 60, marginTop: 10 } : { height: 60 }}>
                             <Left>
                                 <Button transparent onPress={() => { this.goBack() }}>
                                     <Icon name={"ios-arrow-back"} style={styles.backIconStyle} />

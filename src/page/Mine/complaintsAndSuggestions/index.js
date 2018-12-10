@@ -47,7 +47,7 @@ class ComplaintsAndSuggestions extends Component {
         let items = this.state.data
         return (
             <Container style={styles.containerStyle}>
-                <View style={{ flexDirection: 'row', backgroundColor: '#f2f2f2' }}>
+                <View style={{ flexDirection: 'row', backgroundColor: '#f2f2f2',marginTop:20}}>
                     <Left>
                         <Button transparent onPress={() => { this.goBack() }}>
                             <Icon name={"ios-arrow-back"} style={styles.backIconStyle} />

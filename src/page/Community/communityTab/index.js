@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
     View,
     Text,
@@ -9,7 +9,7 @@ import {
 import {
     FlatList
 } from 'react-native';
-import {CommunityItem} from '../../../components';
+import { CommunityItem } from '../../../components';
 import Http from "../../../api/Api";
 //import styles from './styles';
 /**
@@ -44,6 +44,7 @@ export default class CommunityTab extends Component {
                 pageSize: 100
             },
             function (data) {
+                console.log(data)
                 let groupData = data.result
                 let chatGroupIn = [];
                 let chatGroupOut = [];
@@ -91,7 +92,7 @@ export default class CommunityTab extends Component {
                     <FlatList
                         data={chatGroupIn}
                         keyExtractor={(item, index) => index.toString()}
-                        renderItem={({item, index}) => {
+                        renderItem={({ item, index }) => {
                             return <CommunityItem
                                 {...this.props}
                                 item={item}
@@ -110,7 +111,7 @@ export default class CommunityTab extends Component {
                     <FlatList
                         data={chatGroupOut}
                         keyExtractor={(item, index) => index.toString()}
-                        renderItem={({item, index}) => {
+                        renderItem={({ item, index }) => {
                             return <CommunityItem
                                 {...this.props}
                                 item={item}

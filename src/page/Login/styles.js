@@ -20,7 +20,8 @@ export default {
     accountPasswordStyle: {
         flexDirection: 'column',
         width: deviceWidth,
-        alignSelf: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     iconStyle: {
         width: deviceWidth / (deviceWidth / 94),
@@ -33,7 +34,6 @@ export default {
         width: deviceWidth * 0.8,
         height: deviceWidth / (deviceWidth / 40),
         marginTop: deviceWidth / (deviceWidth / 50),
-        marginLeft: deviceWidth / (deviceWidth / 30),
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -41,7 +41,6 @@ export default {
         width: deviceWidth * 0.8,
         height: deviceWidth / (deviceWidth / 40),
         marginTop: deviceWidth / (deviceWidth / 20),
-        marginLeft: deviceWidth / (deviceWidth / 30),
         justifyContent: 'center',
         alignItems: 'center',
     },

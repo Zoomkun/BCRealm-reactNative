@@ -16,6 +16,7 @@ import commonStyle from '../../css/commonStyle';
 import CommonStyles from "../../css/commonStyle";
 import HttpUtils from '../../api/Api';
 import { updateTop } from '../../../images';
+import Toast, { DURATION } from 'react-native-easy-toast';
 import Dialog, {
     DialogTitle,
     DialogContent,
@@ -61,7 +62,8 @@ export default class GamePage extends Component {
         return (
             <Container>
                 <WebView
-                    source={{ uri: gameUrl }} style={styles.webStyle}
+                    style={Platform.OS !== 'android' ? styles.webStyle : null}
+                    source={{ uri: gameUrl }}
                     ref='webView'
                     onLoadEnd={this._onLoadEnd}
                 >
@@ -125,7 +127,17 @@ export default class GamePage extends Component {
                         <Text style={{ fontSize: 13, alignSelf: 'center' }}>{"预计将下载" + this.state.appInfo.packageSize}</Text>
                     </DialogContent>
                 </Dialog>
-            </Container>
+                <Toast
+                    ref="toast"
+                    style={{ backgroundColor: '#434343' }}
+                    position='center'
+                    positionValue={200}
+                    fadeInDuration={750}
+                    fadeOutDuration={1000}
+                    opacity={0.8}
+                    textStyle={{ color: '#ffffff' }}
+                />
+            </Container >
         )
     }
 

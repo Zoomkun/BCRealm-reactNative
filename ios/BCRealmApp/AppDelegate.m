@@ -22,6 +22,7 @@
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  // jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"index.ios" withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"BCRealmApp"
@@ -37,12 +38,12 @@
 
   [self setupNIMSDK];
   [self registerAPNs];
-  if (launchOptions) {//未启动时，点击推送消息
-    NSDictionary * remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (remoteNotification) {
-      [self performSelector:@selector(clickSendObserve:) withObject:remoteNotification afterDelay:0.5];
-    }
-  }
+  // if (launchOptions) {//未启动时，点击推送消息
+  //   NSDictionary * remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+  //   if (remoteNotification) {
+  //     [self performSelector:@selector(clickSendObserve:) withObject:remoteNotification afterDelay:0.5];
+  //   }
+  // }
   return YES;
 }
 - (void)clickSendObserve:(NSDictionary *)dict{
@@ -56,7 +57,7 @@ self.sdkConfigDelegate = [[NTESSDKConfigDelegate alloc] init];
 [[NIMSDKConfig sharedConfig] setShouldSyncUnreadCount:YES];
 //appkey 是应用的标识，不同应用之间的数据（用户、消息、群组等）是完全隔离的。
 //注册APP，请将 NIMSDKAppKey 换成您自己申请的App Key
-[[NIMSDK sharedSDK] registerWithAppID:@"appkey" cerName:@"证书名称"];
+[[NIMSDK sharedSDK] registerWithAppID:@"1db9ef0d8ed602fe71cfb042475aba96" cerName:@"证书名称"];
 }
 
 #pragma mark - misc

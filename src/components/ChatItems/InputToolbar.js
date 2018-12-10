@@ -489,7 +489,7 @@ export default class InputToolbar extends React.Component {
                             alignItems: 'center',
                             borderRadius: 5,
                             backgroundColor: this.state.opacity,
-                            borderWidth: 1, borderColor: '#f2f2f2'
+                            borderWidth: 1, borderColor: 'pink'
                         }}
                         onLayout={this.handleLayout.bind(this)}
 
