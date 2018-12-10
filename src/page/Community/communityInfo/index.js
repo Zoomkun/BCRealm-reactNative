@@ -22,6 +22,7 @@ import {
     ImageBackground,
     Modal,
     Text,
+    Platform
 } from 'react-native';
 import { NimSession, NimFriend, NimUtils } from 'react-native-netease-im';
 import styles from "./styles";
@@ -139,11 +140,16 @@ class CommunityInfo extends Component {
                 <ImageBackground
                     resizeMode={"cover"}
                     source={find_top_bg}
-                    style={styles.imageBackGroundStyle}
+                    style={Platform.OS !== 'android'
+                        ? styles.imageBackGroundStyles
+                        : styles.imageBackGroundStyle}
                 >
-                    <Button style={{ height: 40 }} transparent onPress={() => {
-                        this.goBack()
-                    }}>
+                    <Button
+                        style={Platform.OS !== 'android' ? { height: 40, marginTop: 20 } : { height: 40 }}
+                        transparent
+                        onPress={() => {
+                            this.goBack()
+                        }}>
                         <Icon name={"ios-arrow-back"} style={CommonStyles.backIconStyle} />
                     </Button>
                     <ListItem avatar style={styles.groupInfo}>

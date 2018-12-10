@@ -1,6 +1,6 @@
 const React = require('react-native');
 
-const {StyleSheet, Dimensions} = React;
+const { StyleSheet, Dimensions } = React;
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
@@ -12,20 +12,20 @@ export default {
     },
     escBtnColor: {
         backgroundColor: '#4C3BC7',
-        paddingLeft:20,
-        paddingRight:20,
-        height:30,
-        borderWidth:0,
-        marginTop:5,
+        paddingLeft: 20,
+        paddingRight: 20,
+        height: 30,
+        borderWidth: 0,
+        marginTop: 5,
     },
-    groupName:{
-        color:'#fff',fontSize:16
+    groupName: {
+        color: '#fff', fontSize: 16
     },
-    borderNone:{
-        borderBottomWidth:0
+    borderNone: {
+        borderBottomWidth: 0
     },
-    groupInfo:{
-        height:60,
+    groupInfo: {
+        height: 60,
     },
     escBtn: {
         color: '#f3f3f3'
@@ -33,6 +33,10 @@ export default {
     imageBackGroundStyle: {
         width: deviceWidth,
         height: deviceWidth / (deviceWidth / 101)
+    },
+    imageBackGroundStyles: {
+        width: deviceWidth,
+        height: deviceWidth / (deviceWidth / 121)
     },
     content: {
         width: deviceWidth,
@@ -95,8 +99,8 @@ export default {
     loginGroup: {
         backgroundColor: '#624FD8',
         marginTop: 20,
-        paddingLeft:20,
-        paddingRight:20,
+        paddingLeft: 20,
+        paddingRight: 20,
         marginBottom: 150,
     },
     marginB150: {
