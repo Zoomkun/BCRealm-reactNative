@@ -41,7 +41,7 @@ export default class InformationTab extends Component {
             {
             },
             function (data) {
-                AsyncStorage.setItem('accessToken', JSON.stringify(data))
+                console.log(data)
                 NimSession.login(data.account, data.token).then((data) => {
                     self.setState({
                         accessToken: data
@@ -70,7 +70,8 @@ export default class InformationTab extends Component {
         const { navigation } = this.props;
         const data = self.state;
         let chatInfo = item
-
+        console.log(data)
+        console.log(data.accessToken.token)
         console.log(chatInfo)
         let session = {
             ...chatInfo,
