@@ -33,6 +33,7 @@ export default class InformationTab extends Component {
         header: ''
     };
 
+    
     componentWillMount() {
         let self = this
 
