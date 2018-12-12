@@ -25,6 +25,7 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenCentral()
         mavenLocal()
         //jcenter()
         maven {
@@ -34,3 +35,14 @@ allprojects {
        // maven { url "https://maven.google.com" }
     }
 }
+subprojects {
+    afterEvaluate {project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdkVersion 25
+                buildToolsVersion '25.0.0'
+            }
+        }
+    }
+}
+

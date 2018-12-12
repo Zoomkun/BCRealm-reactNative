@@ -33,7 +33,7 @@ export default class InformationTab extends Component {
         header: ''
     };
 
-    
+
     componentWillMount() {
         let self = this
 
@@ -72,7 +72,8 @@ export default class InformationTab extends Component {
         const data = self.state;
         let chatInfo = item
         console.log(data)
-        console.log(data.accessToken.token)
+        console.log("信息")
+        console.log(data.accessToken)
         console.log(chatInfo)
         let session = {
             ...chatInfo,

@@ -61,19 +61,11 @@ class CommunityInfo extends Component {
             {
             },
             function (data) {
-                console.log(data)
                 self.setState({
-                    accessToken: accessToken
+                    accessToken: data
                 })
             }
         )
-        AsyncStorage.getItem('accessToken').then(data => {
-            let accessToken = JSON.parse(data);
-            console.log(data)
-            self.setState({
-                accessToken: accessToken
-            })
-        })
     }
 
     // 群主获取当前群详情
@@ -101,9 +93,6 @@ class CommunityInfo extends Component {
         const { navigation } = this.props;
         const data = self.state
         const groupInfo = data.chatGroupInfo
-        console.log(groupInfo)
-        console.log(data)
-        console.log(data.accessToken.token)
         let session = {
             ...groupInfo,
             sessionType: '1',
