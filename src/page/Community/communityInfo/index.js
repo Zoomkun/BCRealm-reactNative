@@ -56,9 +56,20 @@ class CommunityInfo extends Component {
         }, function () {
             self._getGroupInfo()
         })
-
+        Http.getRequest(
+            'getAccessToken',
+            {
+            },
+            function (data) {
+                console.log(data)
+                self.setState({
+                    accessToken: accessToken
+                })
+            }
+        )
         AsyncStorage.getItem('accessToken').then(data => {
             let accessToken = JSON.parse(data);
+            console.log(data)
             self.setState({
                 accessToken: accessToken
             })
@@ -91,6 +102,8 @@ class CommunityInfo extends Component {
         const data = self.state
         const groupInfo = data.chatGroupInfo
         console.log(groupInfo)
+        console.log(data)
+        console.log(data.accessToken.token)
         let session = {
             ...groupInfo,
             sessionType: '1',
